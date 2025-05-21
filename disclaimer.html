@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Silver Jewels</title>
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+</head>
+<body>
+
+   
+ <!--HEADER-->
+ <header id="header">
+    <!--TOP BAR-->
+             <div class="header-top-bar">
+                 <span>Welcome To OY JEWELS Store</span>
+             </div>
+             <br>
+     <!--NAVIGATION-->
+     <nav class="navigation">
+     
+     <!--**LOGO**-->
+     <a href="#" class="logo">
+         <img src="images/01.png" alt="Logo"/>
+         </a>
+         <input type="text" placeholder="Search.."></div>
+         
+  
+    
+  
+  
+     <div class="right-nav">
+        <!-- Wishlist -->
+        <a href="#" class="icon-btn" title="Wishlist">
+            <i class="fa fa-heart"></i>
+        </a>
+  
+    
+        <!-- Login -->
+        <a href="login.html" class="icon-btn"><i class="fa-solid fa-user"></i></a>
+  
+    
+       <!-- Cart icon in header -->
+       <div id="cart-icon" onclick="window.location.href='cart.html';" style="cursor:pointer;">
+        <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i> <span id="cart-count">0</span>
+      </div>
+      
+            
+    </div></nav>
+  </header>
+  
+   <!-- HEADER NAVIGATION -->
+   <div class="header1">
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+      <i class="fa fa-bars"></i>
+    </div>
+  
+    <!-- Nav Links -->
+    <ul id="navbar" class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Collection</a></li>
+      <li><a href="shop.html">Shop By</a></li>
+      <li><a href="gifts.html">Gifting</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </div>
+  
+  <!-- JavaScript to toggle menu -->
+  <script>
+    document.getElementById("hamburger").addEventListener("click", function () {
+      document.getElementById("navbar").classList.toggle("active");
+    });
+  </script>
+
+
+<section id="disclaimer" >
+    <div class="container" style="text-align: center;"><br>
+<p>
+<h3> General Information</h3>
+
+The content provided on the OY Jewells website is for general informational purposes only.<br> While we strive to ensure that all information—including product descriptions, images, pricing, and other content—is accurate and up-to-date, we make no representations or warranties of any kind, either express or implied. Any reliance you place on this information is strictly at your own risk.<br><br><br>
+<h3> Product Information</h3>
+All product images, descriptions, and pricing displayed on this website are for illustrative purposes only.<br> Variations may occur, and errors or omissions may exist. OY Jewells does not guarantee the accuracy, completeness, or reliability of any information provided on this website.<br><br><br>
+<h3>Limitation of Liability</h3>
+In no event shall OY Jewells be liable for any direct, indirect, incidental, consequential, or punitive damages (including, without limitation, loss of profits, data, or other intangible losses) arising out of or in connection with your use of or inability to use this website or reliance on any information provided herein.<br><br><br>
+<h3>External Links</h3>
+Our website may include links to third-party websites for your convenience or reference. These links are provided solely as a convenience and do not signify that we endorse or accept any responsibility for the content, privacy practices, or policies of these external sites. We encourage you to review the terms and privacy policies of any third-party websites you visit.<br><br><br>
+<h3>Intellectual Property</h3>
+All content on this website—including text, images, logos, and graphics—is the property of OY Jewells or its respective licensors and is protected by applicable intellectual property laws. Unauthorized use, reproduction, or distribution of any content is strictly prohibited.<br><br><br>
+<h3>Updates and Modifications</h3>
+OY Jewells reserves the right to modify, update, or revise this Disclaimer at any time without prior notice. Your continued use of the website following any changes constitutes your acceptance of such changes.<br><br><br>
+<h3>Contact Information</h3>
+If you have any questions or concerns about this Disclaimer, please contact us at:<br>
+•	Email: [Your Email] <br>
+
+•	Phone: [Your Contact Number]<br><br>
+_________________________________________________________________<br>________________________________________<br>
+This Disclaimer is designed to help set the proper expectations for users of your website and protect OY Jewells from liabilities that may arise from inadvertent errors or changes in content. Feel free to adjust the sections or language as needed for your specific business requirements.<br>
+
+
+</p></div>
+
+
+<style>/* Overall Disclaimer Section */
+    #disclaimer {
+      background-color: #f9f4e7; /* Light beige background */
+      padding: 70px 20px;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+      text-align: left;
+    }
+    
+    /* Container for Content */
+    #disclaimer .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #ffffff; /* White background for content */
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    /* Section Heading */
+    h3 {
+      font-size: 24px;
+      color: #8d6e63; /* Warm beige color for headings */
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #d7ccc8; /* Light beige underline */
+    }
+    
+    h3:hover {
+      color: #0a0a0a; /* Light beige color on hover */
+    }
+    
+    /* Paragraph Styling */
+    p {
+      font-size: 16px;
+      color: #6d4c41; /* Soft brown color */
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-weight: 400;
+    }
+    
+    p a {
+      color: #8d6e63; /* Beige color for links */
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    p a:hover {
+      color: #d7ccc8; /* Light beige color on hover */
+    }
+    
+    /* Adding a subtle shadow and hover effect to the text */
+    p:hover {
+      color: #d7ccc8;
+    }
+    
+    /* Style for the separator line */
+    #disclaimer .container::after {
+      content: "_________________________________________________________________";
+      display: block;
+      margin: 30px 0;
+      color: #ccc;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    /* Styling for Email & Phone Info */
+    #disclaimer .container span {
+      display: block;
+      font-size: 16px;
+      color: #6d4c41;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    /* Adding responsive behavior */
+    @media (max-width: 768px) {
+      #disclaimer .container {
+        padding: 25px 15px;
+      }
+    
+      h3 {
+        font-size: 20px;
+      }
+    
+      p {
+        font-size: 14px;
+      }
+    
+      span {
+        font-size: 14px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      #disclaimer .container {
+        padding: 20px 10px;
+      }
+    
+      h3 {
+        font-size: 18px;
+      }
+    
+      p {
+        font-size: 13px;
+      }
+    
+      span {
+        font-size: 12px;
+      }
+    }
+    
+
+    </style><br><br>
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="index.html">Necklaces</a></li>
+              <li><a href="index.html">Rings</a></li>
+              <li><a href="index.html">Bracelets</a></li>
+              <li><a href="index.html">Earrings</a></li>
+             
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="faqs.html">FAQS</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="shipping.html">Shipping Policy</a></li>
+                <li><a href="cancel.html">Cancellation Policy</a></li>
+      
+                <li><a href="terms.html">Terms & Conditions</a></li>
+           
+        
+            </ul>
+          </div>
+
+
+
+         
+          <div class="footer-section">
+            <h3>Subscribe</h3>
+            <form action="/subscribe" method="post">
+              <input type="email" name="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025 Palmonas. All rights reserved.
+        </div>
+      </footer>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OY JEWELS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cart.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+  <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  
+ 
+ <!-- HEADER -->
+<header id="header">
+  <!-- TOP BAR -->
+  <div class="header-top-bar">
+    <span>Welcome To OY JEWELS Store</span>
+  </div>
+
+
+  <!-- MAIN NAVIGATION -->
+  <nav class="navigation">
+    <a href="#" class="logo">
+      <img src="IMAGES/01.png" alt="Logo" />
+    </a>
+
+    <!-- NAVBAR LINKS -->
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+
+      <li class="dropdown">
+        <a href="#">Collection</a>
+        <ul class="dropdown-menu">
+          <li><a href="earring.html?filter=earrings">Earrings</a></li>
+          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+          <li><a href="rings.html?filter=rings">Rings</a></li>
+          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+        </ul>
+      </li>
+
+       <li class="dropdown">
+        <a href="#">Shop By</a>
+        <ul class="dropdown-menu">
+          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
+          <li><a href="shop.html?occasion=party">Party</a></li>
+          <li><a href="shop.html?occasion=office">Office</a></li>
+          <li><a href="shop.html?occasion=casual">Casual</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="gifts.html">Gifting</a>
+        <ul class="dropdown-menu">
+          <li><a href="gifts.html?for=mother">Mother</a></li>
+          <li><a href="gifts.html?for=sister">Sister</a></li>
+          <li><a href="gifts.html?for=wife">Wife</a></li>
+          <li><a href="gifts.html?for=friend">Friend</a></li>
+        </ul>
+      </li>
+
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+
+    <!-- RIGHT ICONS -->
+    <div class="right-nav">
+<div class="hamburger" id="hamburger">
+  <i class="fa fa-bars"></i>
+</div>
+      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
+      <a href="login.html"><i class="fa fa-user"></i></a>
+      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+    </div>
+  </nav>
+
+   <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" placeholder="Search for jewelry...">
+    <button><i class="fa fa-search"></i></button>
+  </div>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
+<!-- JavaScript to toggle menu -->
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.getElementById("navbar").classList.toggle("active");
+  });
+</script>
+
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.querySelector(".nav-links").classList.toggle("active");
+  });
+</script>
+
+  
+  
+    
+    <main>
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div id="cart-total">
+            <p>Total: $<span id="total-amount">0.00</span></p>
+
+                       <a><button id="clear-cart">Clear Cart</button></a>
+
+            <a href="checkout.html">
+                <button id="checkout-button">Proceed to Checkout</button>
+            </a>
+                 </div>
+
+         
+    </main>
+
+
+    <script>
+        // Display cart items
+        function displayCart() {
+
+          
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItems = document.getElementById('cart-items');
+            const totalAmount = document.getElementById('total-amount');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty.</p>';
+                totalAmount.textContent = '0.00';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" width="80">
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+<p>$${(item.price ?? 0).toFixed(2)}</p>
+                            <div class="quantity-controls">
+                                <button class="decrease-quantity" data-id="${item.id}">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="increase-quantity" data-id="${item.id}">+</button>
+                            </div>
+                            <p>$${itemTotal.toFixed(2)}</p>
+                            <button class="remove-item" data-id="${item.id}">Remove</button>
+                        </div>
+                    </div>
+
+                    
+                `;
+            });
+            
+            cartItems.innerHTML = html;
+            totalAmount.textContent = total.toFixed(2);
+            
+            // Add event listeners for quantity controls
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    updateQuantity(this.dataset.id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    updateQuantity(this.dataset.id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    removeItem(this.dataset.id);
+                });
+            });
+        }
+        
+        function updateQuantity(productId, change) {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                // Remove if quantity is 0 or less
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== productId);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                displayCart();
+                updateCartCount();
+            }
+        }
+        
+        function removeItem(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+            updateCartCount();
+        }
+        
+        // Checkout button
+        document.getElementById('checkout-button').addEventListener('click', function() {
+            // Implement your checkout process here
+            alert('Proceeding to checkout!');
+        });
+        
+        // Initialize cart display
+        document.addEventListener('DOMContentLoaded', displayCart);
+    </script>
+
+
+    <script src="cart.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

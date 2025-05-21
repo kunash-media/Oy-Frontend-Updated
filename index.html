@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OY JEWELS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cart.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+  <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+  <!--ICON-->
+<link rel="shortcut icon" href="IMAGES/01.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+
+
+<!-- Add this to your homepage HTML -->
+<div id="offerPopup" class="popup-overlay">
+  <div class="popup-content">
+    <button class="close-btn" onclick="closePopup()">×</button>
+    <div class="popup-left">
+      <img src="IMAGES/popup.jpg" alt="Jewelry" />
+    </div>
+    <div class="popup-right">
+      <p class="intro">ON YOUR FIRST PURCHASE</p>
+      <h2>Get Upto 20% Off +<br>Free Shipping</h2>
+ 
+<button class="signup-btn" onclick="window.location.href='login.html'">Sign Up</button><br><br>
+
+      <hr />
+ 
+      
+       <div class="social-icons">
+          <span>Social Media :</span>
+  <a href="#"><i class="fab fa-facebook-f"></i></a>
+  <a href="#"><i class="fab fa-instagram"></i></a>
+  <a href="#"><i class="fab fa-twitter"></i></a>
+  <a href="#"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+ <!-- HEADER -->
+<header id="header">
+  <!-- TOP BAR -->
+  <div class="header-top-bar">
+    <span>Welcome To OY JEWELS Store</span>
+  </div>
+
+
+  <!-- MAIN NAVIGATION -->
+  <nav class="navigation">
+    <a href="#" class="logo">
+      <img src="IMAGES/01.png" alt="Logo" />
+    </a>
+
+    <!-- NAVBAR LINKS -->
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+
+      <li class="dropdown">
+        <a href="#">Collection</a>
+        <ul class="dropdown-menu">
+          <li><a href="earring.html?filter=earrings">Earrings</a></li>
+          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+          <li><a href="rings.html?filter=rings">Rings</a></li>
+          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+        </ul>
+      </li>
+
+       <li class="dropdown">
+        <a href="#">Shop By</a>
+        <ul class="dropdown-menu">
+          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
+          <li><a href="office.html">Office</a></li>
+          <li><a href="casual.html">Casual</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="gifts.html">Gifting</a>
+        <ul class="dropdown-menu">
+          <li><a href="gifts.html?for=mother">Mother</a></li>
+          <li><a href="gifts.html?for=sister">Sister</a></li>
+          <li><a href="gifts.html?for=wife">Wife</a></li>
+          <li><a href="gifts.html?for=friend">Friend</a></li>
+        </ul>
+      </li>
+
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+
+    <!-- RIGHT ICONS -->
+    <div class="right-nav">
+<div class="hamburger" id="hamburger">
+  <i class="fa fa-bars"></i>
+</div>
+      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
+      <a href="login.html"><i class="fa fa-user"></i></a>
+      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+    </div>
+  </nav>
+
+
+  <div class="search-bar" >
+  <input type="text" placeholder="Search for jewelry..." id="searchInput">
+  <button><i class="fa fa-search"></i></button>
+  <div class="search-suggestions" id="searchSuggestions"></div>
+</div>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
+<!-- JavaScript to toggle menu -->
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.getElementById("navbar").classList.toggle("active");
+  });
+</script>
+
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.querySelector(".nav-links").classList.toggle("active");
+  });
+</script>
+
+
+
+
+  <!-- Hero Section with Video Banner -->
+<section class="hero-video-section">
+    <div class="video-container">
+        <!-- Video element with fallback image -->
+        <video autoplay muted loop playsinline poster="">
+            <source src="VIDEOS/ALL _X-Design.mp4" type="video/mp4">
+           
+          
+        </video>
+        
+        <!-- Overlay content -->
+       
+        <div class="hero-content">
+            <h1 class="hero-title">Timeless Elegance, Crafted to Perfection</h1>
+            <p class="hero-subtitle">Discover our exquisite collection of handcrafted jewellery</p>
+        
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <!-- Sections 
+  <section id="section1" >
+MAIN BANNER
+<section id="main-banner">
+ <div class="main-banner-box">
+     <div class="slideshow-container">
+
+         <div class="mySlides">
+           <div class="numbertext "></div>
+           <img src="images/Banner 1.jpg" style="width:100%">
+         </div>
+         
+         <div class="mySlides">
+           <div class="numbertext"></div>
+           <img src="images/Banner 3.jpg" style="width:100%">
+         </div>
+         
+         <div class="mySlides">
+           <div class="numbertext"></div>
+           <img src="images/Banner 4.png" style="width:100%">
+         </div>
+
+        
+         
+         </div>
+         <br>
+         
+         <div style="text-align:center">
+           <span class="dot"></span> 
+           <span class="dot"></span> 
+           <span class="dot"></span> 
+           <span class="dot"></span> 
+         </div>
+         
+    
+         
+
+ </section>-->
+
+
+ <section id="collection" class="product-section">
+  <div class="product-card1">
+    <img src="IMAGES/shop 1010.webp" alt="Product 1">
+    <h3>Silver Rings</h3>
+    <!-- Shop Now Button inside the card -->
+    <a href="rings.html" class="shop-btn1" target="_blank">Shop Now</a>
+  </div>
+
+  <div class="product-card1">
+    <img src="IMAGES/bracelet.jpg" alt="Product 2">
+    <h3>Simple Bracelets</h3>
+    <!-- Shop Now Button inside the card -->
+    <a href="bracelet.html" class="shop-btn1" target="_blank">Shop Now</a>
+  </div>
+
+  <div class="product-card1">
+    <img src="IMAGES/neck8.webp" alt="Product 3">
+    <h3>Necklaces</h3>
+    <!-- Shop Now Button inside the card -->
+    <a href="neck.html" class="shop-btn1" target="_blank">Shop Now</a>
+  </div>
+
+  <div class="product-card1">
+    <img src="IMAGES/earrings 33.jpg" alt="Product 4">
+    <h3>Elegant Earrings</h3>
+    <!-- Shop Now Button inside the card -->
+    <a href="earring.html" class="shop-btn1" target="_blank">Shop Now</a>
+  </div>
+</section>
+
+
+
+
+<!--<section class="hero-slider">
+  <div class="slider-wrapper">
+    <div class="slides" id="slider">
+      <div class="slide"><img src="IMAGES/Untitled design.png" alt="Banner 1"></div>
+      <div class="slide"><img src="IMAGES/BANNER 222.webp" alt="Banner 2"></div>
+      <div class="slide"><img src="IMAGES/BANNER 333.webp" alt="Banner 3"></div>
+      <div class="slide"><img src="IMAGES/BANNER 444.webp" alt="Banner 4"></div>
+    </div>
+  </div>
+</section>-->
+
+<section class="video-banner">
+  <div class="video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="VIDEOS/HOME_X-Design.mp4" type="video/mp4">
+     
+    </video>
+  </div>
+  <div class="video-text">
+    <h2>STERLING SILVER : A PERFECT ADDITION TO YOUR JEWELLERY COLLECTION</h2>
+     <a href="shop.html" class="video-btn">Shop Now</a>
+  </div>
+</section>
+
+
+
+<!--<section id="feature" class="section4">
+  <div class="fe-box">
+    <img src="IMAGES/free shipping.webp" alt="">
+    <h6>Free Shipping</h6>
+  </div>
+  <div class="fe-box">
+    <img src="IMAGES/online.jpg" alt="">
+    <h6>Online Delivery</h6>
+  </div>
+  <div class="fe-box">
+    <img src="IMAGES/money.jpg" alt="">
+    <h6>Save Money</h6>
+  </div>
+  <div class="fe-box">
+    <img src="IMAGES/sale2.jpg" alt="">
+    <h6>Exclusive Offers</h6>
+  </div>
+  <div class="fe-box">
+    <img src="IMAGES/support.jpg" alt="">
+    <h6>24/7 Support</h6>
+  </div>
+  <div class="fe-box">
+    <img src="IMAGES/happy.jpg" alt="">
+    <h6>Happy Customers</h6>
+  </div>
+</section>-->
+
+<section class="featured-products">
+  <h2>Featured Products</h2>
+  <div class="product-grid1">
+    <!-- 16 product cards -->
+    <!-- Product 1 -->
+    <div class="product-card" data-id="1" data-title="Product Title 1" data-price="29.99">
+      <a href="product.html?id=1" class="product-image">
+        <img src="IMAGES/PRODUCT 111.webp" alt="Product 1" class="default-img">
+        <img src="IMAGES/rings model.jpg" alt="Product 1 Hover" class="hover-img">
+        <h3>Silver Rings</h3>
+        <p>$29.99</p>
+      </a>
+      <button class="add-to-cart">Add to Cart</button>
+      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+    </div>
+
+    
+    <!-- Product 2 -->
+    <div class="product-card" data-id="18" data-title="earrings" data-price="29.99">
+      <a href="product.html?id=18" class="product-image">
+        <img src="IMAGES/earrings444.webp" alt="Product 1" class="default-img">
+        <img src="IMAGES/earrings model.webp" alt="Product 1 Hover" class="hover-img">
+        <h3>Cute Earrings</h3>
+        <p>$29.99</p>
+      </a>
+      <button class="add-to-cart">Add to Cart</button>
+      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+    </div>
+
+    <div class="product-card" data-id="3" data-title="necklace" data-price="29.99">
+      <a href="product.html?id=3" class="product-image">
+        <img src="IMAGES/necklace111.jpg" alt="Product 1" class="default-img">
+        <img src="IMAGES/necklace model.avif" alt="Product 1 Hover" class="hover-img">
+        <h3>Necklaces</h3>
+        <p>$29.99</p>
+      </a>
+      <button class="add-to-cart">Add to Cart</button>
+      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+    </div>
+
+    <div class="product-card" data-id="4" data-title="Product Title 1" data-price="29.99">
+      <a href="product.html?id=4" class="product-image">
+        <img src="IMAGES/bracelet111.webp" alt="Product 1" class="default-img">
+        <img src="IMAGES/bracelet model.jpg" alt="Product 1 Hover" class="hover-img">
+        <h3>Bracelets</h3>
+        <p>$29.99</p>
+      </a>
+      <button class="add-to-cart">Add to Cart</button>
+      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+    </div>
+</section>
+
+
+
+
+
+<section id="section5">
+  <div class="big-banner">
+      <div class="overlay">
+          <div class="content">
+              <h1 class="animate-heading">OYJEWELLS</h1>
+              <p class="animate-subheading">
+                  Avail exciting offers on each order <br>
+                  Offers so great, it's worth the wait!!!!!
+              </p><br>
+              <a href="gifts.html" class="shop-now-btn animate-button">Shop Now</a>
+          </div>
+      </div>
+      <div class="banner-image">
+          <img src="images/BANNER 2.1.jpg"Palmonas Big Banner Background">
+      </div>
+      <div class="overlay-image">
+          <img src="images/BANNER 2.0.jpg" alt="Palmonas Product Image">
+      </div>
+  </div>
+  
+</section>
+
+<br><br><br><br>
+<section id="section7" style="background-image: url(images/review\ bg1.jpg); background-size: cover; height: 70%;">
+  <div class="sticky-container">  
+      <div class="tagline"><b>Handpicked gifts. Heartfelt moments.</b></div>
+    </header>
+  
+    <section class="sticky-container">
+      <div class="sticky-note">💖 “Absolutely LOVE this product!”</div>
+      <div class="sticky-note">🚚 “Shipping was super fast — arrived 2 days early.”</div>
+      <div class="sticky-note">🎁 “The packaging was beautiful and thoughtful!”</div>
+      <div class="sticky-note">💬 “Customer service was quick & friendly.”</div>
+      <div class="sticky-note">🌟 “Will definitely order again for birthdays!”</div>
+      
+    </section>
+</section>
+<br><br><br>
+<footer>
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>Shop</h3>
+      <ul>
+        <li><a href="necklace.html">Necklaces</a></li>
+        <li><a href="ring.html">Rings</a></li>
+        <li><a href="brac.html">Bracelets</a></li>
+        <li><a href="ear.html">Earrings</a></li>
+       
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/store">Store Location</a></li>
+        <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Follow Us</h3>
+      <ul>
+        <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
+        <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
+        <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Legal</h3>
+      <ul>
+          <li><a href="faqs.html">FAQS</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="shipping.html">Shipping Policy</a></li>
+          <li><a href="cancel.html">Cancellation Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+     
+  
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Subscribe</h3>
+      <form action="/subscribe" method="post">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 Kunash Media Solutions. All rights reserved.
+  </div>
+</footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

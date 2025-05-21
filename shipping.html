@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Silver Jewels</title>
+
+      <!--ICON-->
+<link rel="shortcut icon" href="IMAGES/01.png">
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+</head>
+<body>
+<!-- HEADER -->
+<header id="header">
+  <!-- TOP BAR -->
+  <div class="header-top-bar">
+    <span>Welcome To OY JEWELS Store</span>
+  </div>
+
+
+  <!-- MAIN NAVIGATION -->
+  <nav class="navigation">
+    <a href="#" class="logo">
+      <img src="IMAGES/01.png" alt="Logo" />
+    </a>
+
+    <!-- NAVBAR LINKS -->
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+
+      <li class="dropdown">
+        <a href="#">Collection</a>
+        <ul class="dropdown-menu">
+          <li><a href="earring.html?filter=earrings">Earrings</a></li>
+          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+          <li><a href="rings.html?filter=rings">Rings</a></li>
+          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+        </ul>
+      </li>
+
+       <li class="dropdown">
+        <a href="#">Shop By</a>
+        <ul class="dropdown-menu">
+          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
+          <li><a href="office.html">Office</a></li>
+          <li><a href="casual.html">Casual</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="gifts.html">Gifting</a>
+        <ul class="dropdown-menu">
+          <li><a href="gifts.html?for=mother">Mother</a></li>
+          <li><a href="gifts.html?for=sister">Sister</a></li>
+          <li><a href="gifts.html?for=wife">Wife</a></li>
+          <li><a href="gifts.html?for=friend">Friend</a></li>
+        </ul>
+      </li>
+
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+
+    <!-- RIGHT ICONS -->
+    <div class="right-nav">
+<div class="hamburger" id="hamburger">
+  <i class="fa fa-bars"></i>
+</div>
+      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
+      <a href="login.html"><i class="fa fa-user"></i></a>
+      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+    </div>
+  </nav>
+
+<div class="search-bar">
+  <input type="text" placeholder="Search for jewelry..." 
+         value="" autocomplete="off">
+  <button aria-label="Search">
+    <i class="fa fa-search"></i>
+  </button>
+  <div class="search-suggestions"></div>
+</div>
+
+<!-- Include the JavaScript file -->
+<script src="search.js"></script>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
+<!-- JavaScript to toggle menu -->
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.getElementById("navbar").classList.toggle("active");
+  });
+</script>
+
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.querySelector(".nav-links").classList.toggle("active");
+  });
+</script>
+
+
+<section id="shipping" >
+    <div class="container" style="text-align: center;"><br>
+<p>
+    <h4>  Shipping Time:</h4>
+    •	Estimated delivery time 5-7 business days.<br>
+    •	All order processing occurs on business days only, which are Monday through Saturday, from 9 am to 7 pm EST. <br>
+    •	Orders placed on Sundays, holidays, or after 6 pm EST are processed the next business day.<br><br>
+<h4>    Shipping Charges: </h4>
+    •	We offer free shipping on all orders over Rs. 499. Please note that we do not offer free shipping on international orders and returns.<br><br>
+    <h4>Tracking: </h4>
+    •	You will receive tracking details over WhatsApp, email and SMS, once the order is shipped.<br><br>
+    <h4>Exchange Policy: </h4>
+    1. <b>No Refunds Policy:</b> At OY Jewells, we strive to provide the highest quality handcrafted jewelry .<br> Due to the personalized and delicate nature of our products, we do not offer refunds once an order has been placed. <br>We encourage customers to carefully review their orders before finalizing the purchase to ensure complete satisfaction.<br><br>
+    2.<b> Exchange Policy:</b> We offer exchanges under the following conditions only for orders from India:<br><br>
+    <b>•	Eligibility:</b> Free exchanges are allowed once for orders over ₹999 within 48hrs of delivery.<br> 
+    Please ensure that the product is in its original packaging, unused, and in the same condition as received.<br><br>
+   <b> •	Exchange Process:</b> For orders eligible for free exchange, we will arrange for a reverse pickup at no extra cost to you. <br>
+   Once we receive the returned item, we will ship the exchanged product to you.<br><br>
+   <b> •	Exchange Fee:</b> For orders below ₹999, an exchange fee of ₹100 will be charged. <br>This fee covers the cost of reverse pickup, new delivery, and handling charges.<br><br>
+<b>    •	Damaged Items:</b> In the unlikely event that your product arrives damaged due to shipment, we will offer a free exchange irrespective of the order value.
+<br> Please contact us immediately upon receiving the damaged item, and we will arrange for the necessary exchange.<br><br>
+   <b> 3. How to Initiate an Exchange:</b> <br>To initiate an exchange, please contact our customer service team within 48 hours of delivery at mobile and whatsapp number 1234567890 or mail to <b>support@OYJewells.com.</b> 
+   <br>Our team will guide you through the process and ensure a smooth exchange.<br><br>
+  <b>  4. Non-Exchangeable Items:</b><br> Please note that items that have been used, altered, or are not in their original condition will not be eligible for exchange. <br>Additionally, custom or personalized items are not eligible for exchange.<br><br>
+ <b>   5. Customer Satisfaction </b><br>At OY Jewells, customer satisfaction is our top priority. While we do not offer refunds, our team is dedicated to resolving any issues with your order. Please reach out to us if you have any concerns, and we will do our best to assist you.<br><br>
+ <b>   6. No exchanges </b><br>for orders from outside India. We carefully pack after doing quality checks.<br><br>
+    
+  <h4>  Replacement & Exchange: </h4><br>
+    •	You can also avail replacement or exchange of your order as per your requirements.
+    <br> The conditions remain the same as those applicable to returns.<br>
+    •	The replacement will only be shipped after the initial return has been picked up or delivered.<br><br>
+    
+    
+   <b> Exchange Process:</b><br>
+    •	You can initiate a exchange request from our website. Alternatively, you can reach out to our Customer Support team, and they’ll guide you through the process. <br>
+    •	Once you have booked the exchange request, we request you to be available for the reverse pick-up, and we request you to answer calls from the delivery partner.<br>
+    •	In the absence of your availability or inability to answer the calls, the delivery partner may, at their discretion, cancel the reverse pick-up.<br>
+    •	In all such cases, the process will have to be re-initiated again, and the overall timeline will increase.
+    <br>In the unlikely event that you receive an empty parcel or a missing product, we would request you to reach out to our customer support team for assistance within 48 hours of the package being delivered.  <br><br>We will be requiring a 360-degree unpacking video of the parcel for us to process the request further.<br><br> Please note that insufficient evidence or visible signs of tampering with the packet may result in your claim not being honoured. <br><br> In all such cases, the brand reserves the right to take the final decision, and mail it to <br><br><b>support@oyjewells.com</b><br>
+    
+
+
+</p></div>
+</section>
+
+<style>/* Overall styling for the shipping section */
+  /* Overall Styling for the Shipping Section */
+/* Shipping & Exchange Policy Styling */
+#shipping {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.8;
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+#shipping .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left;
+}
+
+#shipping h4 {
+    color: #8b4513; /* Earthy brown tone */
+    font-size: 20px;
+    margin: 30px 0 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#shipping b {
+    color: #5a3921; /* Dark brown for emphasis */
+    font-weight: 600;
+}
+
+#shipping p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* List items styling */
+#shipping ul {
+    padding-left: 20px;
+}
+
+#shipping li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 15px;
+}
+
+#shipping li:before {
+    content: "•";
+    color: #8b4513;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Policy sections */
+#shipping .policy-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0d6cc;
+}
+
+/* Highlight important contact info */
+#shipping .contact-highlight {
+    background-color: #f5e8d9;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Numbered list for steps */
+#shipping ol {
+    padding-left: 25px;
+    counter-reset: item;
+}
+
+#shipping ol li {
+    margin-bottom: 15px;
+    position: relative;
+    list-style-type: none;
+}
+
+#shipping ol li:before {
+    content: counter(item) ".";
+    counter-increment: item;
+    color: #8b4513;
+    font-weight: bold;
+    position: absolute;
+    left: -25px;
+}
+
+/* Decorative elements */
+#shipping .container:before,
+#shipping .container:after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2px;
+    background: #d4a76a;
+    margin: 0 auto 30px;
+}
+
+#shipping .container:after {
+    margin: 30px auto 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #shipping h4 {
+        font-size: 18px;
+    }
+    
+    #shipping p {
+        font-size: 15px;
+    }
+    
+    #shipping .contact-highlight {
+        padding: 10px;
+    }
+}
+
+    </style><br><br>
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="index.html">Necklaces</a></li>
+              <li><a href="index.html">Rings</a></li>
+              <li><a href="index.html">Bracelets</a></li>
+              <li><a href="index.html">Earrings</a></li>
+             
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@oyjewells.com">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="faqs.html">FAQS</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="shipping.html">Shipping Policy</a></li>
+                <li><a href="cancel.html">Cancellation Policy</a></li>
+      
+                <li><a href="terms.html">Terms & Conditions</a></li>
+           
+        
+            </ul>
+          </div>
+
+
+
+         
+          <div class="footer-section">
+            <h3>Subscribe</h3>
+            <form action="/subscribe" method="post">
+              <input type="email" name="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025 Palmonas. All rights reserved.
+        </div>
+      </footer>
+</body>
+</html>

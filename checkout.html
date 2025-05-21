@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Your Jewelry Store</title>
+         <!--ICON-->
+<link rel="shortcut icon" href="IMAGES/01.png">
+    <style>
+        /* Base styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 40px 20px;
+  color: #222;
+  line-height: 1.6;
+}
+
+.checkout-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+.customer-info,
+.order-summary {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 6px;
+  box-shadow: 0 22px 10px rgba(0, 0, 0, 0.05);
+  border-style:solid;
+  border-color: rgb(241, 209, 165);
+}
+
+/* Layout widths */
+.customer-info {
+  flex: 2;
+  min-width: 0;
+}
+
+.order-summary {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Section titles */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgb(241, 209, 165);
+  padding-bottom: 8px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  flex: 1 1 100%;
+}
+
+label {
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
+  max-width: 280px;
+  padding: 8px 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #cc0000;
+  box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.2);
+}
+
+input[type="radio"] {
+  margin-right: 8px;
+}
+
+#credit-card-info {
+  margin-top: 10px;
+}
+
+/* Cart items */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.cart-item-img {
+  width: 60px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.cart-item-title {
+  font-size: 16px;
+  margin: 0 0 5px;
+}
+
+.cart-item-qty {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Summary rows */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.summary-total {
+  font-weight: 700;
+  font-size: 16px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+/* Button */
+.checkout-btn {
+  display: inline-block;
+  background-color: rgb(241, 209, 165);
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.checkout-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* PIN Code Verification Styles */
+.pin-status {
+  margin-top: 5px;
+  font-size: 14px;
+  display: none;
+}
+
+.pin-valid {
+  color: green;
+}
+
+.pin-invalid {
+  color: red;
+}
+
+.pin-loading {
+  color: #666;
+}
+
+/* City field with loading indicator */
+.city-container {
+  position: relative;
+}
+
+.city-loading {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid rgb(241, 209, 165);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+/* Error message styles */
+.error-message {
+  font-size: 12px;
+  color: #cc0000;
+  margin-top: 5px;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .checkout-container {
+    flex-direction: column;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  .form-group {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+.payment-logos {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-logos img {
+    height: 50px;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+/* State/District field */
+.state-container {
+  position: relative;
+}
+
+#state {
+  background-color: #f9f9f9;
+}
+
+/* Policy links - Horizontal inline version */
+.policy-links {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row; /* Changed from column to row */
+    flex-wrap: wrap; /* Allows wrapping if needed */
+    gap: 15px; /* Increased gap for better horizontal spacing */
+    font-size: 12px;
+    justify-content: center; /* Centers the links horizontally */
+}
+
+.policy-links a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap; /* Prevents text from wrapping */
+    padding: 0 5px; /* Adds some horizontal padding */
+}
+
+.policy-links a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* Optional: Add separator between links */
+.policy-links a:not(:last-child)::after {
+    content: "|";
+    margin-left: 15px;
+    color: #ccc;
+}
+
+</style>
+</head>
+<body>
+    <div class="checkout-container">
+        <!-- Customer Information -->
+        <div class="customer-info">
+            <h2 class="section-title">Customer Information</h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                    <div id="email-error" class="error-message">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                    <div id="phone-error" class="error-message">Please enter a valid 10-digit Indian mobile number</div>
+                </div>
+                
+           
+                <div class="form-group">
+                    <label for="alternate-phone">Alternate Phone Number</label>
+                    <input type="tel" id="alternate-phone">
+                    <div id="alt-phone-error" class="error-message">Please enter a valid 10-digit Indian mobile number</div>
+                </div>
+                
+               
+                <div class="form-group full-width">
+                    <h2 class="section-title">Shipping Address</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Street Address</label>
+                    <input type="text" id="address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="zip">PIN Code</label>
+                    <input type="text" id="zip" maxlength="6" required>
+                    <div id="pin-status" class="pin-status">Verifying...</div>
+                </div>
+                
+                <div class="form-group city-container">
+                    <label for="city">City</label>
+                    <input type="text" id="city" required readonly>
+                    <div class="city-loading" id="city-loading"></div>
+                </div>
+                
+                <div class="form-group state-container">
+                    <label for="state">State</label>
+                    <input type="text" id="state" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" required disabled>
+                        <option value="IN" selected>India</option>
+                    </select>
+                </div>
+            
+              
+                
+                <div class="form-group1">
+                       <h2 class="section-title">Payment Method</h2>
+                    <label>
+                        <input type="radio" name="payment" value="credit" checked> Credit Card
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="razorpay"> Razorpay
+                    </label>
+
+                    <label>
+                        <input type="radio" name="payment" value="cod"> COD(Cash On Delivery)
+                    </label>
+                    
+                </div>
+                
+                <div id="credit-card-info">
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px;">
+                        <div class="form-group">
+                            <label for="card-expiry">Expiry Date</label>
+                            <input type="text" id="card-expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV</label>
+                            <input type="text" id="card-cvv" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2 class="section-title">Order Summary</h2>
+            
+            <div class="order-items" id="order-items">
+                <!-- Cart items will be loaded here -->
+            </div>
+            
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>$<span id="subtotal">0.00</span></span>
+            </div>
+            
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>$<span id="shipping">10.00</span></span>
+            </div>
+            
+            <div class="summary-row">
+                <span>Tax</span>
+                <span>$<span id="tax">0.00</span></span>
+            </div>
+            
+            <div class="summary-row summary-total">
+                <span>Total</span>
+                <span>$<span id="total">0.00</span></span>
+            </div>
+            
+            <button class="checkout-btn" id="place-order-btn">Place Order</button>
+
+            <!-- Policy Links -->
+            <div class="policy-links">
+                <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+                <a href="cancel.html" target="_blank">Cancellation Policy</a>
+                <a href="shipping.html" target="_blank">Shipping Policy</a>
+            </div>
+
+            <!-- Payment Logos -->
+            <div class="payment-logos">
+                <img src="images/visa.png" alt="Visa" height="30">
+                <img src="images/mastercard.png" alt="MasterCard" height="30">
+                <img src="images/paypal.png" alt="PayPal" height="30">
+                <img src="images/razoepay.jpeg" alt="Razorpay" height="30">
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // Load cart items when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCartItems();
+            setupPaymentToggle();
+            setupPINValidation();
+            setupEmailValidation();
+            setupPhoneValidation();
+        });
+        
+        // Email validation setup
+        function setupEmailValidation() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            
+            emailInput.addEventListener('blur', function() {
+                validateEmail(this.value);
+            });
+            
+            function validateEmail(email) {
+                // RFC 5322 compliant email regex
+                const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                const isValid = emailRegex.test(email.toLowerCase());
+                
+                if (!isValid && email.trim() !== '') {
+                    emailInput.style.borderColor = 'red';
+                    emailError.style.display = 'block';
+                    return false;
+                } else {
+                    emailInput.style.borderColor = email.trim() !== '' ? 'green' : '';
+                    emailError.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Add to global scope for form validation
+            window.validateEmail = validateEmail;
+        }
+        
+        // Phone validation setup
+        function setupPhoneValidation() {
+            const phoneInput = document.getElementById('phone');
+            const phoneError = document.getElementById('phone-error');
+            const altPhoneInput = document.getElementById('alternate-phone');
+            const altPhoneError = document.getElementById('alt-phone-error');
+            
+            phoneInput.addEventListener('blur', function() {
+                validatePhone(this, phoneError);
+            });
+            
+            altPhoneInput.addEventListener('blur', function() {
+                // Only validate if a value is entered (since this field is optional)
+                if (this.value.trim() !== '') {
+                    validatePhone(this, altPhoneError);
+                } else {
+                    this.style.borderColor = '';
+                    altPhoneError.style.display = 'none';
+                }
+            });
+            
+            function validatePhone(inputElement, errorElement) {
+                const phone = inputElement.value.trim();
+                // For Indian mobile numbers: 10 digits, optionally prefixed with +91 or 0
+                const indianPhoneRegex = /^(\+91|0)?[6-9]\d{9}$/;
+                const isValid = indianPhoneRegex.test(phone.replace(/\s+/g, ''));
+                
+                if (!isValid && phone !== '') {
+                    inputElement.style.borderColor = 'red';
+                    errorElement.style.display = 'block';
+                    return false;
+                } else {
+                    inputElement.style.borderColor = phone !== '' ? 'green' : '';
+                    errorElement.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Add to global scope for form validation
+            window.validatePhone = function(phone) {
+                const indianPhoneRegex = /^(\+91|0)?[6-9]\d{9}$/;
+                return indianPhoneRegex.test(phone.replace(/\s+/g, ''));
+            };
+        }
+        
+        // PIN Code validation and city auto-fill setup
+        function setupPINValidation() {
+            const pinInput = document.getElementById('zip');
+            const pinStatus = document.getElementById('pin-status');
+            const cityInput = document.getElementById('city');
+            const stateInput = document.getElementById('state');
+            const cityLoading = document.getElementById('city-loading');
+            
+            // PIN Code database (simplified for demo - in production use a more comprehensive database or API)
+            const pinCodeDatabase = {
+                '110001': { city: 'New Delhi', state: 'Delhi' },
+                '110002': { city: 'New Delhi', state: 'Delhi' },
+                '110003': { city: 'New Delhi', state: 'Delhi' },
+                '110004': { city: 'New Delhi', state: 'Delhi' },
+                '110005': { city: 'New Delhi', state: 'Delhi' },
+                '110006': { city: 'New Delhi', state: 'Delhi' },
+                '110007': { city: 'New Delhi', state: 'Delhi' },
+                '400001': { city: 'Mumbai', state: 'Maharashtra' },
+                '400002': { city: 'Mumbai', state: 'Maharashtra' },
+                '400003': { city: 'Mumbai', state: 'Maharashtra' },
+                '400004': { city: 'Mumbai', state: 'Maharashtra' },
+                '400005': { city: 'Mumbai', state: 'Maharashtra' },
+                '500001': { city: 'Hyderabad', state: 'Telangana' },
+                '500002': { city: 'Hyderabad', state: 'Telangana' },
+                '500003': { city: 'Hyderabad', state: 'Telangana' },
+                '600001': { city: 'Chennai', state: 'Tamil Nadu' },
+                '600002': { city: 'Chennai', state: 'Tamil Nadu' },
+                '600003': { city: 'Chennai', state: 'Tamil Nadu' },
+                '700001': { city: 'Kolkata', state: 'West Bengal' },
+                '700002': { city: 'Kolkata', state: 'West Bengal' },
+                '700003': { city: 'Kolkata', state: 'West Bengal' },
+                '560001': { city: 'Bangalore', state: 'Karnataka' },
+                '560002': { city: 'Bangalore', state: 'Karnataka' },
+                '560003': { city: 'Bangalore', state: 'Karnataka' },
+                '380001': { city: 'Ahmedabad', state: 'Gujarat' },
+                '380002': { city: 'Ahmedabad', state: 'Gujarat' },
+                '380003': { city: 'Ahmedabad', state: 'Gujarat' },
+                '411001': { city: 'Pune', state: 'Maharashtra' },
+                '411002': { city: 'Pune', state: 'Maharashtra' },
+                '411003': { city: 'Pune', state: 'Maharashtra' },
+                '302001': { city: 'Jaipur', state: 'Rajasthan' },
+                '302002': { city: 'Jaipur', state: 'Rajasthan' },
+                '302003': { city: 'Jaipur', state: 'Rajasthan' },
+                '800001': { city: 'Patna', state: 'Bihar' },
+                '800002': { city: 'Patna', state: 'Bihar' },
+                '800003': { city: 'Patna', state: 'Bihar' },
+                '226001': { city: 'Lucknow', state: 'Uttar Pradesh' },
+                '226002': { city: 'Lucknow', state: 'Uttar Pradesh' },
+                '226003': { city: 'Lucknow', state: 'Uttar Pradesh' }
+                // Add more PIN codes as needed
+            };
+            
+            // Function to validate PIN code
+            function validatePIN(pin) {
+                // Check if PIN is a 6-digit number
+                if (!/^\d{6}$/.test(pin)) {
+                    return {
+                        valid: false,
+                        message: 'PIN code must be exactly 6 digits'
+                    };
+                }
+                
+                // Check if PIN exists in our database
+                if (pinCodeDatabase[pin]) {
+                    return {
+                        valid: true,
+                        data: pinCodeDatabase[pin]
+                    };
+                } else {
+                    return {
+                        valid: false,
+                        message: 'Invalid PIN code for India'
+                    };
+                }
+            }
+            
+            // Add input event listener to PIN input
+            pinInput.addEventListener('input', function() {
+                const pin = this.value.trim();
+                
+                // Reset fields if PIN is cleared
+                if (!pin) {
+                    pinStatus.style.display = 'none';
+                    cityInput.value = '';
+                    stateInput.value = '';
+                    return;
+                }
+                
+                // Only proceed if PIN is 6 digits
+                if (pin.length === 6) {
+                    pinStatus.style.display = 'block';
+                    pinStatus.className = 'pin-status pin-loading';
+                    pinStatus.textContent = 'Verifying...';
+                    cityLoading.style.display = 'block';
+                    
+                    // Simulate API request delay
+                    setTimeout(() => {
+                        const result = validatePIN(pin);
+                        
+                        if (result.valid) {
+                            pinStatus.className = 'pin-status pin-valid';
+                            pinStatus.textContent = 'Valid PIN code';
+                            cityInput.value = result.data.city;
+                            stateInput.value = result.data.state;
+                        } else {
+                            pinStatus.className = 'pin-status pin-invalid';
+                            pinStatus.textContent = result.message;
+                            cityInput.value = '';
+                            stateInput.value = '';
+                        }
+                        
+                        cityLoading.style.display = 'none';
+                    }, 800); // Simulate network delay
+                } else {
+                    pinStatus.style.display = 'block';
+                    pinStatus.className = 'pin-status pin-invalid';
+                    pinStatus.textContent = 'PIN code must be 6 digits';
+                    cityInput.value = '';
+                    stateInput.value = '';
+                    cityLoading.style.display = 'none';
+                }
+            });
+            
+            // On blur, perform final validation
+            pinInput.addEventListener('blur', function() {
+                const pin = this.value.trim();
+                
+                if (pin && pin.length !== 6) {
+                    this.style.borderColor = 'red';
+                } else if (pin && !pinCodeDatabase[pin]) {
+                    this.style.borderColor = 'red';
+                } else if (pin) {
+                    this.style.borderColor = 'green';
+                }
+            });
+        }
+        
+        // Display cart items from localStorage
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItems = document.getElementById('order-items');
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingElement = document.getElementById('shipping');
+            const taxElement = document.getElementById('tax');
+            const totalElement = document.getElementById('total');
+            
+            if (cart.length === 0) {
+                orderItems.innerHTML = '<p>Your cart is empty</p>';
+                return;
+            }
+            
+            let html = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-title">${item.name}</h4>
+                            <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                            <div class="cart-item-qty">
+                                <span>Qty: ${item.quantity}</span>
+                                ${item.size ? `<span>| Size: ${item.size}</span>` : ''}
+                            </div>
+                        </div>
+                        <div>$${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+            
+            orderItems.innerHTML = html;
+            
+            // Calculate totals
+            const shipping = 10.00; // Flat rate shipping
+            const taxRate = 0.08; // 8% tax
+            const tax = subtotal * taxRate;
+            const total = subtotal + shipping + tax;
+            
+            subtotalElement.textContent = subtotal.toFixed(2);
+            taxElement.textContent = tax.toFixed(2);
+            totalElement.textContent = total.toFixed(2);
+        }
+        
+        // Toggle payment method fields
+        function setupPaymentToggle() {
+            const paymentMethods = document.querySelectorAll('input[name="payment"]');
+            const creditCardInfo = document.getElementById('credit-card-info');
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    creditCardInfo.style.display = this.value === 'credit' ? 'block' : 'none';
+                });
+            });
+        }
+        
+        // Handle form submission
+        document.getElementById('place-order-btn').addEventListener('click', function() {
+            const form = document.getElementById('checkout-form');
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            // Validate required fields
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    field.style.borderColor = 'red';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+            
+            // Validate email
+            const emailInput = document.getElementById('email');
+            if (!window.validateEmail(emailInput.value)) {
+                emailInput.style.borderColor = 'red';
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate phone
+            const phoneInput = document.getElementById('phone');
+            if (!window.validatePhone(phoneInput.value)) {
+                phoneInput.style.borderColor = 'red';
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate alternate phone if provided
+            const altPhoneInput = document.getElementById('alternate-phone');
+            if (altPhoneInput.value.trim() !== '' && !window.validatePhone(altPhoneInput.value)) {
+                altPhoneInput.style.borderColor = 'red';
+                document.getElementById('alt-phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Special validation for PIN code
+            const pinInput = document.getElementById('zip');
+            const pin = pinInput.value.trim();
+            
+            if (pin) {
+                const pinStatus = document.getElementById('pin-status');
+                if (pinStatus.className.includes('pin-invalid')) {
+                    pinInput.style.borderColor = 'red';
+                    isValid = false;
+                }
+            }
+            
+            if (!isValid) {
+                alert('Please fill in all required fields correctly');
+                return;
+            }
+            
+            // Process order
+            processOrder();
+        });
+        
+        function processOrder() {
+            const btn = document.getElementById('place-order-btn');
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+            
+            // In a real app, you would send this data to your server
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const formData = {
+                customer: {
+                    name: document.getElementById('fullname').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    alternatePhone: document.getElementById('alternate-phone').value
+                },
+                shipping: {
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    zip: document.getElementById('zip').value,
+                    country: document.getElementById('country').value
+                },
+                payment: document.querySelector('input[name="payment"]:checked').value,
+                items: cart,
+                total: document.getElementById('total').textContent
+            };
+            
+            console.log('Order submitted:', formData);
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Clear cart
+                localStorage.setItem('cart', JSON.stringify([]));
+                
+                // Redirect to confirmation page
+                alert('Order placed successfully!');
+                window.location.href = 'confirmation.html';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

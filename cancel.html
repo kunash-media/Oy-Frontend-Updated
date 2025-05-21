@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Silver Jewels</title>
+      <!--ICON-->
+<link rel="shortcut icon" href="IMAGES/01.png">
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+</head>
+<body>
+<!-- HEADER -->
+<header id="header">
+  <!-- TOP BAR -->
+  <div class="header-top-bar">
+    <span>Welcome To OY JEWELS Store</span>
+  </div>
+
+
+  <!-- MAIN NAVIGATION -->
+  <nav class="navigation">
+    <a href="#" class="logo">
+      <img src="IMAGES/01.png" alt="Logo" />
+    </a>
+
+    <!-- NAVBAR LINKS -->
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+
+      <li class="dropdown">
+        <a href="#">Collection</a>
+        <ul class="dropdown-menu">
+          <li><a href="earring.html?filter=earrings">Earrings</a></li>
+          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+          <li><a href="rings.html?filter=rings">Rings</a></li>
+          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+        </ul>
+      </li>
+
+       <li class="dropdown">
+        <a href="#">Shop By</a>
+        <ul class="dropdown-menu">
+          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
+          <li><a href="office.html">Office</a></li>
+          <li><a href="casual.html">Casual</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="gifts.html">Gifting</a>
+        <ul class="dropdown-menu">
+          <li><a href="gifts.html?for=mother">Mother</a></li>
+          <li><a href="gifts.html?for=sister">Sister</a></li>
+          <li><a href="gifts.html?for=wife">Wife</a></li>
+          <li><a href="gifts.html?for=friend">Friend</a></li>
+        </ul>
+      </li>
+
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+
+    <!-- RIGHT ICONS -->
+    <div class="right-nav">
+<div class="hamburger" id="hamburger">
+  <i class="fa fa-bars"></i>
+</div>
+      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
+      <a href="login.html"><i class="fa fa-user"></i></a>
+      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+    </div>
+  </nav>
+
+<div class="search-bar">
+  <input type="text" placeholder="Search for jewelry..." 
+         value="" autocomplete="off">
+  <button aria-label="Search">
+    <i class="fa fa-search"></i>
+  </button>
+  <div class="search-suggestions"></div>
+</div>
+
+<!-- Include the JavaScript file -->
+<script src="search.js"></script>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
+<!-- JavaScript to toggle menu -->
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.getElementById("navbar").classList.toggle("active");
+  });
+</script>
+
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.querySelector(".nav-links").classList.toggle("active");
+  });
+</script>
+
+
+<section id="cancel">
+    <div class="container" style="text-align: center;">
+        <p>
+            <h4>1. ORDER CANCELLATION BY CUSTOMER</h4><br>
+            <b>A)</b> OY Jewells shall deliver the product you have purchased within the promised delivery timeline. However, if you have ordered a product by mistake, you may cancel the order by logging into your OY Jewells Account before dispatch of the product.<br>
+            <b>B)</b> If your product has shipped but has not yet been delivered, contact the Customer Service representative at +91 1234567890 and inform them of the same.<br>
+            <b>C)</b> If it is a Prepaid Order, the amount will be refunded to you within 4-5 days provided that the order has not been shipped or within 4-5 days from the receipt of the product, in case the product has already been shipped.<br><br>
+            
+            <h4>2. ORDER CANCELLATION BY OY JEWELLS</h4><br>
+            <b>A)</b> Under some rare situations, OY Jewells or any of our registered Sellers can also raise an order cancellation request.<br><br>
+            <b>These situations could be –</b>
+            <p>
+                <b>1.</b> Product is out of stock with the Seller;<br>
+                <b>2.</b> Product is not worth shipping;<br>
+                <b>3.</b> Restrictions on the number of products you can order, as per terms & conditions of any Offer/Discount;<br>
+                <b>4.</b> Incorrect pricing or description of the product;<br>
+                <b>5.</b> Incorrect or Incomplete Buyer's Address;<br>
+                <b>6.</b> Non-serviceability at the Buyer’s address by our courier partners;<br>
+                <b>7.</b> If it is a Prepaid Order, the amount will be refunded to you in accordance with our Refund Policy.<br>
+                <b>8.</b> Any other reason, which is beyond the control of the product Seller.
+            </p>
+            We will notify you through messages on your Email/WhatsApp/Text when an order is cancelled due to any of the above reasons.<br><br>
+            <b>B)</b> If it is a Prepaid Order, the amount will be refunded to you within 4-5 days from the date of cancellation of the order by the Seller or within 4-5 days from the date of cancellation.<br>
+        </p>
+    </div>
+</section>
+
+
+
+<style>/* Overall Disclaimer Section */
+  /* Cancellation Policy Styling */
+#cancel {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.8;
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+#cancel .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left;
+}
+
+#cancel h4 {
+    color: #8b4513; /* Earthy brown tone */
+    font-size: 20px;
+    margin: 30px 0 15px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+#cancel h4:after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: #d4a76a;
+    margin: 10px auto 0;
+}
+
+#cancel p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#cancel b {
+    color: #5a3921; /* Dark brown for emphasis */
+    font-weight: 600;
+}
+
+/* Numbered list styling */
+#cancel ol {
+    padding-left: 25px;
+    counter-reset: cancel-counter;
+}
+
+#cancel ol li {
+    margin-bottom: 12px;
+    position: relative;
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+#cancel ol li:before {
+    content: counter(cancel-counter) ".";
+    counter-increment: cancel-counter;
+    color: #8b4513;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    width: 25px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+/* Contact highlight */
+#cancel .contact-highlight {
+    background-color: #f5e8d9;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Decorative elements */
+#cancel .container:before,
+#cancel .container:after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2px;
+    background: #d4a76a;
+    margin: 0 auto 30px;
+}
+
+#cancel .container:after {
+    margin: 30px auto 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #cancel h4 {
+        font-size: 18px;
+    }
+    
+    #cancel p {
+        font-size: 15px;
+    }
+    
+    #cancel ol li {
+        padding-left: 25px;
+    }
+    
+    #cancel ol li:before {
+        width: 20px;
+    }
+    
+    #cancel .contact-highlight {
+        padding: 8px 12px;
+    }
+}
+    
+    </style><br><br>
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="index.html">Necklaces</a></li>
+              <li><a href="index.html">Rings</a></li>
+              <li><a href="index.html">Bracelets</a></li>
+              <li><a href="index.html">Earrings</a></li>
+             
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="faqs.html">FAQS</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="shipping.html">Shipping Policy</a></li>
+                <li><a href="cancel.html">Cancellation Policy</a></li>
+              
+                <li><a href="terms.html">Terms & Conditions</a></li>
+           
+        
+            </ul>
+          </div>
+
+
+
+         
+          <div class="footer-section">
+            <h3>Subscribe</h3>
+            <form action="/subscribe" method="post">
+              <input type="email" name="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025 Palmonas. All rights reserved.
+        </div>
+      </footer>
+</body>
+</html>
