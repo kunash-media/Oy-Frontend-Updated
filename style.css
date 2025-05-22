@@ -1053,7 +1053,7 @@ background-color: #FFE5B4;
   position: absolute;
   z-index: 3;
   text-align: center;
-  color: white;
+  color: rgb(255, 255, 255);
   top: 50%;
   right: 22%;
   transform: translateY(-50%);
@@ -1085,9 +1085,9 @@ background-color: #FFE5B4;
 
 /* Button Animation */
 .animate-button {
-  background-color: #eca738;
+  background-color: #030303;
   padding: 15px 30px;
-  color: #fff;
+  color: #ffffff;
   font-size: 18px;
   text-decoration: none;
   border-radius: 30px;
