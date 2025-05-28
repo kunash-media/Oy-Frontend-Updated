@@ -244,7 +244,7 @@
     }
 
     .add-to-cart:hover {
-      background: #770881;
+      background: #ff6b6b;
     }
 
     .buy-now {
@@ -252,18 +252,30 @@
     }
 
     .buy-now:hover {
-      background: #218838;
+      background: #ff6b6b;
     }
 
-    .wishlist {
-      background: #f8f9fa;
-      color: #333;
-      border: 1px solid #ddd;
-    }
+    .wishlist-btn {
+ 
+  background-color:#000000;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
 
-    .wishlist:hover {
-      background: #e9ecef;
-    }
+.wishlist-btn:hover {
+  background-color: #ff6b6b; /* Pink shade */
+}
+
+.wishlist-btn svg {
+  stroke: currentColor;
+  transition: stroke 0.3s ease;
+}
+
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -349,12 +361,13 @@
           <span id="cart-btn-text">Add to Cart</span>
         </button>
         <button class="buy-now" id="buy-now-btn">Buy Now</button>
-        <button class="wishlist" id="wishlist-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
-          Wishlist
-        </button>
+   <button class="wishlist-btn" id="wishlist-btn">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="black" stroke="currentColor">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+  Wishlist
+</button>
+
       </div>
     </div>
   </div>
@@ -1613,10 +1626,75 @@
       }, 500);
     }
 
-    function addToWishlist() {
-      alert("Added to wishlist!");
-      // You can implement actual wishlist functionality similar to cart
-    }
+  // In your product.html JavaScript
+function addToWishlist() {
+  if (!currentProduct) {
+    alert("Product not loaded yet");
+    return;
+  }
+  
+  const wishlistBtn = document.getElementById('wishlist-btn');
+  const productToAdd = {
+    id: currentProduct.id,
+    title: currentProduct.title,
+    price: currentProduct.price,
+    image: currentProduct.image
+  };
+  
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  // Check if product already exists in wishlist
+  const existingIndex = wishlist.findIndex(item => item.id === productToAdd.id);
+  
+  if (existingIndex !== -1) {
+    // Remove from wishlist
+    wishlist.splice(existingIndex, 1);
+    wishlistBtn.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      Add to Wishlist
+    `;
+    alert(`${currentProduct.title} removed from wishlist`);
+  } else {
+    // Add to wishlist
+    wishlist.push(productToAdd);
+    wishlistBtn.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      In Wishlist
+    `;
+    alert(`${currentProduct.title} added to wishlist`);
+  }
+  
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  updateWishlistCount();
+}
+
+// Update the product page to show if item is already in wishlist
+function checkWishlistStatus() {
+  if (!currentProduct) return;
+  
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const exists = wishlist.some(item => item.id === currentProduct.id);
+  const wishlistBtn = document.getElementById('wishlist-btn');
+  
+  if (exists) {
+    wishlistBtn.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      In Wishlist
+    `;
+  }
+}
+
+// Call this in your loadProduct function
+checkWishlistStatus();
   </script>
+
+
+
 </body>
 </html>

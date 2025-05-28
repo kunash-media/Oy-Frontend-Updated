@@ -1,100 +1,50 @@
-// search.js - reusable search functionality
-class JewelrySearch {
-  constructor() {
-    this.products = [
-      "Gold Necklace", "Silver Ring", "Diamond Earrings",
-      "Pearl Bracelet", "Platinum Band", "Rose Gold Pendant",
-      "Sapphire Ring", "Emerald Necklace", "Ruby Bracelet",
-      "Diamond Ring", "Charm Bracelet", "Hoop Earrings"
-    ];
-    this.initSearchBars();
-  }
+/* SEARCH SUGGESTIONS */
+// Sample product data mapped to your HTML pages
+const products = [
+  { name: "Diamond Ring", url: "rings.html" },
+  { name: "Gold Ring", url: "rings.html" },
+  { name: "Silver Ring", url: "rings.html" },
+  { name: "Gold Necklace", url: "neck.html" },
+  { name: "Silver Necklace", url: "neck.html" },
+  { name: "Pearl Necklace", url: "neck.html" },
+  { name: "Silver Bracelet", url: "bracelet.html" },
+  { name: "Gold Bracelet", url: "bracelet.html" },
+  { name: "Pearl Earrings", url: "earrings.html" },
+  { name: "Diamond Earrings", url: "earring.html" }
+];
 
-  initSearchBars() {
-    document.querySelectorAll('.search-bar').forEach(bar => {
-      const input = bar.querySelector('input');
-      const suggestions = bar.querySelector('.search-suggestions');
-      const button = bar.querySelector('button');
-      
-      // Debounce input handler
-      const handleInput = this.debounce(() => {
-        this.showSuggestions(input, suggestions);
-      }, 200);
-      
-      input.addEventListener('input', handleInput);
-      
-      // Handle suggestion click
-      suggestions.addEventListener('click', (e) => {
-        if (e.target.classList.contains('search-suggestion-item')) {
-          input.value = e.target.textContent;
-          suggestions.style.display = 'none';
-          this.submitSearch(input.value);
-        }
-      });
-      
-      // Handle search button
-      button.addEventListener('click', () => {
-        this.submitSearch(input.value);
-      });
-      
-      // Handle Enter key
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          this.submitSearch(input.value);
-        }
-      });
-    });
-  }
+const searchInput = document.getElementById('searchInput');
+const searchSuggestions = document.getElementById('searchSuggestions');
 
-  showSuggestions(input, container) {
-    const value = input.value.toLowerCase().trim();
-    container.innerHTML = '';
+searchInput.addEventListener('input', function() {
+  const input = this.value.toLowerCase();
+  searchSuggestions.innerHTML = '';
+  
+  if (input.length > 0) {
+    const matches = products.filter(product => 
+      product.name.toLowerCase().includes(input)
+    );
     
-    if (value.length > 0) {
-      const filtered = this.products.filter(p => 
-        p.toLowerCase().includes(value)
-      );
-      
-      if (filtered.length > 0) {
-        filtered.forEach(product => {
-          const div = document.createElement('div');
-          div.className = 'search-suggestion-item';
-          div.textContent = product;
-          container.appendChild(div);
-        });
-        container.style.display = 'block';
-      } else {
-        const div = document.createElement('div');
-        div.className = 'search-suggestion-item no-results';
-        div.textContent = 'No results found';
-        container.appendChild(div);
-        container.style.display = 'block';
-      }
+    if (matches.length > 0) {
+      matches.forEach(product => {
+        const suggestion = document.createElement('a');
+        suggestion.href = product.url;
+        suggestion.textContent = product.name;
+        suggestion.className = 'suggestion-item';
+        searchSuggestions.appendChild(suggestion);
+      });
+      searchSuggestions.style.display = 'block';
     } else {
-      container.style.display = 'none';
+      searchSuggestions.style.display = 'none';
     }
+  } else {
+    searchSuggestions.style.display = 'none';
   }
+});
 
-  submitSearch(term) {
-    // Save search term in session storage for cross-page consistency
-    sessionStorage.setItem('lastSearch', term);
-    
-    // Implement your actual search navigation here
-    console.log('Searching for:', term);
-    // window.location.href = `/search-results?q=${encodeURIComponent(term)}`;
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+    searchSuggestions.style.display = 'none';
   }
-
-  debounce(func, wait) {
-    let timeout;
-    return function() {
-      const context = this, args = arguments;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
-    };
-  }
-}
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  new JewelrySearch();
 });
