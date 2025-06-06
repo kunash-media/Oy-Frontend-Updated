@@ -284,87 +284,143 @@
 
         /* === Footer === */
     
-  footer {
-    background-color: #020202;
-    padding: 30px 20px;
-    border-top: 1px solid #e0e0e0;
-  }
+footer {
+  background-color: #020202;
+  font-family: spantax;
+}
 
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-container {
+  padding: 20px;
+  display: flex;
+  gap: 110px;
+}
+
+.footer-logo-section {
+  flex: 0 0 120px;
+}
+
+.footer-logo {
+  width: 100%;
+  height: auto;
+}
+
+.footer-content {
+  flex: 1;
+}
+
+.footer-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 120px;
+}
+
+.footer-section h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #fff6f6;
+  text-transform: uppercase;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 19px;
+  transition: color 0.2s ease;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  text-align: center;
+}
+
+.social-icons li a {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding: 2px 2px;
+  font-size: 12px;
+  color: #888;
+
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
   .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
   }
-
+  
+  .footer-logo-section {
+    flex: 0 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  .footer-sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .company-section {
+    display: none;
+  }
+  
   .footer-section {
-    flex: 1 1 200px;
+    text-align: center;
   }
-
-  .footer-section h3 {
-    font-size: 16px;
-    margin-bottom: 16px;
-    color: #fff6f6;
-    text-transform: uppercase;
+  
+  .social-icons {
+    justify-content: center;
   }
-
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .footer-section ul li {
-    margin-bottom: 10px;
-  }
-
-  .footer-section ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    transition: color 0.3s ease;
-  }
-
-  .footer-section ul li a:hover {
-    color: #fafafa;
-  }
-
-  .footer-section form input[type="email"] {
-    padding: 10px;
-    width: 100%;
-    max-width: 220px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .footer-section form button {
-    padding: 10px 20px;
-    background-color: #000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .footer-section form button:hover {
-    background-color: #333;
-  }
-
+  
   .footer-bottom {
     text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #888;
+    padding: 10px 15px;
+    font-size: 11px;
   }
+}/* Center the footer bottom text */
+.footer-bottom .footer-container {
+  justify-content: center;
+  display: flex;
+}
 
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      align-items:center;
-    }
+/* Hide Shop section on smaller screens */
+@media (max-width: 768px) {
+  .footer-section:nth-child(1) {
+    display: none;
   }
+}
+
 
 
 
@@ -494,58 +550,65 @@
     </section>
 
     <footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h3>Shop</h3>
-      <ul>
-        <li><a href="necklace.html">Necklaces</a></li>
-        <li><a href="ring.html">Rings</a></li>
-        <li><a href="brac.html">Bracelets</a></li>
-        <li><a href="ear.html">Earrings</a></li>
-       
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Company</h3>
-      <ul>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/store">Store Location</a></li>
-        <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Follow Us</h3>
-      <ul>
-        <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
-        <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
-        <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Legal</h3>
-      <ul>
-          <li><a href="faqs.html">FAQS</a></li>
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+      </div>
+      
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="necklace.html">Necklaces</a></li>
+              <li><a href="ring.html">Rings</a></li>
+              <li><a href="brac.html">Bracelets</a></li>
+              <li><a href="ear.html">Earrings</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section company-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+               <li><a href="faqs.html">FAQS</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="shipping.html">Shipping Policy</a></li>
           <li><a href="cancel.html">Cancellation Policy</a></li>
           <li><a href="terms.html">Terms & Conditions</a></li>
-     
-  
-      </ul>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Follow</h3>
+            <ul class="social-icons">
+              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="footer-section">
-      <h3>Subscribe</h3>
-      <form action="/subscribe" method="post">
-        <input type="email" name="email" placeholder="Enter your email" required>
-        <button type="submit">Subscribe</button>
-      </form>
+    
+    <div class="footer-bottom">
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
+      </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; 2025 Kunash Media Solutions. All rights reserved.
   </div>
 </footer>
+
 
     <!-- JavaScript -->
     <script>

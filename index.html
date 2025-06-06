@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OY JEWELS</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="cart.css">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=spantax:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
@@ -117,13 +116,20 @@
     <!-- RIGHT ICONS -->
     <div class="right-nav">
 
-      <a href="wishlist.html" title="Wishlist"><i class="fa fa-heart"></i></a>
+         <!-- In your header/navigation -->
+<a href="wishlist.html" class="wishlist-link">
+  <div class="wishlist-badge">
+<i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
+  </div>
+</a>
       <a href="login.html"><i class="fa fa-user"></i></a>
       <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
 
 
        <div class="hamburger" id="hamburger">
   <i class="fa fa-bars"></i>
+
+  
 </div>
     </div>
 
@@ -276,7 +282,7 @@ MAIN BANNER
   </div>
   <div class="video-text">
     <h2>STERLING SILVER : A PERFECT ADDITION TO YOUR JEWELLERY COLLECTION</h2>
-     <a href="shop.html" class="video-btn">Shop Now</a>
+  
   </div>
 </section>
 
@@ -312,55 +318,47 @@ MAIN BANNER
 <section class="featured-products">
   <h2>Featured Products</h2>
   <div class="product-grid1">
-    <!-- 16 product cards -->
     <!-- Product 1 -->
-    <div class="product-card" data-id="1" data-title="Product Title 1" data-price="29.99">
-      <a href="product.html?id=1" class="product-image">
-        <img src="IMAGES/PRODUCT 111.webp" alt="Product 1" class="default-img">
-        <img src="IMAGES/rings model.jpg" alt="Product 1 Hover" class="hover-img">
+    <div class="product-card" data-id="1" data-title="Silver Rings" data-price="29.99">
+      <a href="rings.html" class="product-image">
+        <img src="IMAGES/PRODUCT 111.webp" alt="Silver Rings" class="default-img">
+        <img src="IMAGES/rings model.jpg" alt="Silver Rings Hover" class="hover-img">
         <h3>Silver Rings</h3>
-        <p>$29.99</p>
       </a>
-      <button class="add-to-cart">Add to Cart</button>
-      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+      <a href="rings.html" class="read-more">Explore </a>
     </div>
 
-    
     <!-- Product 2 -->
-    <div class="product-card" data-id="18" data-title="earrings" data-price="29.99">
-      <a href="product.html?id=18" class="product-image">
-        <img src="IMAGES/earrings444.webp" alt="Product 1" class="default-img">
-        <img src="IMAGES/earrings model.webp" alt="Product 1 Hover" class="hover-img">
+    <div class="product-card" data-id="18" data-title="Cute Earrings" data-price="29.99">
+      <a href="earring.html" class="product-image">
+        <img src="IMAGES/earrings444.webp" alt="Cute Earrings" class="default-img">
+        <img src="IMAGES/earrings model.webp" alt="Cute Earrings Hover" class="hover-img">
         <h3>Cute Earrings</h3>
-        <p>$29.99</p>
       </a>
-      <button class="add-to-cart">Add to Cart</button>
-      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+      <a href="earring.html" class="read-more">Explore </a>
     </div>
 
-    <div class="product-card" data-id="3" data-title="necklace" data-price="29.99">
-      <a href="product.html?id=3" class="product-image">
-        <img src="IMAGES/necklace111.jpg" alt="Product 1" class="default-img">
-        <img src="IMAGES/necklace model.avif" alt="Product 1 Hover" class="hover-img">
+    <!-- Product 3 -->
+    <div class="product-card" data-id="3" data-title="Necklaces" data-price="29.99">
+      <a href="neck.html" class="product-image">
+        <img src="IMAGES/necklace111.jpg" alt="Necklaces" class="default-img">
+        <img src="IMAGES/necklace model.avif" alt="Necklaces Hover" class="hover-img">
         <h3>Necklaces</h3>
-        <p>$29.99</p>
       </a>
-      <button class="add-to-cart">Add to Cart</button>
-      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+      <a href="neck.html" class="read-more">Explore </a>
     </div>
 
-    <div class="product-card" data-id="4" data-title="Product Title 1" data-price="29.99">
-      <a href="product.html?id=4" class="product-image">
-        <img src="IMAGES/bracelet111.webp" alt="Product 1" class="default-img">
-        <img src="IMAGES/bracelet model.jpg" alt="Product 1 Hover" class="hover-img">
+    <!-- Product 4 -->
+    <div class="product-card" data-id="4" data-title="Bracelets" data-price="29.99">
+      <a href="bracelet.html" class="product-image">
+        <img src="IMAGES/bracelet111.webp" alt="Bracelets" class="default-img">
+        <img src="IMAGES/bracelet model.jpg" alt="Bracelets Hover" class="hover-img">
         <h3>Bracelets</h3>
-        <p>$29.99</p>
       </a>
-      <button class="add-to-cart">Add to Cart</button>
-      <button class="buy-now" onclick="storeProductInfo(this)">Buy Now</button>
+      <a href="bracelet.html" class="read-more">Explore </a>
     </div>
+  </div>
 </section>
-
 
 
 
@@ -404,56 +402,62 @@ MAIN BANNER
 </section>
 <br><br><br>
 <footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h3>Shop</h3>
-      <ul>
-        <li><a href="necklace.html">Necklaces</a></li>
-        <li><a href="ring.html">Rings</a></li>
-        <li><a href="brac.html">Bracelets</a></li>
-        <li><a href="ear.html">Earrings</a></li>
-       
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Company</h3>
-      <ul>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/store">Store Location</a></li>
-        <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Follow Us</h3>
-      <ul>
-        <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
-        <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
-        <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Legal</h3>
-      <ul>
-          <li><a href="faqs.html">FAQS</a></li>
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+      </div>
+      
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="necklace.html">Necklaces</a></li>
+              <li><a href="ring.html">Rings</a></li>
+              <li><a href="brac.html">Bracelets</a></li>
+              <li><a href="ear.html">Earrings</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section company-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+               <li><a href="faqs.html">FAQS</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="shipping.html">Shipping Policy</a></li>
           <li><a href="cancel.html">Cancellation Policy</a></li>
           <li><a href="terms.html">Terms & Conditions</a></li>
-     
-  
-      </ul>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Follow</h3>
+            <ul class="social-icons">
+              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="footer-section">
-      <h3>Subscribe</h3>
-      <form action="/subscribe" method="post">
-        <input type="email" name="email" placeholder="Enter your email" required>
-        <button type="submit">Subscribe</button>
-      </form>
+    
+    <div class="footer-bottom">
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
+      </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; 2025 Kunash Media Solutions. All rights reserved.
   </div>
 </footer>
 

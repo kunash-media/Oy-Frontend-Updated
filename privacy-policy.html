@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>Silver Jewels</title>
-      <!--ICON-->
+     <!--ICON-->
 <link rel="shortcut icon" href="IMAGES/01.png">
+    <title>Silver Jewels</title>
     <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,10 +19,6 @@
 <body>
 
    
- 
-
-
- 
  <!-- HEADER -->
 <header id="header">
   <!-- TOP BAR -->
@@ -35,7 +30,7 @@
   <!-- MAIN NAVIGATION -->
   <nav class="navigation">
     <a href="#" class="logo">
-      <img src="IMAGES/kunash.jpg" alt="Logo" />
+      <img src="IMAGES/01.png" alt="Logo" />
     </a>
 
     <!-- NAVBAR LINKS -->
@@ -75,24 +70,32 @@
       <li><a href="about.html">About Us</a></li>
     </ul>
 
-    <!-- RIGHT ICONS -->
+     <!-- RIGHT ICONS -->
     <div class="right-nav">
 <div class="hamburger" id="hamburger">
   <i class="fa fa-bars"></i>
 </div>
-      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
-      <a href="login.html"><i class="fa fa-user"></i></a>
+<!-- In your header/navigation -->
+<a href="wishlist.html" class="wishlist-link">
+  <div class="wishlist-badge">
+<i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
+  </div>
+</a>
+
+<!-- Floating notification element -->
+<div class="wishlist-notification" id="wishlist-notification">
+  <i class="fas fa-check-circle"></i>
+  <span class="notification-message">Item added to wishlist</span>
+</div>      <a href="login.html"><i class="fa fa-user"></i></a>
       <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
   </nav>
 
-<div class="search-bar">
-  <input type="text" placeholder="Search for jewelry..." 
-         value="" autocomplete="off">
-  <button aria-label="Search">
-    <i class="fa fa-search"></i>
-  </button>
-  <div class="search-suggestions"></div>
+   <!-- Search Bar -->
+  <div class="search-bar" >
+  <input type="text" placeholder="Search for jewelry..." id="searchInput">
+  <button><i class="fa fa-search"></i></button>
+  <div class="search-suggestions" id="searchSuggestions"></div>
 </div>
 
 <!-- Include the JavaScript file -->
@@ -193,6 +196,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 
 header {
   width: 100%;
@@ -299,127 +303,181 @@ header {
   top: -6px;
   right: -10px;
 }
+
+
 .hamburger {
   font-size: 24px;
   color: white;
   display: none;
   cursor: pointer;
-  margin-left: 10%;
+  margin-right: 15px; /* Space between hamburger and logo */
+  order: 1; /* Ensure it's first */
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Show hamburger */
+  }
+  
+  .logo img {
+    height: 70px;
+    margin-left: 0; /* Remove previous margin */
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 30px;
+    gap: 15px;
+    z-index: 999;
+    display: none;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .right-nav {
+    margin-left: auto; /* Push to the right */
+  }
 }
 
 
 
 
 
-/* Search Bar */
+/* Search bar container */
 .search-bar {
-  background: #111;
-  padding: 5px 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
- 
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Adjust based on your layout */
+  margin: 3px auto;
+   font-family: spantax;
+
 }
 
-.search-bar input {
-  width: 300px;
-  padding: 8px 15px;
-  border-radius: 25px 0 0 25px;
-  border: none;
-  background: #222;
-  color: white;
+/* Input field */
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 6px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px; /* Rounded edges */
+  font-size: 16px;
   outline: none;
-   border-style:hidden;
-  border-color: #eba25d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+   font-family: spantax;
+
 }
 
+.search-bar input[type="text"]:focus {
+  border-color: #b8a07e; /* Gold-like accent (common for jewelry sites) */
+  box-shadow: 0 2px 12px rgba(184, 160, 126, 0.2);
+}
+
+/* Search button */
 .search-bar button {
-  background: #eba25d;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  padding: 8px 15px;
-  border-radius: 0 25px 25px 0;
-  color: white;
   cursor: pointer;
-}
-.search-bar {
-  position: relative; /* Needed for absolute positioning of suggestions */
-  background: #111;
-  padding: 5px 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  color: #b8a07e; /* Gold accent */
+  
+  font-size: 16px;
+  padding: 8px 12px;
 }
 
+/* Suggestions dropdown */
 .search-suggestions {
+  display: none;
   position: absolute;
-  top: 100%;
-right: 550px;
-  width: 300px;
+  width: 100%;
   max-height: 300px;
   overflow-y: auto;
-  background: #222;
-  border-radius: 0 0 5px 5px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  display: none; /* Hidden by default */
+  margin-top: 4px;
 }
 
-.search-suggestion-item {
-  padding: 10px 15px;
-  color: white;
-  cursor: pointer;
-  border-bottom: 1px solid #333;
+/* Individual suggestion items */
+.suggestion-item {
+  display: block;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.2s ease;
 }
 
-.search-suggestion-item:hover {
-  background: #333;
-}
-
-.search-suggestion-item:last-child {
+.suggestion-item:last-child {
   border-bottom: none;
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
+/* Hover & active states */
+.suggestion-item:hover,
+.suggestion-item:focus {
+  background-color: #f9f9f9;
+  color: #b8a07e; /* Gold accent on hover */
+}
+
+.suggestion-item:active {
+  background-color: #f0f0f0;
+}
+
+/* Scrollbar styling (optional) */
+.search-suggestions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+  background: #d4c8b1; /* Light gold scrollbar */
+  border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+  background: #f9f9f9;
+}
+
+
+
+/* Responsive styles */
+@media (max-width: 480px) {
   .search-bar {
-    padding: 5px 10px;
+    max-width: 100%;
+    padding: 0 12px;
   }
-  
-  .search-bar input {
-    padding: 8px 10px;
+
+  .search-bar input[type="text"] {
     font-size: 14px;
+    padding: 8px 36px 8px 12px;
   }
-  
+
   .search-bar button {
-    padding: 8px 12px;
+    font-size: 16px;
+    right: 1px;
   }
-  
-  .search-suggestions {
-    left: 10px;
-    right: 10px;
+
+  .suggestion-item {
+    font-size: 14px;
+    padding: 10px 14px;
   }
 }
 
-/* Small Mobile Styles */
-@media (max-width: 480px) {
-  .search-bar {
-    padding: 5px 8px;
-    gap: 5px;
-  }
-  
-  .search-bar input {
-    padding: 6px 8px;
-  }
-  
-  .search-bar button {
-    padding: 6px 10px;
-  }
-  
-  .search-button .fa {
-    font-size: 14px; /* Smaller icon on very small screens */
-  }
-}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -583,20 +641,165 @@ right: 550px;
     margin: 30px auto 0;
 }
     
+
+footer {
+  background-color: #020202;
+  font-family: spantax;
+}
+
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-container {
+  padding: 20px;
+  display: flex;
+  gap: 110px;
+}
+
+.footer-logo-section {
+  flex: 0 0 120px;
+}
+
+.footer-logo {
+  width: 100%;
+  height: auto;
+}
+
+.footer-content {
+  flex: 1;
+}
+
+.footer-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 120px;
+}
+
+.footer-section h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #fff6f6;
+  text-transform: uppercase;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 19px;
+  transition: color 0.2s ease;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  text-align: center;
+}
+
+.social-icons li a {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding: 2px 2px;
+  font-size: 12px;
+  color: #888;
+
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .footer-logo-section {
+    flex: 0 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  .footer-sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .company-section {
+    display: none;
+  }
+  
+  .footer-section {
+    text-align: center;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 11px;
+  }
+}/* Center the footer bottom text */
+.footer-bottom .footer-container {
+  justify-content: center;
+  display: flex;
+}
+
+/* Hide Shop section on smaller screens */
+@media (max-width: 768px) {
+  .footer-section:nth-child(1) {
+    display: none;
+  }
+}
+
     </style><br><br>
     <footer>
-        <div class="footer-container">
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+      </div>
+      
+      <div class="footer-content">
+        <div class="footer-sections">
           <div class="footer-section">
             <h3>Shop</h3>
             <ul>
-              <li><a href="index.html">Necklaces</a></li>
-              <li><a href="index.html">Rings</a></li>
-              <li><a href="index.html">Bracelets</a></li>
-              <li><a href="index.html">Earrings</a></li>
-             
+              <li><a href="necklace.html">Necklaces</a></li>
+              <li><a href="ring.html">Rings</a></li>
+              <li><a href="brac.html">Bracelets</a></li>
+              <li><a href="ear.html">Earrings</a></li>
             </ul>
           </div>
-          <div class="footer-section">
+          
+          <div class="footer-section company-section">
             <h3>Company</h3>
             <ul>
               <li><a href="/about">About Us</a></li>
@@ -604,43 +807,226 @@ right: 550px;
               <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
             </ul>
           </div>
-          <div class="footer-section">
-            <h3>Follow Us</h3>
-            <ul>
-              <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
-              <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
-              <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
-            </ul>
-          </div>
+          
           <div class="footer-section">
             <h3>Legal</h3>
             <ul>
-                <li><a href="faqs.html">FAQS</a></li>
-                <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="shipping.html">Shipping Policy</a></li>
-                <li><a href="cancel.html">Cancellation Policy</a></li>
-              
-                <li><a href="terms.html">Terms & Conditions</a></li>
-           
-        
+               <li><a href="faqs.html">FAQS</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="shipping.html">Shipping Policy</a></li>
+          <li><a href="cancel.html">Cancellation Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
             </ul>
           </div>
 
-
-
-         
           <div class="footer-section">
-            <h3>Subscribe</h3>
-            <form action="/subscribe" method="post">
-              <input type="email" name="email" placeholder="Enter your email" required>
-              <button type="submit">Subscribe</button>
-            </form>
+            <h3>Follow</h3>
+            <ul class="social-icons">
+              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
           </div>
         </div>
-        <div class="footer-bottom">
-          &copy; 2025 Palmonas. All rights reserved.
-        </div>
-      </footer>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+class WishlistManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.updateWishlistBadge();
+        this.updateWishlistIcons();
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.wishlist-icon-card')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const wishlistIcon = e.target.closest('.wishlist-icon-card');
+                this.toggleWishlist(wishlistIcon);
+            }
+        });
+    }
+
+    toggleWishlist(iconElement) {
+        const productData = {
+            id: iconElement.dataset.id,
+            name: iconElement.dataset.name,
+            price: iconElement.dataset.price,
+            image: iconElement.dataset.image
+        };
+
+        let wishlist = this.getWishlist();
+        const existingIndex = wishlist.findIndex(item => item.id === productData.id);
+
+        if (existingIndex >= 0) {
+            wishlist.splice(existingIndex, 1);
+            this.updateIconState(iconElement, false);
+            this.showNotification('Removed from wishlist', 'remove');
+        } else {
+            wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
+            this.updateIconState(iconElement, true);
+            this.showNotification('Added to wishlist', 'success');
+            iconElement.classList.add('pulse');
+            setTimeout(() => iconElement.classList.remove('pulse'), 600);
+        }
+
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        this.updateWishlistBadge();
+    }
+
+    updateIconState(iconElement, isActive) {
+        const icon = iconElement.querySelector('i');
+        if (isActive) {
+            iconElement.classList.add('active');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            iconElement.classList.remove('active');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+    }
+
+    updateWishlistIcons() {
+        const wishlist = this.getWishlist();
+        const wishlistIds = wishlist.map(item => item.id);
+
+        document.querySelectorAll('.wishlist-icon-card').forEach(icon => {
+            const productId = icon.dataset.id;
+            const isInWishlist = wishlistIds.includes(productId);
+            this.updateIconState(icon, isInWishlist);
+        });
+    }
+
+    updateWishlistBadge() {
+        const wishlist = this.getWishlist();
+        const count = wishlist.length;
+        const badge = document.querySelector('.wishlist-count');
+        if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+            badge.classList.add('count-updated');
+            setTimeout(() => badge.classList.remove('count-updated'), 400);
+        }
+    }
+
+    showNotification(message, type = 'success') {
+        const notification = document.getElementById('wishlist-notification');
+        if (!notification) return;
+
+        const messageEl = notification.querySelector('.notification-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+
+        notification.className = `wishlist-notification ${type}`;
+        notification.classList.add('show');
+
+        setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    getWishlist() {
+        try {
+            return JSON.parse(localStorage.getItem('wishlist')) || [];
+        } catch (error) {
+            console.error('Error parsing wishlist from localStorage:', error);
+            return [];
+        }
+    }
+
+    getWishlistCount() {
+        return this.getWishlist().length;
+    }
+
+    goToWishlist() {
+        window.location.href = 'wishlist.html';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const wishlistManager = new WishlistManager();
+    updateCartCount();
+});
+
+// Handle "Add to Cart" clicks
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
+        const button = e.target;
+        const productData = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+            image: button.dataset.image
+        };
+
+        addToCart(productData.id, productData.name, productData.price, productData.image);
+    }
+});
+
+// ✅ SINGLE addToCart FUNCTION — includes `image`
+function addToCart(id, name, price, image) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id, name, price, image, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countEl = document.getElementById('cart-count');
+    if (countEl) {
+        countEl.textContent = totalItems;
+        countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+function showCartNotification(message) {
+    const notification = document.getElementById('wishlist-notification');
+    if (notification) {
+        const messageEl = notification.querySelector('.notification-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+        notification.className = 'wishlist-notification success';
+        notification.classList.add('show');
+        setTimeout(() => notification.classList.remove('show'), 2000);
+    }
+}
+
+// Manual Wishlist Count Update (if needed externally)
+function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const count = wishlist.length;
+    const badge = document.querySelector('.wishlist-count');
+    if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+}
+</script>
+
 </body>
 </html>

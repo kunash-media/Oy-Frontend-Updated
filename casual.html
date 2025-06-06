@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-
+  
 
 <style>/* Navbar Container */
   /* General Reset */
@@ -663,86 +663,141 @@ font-weight: 600;
 
 
   footer {
-    background-color: #000000;
-    padding: 30px 20px;
-    border-top: 1px solid #e0e0e0;
-  }
+  background-color: #020202;
+  font-family: spantax;
+}
 
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-container {
+  padding: 20px;
+  display: flex;
+  gap: 110px;
+}
+
+.footer-logo-section {
+  flex: 0 0 120px;
+}
+
+.footer-logo {
+  width: 100%;
+  height: auto;
+}
+
+.footer-content {
+  flex: 1;
+}
+
+.footer-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 120px;
+}
+
+.footer-section h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #fff6f6;
+  text-transform: uppercase;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 19px;
+  transition: color 0.2s ease;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  text-align: center;
+}
+
+.social-icons li a {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding: 2px 2px;
+  font-size: 12px;
+  color: #888;
+
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
   .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
   }
-
+  
+  .footer-logo-section {
+    flex: 0 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  .footer-sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .company-section {
+    display: none;
+  }
+  
   .footer-section {
-    flex: 1 1 200px;
+    text-align: center;
   }
-
-  .footer-section h3 {
-    font-size: 16px;
-    margin-bottom: 16px;
-    color: #ffffff;
-    text-transform: uppercase;
+  
+  .social-icons {
+    justify-content: center;
   }
-
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .footer-section ul li {
-    margin-bottom: 10px;
-  }
-
-  .footer-section ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    transition: color 0.3s ease;
-  }
-
-  .footer-section ul li a:hover {
-    color: #eea765;
-  }
-
-  .footer-section form input[type="email"] {
-    padding: 10px;
-    width: 100%;
-    max-width: 220px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .footer-section form button {
-    padding: 10px 20px;
-    background-color: #000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .footer-section form button:hover {
-    background-color: #333;
-  }
-
+  
   .footer-bottom {
     text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #888;
+    padding: 10px 15px;
+    font-size: 11px;
   }
+}/* Center the footer bottom text */
+.footer-bottom .footer-container {
+  justify-content: center;
+  display: flex;
+}
 
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+/* Hide Shop section on smaller screens */
+@media (max-width: 768px) {
+  .footer-section:nth-child(1) {
+    display: none;
   }
+}
 
 
 
@@ -927,7 +982,7 @@ font-weight: 600;
         </ul>
       </li>
 
-      <li class="dropdown">
+       <li class="dropdown">
         <a href="#">Shop By</a>
         <ul class="dropdown-menu">
           <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
@@ -955,14 +1010,24 @@ font-weight: 600;
 <div class="hamburger" id="hamburger">
   <i class="fa fa-bars"></i>
 </div>
-      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
-      <a href="login.html"><i class="fa fa-user"></i></a>
+<!-- In your header/navigation -->
+<a href="wishlist.html" class="wishlist-link">
+  <div class="wishlist-badge">
+<i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
+  </div>
+</a>
+
+<!-- Floating notification element -->
+<div class="wishlist-notification" id="wishlist-notification">
+  <i class="fas fa-check-circle"></i>
+  <span class="notification-message">Item added to wishlist</span>
+</div>      <a href="login.html"><i class="fa fa-user"></i></a>
       <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
   </nav>
 
    <!-- Search Bar -->
- <div class="search-bar" >
+  <div class="search-bar" >
   <input type="text" placeholder="Search for jewelry..." id="searchInput">
   <button><i class="fa fa-search"></i></button>
   <div class="search-suggestions" id="searchSuggestions"></div>
@@ -1008,17 +1073,25 @@ font-weight: 600;
   <section id="product1" class="section4">
     <div class="pro-container">
 
-    <div class="pro">
+  <div class="pro">
+
+            <div class="wishlist-icon-card active"
+             data-id="88" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual 4.jpeg">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=88">
         <img src="IMAGES/casual 4.jpeg" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
- <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>        <button class="add-to-cart" 
+        <span>Silver Casual Collection</span>
+        <span class="original-price"> ₹4800.00</span>
+        <button class="add-to-cart" 
                 data-id="88" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual 4.jpeg">
           Add to Cart
         </button>
@@ -1026,17 +1099,27 @@ font-weight: 600;
 
       </div>
     </div>
-      <div class="pro">
+
+       <div class="pro">
+
+            <div class="wishlist-icon-card active"
+             data-id="89" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual 6.jpeg">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=89">
         <img src="IMAGES/casual 6.jpeg" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
- <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>        <button class="add-to-cart" 
+        <span>Silver Casual Collection</span>
+        <span class="original-price"> ₹4800.00</span>
+         
+        <button class="add-to-cart" 
                 data-id="89" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual 6.jpeg">
           Add to Cart
         </button>
@@ -1044,142 +1127,184 @@ font-weight: 600;
 
       </div>
     </div>
-      
+
+
 <div class="pro">
+<div class="wishlist-icon-card active"
+             data-id="90" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual 8.jpg">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=90">
         <img src="IMAGES/casual 8.jpg" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
- <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>        <button class="add-to-cart" 
+        <span>Silver Casual Collection</span>
+ <span class="original-price">₹ 4800.00</span>
+                  <button class="add-to-cart" 
                 data-id="90" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual 8.jpg">
           Add to Cart
         </button>
 <a href="checkout.html?product=90" class="buy-now">Buy Now</a>
 
       </div>
-    </div>
-      
-   <div class="pro">
+    </div>  
+    
+    
+    <div class="pro">
+<div class="wishlist-icon-card active"
+             data-id="91" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual1.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=91">
         <img src="IMAGES/casual1.webp" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>
-        <button class="add-to-cart" 
+        <span>Silver Casual Collection</span>
+ <span class="original-price">₹ 4800.00</span>
+                  <button class="add-to-cart" 
                 data-id="91" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual1.webp">
           Add to Cart
         </button>
 <a href="checkout.html?product=91" class="buy-now">Buy Now</a>
 
       </div>
-    </div>
-      
-
-
-      
-    </div>
-
+    </div>  
+  </div>
+<br><br>
 
 
 
      <div class="pro-container">
            
    <div class="pro">
+<div class="wishlist-icon-card active"
+             data-id="92" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual2.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=92">
         <img src="IMAGES/casual2.webp" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>
-        <button class="add-to-cart" 
+        <span>Silver Casual Collection</span>
+ <span class="original-price">₹ 4800.00</span>
+                  <button class="add-to-cart" 
                 data-id="92" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual2.webp">
           Add to Cart
         </button>
 <a href="checkout.html?product=92" class="buy-now">Buy Now</a>
 
       </div>
-    </div>
+    </div>  
+    
       
    
    <div class="pro">
-      <a href="product.html?id=80">
+<div class="wishlist-icon-card active"
+             data-id="93" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual3.jpg">
+            <i class="far fa-heart"></i>
+        </div>
+      <a href="product.html?id=93">
         <img src="IMAGES/casual3.jpg" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>
-        <button class="add-to-cart" 
-                data-id="80" 
+        <span>Silver Casual Collection</span>
+ <span class="original-price">₹ 4800.00</span>
+                  <button class="add-to-cart" 
+                data-id="93" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual3.jpg">
           Add to Cart
         </button>
-<a href="checkout.html?product=80" class="buy-now">Buy Now</a>
+<a href="checkout.html?product=93" class="buy-now">Buy Now</a>
 
       </div>
-    </div>
+    </div>  
+    
       
         
+  
    <div class="pro">
-      <a href="product.html?id=81">
+<div class="wishlist-icon-card active"
+             data-id="94" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual5.jpeg">
+            <i class="far fa-heart"></i>
+        </div>
+      <a href="product.html?id=94">
         <img src="IMAGES/casual5.jpeg" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>
-        <button class="add-to-cart" 
-                data-id="81" 
+        <span>Silver Casual Collection</span>
+ <span class="original-price">₹ 4800.00</span>
+                  <button class="add-to-cart" 
+                data-id="94" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual5.jpeg">
           Add to Cart
         </button>
-<a href="checkout.html?product=81" class="buy-now">Buy Now</a>
+<a href="checkout.html?product=94" class="buy-now">Buy Now</a>
 
       </div>
-    </div>
-         
+    </div>  
+    
+   
    <div class="pro">
-      <a href="product.html?id=82">
+<div class="wishlist-icon-card active"
+             data-id="95" 
+             data-name="Silver Simple Earrings" 
+             data-price=" 4800.00" 
+             data-image="IMAGES/casual7.webp">
+            <i class="far fa-heart"></i>
+        </div>
+      <a href="product.html?id=95">
         <img src="IMAGES/casual7.webp" alt="Silver Simple Earrings">
       </a>
       <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">$222.22</span>
-            <span class="discounted-price">$200.00</span>
-        <button class="add-to-cart" 
-                data-id="82" 
+        <span>Silver Casual Collection</span>
+ <span class="original-price">₹ 4800.00</span>
+                  <button class="add-to-cart" 
+                data-id="95" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4800.00" 
                 data-image="IMAGES/casual7.webp">
           Add to Cart
         </button>
-<a href="checkout.html?product=82" class="buy-now">Buy Now</a>
+<a href="checkout.html?product=95" class="buy-now">Buy Now</a>
 
       </div>
+    </div>  
+    
     </div>
-    </div>
+
+<br><br>
 
 
-   
-
+    
+    
 
    
     </div>
@@ -1188,6 +1313,35 @@ font-weight: 600;
   <div id="view-more-container" style="text-align:center; margin-top: 20px;">
     <button id="view-more-btn">View More</button>
   </div>
+
+
+    
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const products = document.querySelectorAll('.pro');
+    const viewMoreBtn = document.getElementById('view-more-btn');
+    let visibleCount = 8; // Show 8 products initially
+
+    function showProducts() {
+      for (let i = 0; i < visibleCount && i < products.length; i++) {
+        products[i].style.display = 'block';
+      }
+    }
+
+    // Initially hide all, then show first batch
+    products.forEach(p => p.style.display = 'none');
+    showProducts();
+
+    viewMoreBtn.addEventListener('click', () => {
+      visibleCount += 8;
+      showProducts();
+
+      if (visibleCount >= products.length) {
+        viewMoreBtn.style.display = 'none';
+      }
+    });
+  });
+</script>
 
   <section id="section7" style="background-image: url(images/review\ bg1.jpg); background-size: cover; height: 70%;">
     <div class="sticky-container">  
@@ -1205,131 +1359,251 @@ font-weight: 600;
   
   <br><br><br>
   
-  <footer>
+<footer>
+  <div class="footer-wrapper">
     <div class="footer-container">
-      <div class="footer-section">
-        <h3>Shop</h3>
-        <ul>
-          <li><a href="neck.html">Necklaces</a></li>
-          <li><a href="rings.html">Rings</a></li>
-          <li><a href="bracelet.html">Bracelets</a></li>
-          <li><a href="earring.html">Earrings</a></li>
-        </ul>
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
       </div>
-      <div class="footer-section">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="/store">Store Location</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <ul>
-          <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
-          <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
-          <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="faqs.html">FAQS</a></li>
+      
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="necklace.html">Necklaces</a></li>
+              <li><a href="ring.html">Rings</a></li>
+              <li><a href="brac.html">Bracelets</a></li>
+              <li><a href="ear.html">Earrings</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section company-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+               <li><a href="faqs.html">FAQS</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="shipping.html">Shipping Policy</a></li>
           <li><a href="cancel.html">Cancellation Policy</a></li>
           <li><a href="terms.html">Terms & Conditions</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Subscribe</h3>
-        <form action="/subscribe" method="post">
-          <input type="email" name="email" placeholder="Enter your email" required>
-          <button type="submit">Subscribe</button>
-        </form>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Follow</h3>
+            <ul class="social-icons">
+              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
+    
     <div class="footer-bottom">
-      &copy; 2025 OYJEWELS. All rights reserved.
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
+      </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script>
-    // Toggle dropdown menus
-    document.querySelectorAll('.dropdown-toggle').forEach(button => {
-      button.addEventListener('click', () => {
-        const parent = button.parentElement;
-        parent.classList.toggle('open');
-      });
-    });
-
-    // Toggle mobile menu
-    document.getElementById("hamburger").addEventListener("click", function () {
-    });
-
-    // Cart functionality
-    document.addEventListener('DOMContentLoaded', updateCartCount);
-
-    function addToCart(id, name, price) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      const existing = cart.find(item => item.id === id);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ id, name, price: parseFloat(price), quantity: 1 });
-      }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      alert(`${name} added to cart`);
+<script>
+class WishlistManager {
+    constructor() {
+        this.init();
     }
 
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const countEl = document.getElementById('cart-count');
-      if (countEl) {
-        countEl.textContent = totalItems;
-      }
-    }
+    init() {
+        this.updateWishlistBadge();
+        this.updateWishlistIcons();
 
-    // Add event listeners to all "Add to Cart" buttons
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-      button.addEventListener('click', function() {
-        const id = this.getAttribute('data-id');
-        const name = this.getAttribute('data-name');
-        const price = this.getAttribute('data-price');
-        addToCart(id, name, price);
-      });
-    });
-
-    // View more products functionality
-    document.addEventListener("DOMContentLoaded", () => {
-      const products = document.querySelectorAll('.pro');
-      const viewMoreBtn = document.getElementById('view-more-btn');
-      let visibleCount = 4; // Show 4 products initially
-
-      function showProducts() {
-        products.forEach((p, index) => {
-          p.style.display = index < visibleCount ? 'block' : 'none';
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.wishlist-icon-card')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const wishlistIcon = e.target.closest('.wishlist-icon-card');
+                this.toggleWishlist(wishlistIcon);
+            }
         });
-      }
+    }
 
-      // Initially show first batch
-      showProducts();
+    toggleWishlist(iconElement) {
+        const productData = {
+            id: iconElement.dataset.id,
+            name: iconElement.dataset.name,
+            price: iconElement.dataset.price,
+            image: iconElement.dataset.image
+        };
 
-      viewMoreBtn.addEventListener('click', () => {
-        visibleCount += 4;
-        showProducts();
+        let wishlist = this.getWishlist();
+        const existingIndex = wishlist.findIndex(item => item.id === productData.id);
 
-        if (visibleCount >= products.length) {
-          viewMoreBtn.style.display = 'none';
+        if (existingIndex >= 0) {
+            wishlist.splice(existingIndex, 1);
+            this.updateIconState(iconElement, false);
+            this.showNotification('Removed from wishlist', 'remove');
+        } else {
+            wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
+            this.updateIconState(iconElement, true);
+            this.showNotification('Added to wishlist', 'success');
+            iconElement.classList.add('pulse');
+            setTimeout(() => iconElement.classList.remove('pulse'), 600);
         }
-      });
-    });
-  </script>
+
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        this.updateWishlistBadge();
+    }
+
+    updateIconState(iconElement, isActive) {
+        const icon = iconElement.querySelector('i');
+        if (isActive) {
+            iconElement.classList.add('active');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            iconElement.classList.remove('active');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+    }
+
+    updateWishlistIcons() {
+        const wishlist = this.getWishlist();
+        const wishlistIds = wishlist.map(item => item.id);
+
+        document.querySelectorAll('.wishlist-icon-card').forEach(icon => {
+            const productId = icon.dataset.id;
+            const isInWishlist = wishlistIds.includes(productId);
+            this.updateIconState(icon, isInWishlist);
+        });
+    }
+
+    updateWishlistBadge() {
+        const wishlist = this.getWishlist();
+        const count = wishlist.length;
+        const badge = document.querySelector('.wishlist-count');
+        if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+            badge.classList.add('count-updated');
+            setTimeout(() => badge.classList.remove('count-updated'), 400);
+        }
+    }
+
+    showNotification(message, type = 'success') {
+        const notification = document.getElementById('wishlist-notification');
+        if (!notification) return;
+
+        const messageEl = notification.querySelector('.notification-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+
+        notification.className = `wishlist-notification ₹{type}`;
+        notification.classList.add('show');
+
+        setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    getWishlist() {
+        try {
+            return JSON.parse(localStorage.getItem('wishlist')) || [];
+        } catch (error) {
+            console.error('Error parsing wishlist from localStorage:', error);
+            return [];
+        }
+    }
+
+    getWishlistCount() {
+        return this.getWishlist().length;
+    }
+
+    goToWishlist() {
+        window.location.href = 'wishlist.html';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const wishlistManager = new WishlistManager();
+    updateCartCount();
+});
+
+// Handle "Add to Cart" clicks
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
+        const button = e.target;
+        const productData = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+            image: button.dataset.image
+        };
+
+        addToCart(productData.id, productData.name, productData.price, productData.image);
+    }
+});
+
+// ✅ SINGLE addToCart FUNCTION — includes `image`
+function addToCart(id, name, price, image) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id, name, price, image, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    showCartNotification(`₹{name} added to cart (₹₹{price.toFixed(2)})`);
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countEl = document.getElementById('cart-count');
+    if (countEl) {
+        countEl.textContent = totalItems;
+        countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+function showCartNotification(message) {
+    const notification = document.getElementById('wishlist-notification');
+    if (notification) {
+        const messageEl = notification.querySelector('.notification-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+        notification.className = 'wishlist-notification success';
+        notification.classList.add('show');
+        setTimeout(() => notification.classList.remove('show'), 2000);
+    }
+}
+
+// Manual Wishlist Count Update (if needed externally)
+function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const count = wishlist.length;
+    const badge = document.querySelector('.wishlist-count');
+    if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+}
+</script>
 </body>
 </html>

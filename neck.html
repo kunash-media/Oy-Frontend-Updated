@@ -91,7 +91,7 @@ header {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 32px;
+  top: 22px;
   left: 0;
   background-color: #111;
   padding: 10px 0;
@@ -528,12 +528,160 @@ header {
     margin-bottom: 4px;
   }
   
-  .add-to-cart,
+  .add-to-cart, /* Wishlist Badge Styles */
+  .wishlist-badge {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+   
+  }
+  
+  .wishlist-icon {
+    position: relative;
+    font-size: 26px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+  }
+  
+  .wishlist-count {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: #f0071a; /* Gold color */
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  
+  /* Animation when adding to wishlist */
+  @keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(0.9); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes countPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  
+  .wishlist-added {
+    animation: heartBeat 0.6s ease;
+    color: #ffffff; /* Red color when in wishlist */
+  }
+  
+  .count-updated {
+    animation: countPop 0.4s ease;
+    background-color: #ff4757; /* Flash red when updated */
+  }
+  
+  /* Floating notification */
+  .wishlist-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .wishlist-notification.show {
+    opacity: 1;
+    bottom: 40px;
+  }
+  
+  .wishlist-notification i {
+    color: #d4af37;
+  }
+
+
+
+
+
+     .wishlist-icon-card {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-icon-card:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .wishlist-icon-card i {
+            font-size: 16px;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+      .wishlist-icon-card.active i {
+  background-color: #ffffff;
+  color: #f70000;
+  transform: scale(1.2);
+  padding: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+
+
+        .wishlist-icon-card.active {
+            background: rgba(255, 71, 87, 0.1);
+        }
+
+        /* Animation for adding to wishlist */
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .wishlist-icon-card.pulse {
+            animation: heartPulse 0.6s ease;
+        }
+
   .buy-now {
     padding: 7px 10px;
     font-size: 13px;
   }
 }
+
+
+
 
   #page-header{
   background-image: url(IMAGES/EARRINGS-BANNER.png);
@@ -668,87 +816,143 @@ font-weight: 600;
   }
 
 
-  footer {
-    background-color: #000000;
-    padding: 30px 20px;
-    border-top: 1px solid #e0e0e0;
-  }
+ footer {
+  background-color: #020202;
+  font-family: spantax;
+}
 
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-container {
+  padding: 20px;
+  display: flex;
+  gap: 110px;
+}
+
+.footer-logo-section {
+  flex: 0 0 120px;
+}
+
+.footer-logo {
+  width: 100%;
+  height: auto;
+}
+
+.footer-content {
+  flex: 1;
+}
+
+.footer-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 120px;
+}
+
+.footer-section h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #fff6f6;
+  text-transform: uppercase;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 19px;
+  transition: color 0.2s ease;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  text-align: center;
+}
+
+.social-icons li a {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding: 2px 2px;
+  font-size: 12px;
+  color: #888;
+
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
   .footer-container {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
   }
-
+  
+  .footer-logo-section {
+    flex: 0 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  .footer-sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .company-section {
+    display: none;
+  }
+  
   .footer-section {
-    flex: 1 1 200px;
+    text-align: center;
   }
-
-  .footer-section h3 {
-    font-size: 16px;
-    margin-bottom: 16px;
-    color: #ffffff;
-    text-transform: uppercase;
+  
+  .social-icons {
+    justify-content: center;
   }
-
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .footer-section ul li {
-    margin-bottom: 10px;
-  }
-
-  .footer-section ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    transition: color 0.3s ease;
-  }
-
-  .footer-section ul li a:hover {
-    color: #eea765;
-  }
-
-  .footer-section form input[type="email"] {
-    padding: 10px;
-    width: 100%;
-    max-width: 220px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .footer-section form button {
-    padding: 10px 20px;
-    background-color: #000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .footer-section form button:hover {
-    background-color: #333;
-  }
-
+  
   .footer-bottom {
     text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #888;
+    padding: 10px 15px;
+    font-size: 11px;
   }
+}/* Center the footer bottom text */
+.footer-bottom .footer-container {
+  justify-content: center;
+  display: flex;
+}
 
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+/* Hide Shop section on smaller screens */
+@media (max-width: 768px) {
+  .footer-section:nth-child(1) {
+    display: none;
   }
+}
+
 
 
 
@@ -900,6 +1104,8 @@ font-weight: 600;
   }
 }
 
+
+
   </style>
 
 
@@ -962,7 +1168,18 @@ font-weight: 600;
 <div class="hamburger" id="hamburger">
   <i class="fa fa-bars"></i>
 </div>
-      <a href="#" title="Wishlist"><i class="fa fa-heart"></i></a>
+     <!-- In your header/navigation -->
+<a href="wishlist.html" class="wishlist-link">
+  <div class="wishlist-badge">
+<i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
+  </div>
+</a>
+
+<!-- Floating notification element -->
+<div class="wishlist-notification" id="wishlist-notification">
+  <i class="fas fa-check-circle"></i>
+  <span class="notification-message">Item added to wishlist</span>
+</div>
       <a href="login.html"><i class="fa fa-user"></i></a>
       <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
@@ -1026,16 +1243,25 @@ font-weight: 600;
   <div class="pro-container">
 
     <div class="pro">
+
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="25" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck9.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=25">
         <img src="IMAGES/neck9.webp" alt="Silver Simple Earrings">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$47.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="25" 
                 data-name="Silver Simple Earrings" 
-                data-price="88.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck9.webp">
           Add to Cart
         </button>
@@ -1045,16 +1271,27 @@ font-weight: 600;
     </div>
 
     <div class="pro">
+
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="26" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck 17.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=26">
         <img src="IMAGES/neck 17.webp" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$58.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="26" 
                 data-name="Elegant Chain" 
-                data-price="58.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck 17.webp">
           Add to Cart
         </button>
@@ -1064,16 +1301,26 @@ font-weight: 600;
     </div>
 
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="27" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck11.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=27">
         <img src="IMAGES/neck11.webp" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$52.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="27" 
                 data-name="Elegant Chain" 
-                data-price="52.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck11.webp">
           Add to Cart
         </button>
@@ -1083,16 +1330,26 @@ font-weight: 600;
     </div>
 
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="28" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck16.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=28">
         <img src="IMAGES/neck16.webp" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="28" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck16.webp">
           Add to Cart
         </button>
@@ -1101,20 +1358,30 @@ font-weight: 600;
       </div>
     </div>
   </div>
-
+<br><br>
 
      <div class="pro-container">
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="29" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck13.jpg">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=29">
         <img src="IMAGES/neck13.jpg" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="29" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck13.jpg">
           Add to Cart
         </button>
@@ -1126,16 +1393,26 @@ font-weight: 600;
 
     
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="30" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck15.png">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=30">
         <img src="IMAGES/neck15.png" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="30" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck15.png">
           Add to Cart
         </button>
@@ -1147,16 +1424,26 @@ font-weight: 600;
 
     
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="31" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck8.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=31">
         <img src="IMAGES/neck8.webp" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="31" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck8.webp">
           Add to Cart
         </button>
@@ -1168,16 +1455,26 @@ font-weight: 600;
 
     
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="32" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck12.jpg">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=32">
         <img src="IMAGES/neck12.jpg" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="32" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck9.webp">
           Add to Cart
         </button>
@@ -1186,20 +1483,30 @@ font-weight: 600;
       </div>
     </div>
      </div>
-
+<br><br>
 
      <div class="pro-container">
     <div class="pro">
+
+      
+       <!-- Wishlist Icon -->
+        <div class="wishlist-icon-card active"
+             data-id="33" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck1.webp">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=33">
         <img src="IMAGES/neck1.webp" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="33" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck1.webp">
           Add to Cart
         </button>
@@ -1210,16 +1517,24 @@ font-weight: 600;
 
 
     <div class="pro">
+
+       <div class="wishlist-icon-card active"
+             data-id="34" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck2.avif">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=34">
         <img src="IMAGES/neck2.avif" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="34" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck2.avif">
           Add to Cart
         </button>
@@ -1230,16 +1545,24 @@ font-weight: 600;
 
 
     <div class="pro">
+
+      <div class="wishlist-icon-card active"
+             data-id="35" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck2.avif">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=35">
-        <img src="IMAGES/neck5.jpg" alt="Elegant Chain">
+        <img src="IMAGES/neck3.jpg" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="35" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck3.jpg">
           Add to Cart
         </button>
@@ -1250,16 +1573,24 @@ font-weight: 600;
 
 
     <div class="pro">
+
+      <div class="wishlist-icon-card active"
+             data-id="36" 
+             data-name="Silver Simple Earrings" 
+             data-price="4700.00" 
+             data-image="IMAGES/neck7.jpg">
+            <i class="far fa-heart"></i>
+        </div>
       <a href="product.html?id=36">
         <img src="IMAGES/neck7.jpg" alt="Elegant Chain">
       </a>
       <div class="des">
         <span>Elegant Chain</span>
-        <h4>$64.00</h4>
+        <h4>₹4700.00</h4>
         <button class="add-to-cart" 
                 data-id="36" 
                 data-name="Elegant Chain" 
-                data-price="64.00" 
+                data-price="4700.00" 
                 data-image="IMAGES/neck7.jpg">
           Add to Cart
         </button>
@@ -1271,85 +1602,11 @@ font-weight: 600;
   </div>
 </section>
 
-<script>
-  // Runs when page loads
-  document.addEventListener('DOMContentLoaded', updateCartCount);
 
-  function addToCart(id, name, price) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const existing = cart.find(item => item.id === id);
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ id, name, price, quantity: 1 });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    alert(`${name} added to cart`);
-  }
-
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const countEl = document.getElementById('cart-count');
-    if (countEl) {
-      countEl.textContent = totalItems;
-    }
-  }
-</script>
-<script>
- // Function to display cart items
-function displayCart() {
-  // Safely check if cart container exists
-  const cartContainer = document.getElementById('cart-items');
-  
-  // Exit early if no cart container is found
-  if (!cartContainer) {
-    console.log('Cart container not found. Skipping cart display.');
-    return;
-  }
-
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  
-  // Check if cart is empty
-  if (!cart.length) {
-    cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-    return;
-  }
-
-  // If cart has items, proceed to display them
-  let html = '<table border="1" cellpadding="10"><tr><th>Item</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr>';
-  let total = 0;
-
-  cart.forEach(item => {
-    const subtotal = item.price * item.quantity;
-    total += subtotal;
-
-    html += `
-      <tr>
-        <td>${item.name}</td>
-        <td>$${parseFloat(item.price).toFixed(2)}</td>
-        <td>${item.quantity}</td>
-        <td>$${subtotal.toFixed(2)}</td>
-      </tr>
-    `;
-  });
-
-  html += `<tr><td colspan="3"><strong>Total</strong></td><td><strong>$${total.toFixed(2)}</strong></td></tr>`;
-  html += '</table>';
-
-  cartContainer.innerHTML = html;
-}
-
-// Ensure cart display and count update on page load
-document.addEventListener('DOMContentLoaded', function() {
-  displayCart();
-  updateCartCount();
-});
-</script>
-
+<div id="view-more-container" style="text-align:center; margin-top: 20px;">
+  <button id="view-more-btn">View More</button>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -1378,11 +1635,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 </script>
 
-
-<div id="view-more-container" style="text-align:center; margin-top: 20px;">
-  <button id="view-more-btn">View More</button>
-</div>
-
 <section id="section7" style="background-image: url(images/review\ bg1.jpg); background-size: cover; height: 70%;">
   <div class="sticky-container">  
       <div class="tagline"><b>Handpicked gifts. Heartfelt moments.</b></div>
@@ -1406,59 +1658,63 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </section>
 
-
-
 <footer>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h3>Shop</h3>
-      <ul>
-        <li><a href="neck.html">Necklaces</a></li>
-        <li><a href="rings.html">Rings</a></li>
-        <li><a href="bracelet.html">Bracelets</a></li>
-        <li><a href="earring.html">Earrings</a></li>
-       
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Company</h3>
-      <ul>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/store">Store Location</a></li>
-        <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Follow Us</h3>
-      <ul>
-        <li><a href="https://instagram.com/palmonas" target="_blank">Instagram</a></li>
-        <li><a href="https://facebook.com/palmonas" target="_blank">Facebook</a></li>
-        <li><a href="https://pinterest.com/palmonas" target="_blank">Pinterest</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Legal</h3>
-      <ul>
-          <li><a href="faqs.html">FAQS</a></li>
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+      </div>
+      
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="necklace.html">Necklaces</a></li>
+              <li><a href="ring.html">Rings</a></li>
+              <li><a href="brac.html">Bracelets</a></li>
+              <li><a href="ear.html">Earrings</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section company-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/store">Store Location</a></li>
+              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+               <li><a href="faqs.html">FAQS</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="shipping.html">Shipping Policy</a></li>
           <li><a href="cancel.html">Cancellation Policy</a></li>
           <li><a href="terms.html">Terms & Conditions</a></li>
-     
-  
-      </ul>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Follow</h3>
+            <ul class="social-icons">
+              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="footer-section">
-      <h3>Subscribe</h3>
-      <form action="/subscribe" method="post">
-        <input type="email" name="email" placeholder="Enter your email" required>
-        <button type="submit">Subscribe</button>
-      </form>
+    
+    <div class="footer-bottom">
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
+      </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; 2025 OYJEWELS. All rights reserved.
   </div>
 </footer>
 
@@ -1473,30 +1729,192 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+<script>
+class WishlistManager {
+    constructor() {
+        this.init();
+    }
 
-<script>function addToCart(id, name, price) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    init() {
+        this.updateWishlistBadge();
+        this.updateWishlistIcons();
 
-  let existing = cart.find(item => item.id === id);
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({ id, name, price, quantity: 1 });
-  }
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.wishlist-icon-card')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const wishlistIcon = e.target.closest('.wishlist-icon-card');
+                this.toggleWishlist(wishlistIcon);
+            }
+        });
+    }
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartCount();
-  alert(`${name} added to cart.`);
+    toggleWishlist(iconElement) {
+        const productData = {
+            id: iconElement.dataset.id,
+            name: iconElement.dataset.name,
+            price: iconElement.dataset.price,
+            image: iconElement.dataset.image
+        };
+
+        let wishlist = this.getWishlist();
+        const existingIndex = wishlist.findIndex(item => item.id === productData.id);
+
+        if (existingIndex >= 0) {
+            wishlist.splice(existingIndex, 1);
+            this.updateIconState(iconElement, false);
+            this.showNotification('Removed from wishlist', 'remove');
+        } else {
+            wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
+            this.updateIconState(iconElement, true);
+            this.showNotification('Added to wishlist', 'success');
+            iconElement.classList.add('pulse');
+            setTimeout(() => iconElement.classList.remove('pulse'), 600);
+        }
+
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        this.updateWishlistBadge();
+    }
+
+    updateIconState(iconElement, isActive) {
+        const icon = iconElement.querySelector('i');
+        if (isActive) {
+            iconElement.classList.add('active');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            iconElement.classList.remove('active');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+    }
+
+    updateWishlistIcons() {
+        const wishlist = this.getWishlist();
+        const wishlistIds = wishlist.map(item => item.id);
+
+        document.querySelectorAll('.wishlist-icon-card').forEach(icon => {
+            const productId = icon.dataset.id;
+            const isInWishlist = wishlistIds.includes(productId);
+            this.updateIconState(icon, isInWishlist);
+        });
+    }
+
+    updateWishlistBadge() {
+        const wishlist = this.getWishlist();
+        const count = wishlist.length;
+        const badge = document.querySelector('.wishlist-count');
+        if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+            badge.classList.add('count-updated');
+            setTimeout(() => badge.classList.remove('count-updated'), 400);
+        }
+    }
+
+    showNotification(message, type = 'success') {
+        const notification = document.getElementById('wishlist-notification');
+        if (!notification) return;
+
+        const messageEl = notification.querySelector('.notification-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+
+        notification.className = `wishlist-notification ${type}`;
+        notification.classList.add('show');
+
+        setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    getWishlist() {
+        try {
+            return JSON.parse(localStorage.getItem('wishlist')) || [];
+        } catch (error) {
+            console.error('Error parsing wishlist from localStorage:', error);
+            return [];
+        }
+    }
+
+    getWishlistCount() {
+        return this.getWishlist().length;
+    }
+
+    goToWishlist() {
+        window.location.href = 'wishlist.html';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const wishlistManager = new WishlistManager();
+    updateCartCount();
+});
+
+// Handle "Add to Cart" clicks
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
+        const button = e.target;
+        const productData = {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+            image: button.dataset.image
+        };
+
+        addToCart(productData.id, productData.name, productData.price, productData.image);
+    }
+});
+
+// ✅ SINGLE addToCart FUNCTION — includes `image`
+function addToCart(id, name, price, image) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id, name, price, image, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
 }
 
 function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const el = document.getElementById('cart-count');
-  if (el) el.textContent = count;
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countEl = document.getElementById('cart-count');
+    if (countEl) {
+        countEl.textContent = totalItems;
+        countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+function showCartNotification(message) {
+    const notification = document.getElementById('wishlist-notification');
+    if (notification) {
+        const messageEl = notification.querySelector('.notification-message');
+        if (messageEl) {
+            messageEl.textContent = message;
+        }
+        notification.className = 'wishlist-notification success';
+        notification.classList.add('show');
+        setTimeout(() => notification.classList.remove('show'), 2000);
+    }
+}
+
+// Manual Wishlist Count Update (if needed externally)
+function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const count = wishlist.length;
+    const badge = document.querySelector('.wishlist-count');
+    if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    }
 }
 </script>
 
-<script src="cart.js"></script>
 </body>
 </html>
