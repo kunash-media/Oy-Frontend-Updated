@@ -653,23 +653,15 @@ const couponCodes = {
     'FIRST100': { type: 'fixed', value: 100, minOrder: 800 }
 };
 
-// Sample cart data for demonstration
-const sampleCartItems = [
-    {
-        id: 1,
-        name: "Diamond Ring",
-        price: 25000,
-        quantity: 1,
-        image: "https://via.placeholder.com/60x60"
-    },
-    {
-        id: 2,
-        name: "Gold Necklace",
-        price: 15000,
-        quantity: 2,
-        image: "https://via.placeholder.com/60x60"
+// Get cart items from localStorage
+function getCartItems() {
+    try {
+        return JSON.parse(localStorage.getItem('cart')) || [];
+    } catch (error) {
+        console.error('Error loading cart:', error);
+        return [];
     }
-];
+}
 
 // Generate random order ID
 function generateOrderId() {
@@ -681,7 +673,8 @@ function generateOrderId() {
 // Store order data for confirmation page
 function storeOrderDataForConfirmation(orderData) {
     try {
-        localStorage.setItem('orderConfirmation', JSON.stringify(orderData));
+        // Use in-memory storage instead of localStorage for artifacts
+        window.orderConfirmationData = orderData;
         console.log('Order data stored for confirmation:', orderData);
     } catch (error) {
         console.error('Error storing order data:', error);
@@ -690,8 +683,8 @@ function storeOrderDataForConfirmation(orderData) {
 
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
-    initializeShipping();
     displayCartItems();
+    initializeShipping();
     setupPaymentToggle();
     setupPINValidation();
     setupEmailValidation();
@@ -1110,11 +1103,12 @@ function setupPaymentToggle() {
 // ==================== CART DISPLAY ====================
 function displayCartItems() {
     const orderItems = document.getElementById('order-items');
+    const cartItems = getCartItems(); // Use actual cart data
     let subtotal = 0;
     
-    if (sampleCartItems.length > 0) {
+    if (cartItems.length > 0) {
         let html = '';
-        sampleCartItems.forEach(item => {
+        cartItems.forEach(item => {
             const itemTotal = item.price * item.quantity;
             subtotal += itemTotal;
             
@@ -1295,6 +1289,15 @@ function processOrder() {
         }
     }
     
+    // Get actual cart items
+    const cartItems = getCartItems();
+    
+    // Check if cart is empty
+    if (cartItems.length === 0) {
+        alert('Your cart is empty. Please add items before checkout.');
+        return;
+    }
+    
     // Collect all order data
     const orderData = {
         orderId: generateOrderId(),
@@ -1315,7 +1318,7 @@ function processOrder() {
             method: document.querySelector('input[name="payment"]:checked').value,
             details: {}
         },
-        items: sampleCartItems,
+        items: cartItems, // Use actual cart items
         totals: {
             subtotal: currentSubtotal,
             discount: currentDiscount,
@@ -1343,6 +1346,9 @@ function processOrder() {
     // Store order data for confirmation page
     storeOrderDataForConfirmation(orderData);
     
+    // Clear the cart after successful order
+    localStorage.removeItem('cart');
+    
     // Redirect to confirmation page
     window.location.href = 'confirmation.html';
 }
@@ -1359,9 +1365,6 @@ function initializeShipping() {
     // Update total
     updateOrderTotal();
 }
-
-
-
 </script>
 </body>
 </html>
