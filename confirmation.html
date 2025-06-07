@@ -286,233 +286,230 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Try to retrieve order data from multiple sources
-            let orderData = null;
-            
-            // First, try from window.orderConfirmationData (set by checkout page)
-            if (window.orderConfirmationData) {
-                orderData = window.orderConfirmationData;
-            }
-            // Then try localStorage with the key your checkout uses
-            else {
-                try {
-                    orderData = JSON.parse(localStorage.getItem('orderConfirmation'));
-                } catch (error) {
-                    console.error('Error loading order data from localStorage:', error);
-                }
-            }
-            
-            if (orderData) {
-                displayOrderInfo(orderData);
-                displayOrderItems(orderData);
-                displayCustomerDetails(orderData);
-                displayShippingDetails(orderData);
-                displayPaymentDetails(orderData);
-                displayOrderSummary(orderData);
-            } else {
-                // Show demo data for testing purposes
-                showDemoOrder();
-            }
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    // Try to retrieve order data from localStorage
+    let orderData = null;
+    
+    try {
+        const storedData = localStorage.getItem('orderConfirmation');
+        if (storedData) {
+            orderData = JSON.parse(storedData);
+        }
+    } catch (error) {
+        console.error('Error loading order data from localStorage:', error);
+    }
+    
+    if (orderData) {
+        displayOrderInfo(orderData);
+        displayOrderItems(orderData);
+        displayCustomerDetails(orderData);
+        displayShippingDetails(orderData);
+        displayPaymentDetails(orderData);
+        displayOrderSummary(orderData);
         
-        function showDemoOrder() {
-            const demoData = {
-                orderId: '#OY123456',
-                date: new Date().toISOString(),
-                customer: {
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    phone: '9876543210',
-                    altPhone: '9876543211'
-                },
-                shipping: {
-                    address: '123 MG Road, Pune',
-                    city: 'Pune',
-                    state: 'Maharashtra',
-                    zip: '411001',
-                    country: 'India'
-                },
-                payment: {
-                    method: 'razorpay',
-                    details: {}
-                },
-                items: [
-                    {
-                        name: 'Diamond Necklace',
-                        price: 25000,
-                        quantity: 1,
-                        image: 'https://via.placeholder.com/55x55/FFD700/000000?text=DN'
-                    },
-                    {
-                        name: 'Gold Earrings',
-                        price: 15000,
-                        quantity: 2,
-                        image: 'https://via.placeholder.com/55x55/FFD700/000000?text=GE'
-                    }
-                ],
-                totals: {
-                    subtotal: 55000,
-                    discount: 5500,
-                    shipping: 100,
-                    tax: 2750,
-                    total: 52350
-                },
-                coupon: {
-                    code: 'SAVE10',
-                    discount: 5500
-                }
-            };
+        // Clear the order data from storage after displaying
+        localStorage.removeItem('orderConfirmation');
+    } else {
+        // Show demo data for testing purposes
+        showDemoOrder();
+    }
+});
+
+function showDemoOrder() {
+    const demoData = {
+        orderId: '#OY123456',
+        date: new Date().toISOString(),
+        customer: {
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            phone: '9876543210',
+            altPhone: '9876543211'
+        },
+        shipping: {
+            address: '123 MG Road, Pune',
+            city: 'Pune',
+            state: 'Maharashtra',
+            zip: '411001',
+            country: 'India'
+        },
+        payment: {
+            method: 'razorpay',
+            details: {}
+        },
+        items: [
+            {
+                name: 'Diamond Necklace',
+                price: 25000,
+                quantity: 1,
+                image: 'https://via.placeholder.com/55x55/FFD700/000000?text=DN'
+            },
+            {
+                name: 'Gold Earrings',
+                price: 15000,
+                quantity: 2,
+                image: 'https://via.placeholder.com/55x55/FFD700/000000?text=GE'
+            }
+        ],
+        totals: {
+            subtotal: 55000,
+            discount: 5500,
+            shipping: 100,
+            tax: 2750,
+            total: 52350
+        },
+        coupon: {
+            code: 'SAVE10',
+            discount: 5500
+        }
+    };
+    
+    const orderInfo = document.getElementById('order-info');
+    orderInfo.innerHTML = `
+        <div class="demo-order">
+            <strong>Demo Order Data</strong> - This is sample data for display purposes.
+        </div>
+    `;
+    
+    displayOrderInfo(demoData);
+    displayOrderItems(demoData);
+    displayCustomerDetails(demoData);
+    displayShippingDetails(demoData);
+    displayPaymentDetails(demoData);
+    displayOrderSummary(demoData);
+}
+
+function displayOrderInfo(orderData) {
+    const orderInfo = document.getElementById('order-info');
+    const orderDate = new Date(orderData.date);
+    
+    const existingContent = orderInfo.innerHTML;
+    orderInfo.innerHTML = existingContent + `
+        <div class="order-number">Order ${orderData.orderId}</div>
+        <div class="order-date">Placed on ${orderDate.toLocaleDateString('en-IN', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })}</div>
+    `;
+}
+
+function displayOrderItems(orderData) {
+    const orderItems = document.getElementById('confirmation-items');
+    let html = '';
+    
+    if (orderData.items && orderData.items.length > 0) {
+        orderData.items.forEach(item => {
+            const itemTotal = item.price * item.quantity;
             
-            // Show demo notice
-            const orderInfo = document.getElementById('order-info');
-            orderInfo.innerHTML = `
-                <div class="demo-order">
-                    <strong>Demo Order Data</strong> - This is sample data for display purposes.
+            html += `
+                <div class="order-item">
+                    <img src="${item.image}" alt="${item.name}" class="order-item-img">
+                    <div class="order-item-details">
+                        <div class="order-item-title">${item.name}</div>
+                        <div class="order-item-qty">Qty: ${item.quantity}</div>
+                    </div>
+                    <div>₹${itemTotal.toLocaleString('en-IN')}</div>
                 </div>
             `;
-            
-            displayOrderInfo(demoData);
-            displayOrderItems(demoData);
-            displayCustomerDetails(demoData);
-            displayShippingDetails(demoData);
-            displayPaymentDetails(demoData);
-            displayOrderSummary(demoData);
-        }
-        
-        function displayOrderInfo(orderData) {
-            const orderInfo = document.getElementById('order-info');
-            const orderDate = new Date(orderData.date);
-            
-            const existingContent = orderInfo.innerHTML;
-            orderInfo.innerHTML = existingContent + `
-                <div class="order-number">Order ${orderData.orderId}</div>
-                <div class="order-date">Placed on ${orderDate.toLocaleDateString('en-IN', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })}</div>
-            `;
-        }
-        
-        function displayOrderItems(orderData) {
-            const orderItems = document.getElementById('confirmation-items');
-            let html = '';
-            
-            if (orderData.items && orderData.items.length > 0) {
-                orderData.items.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    
-                    html += `
-                        <div class="order-item">
-                            <img src="${item.image}" alt="${item.name}" class="order-item-img">
-                            <div class="order-item-details">
-                                <div class="order-item-title">${item.name}</div>
-                                <div class="order-item-qty">Qty: ${item.quantity}</div>
-                            </div>
-                            <div>₹${itemTotal.toLocaleString('en-IN')}</div>
-                        </div>
-                    `;
-                });
-            } else {
-                html = '<p class="no-order-data">No items found in order</p>';
-            }
-            
-            orderItems.innerHTML = html;
-        }
-        
-        function displayCustomerDetails(orderData) {
-            const customerDetails = document.getElementById('customer-details');
-            
-            if (orderData.customer) {
-                customerDetails.innerHTML = `
-                    <p><span class="detail-label">Name:</span> ${orderData.customer.name || 'N/A'}</p>
-                    <p><span class="detail-label">Email:</span> ${orderData.customer.email || 'N/A'}</p>
-                    <p><span class="detail-label">Phone:</span> ${orderData.customer.phone || 'N/A'}</p>
-                    ${orderData.customer.altPhone ? `<p><span class="detail-label">Alt Phone:</span> ${orderData.customer.altPhone}</p>` : ''}
-                `;
-            } else {
-                customerDetails.innerHTML = '<p class="no-order-data">Customer information not available</p>';
-            }
-        }
-        
-        function displayShippingDetails(orderData) {
-            const shippingDetails = document.getElementById('shipping-details');
-            
-            if (orderData.shipping) {
-                shippingDetails.innerHTML = `
-                    <p>${orderData.shipping.address || 'N/A'}</p>
-                    <p>${orderData.shipping.city || 'N/A'}, ${orderData.shipping.state || 'N/A'}</p>
-                    <p>${orderData.shipping.zip || 'N/A'}</p>
-                    <p>${orderData.shipping.country || 'India'}</p>
-                `;
-            } else {
-                shippingDetails.innerHTML = '<p class="no-order-data">Shipping address not available</p>';
-            }
-        }
-        
-        function displayPaymentDetails(orderData) {
-            const paymentDetails = document.getElementById('payment-details');
-            let paymentMethod = '';
-            
-            if (orderData.payment) {
-                switch(orderData.payment.method) {
-                    case 'credit':
-                        if (orderData.payment.details && orderData.payment.details.cardNumber) {
-                            paymentMethod = 'Credit Card (ending with ' + orderData.payment.details.cardNumber.slice(-4) + ')';
-                        } else {
-                            paymentMethod = 'Credit Card';
-                        }
-                        break;
-                    case 'razorpay':
-                        paymentMethod = 'Razorpay';
-                        break;
-                    case 'cod':
-                        paymentMethod = 'Cash on Delivery';
-                        break;
-                    default:
-                        paymentMethod = orderData.payment.method || 'N/A';
+        });
+    } else {
+        html = '<p class="no-order-data">No items found in order</p>';
+    }
+    
+    orderItems.innerHTML = html;
+}
+
+function displayCustomerDetails(orderData) {
+    const customerDetails = document.getElementById('customer-details');
+    
+    if (orderData.customer) {
+        customerDetails.innerHTML = `
+            <p><span class="detail-label">Name:</span> ${orderData.customer.name || 'N/A'}</p>
+            <p><span class="detail-label">Email:</span> ${orderData.customer.email || 'N/A'}</p>
+            <p><span class="detail-label">Phone:</span> ${orderData.customer.phone || 'N/A'}</p>
+            ${orderData.customer.altPhone ? `<p><span class="detail-label">Alt Phone:</span> ${orderData.customer.altPhone}</p>` : ''}
+        `;
+    } else {
+        customerDetails.innerHTML = '<p class="no-order-data">Customer information not available</p>';
+    }
+}
+
+function displayShippingDetails(orderData) {
+    const shippingDetails = document.getElementById('shipping-details');
+    
+    if (orderData.shipping) {
+        shippingDetails.innerHTML = `
+            <p>${orderData.shipping.address || 'N/A'}</p>
+            <p>${orderData.shipping.city || 'N/A'}, ${orderData.shipping.state || 'N/A'}</p>
+            <p>${orderData.shipping.zip || 'N/A'}</p>
+            <p>${orderData.shipping.country || 'India'}</p>
+        `;
+    } else {
+        shippingDetails.innerHTML = '<p class="no-order-data">Shipping address not available</p>';
+    }
+}
+
+function displayPaymentDetails(orderData) {
+    const paymentDetails = document.getElementById('payment-details');
+    let paymentMethod = '';
+    
+    if (orderData.payment) {
+        switch(orderData.payment.method) {
+            case 'credit':
+                if (orderData.payment.details && orderData.payment.details.cardNumber) {
+                    paymentMethod = 'Credit Card (ending with ' + orderData.payment.details.cardNumber.slice(-4) + ')';
+                } else {
+                    paymentMethod = 'Credit Card';
                 }
-                
-                paymentDetails.innerHTML = `
-                    <p><span class="detail-label">Method:</span> ${paymentMethod}</p>
-                    <p><span class="detail-label">Status:</span> Payment Successful</p>
-                `;
-            } else {
-                paymentDetails.innerHTML = '<p class="no-order-data">Payment information not available</p>';
-            }
+                break;
+            case 'razorpay':
+                paymentMethod = 'Razorpay';
+                break;
+            case 'cod':
+                paymentMethod = 'Cash on Delivery';
+                break;
+            default:
+                paymentMethod = orderData.payment.method || 'N/A';
         }
         
-        function displayOrderSummary(orderData) {
-            if (orderData.totals) {
-                document.getElementById('confirmation-subtotal').textContent = 
-                    (orderData.totals.subtotal || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-                
-                if (orderData.coupon && orderData.totals.discount) {
-                    document.getElementById('confirmation-discount').textContent = 
-                        (orderData.totals.discount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-                    document.getElementById('confirmation-discount-row').style.display = 'flex';
-                }
-                
-                document.getElementById('confirmation-shipping').textContent = 
-                    (orderData.totals.shipping || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-                
-                document.getElementById('confirmation-tax').textContent = 
-                    (orderData.totals.tax || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-                
-                document.getElementById('confirmation-total').textContent = 
-                    (orderData.totals.total || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-            } else {
-                // Set default values if no totals data
-                document.getElementById('confirmation-subtotal').textContent = '0.00';
-                document.getElementById('confirmation-shipping').textContent = '0.00';
-                document.getElementById('confirmation-tax').textContent = '0.00';
-                document.getElementById('confirmation-total').textContent = '0.00';
-            }
+        paymentDetails.innerHTML = `
+            <p><span class="detail-label">Method:</span> ${paymentMethod}</p>
+            <p><span class="detail-label">Status:</span> Payment Successful</p>
+        `;
+    } else {
+        paymentDetails.innerHTML = '<p class="no-order-data">Payment information not available</p>';
+    }
+}
+
+function displayOrderSummary(orderData) {
+    if (orderData.totals) {
+        document.getElementById('confirmation-subtotal').textContent = 
+            (orderData.totals.subtotal || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        
+        if (orderData.coupon && orderData.totals.discount) {
+            document.getElementById('confirmation-discount').textContent = 
+                (orderData.totals.discount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+            document.getElementById('confirmation-discount-row').style.display = 'flex';
         }
-    </script>
+        
+        document.getElementById('confirmation-shipping').textContent = 
+            (orderData.totals.shipping || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        
+        document.getElementById('confirmation-tax').textContent = 
+            (orderData.totals.tax || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        
+        document.getElementById('confirmation-total').textContent = 
+            (orderData.totals.total || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+    } else {
+        document.getElementById('confirmation-subtotal').textContent = '0.00';
+        document.getElementById('confirmation-shipping').textContent = '0.00';
+        document.getElementById('confirmation-tax').textContent = '0.00';
+        document.getElementById('confirmation-total').textContent = '0.00';
+    }
+}
+</script>
 </body>
 </html>

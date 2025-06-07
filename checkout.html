@@ -644,6 +644,7 @@ let currentSubtotal = 0;
 let currentDiscount = 0;
 let appliedCouponCode = '';
 let isAddingNewAddress = false;
+let buyNowItem = null;
 
 // Coupon codes database
 const couponCodes = {
@@ -663,18 +664,32 @@ function getCartItems() {
     }
 }
 
+// Check for Buy Now item in URL parameters
+function getBuyNowItem() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('product')) {
+        return {
+            id: urlParams.get('product'),
+            name: urlParams.get('name') || 'Jewelry Item',
+            price: parseFloat(urlParams.get('price')) || 0,
+            image: urlParams.get('image') || 'https://via.placeholder.com/60x60/FFD700/000000?text=JWL',
+            quantity: 1
+        };
+    }
+    return null;
+}
+
 // Generate random order ID
 function generateOrderId() {
     const prefix = 'OY';
     const randomNum = Math.floor(100000 + Math.random() * 900000);
-    return `#${prefix}${randomNum}`;
+    return `${prefix}${randomNum}`;
 }
 
 // Store order data for confirmation page
 function storeOrderDataForConfirmation(orderData) {
     try {
-        // Use in-memory storage instead of localStorage for artifacts
-        window.orderConfirmationData = orderData;
+        localStorage.setItem('orderConfirmation', JSON.stringify(orderData));
         console.log('Order data stored for confirmation:', orderData);
     } catch (error) {
         console.error('Error storing order data:', error);
@@ -683,7 +698,8 @@ function storeOrderDataForConfirmation(orderData) {
 
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
-    displayCartItems();
+    buyNowItem = getBuyNowItem();
+    displayOrderItems();
     initializeShipping();
     setupPaymentToggle();
     setupPINValidation();
@@ -694,16 +710,56 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFormSubmission();
 });
 
+// ==================== ORDER ITEMS DISPLAY ====================
+function displayOrderItems() {
+    const orderItems = document.getElementById('order-items');
+    let items = [];
+    
+    if (buyNowItem) {
+        // If Buy Now item exists, show only that item
+        items = [buyNowItem];
+    } else {
+        // Otherwise show cart items
+        items = getCartItems();
+    }
+    
+    let subtotal = 0;
+    
+    if (items.length > 0) {
+        let html = '';
+        items.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            html += `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-title">${item.name}</h4>
+                        <div class="cart-item-qty">Qty: ${item.quantity}</div>
+                    </div>
+                    <div>₹${itemTotal.toLocaleString('en-IN')}</div>
+                </div>
+            `;
+        });
+        orderItems.innerHTML = html;
+    } else {
+        orderItems.innerHTML = '<p>No items in your order</p>';
+    }
+    
+    currentSubtotal = subtotal;
+    document.getElementById('subtotal').textContent = subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+    updateOrderTotal();
+}
+
 // ==================== ADDRESS MANAGEMENT ====================
 function setupSavedAddresses() {
     const savedAddresses = getSavedAddresses();
     const newAddressBtn = document.getElementById('new-address-btn');
     const addressForm = document.getElementById('address-form');
     
-    // Always render saved addresses first
     renderSavedAddresses(savedAddresses);
     
-    // If no saved addresses, show form immediately
     if (savedAddresses.length === 0) {
         addressForm.classList.add('active');
         isAddingNewAddress = true;
@@ -711,14 +767,12 @@ function setupSavedAddresses() {
         newAddressBtn.classList.add('cancel');
     }
     
-    // New address button handler
     if (newAddressBtn) {
         newAddressBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
             if (!isAddingNewAddress) {
-                // Show form mode
                 resetAddressForm();
                 deselectAllAddresses();
                 addressForm.classList.add('active');
@@ -726,13 +780,11 @@ function setupSavedAddresses() {
                 this.classList.add('cancel');
                 isAddingNewAddress = true;
             } else {
-                // Cancel mode
                 addressForm.classList.remove('active');
                 this.textContent = '+ Add New Address';
                 this.classList.remove('cancel');
                 isAddingNewAddress = false;
                 
-                // Re-select first saved address if available
                 const savedAddrs = getSavedAddresses();
                 if (savedAddrs.length > 0) {
                     selectAddress(0);
@@ -748,8 +800,7 @@ function deleteAddress(index) {
         savedAddresses.splice(index, 1);
         
         try {
-            // Save to memory instead of localStorage for demonstration
-            window.savedAddressesData = savedAddresses;
+            localStorage.setItem('savedAddresses', JSON.stringify(savedAddresses));
             renderSavedAddresses(savedAddresses);
             
             if (savedAddresses.length === 0) {
@@ -769,16 +820,25 @@ function deleteAddress(index) {
 }
 
 function getSavedAddresses() {
-    // Use in-memory storage for demo purposes
-    return window.savedAddressesData || [
-        {
-            address: "123 MG Road",
-            zip: "411001",
-            city: "Pune",
-            state: "Maharashtra"
-        },
-       
-    ];
+    try {
+        return JSON.parse(localStorage.getItem('savedAddresses')) || [
+            {
+                address: "123 MG Road",
+                zip: "411001",
+                city: "Pune",
+                state: "Maharashtra"
+            }
+        ];
+    } catch (e) {
+        return [
+            {
+                address: "123 MG Road",
+                zip: "411001",
+                city: "Pune",
+                state: "Maharashtra"
+            }
+        ];
+    }
 }
 
 function renderSavedAddresses(savedAddresses) {
@@ -802,19 +862,16 @@ function renderSavedAddresses(savedAddresses) {
         });
         addressOptions.innerHTML = html;
         
-        // Add event listeners after rendering
         setTimeout(() => {
             document.querySelectorAll('.address-option').forEach((option, optIndex) => {
                 const index = parseInt(option.dataset.index);
                 
-                // Click handler for the entire option (excluding delete button)
                 option.addEventListener('click', function(e) {
                     if (!e.target.classList.contains('delete-address-btn')) {
                         selectAddress(index);
                     }
                 });
                 
-                // Radio button handler
                 const radio = option.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.addEventListener('click', function(e) {
@@ -823,7 +880,6 @@ function renderSavedAddresses(savedAddresses) {
                     });
                 }
                 
-                // Delete button handler
                 const deleteBtn = option.querySelector('.delete-address-btn');
                 if (deleteBtn) {
                     deleteBtn.addEventListener('click', function(e) {
@@ -834,12 +890,10 @@ function renderSavedAddresses(savedAddresses) {
                 }
             });
             
-            // Select first address by default
             if (!isAddingNewAddress) {
                 selectAddress(0);
             }
         }, 100);
-        
     } else {
         addressOptions.innerHTML = '<p style="color: #666; font-style: italic;">No saved addresses found</p>';
     }
@@ -850,13 +904,11 @@ function selectAddress(index) {
     if (savedAddresses[index]) {
         const address = savedAddresses[index];
         
-        // Populate form fields
         document.getElementById('address').value = address.address;
         document.getElementById('zip').value = address.zip;
         document.getElementById('city').value = address.city;
         document.getElementById('state').value = address.state;
         
-        // Update UI selection
         document.querySelectorAll('.address-option').forEach((opt, i) => {
             const radio = opt.querySelector('input[type="radio"]');
             if (i === index) {
@@ -868,7 +920,6 @@ function selectAddress(index) {
             }
         });
         
-        // Hide form and reset button
         document.getElementById('address-form').classList.remove('active');
         const newAddressBtn = document.getElementById('new-address-btn');
         newAddressBtn.textContent = '+ Add New Address';
@@ -916,7 +967,6 @@ function saveCurrentAddress() {
     if (address.address && address.zip && address.city && address.state) {
         let savedAddresses = getSavedAddresses();
         
-        // Check for duplicates
         const isDuplicate = savedAddresses.some(saved => 
             saved.address === address.address && 
             saved.zip === address.zip &&
@@ -927,8 +977,7 @@ function saveCurrentAddress() {
         if (!isDuplicate) {
             savedAddresses.push(address);
             try {
-                // Save to memory instead of localStorage for demonstration
-                window.savedAddressesData = savedAddresses;
+                localStorage.setItem('savedAddresses', JSON.stringify(savedAddresses));
                 renderSavedAddresses(savedAddresses);
                 selectAddress(savedAddresses.length - 1);
                 return true;
@@ -937,7 +986,6 @@ function saveCurrentAddress() {
                 return false;
             }
         } else {
-            // If duplicate, still return true and select it
             const duplicateIndex = savedAddresses.findIndex(saved => 
                 saved.address === address.address && 
                 saved.zip === address.zip &&
@@ -964,7 +1012,6 @@ function setupPINValidation() {
                 pinStatus.className = 'pin-status pin-loading';
                 pinStatus.style.display = 'block';
                 
-                // Simulate API call with timeout
                 setTimeout(() => {
                     validatePINCode(zip);
                 }, 1000);
@@ -989,7 +1036,6 @@ function validatePINCode(zip) {
     const stateInput = document.getElementById('state');
     const cityLoading = document.getElementById('city-loading');
     
-    // Sample data - in a real app, this would come from an API
     const pinCodeData = {
         '411001': { city: 'Pune', state: 'Maharashtra' },
         '400001': { city: 'Mumbai', state: 'Maharashtra' },
@@ -1003,7 +1049,6 @@ function validatePINCode(zip) {
     if (pinCodeData[zip]) {
         cityLoading.style.display = 'block';
         
-        // Simulate API delay
         setTimeout(() => {
             cityInput.value = pinCodeData[zip].city;
             stateInput.value = pinCodeData[zip].state;
@@ -1100,40 +1145,6 @@ function setupPaymentToggle() {
     });
 }
 
-// ==================== CART DISPLAY ====================
-function displayCartItems() {
-    const orderItems = document.getElementById('order-items');
-    const cartItems = getCartItems(); // Use actual cart data
-    let subtotal = 0;
-    
-    if (cartItems.length > 0) {
-        let html = '';
-        cartItems.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
-            
-            html += `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
-                    <div class="cart-item-details">
-                        <h4 class="cart-item-title">${item.name}</h4>
-                        <div class="cart-item-qty">Qty: ${item.quantity}</div>
-                    </div>
-                    <div>₹${itemTotal.toLocaleString('en-IN')}</div>
-                </div>
-            `;
-        });
-        orderItems.innerHTML = html;
-    } else {
-        orderItems.innerHTML = '<p>Your cart is empty</p>';
-    }
-    
-    // Update subtotal and total
-    currentSubtotal = subtotal;
-    document.getElementById('subtotal').textContent = subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 });
-    updateOrderTotal();
-}
-
 // ==================== COUPON CODE ====================
 function setupCouponCode() {
     const applyBtn = document.getElementById('apply-coupon-btn');
@@ -1171,7 +1182,6 @@ function setupCouponCode() {
                         currentDiscount = coupon.value;
                     }
                     
-                    // Update UI
                     document.getElementById('discount').textContent = currentDiscount.toLocaleString('en-IN', { minimumFractionDigits: 2 });
                     document.getElementById('applied-coupon').textContent = code;
                     document.getElementById('discount-row').style.display = 'flex';
@@ -1217,7 +1227,6 @@ function setupFormSubmission() {
             e.preventDefault();
             
             if (validateForm()) {
-                // Process the order
                 processOrder();
             }
         });
@@ -1227,7 +1236,6 @@ function setupFormSubmission() {
 function validateForm() {
     let isValid = true;
     
-    // Validate required fields
     const requiredFields = [
         { id: 'fullname', error: null },
         { id: 'email', error: 'email-error', validator: validateEmail },
@@ -1257,7 +1265,6 @@ function validateForm() {
         }
     });
     
-    // Validate payment method
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
     if (paymentMethod === 'credit') {
         const cardFields = ['card-number', 'card-name', 'card-expiry', 'card-cvv'];
@@ -1281,7 +1288,6 @@ function validateForm() {
 }
 
 function processOrder() {
-    // Save the current address if it's a new one
     if (isAddingNewAddress) {
         if (!saveCurrentAddress()) {
             alert('Error saving address. Please try again.');
@@ -1289,16 +1295,18 @@ function processOrder() {
         }
     }
     
-    // Get actual cart items
-    const cartItems = getCartItems();
+    let items = [];
+    if (buyNowItem) {
+        items = [buyNowItem];
+    } else {
+        items = getCartItems();
+    }
     
-    // Check if cart is empty
-    if (cartItems.length === 0) {
-        alert('Your cart is empty. Please add items before checkout.');
+    if (items.length === 0) {
+        alert('No items in your order. Please add items before checkout.');
         return;
     }
     
-    // Collect all order data
     const orderData = {
         orderId: generateOrderId(),
         customer: {
@@ -1318,7 +1326,12 @@ function processOrder() {
             method: document.querySelector('input[name="payment"]:checked').value,
             details: {}
         },
-        items: cartItems, // Use actual cart items
+        items: items.map(item => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+        })),
         totals: {
             subtotal: currentSubtotal,
             discount: currentDiscount,
@@ -1333,7 +1346,6 @@ function processOrder() {
         date: new Date().toISOString()
     };
     
-    // Add payment details if credit card
     if (orderData.payment.method === 'credit') {
         orderData.payment.details = {
             cardNumber: document.getElementById('card-number').value.trim(),
@@ -1343,26 +1355,21 @@ function processOrder() {
         };
     }
     
-    // Store order data for confirmation page
     storeOrderDataForConfirmation(orderData);
     
-    // Clear the cart after successful order
-    localStorage.removeItem('cart');
+    // Clear only cart items if this wasn't a Buy Now order
+    if (!buyNowItem) {
+        localStorage.removeItem('cart');
+    }
     
-    // Redirect to confirmation page
     window.location.href = 'confirmation.html';
 }
 
 // ==================== INITIALIZATION ====================
 function initializeShipping() {
-    // Set default shipping cost
     document.getElementById('shipping').textContent = '100.00';
-    
-    // Calculate tax (5% of subtotal)
     const tax = currentSubtotal * 0.05;
     document.getElementById('tax').textContent = tax.toLocaleString('en-IN', { minimumFractionDigits: 2 });
-    
-    // Update total
     updateOrderTotal();
 }
 </script>
