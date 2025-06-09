@@ -1071,366 +1071,167 @@ font-weight: 600;
 </section>
 
   <section id="product1" class="section4">
-    <div class="pro-container">
+  <div class="pro-container" id="product-list"></div>
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="view-more-btn" style="padding: 10px 20px; background: #000; color: #fff;">View More</button>
+  </div>
+</section>
 
-    <div class="pro">
+<script>
+  const productData = [
+    {
+      id: 76,
+      name: "Silver Wedding Collection",
+      price: 88.00, // discounted price for cart
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office1.avif"
+    },
+    {
+      id: 77,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office2.webp"
+    },
+    {
+      id: 78,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office3.webp"
+    },
+    {
+      id: 79,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office4.webp"
+    },
+    {
+      id: 80,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office5.webp"
+    },
+    {
+      id: 81,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office6.webp"
+    },
+    {
+      id: 82,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office7.webp"
+    },
+    {
+      id: 83,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office8.webp"
+    },
+    {
+      id: 84,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office9.webp"
+    },
+    {
+      id: 85,
+      name: "Gold Plated Earrings",
+      price: 85.00,
+      originalPrice: 66.66,
+      discountedPrice: 85.00,
+      image: "IMAGES/office10.webp"
+    },
+    {
+      id: 86,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office11.jpg"
+    },
+    {
+      id: 87,
+      name: "Silver Wedding Collection",
+      price: 88.00,
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      image: "IMAGES/office12.jpg"
+    }
+  ];
 
+  const container = document.getElementById("product-list");
+  const viewMoreBtn = document.getElementById("view-more-btn");
+  let visibleCount = 4; // initial number of products to show
+
+  function renderProducts(limit) {
+    container.innerHTML = "";
+    productData.slice(0, limit).forEach(product => {
+      const card = document.createElement("div");
+      card.classList.add("pro");
+      card.innerHTML = `
         <div class="wishlist-icon-card active"
-             data-id="76" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office1.avif">
+             data-id="${product.id}" 
+             data-name="${product.name}" 
+             data-price="${product.price.toFixed(2)}" 
+             data-image="${product.image}">
             <i class="far fa-heart"></i>
         </div>
-      <a href="product.html?id=76">
-        <img src="IMAGES/office1.avif" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
- <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>        <button class="add-to-cart" 
-                data-id="76" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office1.avif">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=76&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office1.avif" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-
-
-      <div class="pro">
-
-         <div class="wishlist-icon-card active"
-             data-id="77" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office2.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=77">
-        <img src="IMAGES/office2.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
- <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>        <button class="add-to-cart" 
-                data-id="77" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office2.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=77&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office2.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-      
-<div class="pro">
-
-  
-         <div class="wishlist-icon-card active"
-             data-id="78" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office3.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=78">
-        <img src="IMAGES/office3.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
- <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>        <button class="add-to-cart" 
-                data-id="78" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office3.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=78&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office3.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-      
-   <div class="pro">
-
-
-            <div class="wishlist-icon-card active"
-             data-id="79" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office4.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=79">
-        <img src="IMAGES/office4.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="79" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office4.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=79&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office4.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-      
-
-
-      
-    </div>
-<br><br>
-
-
-
-     <div class="pro-container">
-           
-   <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="80" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office5.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=80">
-        <img src="IMAGES/office5.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="80" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office5.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=80&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office5.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-      
-   
-   <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="81" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office6.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=81">
-        <img src="IMAGES/office6.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="81" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office6.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=81&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office6.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-      
-        
-   <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="82" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office7.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=82">
-        <img src="IMAGES/office7.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="82" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office7.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=82&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office7.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-         
-   <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="83" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office8.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=83">
-        <img src="IMAGES/office8.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="83" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office8.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=83&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office8.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-    </div>
-
-<br><br>
-     <div class="pro-container">
-        
-   <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="84" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office9.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=84">
-        <img src="IMAGES/office9.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="84" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office9.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=84&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office9.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-      
-      <div class="pro">
-
-                <div class="wishlist-icon-card active"
-             data-id="85" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office10.webp">
-            <i class="far fa-heart"></i>
-        </div>
-        <a href="product.html?id=85">
-          <img src="IMAGES/office10.webp" alt="Gold Plated Earrings">
+        <a href="product.html?id=${product.id}">
+          <img src="${product.image}" alt="${product.name}">
         </a>
         <div class="des">
-          <span>Gold Plated Earrings</span>
-          <h4>
-            <span class="original-price">₹66.66</span>
-            <span class="discounted-price">₹85.00</span>
-          </h4>
+          <span>${product.name}</span>
+          <span class="original-price">₹${product.originalPrice.toFixed(2)}</span>
+          <span class="discounted-price">₹${product.discountedPrice.toFixed(2)}</span>
           <button class="add-to-cart" 
-                  data-id="85" 
-                  data-name="Gold Plated Earrings" 
-                  data-price="85.00" 
-                  data-image="IMAGES/office10.webp">
+                  data-id="${product.id}" 
+                  data-name="${product.name}" 
+                  data-price="${product.price.toFixed(2)}" 
+                  data-image="${product.image}">
             Add to Cart
           </button>
-<a href="checkout.html?product=85&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office10.webp" class="buy-now">Buy Now</a> 
+          <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.price.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">
+            Buy Now
+          </a>
         </div>
-      </div>
-      
-         
-   <div class="pro">
+      `;
+      container.appendChild(card);
+    });
 
-            <div class="wishlist-icon-card active"
-             data-id="86" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office11.jpg">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=86">
-        <img src="IMAGES/office11.jpg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="86" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office11.jpg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=86&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office11.jpg" class="buy-now">Buy Now</a> 
+    if (visibleCount >= productData.length) {
+      viewMoreBtn.style.display = "none";
+    } else {
+      viewMoreBtn.style.display = "inline-block";
+    }
+  }
 
-      </div>
-    </div>
-      
-   <div class="pro">
+  // Initial render
+  renderProducts(visibleCount);
 
-            <div class="wishlist-icon-card active"
-             data-id="87" 
-             data-name="Silver Simple Earrings" 
-             data-price="6400.00" 
-             data-image="IMAGES/office12.jpg">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=87">
-        <img src="IMAGES/office12.jpg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Wedding Collection</span>
-        <span class="original-price">₹222.22</span>
-            <span class="discounted-price">₹200.00</span>
-        <button class="add-to-cart" 
-                data-id="87" 
-                data-name="Silver Simple Earrings" 
-                data-price="88.00" 
-                data-image="IMAGES/office12.jpg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=87&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/office12.jpg" class="buy-now">Buy Now</a> 
+  viewMoreBtn.addEventListener("click", () => {
+    visibleCount += 4; // load 4 more items on each click
+    renderProducts(visibleCount);
+  });
+</script>
 
-      </div>
-    </div>
-
-
-   
-    </div>
-  </section>
 
   <div id="view-more-container" style="text-align:center; margin-top: 20px;">
     <button id="view-more-btn">View More</button>

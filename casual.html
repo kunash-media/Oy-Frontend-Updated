@@ -1069,247 +1069,124 @@ font-weight: 600;
      <a href="shop.html" class="video-btn">Shop Now</a>
   </div>
 </section>
+<section id="product1" class="section4">
+  <div class="pro-container" id="product-list"></div>
 
-  <section id="product1" class="section4">
-    <div class="pro-container">
-
-  <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="88" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual 4.jpeg">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=88">
-        <img src="IMAGES/casual 4.jpeg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
-        <span class="original-price"> ₹4800.00</span>
-        <button class="add-to-cart" 
-                data-id="88" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual 4.jpeg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=88&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual 4.jpeg" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-
-       <div class="pro">
-
-            <div class="wishlist-icon-card active"
-             data-id="89" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual 6.jpeg">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=89">
-        <img src="IMAGES/casual 6.jpeg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
-        <span class="original-price"> ₹4800.00</span>
-         
-        <button class="add-to-cart" 
-                data-id="89" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual 6.jpeg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=89&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual 6.jpeg" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>
-
-
-<div class="pro">
-<div class="wishlist-icon-card active"
-             data-id="90" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual 8.jpg">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=90">
-        <img src="IMAGES/casual 8.jpg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
- <span class="original-price">₹ 4800.00</span>
-                  <button class="add-to-cart" 
-                data-id="90" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual 8.jpg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=90&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual 8.jpg" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>  
-    
-    
-    <div class="pro">
-<div class="wishlist-icon-card active"
-             data-id="91" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual1.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=91">
-        <img src="IMAGES/casual1.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
- <span class="original-price">₹ 4800.00</span>
-                  <button class="add-to-cart" 
-                data-id="91" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual1.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=91&name=Silver Simple Necklaces&price=4700.00&image=                data-image="IMAGES/casual1.webp">
-" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>  
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="view-more-btn" style="padding: 10px 20px; background: #000; color: #fff; cursor: pointer;">
+      View More
+    </button>
   </div>
-<br><br>
+</section>
 
+<script>
+  const productData = [
+    {
+      id: 88,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual 4.jpeg"
+    },
+    {
+      id: 89,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual 6.jpeg"
+    },
+    {
+      id: 90,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual 8.jpg"
+    },
+    {
+      id: 91,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual1.webp"
+    },
+    {
+      id: 92,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual2.webp"
+    },
+    {
+      id: 93,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual3.jpg"
+    },
+    {
+      id: 94,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual5.jpeg"
+    },
+    {
+      id: 95,
+      name: "Silver Casual Collection",
+      price: 4800.00,
+      image: "IMAGES/casual7.webp"
+    }
+  ];
 
+  const container = document.getElementById("product-list");
+  const viewMoreBtn = document.getElementById("view-more-btn");
+  let visibleCount = 4; // Show 4 products initially
 
-     <div class="pro-container">
-           
-   <div class="pro">
-<div class="wishlist-icon-card active"
-             data-id="92" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual2.webp">
-            <i class="far fa-heart"></i>
+  function renderProducts(limit) {
+    container.innerHTML = ""; // Clear current products
+
+    productData.slice(0, limit).forEach(product => {
+      const card = document.createElement("div");
+      card.classList.add("pro");
+      card.innerHTML = `
+        <div class="wishlist-icon-card active"
+             data-id="${product.id}" 
+             data-name="${product.name}" 
+             data-price="${product.price.toFixed(2)}" 
+             data-image="${product.image}">
+          <i class="far fa-heart"></i>
         </div>
-      <a href="product.html?id=92">
-        <img src="IMAGES/casual2.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
- <span class="original-price">₹ 4800.00</span>
-                  <button class="add-to-cart" 
-                data-id="92" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual2.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=92&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual2.webp" class="buy-now">Buy Now</a> 
-
-      </div>
-    </div>  
-    
-      
-   
-   <div class="pro">
-<div class="wishlist-icon-card active"
-             data-id="93" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual3.jpg">
-            <i class="far fa-heart"></i>
+        <a href="product.html?id=${product.id}">
+          <img src="${product.image}" alt="${product.name}">
+        </a>
+        <div class="des">
+          <span>${product.name}</span>
+          <span class="original-price">₹${product.price.toFixed(2)}</span>
+          <button class="add-to-cart" 
+                  data-id="${product.id}" 
+                  data-name="${product.name}" 
+                  data-price="${product.price.toFixed(2)}" 
+                  data-image="${product.image}">
+            Add to Cart
+          </button>
+          <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.price.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">
+            Buy Now
+          </a>
         </div>
-      <a href="product.html?id=93">
-        <img src="IMAGES/casual3.jpg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
- <span class="original-price">₹ 4800.00</span>
-                  <button class="add-to-cart" 
-                data-id="93" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual3.jpg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=93&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual3.jpg" class="buy-now">Buy Now</a> 
+      `;
+      container.appendChild(card);
+    });
 
-      </div>
-    </div>  
-    
-      
-        
-  
-   <div class="pro">
-<div class="wishlist-icon-card active"
-             data-id="94" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual5.jpeg">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=94">
-        <img src="IMAGES/casual5.jpeg" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
- <span class="original-price">₹ 4800.00</span>
-                  <button class="add-to-cart" 
-                data-id="94" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual5.jpeg">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=94&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual5.jpeg" class="buy-now">Buy Now</a> 
+    if (visibleCount >= productData.length) {
+      viewMoreBtn.style.display = "none"; // Hide button if all products shown
+    } else {
+      viewMoreBtn.style.display = "inline-block";
+    }
+  }
 
-      </div>
-    </div>  
-    
-   
-   <div class="pro">
-<div class="wishlist-icon-card active"
-             data-id="95" 
-             data-name="Silver Simple Earrings" 
-             data-price=" 4800.00" 
-             data-image="IMAGES/casual7.webp">
-            <i class="far fa-heart"></i>
-        </div>
-      <a href="product.html?id=95">
-        <img src="IMAGES/casual7.webp" alt="Silver Simple Earrings">
-      </a>
-      <div class="des">
-        <span>Silver Casual Collection</span>
- <span class="original-price">₹ 4800.00</span>
-                  <button class="add-to-cart" 
-                data-id="95" 
-                data-name="Silver Simple Earrings" 
-                data-price="4800.00" 
-                data-image="IMAGES/casual7.webp">
-          Add to Cart
-        </button>
-<a href="checkout.html?product=95&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/casual7.webp" class="buy-now">Buy Now</a> 
+  // Initial product rendering
+  renderProducts(visibleCount);
 
-      </div>
-    </div>  
-    
-    </div>
+  // Load more products on button click
+  viewMoreBtn.addEventListener("click", () => {
+    visibleCount += 4; // Show 4 more products each click
+    renderProducts(visibleCount);
+  });
+</script>
 
-<br><br>
-
-
-    
-    
-
-   
-    </div>
-  </section>
 
   <div id="view-more-container" style="text-align:center; margin-top: 20px;">
     <button id="view-more-btn">View More</button>

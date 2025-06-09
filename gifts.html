@@ -1101,290 +1101,161 @@ footer {
   </div>
 </section>
 
-  <section id="product1" class="section4">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=97">
-          <img src="IMAGES/shop 333.webp" alt="Silver Simple Ring">
+<section id="product1" class="section4">
+  <div class="pro-container" id="product-list"></div>
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="view-more-btn" style="padding: 10px 20px; background: #000; color: #fff;">View More</button>
+  </div>
+</section>
+
+<script>
+  const productData = [
+    {
+      id: 97,
+      name: "Silver Simple Ring",
+      originalPrice: 53.33,
+      discountedPrice: 48.00,
+      discountPercent: 10,
+      image: "IMAGES/shop 333.webp"
+    },
+    {
+      id: 98,
+      name: "Gold Plated Earrings",
+      originalPrice: 66.66,
+      discountedPrice: 60.00,
+      discountPercent: 10,
+      image: "IMAGES/shop444.webp"
+    },
+    {
+      id: 99,
+      name: "Diamond Necklace",
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      discountPercent: 10,
+      image: "IMAGES/shop 888.jpg"
+    },
+    {
+      id: 100,
+      name: "Pearl Bracelet",
+      originalPrice: 111.11,
+      discountedPrice: 100.00,
+      discountPercent: 10,
+      image: "IMAGES/shop 777.jpg"
+    },
+    {
+      id: 101,
+      name: "Diamond Necklace",
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      discountPercent: 10,
+      image: "IMAGES/shop 1010.webp"
+    },
+    {
+      id: 102,
+      name: "Gold Plated Earrings",
+      originalPrice: 66.66,
+      discountedPrice: 60.00,
+      discountPercent: 10,
+      image: "IMAGES/shop1414.webp"
+    },
+    {
+      id: 103,
+      name: "Diamond Necklace",
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      discountPercent: 10,
+      image: "IMAGES/shop1616.webp"
+    },
+    {
+      id: 104,
+      name: "Pearl Bracelet",
+      originalPrice: 111.11,
+      discountedPrice: 100.00,
+      discountPercent: 10,
+      image: "IMAGES/shop1818.jpeg"
+    },
+    {
+      id: 105,
+      name: "Diamond Necklace",
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      discountPercent: 10,
+      image: "IMAGES/shop222.jpg"
+    },
+    {
+      id: 106,
+      name: "Gold Plated Earrings",
+      originalPrice: 66.66,
+      discountedPrice: 60.00,
+      discountPercent: 10,
+      image: "IMAGES/shop666.webp"
+    },
+    {
+      id: 107,
+      name: "Diamond Necklace",
+      originalPrice: 222.22,
+      discountedPrice: 200.00,
+      discountPercent: 10,
+      image: "IMAGES/shop1515.webp"
+    },
+    {
+      id: 108,
+      name: "Pearl Bracelet",
+      originalPrice: 111.11,
+      discountedPrice: 100.00,
+      discountPercent: 10,
+      image: "IMAGES/shop1212.jpeg"
+    }
+  ];
+
+  const container = document.getElementById("product-list");
+  const viewMoreBtn = document.getElementById("view-more-btn");
+  let visibleCount = 6;
+
+  function renderProducts(limit) {
+    container.innerHTML = "";
+    productData.slice(0, limit).forEach(product => {
+      const card = document.createElement("div");
+      card.classList.add("pro");
+      card.innerHTML = `
+        <div class="discount-badge">${product.discountPercent}% OFF</div>
+        <a href="product.html?id=${product.id}">
+          <img src="${product.image}" alt="${product.name}">
         </a>
         <div class="des">
-          <span>Silver Simple Ring</span>
+          <span>${product.name}</span>
           <h4>
-            <span class="original-price">₹ 53.33</span>
-            <span class="discounted-price">₹ 48.00</span>
+            <span class="original-price">₹ ${product.originalPrice.toFixed(2)}</span>
+            <span class="discounted-price">₹ ${product.discountedPrice.toFixed(2)}</span>
           </h4>
-          <button class="add-to-cart" 
-                  data-id="97" 
-                  data-name="Silver Simple Ring" 
-                  data-price="48.00" 
-                  data-image="IMAGES/shop 333.webp">
+          <button class="add-to-cart"
+                  data-id="${product.id}"
+                  data-name="${product.name}"
+                  data-price="${product.discountedPrice.toFixed(2)}"
+                  data-image="${product.image}">
             Add to Cart
           </button>
-<a href="checkout.html?product=97&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop 333.webp" class="buy-now">Buy Now</a> 
+          <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.discountedPrice.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">
+            Buy Now
+          </a>
         </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=98">
-          <img src="IMAGES/shop444.webp" alt="Gold Plated Earrings">
-        </a>
-        <div class="des">
-          <span>Gold Plated Earrings</span>
-          <h4>
-            <span class="original-price">₹ 66.66</span>
-            <span class="discounted-price">₹ 60.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="98" 
-                  data-name="Gold Plated Earrings" 
-                  data-price="60.00" 
-                  data-image="IMAGES/shop444.webp">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=98&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop444.webp" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=99">
-          <img src="IMAGES/shop 888.jpg" alt="Diamond Necklace">
-        </a>
-        <div class="des">
-          <span>Diamond Necklace</span>
-          <h4>
-            <span class="original-price">₹ 222.22</span>
-            <span class="discounted-price">₹ 200.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="99" 
-                  data-name="Diamond Necklace" 
-                  data-price="200.00" 
-                  data-image="IMAGES/shop 888.jpg">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=99&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop 888.jpg" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=100">
-          <img src="IMAGES/shop 777.jpg" alt="Pearl Bracelet">
-        </a>
-        <div class="des">
-          <span>Pearl Bracelet</span>
-          <h4>
-            <span class="original-price">₹ 111.11</span>
-            <span class="discounted-price">₹ 100.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="100" 
-                  data-name="Pearl Bracelet" 
-                  data-price="100.00" 
-                  data-image="IMAGES/shop 777.jpg">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=100&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop 777.jpg" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
+      `;
+      container.appendChild(card);
+    });
 
+    if (visibleCount >= productData.length) {
+      viewMoreBtn.style.display = "none";
+    }
+  }
 
-      
-    </div>
+  // Initial render
+  renderProducts(visibleCount);
 
-
-
-
-     <div class="pro-container">
-          <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=101">
-          <img src="IMAGES/shop 1010.webp" alt="Diamond Necklace">
-        </a>
-        <div class="des">
-          <span>Diamond Necklace</span>
-          <h4>
-            <span class="original-price">₹ 222.22</span>
-            <span class="discounted-price">₹ 200.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="101" 
-                  data-name="Diamond Necklace" 
-                  data-price="200.00" 
-                  data-image="IMAGES/shop 1010.webp">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=101&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop 1010.webp" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=102">
-          <img src="IMAGES/shop1414.webp" alt="Gold Plated Earrings">
-        </a>
-        <div class="des">
-          <span>Gold Plated Earrings</span>
-          <h4>
-            <span class="original-price">₹ 66.66</span>
-            <span class="discounted-price">₹ 60.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="102" 
-                  data-name="Gold Plated Earrings" 
-                  data-price="60.00" 
-                  data-image="IMAGES/shop1414.webp">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=102&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop1414.webp" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=103">
-          <img src="IMAGES/shop1616.webp" alt="Diamond Necklace">
-        </a>
-        <div class="des">
-          <span>Diamond Necklace</span>
-          <h4>
-            <span class="original-price">₹ 222.22</span>
-            <span class="discounted-price">₹ 200.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="103" 
-                  data-name="Diamond Necklace" 
-                  data-price="200.00" 
-                  data-image="IMAGES/shop1616.webp">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=88&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop1616.webp" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=104">
-          <img src="IMAGES/shop1818.jpeg" alt="Pearl Bracelet">
-        </a>
-        <div class="des">
-          <span>Pearl Bracelet</span>
-          <h4>
-            <span class="original-price">₹ 111.11</span>
-            <span class="discounted-price">₹ 100.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="104" 
-                  data-name="Pearl Bracelet" 
-                  data-price="100.00" 
-                  data-image="IMAGES/shop1818.jpeg">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=104&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop1818.jpeg" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-
-
-   
-    </div>
-
-
-     <div class="pro-container">
-          <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=105">
-          <img src="IMAGES/shop222.jpg" alt="Diamond Necklace">
-        </a>
-        <div class="des">
-          <span>Diamond Necklace</span>
-          <h4>
-            <span class="original-price">₹ 222.22</span>
-            <span class="discounted-price">₹ 200.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="105" 
-                  data-name="Diamond Necklace" 
-                  data-price="200.00" 
-                  data-image="IMAGES/shop222.jpg">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=105&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop222.jpg" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=106">
-          <img src="IMAGES/shop666.webp" alt="Gold Plated Earrings">
-        </a>
-        <div class="des">
-          <span>Gold Plated Earrings</span>
-          <h4>
-            <span class="original-price">₹ 66.66</span>
-            <span class="discounted-price">₹ 60.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="106" 
-                  data-name="Gold Plated Earrings" 
-                  data-price="60.00" 
-                  data-image="IMAGES/shop666.webp">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=106&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop666.webp" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=107">
-          <img src="IMAGES/shop1515.webp" alt="Diamond Necklace">
-        </a>
-        <div class="des">
-          <span>Diamond Necklace</span>
-          <h4>
-            <span class="original-price">₹ 222.22</span>
-            <span class="discounted-price">₹ 200.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="107" 
-                  data-name="Diamond Necklace" 
-                  data-price="200.00" 
-                  data-image="IMAGES/shop1515.webp">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=107&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop1515.webp" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-      
-      <div class="pro">
-        <div class="discount-badge">10% OFF</div>
-        <a href="product.html?id=108">
-          <img src="IMAGES/shop1212.jpeg" alt="Pearl Bracelet">
-        </a>
-        <div class="des">
-          <span>Pearl Bracelet</span>
-          <h4>
-            <span class="original-price">₹ 111.11</span>
-            <span class="discounted-price">₹ 100.00</span>
-          </h4>
-          <button class="add-to-cart" 
-                  data-id="108" 
-                  data-name="Pearl Bracelet" 
-                  data-price="100.00" 
-                  data-image="IMAGES/shop1212.jpeg">
-            Add to Cart
-          </button>
-<a href="checkout.html?product=108&name=Silver Simple Necklaces&price=4700.00&image=IMAGES/shop1212.jpeg" class="buy-now">Buy Now</a> 
-        </div>
-      </div>
-
-
-   
-    </div>
-  </section>
+  viewMoreBtn.addEventListener("click", () => {
+    visibleCount += 6;
+    renderProducts(visibleCount);
+  });
+</script>
 
   <div id="view-more-container" style="text-align:center; margin-top: 20px;">
     <button id="view-more-btn">View More</button>

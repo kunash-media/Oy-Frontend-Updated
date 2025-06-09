@@ -372,7 +372,7 @@
     </div>
   </div>
 
-  <script>
+<script>
     // Product data
     const products = {
       "1": {
@@ -2490,302 +2490,347 @@
 
       
     };
+    // Current product and selected options
+    let currentProduct = null;
+    let selectedSize = null;
 
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeProductPage();
+    });
 
+    function initializeProductPage() {
+      // Get product ID from URL
+      const productId = getProductIdFromUrl();
+      
+      // Load product data
+      loadProduct(productId);
+      
+      // Set up UI components
+      setupImageZoom();
+      setupEventListeners();
+    }
 
+    function getProductIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("id");
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // Current product and selected options
-let currentProduct = null;
-let selectedSize = null;
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-  // Get product ID from URL
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id");
-
-  // Load product data
-  loadProduct(productId);
-  
-  // Set up image zoom
-  setupImageZoom();
-  
-  // Set up event listeners
-  document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
-  document.getElementById('buy-now-btn').addEventListener('click', buyNow);
-  document.getElementById('wishlist-btn').addEventListener('click', addToWishlist);
-});
-
-// Load product data
-function loadProduct(productId) {
-  const product = products[productId];
-  
-  if (!product) {
-    document.querySelector(".container").innerHTML = `
-      <div style="padding: 40px; text-align: center;">
-        <h2>Product not found</h2>
-        <p>The requested product could not be found.</p>
-        <a href="index.html" style="color: #007bff;">Return to shop</a>
-      </div>
-    `;
-    return;
-  }
-
-  currentProduct = product;
-  
-  // Update product info
-  document.getElementById("product-title").textContent = product.title;
-  document.getElementById("product-price").textContent = `₹${product.price.toFixed(2)}`;
-  
-  // Set old price if available
-  const oldPriceElement = document.getElementById("old-price");
-  if (product.oldPrice) {
-    oldPriceElement.textContent = `₹${product.oldPrice.toFixed(2)}`;
-    
-    // Calculate and show discount
-    const discount = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
-    const discountBadge = document.getElementById("discount-badge");
-    discountBadge.textContent = `${discount}% OFF`;
-    discountBadge.style.display = "inline-block";
-  } else {
-    oldPriceElement.style.display = "none";
-  }
-  
-  // Set main image
-  document.getElementById("product-image").src = product.image;
-  document.getElementById("zoomed-image").src = product.image;
-  
-  // Set sub images
-  const subImagesContainer = document.getElementById("sub-images-container");
-  subImagesContainer.innerHTML = "";
-  
-  product.subImages.forEach((imgSrc, index) => {
-    const img = document.createElement("img");
-    img.src = imgSrc;
-    img.alt = `${product.title} - View ${index + 1}`;
-    img.onclick = () => changeImage(imgSrc);
-    subImagesContainer.appendChild(img);
-  });
-  
-  // Set description and features
-  const descriptionElement = document.getElementById("product-description");
-  descriptionElement.innerHTML = `
-    <p>${product.description}</p>
-    <ul class="features">
-      ${product.features.map(f => `<li>${f}</li>`).join("")}
-    </ul>
-  `;
-  
-  // Set size buttons
-  const sizeButtonsContainer = document.getElementById("size-buttons");
-  sizeButtonsContainer.innerHTML = "";
-  
-  if (product.sizes && product.sizes.length > 0) {
-    product.sizes.forEach(size => {
-      const button = document.createElement("button");
-      button.className = "size-btn";
-      if (product.unavailableSizes.includes(size)) {
-        button.className += " unavailable";
-        button.title = "This size is currently unavailable";
+    // Load product data
+    function loadProduct(productId) {
+      const product = products[productId];
+      
+      if (!product) {
+        showProductNotFound();
+        return;
       }
-      button.textContent = size;
-      button.onclick = () => selectSize(size, button);
-      sizeButtonsContainer.appendChild(button);
-    });
-  } else {
-    sizeButtonsContainer.innerHTML = '<p>One size fits all</p>';
-  }
-}
 
-// Image handling
-function changeImage(imageSrc) {
-  document.getElementById("product-image").src = imageSrc;
-  document.getElementById("zoomed-image").src = imageSrc;
-}
+      currentProduct = product;
+      
+      updateProductInfo(product);
+      updateProductImages(product);
+      updateProductDescription(product);
+      updateSizeOptions(product);
+      checkWishlistStatus();
+    }
 
-function setupImageZoom() {
-  const mainImage = document.getElementById("product-image");
-  const zoomOverlay = document.querySelector(".zoom-overlay");
-  
-  mainImage.addEventListener("click", function() {
-    zoomOverlay.classList.add("active");
-  });
-  
-  zoomOverlay.addEventListener("click", function() {
-    this.classList.remove("active");
-  });
-}
+    function showProductNotFound() {
+      document.querySelector(".container").innerHTML = `
+        <div style="padding: 40px; text-align: center;">
+          <h2>Product not found</h2>
+          <p>The requested product could not be found.</p>
+          <a href="index.html" style="color: #007bff;">Return to shop</a>
+        </div>
+      `;
+    }
 
-// Size selection
-function selectSize(size, button) {
-  if (button.classList.contains("unavailable")) return;
-  
-  // Remove active class from all buttons
-  document.querySelectorAll(".size-btn").forEach(btn => {
-    btn.classList.remove("active");
-  });
-  
-  // Add active class to selected button
-  button.classList.add("active");
-  selectedSize = size;
-}
+    function updateProductInfo(product) {
+      document.getElementById("product-title").textContent = product.title;
+      document.getElementById("product-price").textContent = formatPrice(product.price);
+      
+      const oldPriceElement = document.getElementById("old-price");
+      if (product.oldPrice) {
+        oldPriceElement.textContent = formatPrice(product.oldPrice);
+        
+        const discount = calculateDiscount(product.oldPrice, product.price);
+        const discountBadge = document.getElementById("discount-badge");
+        discountBadge.textContent = `${discount}% OFF`;
+        discountBadge.style.display = "inline-block";
+      } else {
+        oldPriceElement.style.display = "none";
+      }
+    }
 
-// Cart functionality - UPDATED TO FIX UNDEFINED ISSUE
-function addToCart() {
-  if (!currentProduct) {
-    alert("Product not loaded yet");
-    return;
-  }
-  
-  if (currentProduct.sizes && currentProduct.sizes.length > 0 && !selectedSize) {
-    alert("Please select a size first");
-    return;
-  }
-  
-  const productToAdd = {
-    id: currentProduct.id,
-    title: currentProduct.title,
-    name: currentProduct.title, // Some carts might look for 'name'
-    price: currentProduct.price,
-    image: currentProduct.image,
-    size: selectedSize || 'One Size',
-    quantity: 1
-  };
-  
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  
-  // Check if product already exists in cart
-  const existingIndex = cart.findIndex(item => 
-    item.id === productToAdd.id && 
-    (item.size === productToAdd.size || (!item.size && !productToAdd.size))
-  );
-  
-  if (existingIndex !== -1) {
-    cart[existingIndex].quantity += 1;
-  } else {
-    cart.push(productToAdd);
-  }
-  
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartCount();
-  
-  // Show confirmation
-  const cartBtnText = document.getElementById("cart-btn-text");
-  cartBtnText.innerHTML = `Added to Cart <span class="loading"></span>`;
-  
-  setTimeout(() => {
-    cartBtnText.textContent = "Added to Cart!";
-  }, 500);
-  
-  setTimeout(() => {
-    cartBtnText.textContent = "Add to Cart";
-  }, 2000);
-}
+    function formatPrice(price) {
+      return `₹${price.toFixed(2)}`;
+    }
 
-function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  
-  // Update cart count in header/navigation if exists
-  const cartCountElements = document.querySelectorAll('.cart-count');
-  if (cartCountElements) {
-    cartCountElements.forEach(el => {
-      el.textContent = totalItems;
-    });
-  }
-}
+    function calculateDiscount(oldPrice, currentPrice) {
+      return Math.round(((oldPrice - currentPrice) / oldPrice) * 100);
+    }
 
-function buyNow() {
-  addToCart();
-  setTimeout(() => {
-    window.location.href = "cart.html"; // Changed to cart.html instead of checkout.html
-  }, 500);
-}
+    function updateProductImages(product) {
+      document.getElementById("product-image").src = product.image;
+      document.getElementById("zoomed-image").src = product.image;
+      
+      const subImagesContainer = document.getElementById("sub-images-container");
+      subImagesContainer.innerHTML = "";
+      
+      product.subImages.forEach((imgSrc, index) => {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = `${product.title} - View ${index + 1}`;
+        img.onclick = () => changeImage(imgSrc);
+        subImagesContainer.appendChild(img);
+      });
+    }
 
-// In your product.html JavaScript
-function addToWishlist() {
-  if (!currentProduct) {
-    alert("Product not loaded yet");
-    return;
-  }
-  
-  const wishlistBtn = document.getElementById('wishlist-btn');
-  const productToAdd = {
-    id: currentProduct.id,
-    title: currentProduct.title,
-    price: currentProduct.price,
-    image: currentProduct.image
-  };
-  
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  
-  // Check if product already exists in wishlist
-  const existingIndex = wishlist.findIndex(item => item.id === productToAdd.id);
-  
-  if (existingIndex !== -1) {
-    // Remove from wishlist
-    wishlist.splice(existingIndex, 1);
-    wishlistBtn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-      </svg>
-      Add to Wishlist
-    `;
-    alert(`${currentProduct.title} removed from wishlist`);
-  } else {
-    // Add to wishlist
-    wishlist.push(productToAdd);
-    wishlistBtn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-      </svg>
-      In Wishlist
-    `;
-    alert(`${currentProduct.title} added to wishlist`);
-  }
-  
-  localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  updateWishlistCount();
-}
+    function updateProductDescription(product) {
+      const descriptionElement = document.getElementById("product-description");
+      descriptionElement.innerHTML = `
+        <p>${product.description}</p>
+        <ul class="features">
+          ${product.features.map(f => `<li>${f}</li>`).join("")}
+        </ul>
+      `;
+    }
 
-// Update the product page to show if item is already in wishlist
-function checkWishlistStatus() {
-  if (!currentProduct) return;
-  
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  const exists = wishlist.some(item => item.id === currentProduct.id);
-  const wishlistBtn = document.getElementById('wishlist-btn');
-  
-  if (exists) {
-    wishlistBtn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-      </svg>
-      In Wishlist
-    `;
-  }
-}
+    function updateSizeOptions(product) {
+      const sizeButtonsContainer = document.getElementById("size-buttons");
+      sizeButtonsContainer.innerHTML = "";
+      
+      if (product.sizes && product.sizes.length > 0) {
+        product.sizes.forEach(size => {
+          const button = document.createElement("button");
+          button.className = "size-btn";
+          if (product.unavailableSizes.includes(size)) {
+            button.className += " unavailable";
+            button.title = "This size is currently unavailable";
+          }
+          button.textContent = size;
+          button.onclick = () => selectSize(size, button);
+          sizeButtonsContainer.appendChild(button);
+        });
+      } else {
+        sizeButtonsContainer.innerHTML = '<p>One size fits all</p>';
+      }
+    }
 
-// Call this in your loadProduct function
-checkWishlistStatus();
+    function setupImageZoom() {
+      const mainImage = document.getElementById("product-image");
+      const zoomOverlay = document.querySelector(".zoom-overlay");
+      
+      mainImage.addEventListener("click", function() {
+        zoomOverlay.classList.add("active");
+      });
+      
+      zoomOverlay.addEventListener("click", function() {
+        this.classList.remove("active");
+      });
+    }
+
+    function setupEventListeners() {
+      document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
+      document.getElementById('buy-now-btn').addEventListener('click', buyNow);
+      document.getElementById('wishlist-btn').addEventListener('click', addToWishlist);
+    }
+
+    // Image handling
+    function changeImage(imageSrc) {
+      document.getElementById("product-image").src = imageSrc;
+      document.getElementById("zoomed-image").src = imageSrc;
+    }
+
+    // Size selection
+    function selectSize(size, button) {
+      if (button.classList.contains("unavailable")) return;
+      
+      document.querySelectorAll(".size-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      
+      button.classList.add("active");
+      selectedSize = size;
+    }
+
+    // Cart functionality
+    function addToCart() {
+      if (!currentProduct) {
+        showAlert("Product not loaded yet");
+        return;
+      }
+      
+      if (currentProduct.sizes && currentProduct.sizes.length > 0 && !selectedSize) {
+        showAlert("Please select a size first");
+        return;
+      }
+      
+      const productToAdd = createCartProduct(currentProduct, selectedSize);
+      updateCartWithProduct(productToAdd);
+      showAddToCartConfirmation();
+    }
+
+    function showAlert(message) {
+      alert(message);
+    }
+
+    function createCartProduct(product, size) {
+      return {
+        id: product.id,
+        title: product.title,
+        name: product.title,
+        price: product.price,
+        image: product.image,
+        size: size || 'One Size',
+        quantity: 1
+      };
+    }
+
+    function updateCartWithProduct(product) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      const existingIndex = findProductInCart(cart, product);
+      
+      if (existingIndex !== -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push(product);
+      }
+      
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function findProductInCart(cart, product) {
+      return cart.findIndex(item => 
+        item.id === product.id && 
+        (item.size === product.size || (!item.size && !product.size))
+      );
+    }
+
+    function showAddToCartConfirmation() {
+      const cartBtnText = document.getElementById("cart-btn-text");
+      cartBtnText.innerHTML = `Added to Cart <span class="loading"></span>`;
+      
+      setTimeout(() => {
+        cartBtnText.textContent = "Added to Cart!";
+      }, 500);
+      
+      setTimeout(() => {
+        cartBtnText.textContent = "Add to Cart";
+      }, 2000);
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      
+      const cartCountElements = document.querySelectorAll('.cart-count');
+      if (cartCountElements) {
+        cartCountElements.forEach(el => {
+          el.textContent = totalItems;
+        });
+      }
+    }
+
+    function buyNow() {
+      addToCart();
+      setTimeout(() => {
+        window.location.href = "cart.html";
+      }, 500);
+    }
+
+    // Wishlist functionality
+    function addToWishlist() {
+      if (!currentProduct) {
+        showAlert("Product not loaded yet");
+        return;
+      }
+      
+      const wishlistBtn = document.getElementById('wishlist-btn');
+      const productToAdd = createWishlistProduct(currentProduct);
+      const wishlist = getWishlist();
+      
+      const existingIndex = findProductInWishlist(wishlist, productToAdd.id);
+      
+      if (existingIndex !== -1) {
+        removeFromWishlist(wishlist, existingIndex, wishlistBtn);
+      } else {
+        addToWishlistArray(wishlist, productToAdd, wishlistBtn);
+      }
+      
+      updateWishlistCount();
+    }
+
+    function createWishlistProduct(product) {
+      return {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.image
+      };
+    }
+
+    function getWishlist() {
+      return JSON.parse(localStorage.getItem('wishlist')) || [];
+    }
+
+    function findProductInWishlist(wishlist, productId) {
+      return wishlist.findIndex(item => item.id === productId);
+    }
+
+    function removeFromWishlist(wishlist, index, button) {
+      wishlist.splice(index, 1);
+      updateWishlistButton(button, false);
+      showAlert(`${currentProduct.title} removed from wishlist`);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+
+    function addToWishlistArray(wishlist, product, button) {
+      wishlist.push(product);
+      updateWishlistButton(button, true);
+      showAlert(`${currentProduct.title} added to wishlist`);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+
+    function updateWishlistButton(button, isInWishlist) {
+      if (isInWishlist) {
+        button.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          In Wishlist
+        `;
+      } else {
+        button.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          Add to Wishlist
+        `;
+      }
+    }
+
+    function checkWishlistStatus() {
+      if (!currentProduct) return;
+      
+      const wishlist = getWishlist();
+      const exists = findProductInWishlist(wishlist, currentProduct.id) !== -1;
+      const wishlistBtn = document.getElementById('wishlist-btn');
+      
+      updateWishlistButton(wishlistBtn, exists);
+    }
+
+    function updateWishlistCount() {
+      const wishlist = getWishlist();
+      const wishlistCountElements = document.querySelectorAll('.wishlist-count');
+      
+      if (wishlistCountElements) {
+        wishlistCountElements.forEach(el => {
+          el.textContent = wishlist.length;
+        });
+      }
+    }
 </script>
 
 </body>
