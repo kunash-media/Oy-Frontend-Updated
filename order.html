@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Jewelry Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .orders-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .orders-header h1 {
+            font-size: 32px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        
+        .orders-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .empty-orders {
+            background-color: white;
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .empty-orders-icon {
+            font-size: 60px;
+            color: #d1d1d1;
+            margin-bottom: 20px;
+        }
+        
+        .empty-orders h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+        
+        .empty-orders p {
+            color: #777;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .shop-btn {
+            display: inline-block;
+            background-color: #ff3e6c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .shop-btn:hover {
+            background-color: #e0355c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 62, 108, 0.2);
+        }
+        
+        .order-help {
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .order-help h3 {
+            color: #2a5885;
+            margin-bottom: 15px;
+        }
+        
+        .order-help p {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .contact-link {
+            color: #2a5885;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .orders-header h1 {
+                font-size: 28px;
+            }
+            
+            .empty-orders {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your header/navigation would go here -->
+    
+    <div class="container">
+        <div class="orders-header">
+            <h1>My Orders</h1>
+            <p>View your order history and track shipments</p>
+        </div>
+        
+        <div class="empty-orders">
+            <div class="empty-orders-icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <h2>No Orders Yet</h2>
+            <p>You haven't placed any orders with us yet. Start shopping to discover our beautiful jewelry collection.</p>
+            <a href="index.html" class="shop-btn">Shop Now</a>
+        </div>
+        
+        <div class="order-help">
+            <h3>Need help with an order?</h3>
+            <p>If you have questions about an order you've placed or need assistance with tracking, our customer service team is happy to help.</p>
+            <a href="contact.html" class="contact-link">Contact Us →</a>
+        </div>
+    </div>
+    
+    <!-- Your footer would go here -->
+</body>
+</html>

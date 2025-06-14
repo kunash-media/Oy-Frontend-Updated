@@ -1009,6 +1009,7 @@ footer {
 
       <li><a href="contact.html">Contact Us</a></li>
       <li><a href="about.html">About Us</a></li>
+      <li><a href="order.html">My Orders</a></li>
     </ul>
 
     <!-- RIGHT ICONS -->
@@ -1094,160 +1095,117 @@ footer {
   </div>
 </section>
 
-<script>
-  const productData = [
-    {
-      id: 1,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 222.jpg"
-    },
-    {
-      id: 2,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 333.jpg"
-    },
-    {
-      id: 3,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT1010.webp"
-    },
-    {
-      id: 4,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 555.webp"
-    },
-    {
-      id: 5,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 444.webp"
-    },
-    {
-      id: 6,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 777.webp"
-    },
-    {
-      id: 7,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT888.jpg"
-    },
-    {
-      id: 8,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 999.jpeg"
-    },
-    {
-      id: 9,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 1111.jpg"
-    },
-    {
-      id: 10,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT 111.webp"
-    },
-    {
-      id: 11,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/rings 1212.jpg"
-    },
-    {
-      id: 12,
-      name: "Silver Simple Earrings",
-      price: 8800.00,
-      image: "IMAGES/PRODUCT1010.webp"
-    }
-  ];
-
+<script type="module">
+  // Import the API functions
+  import { fetchProductsByCategory } from './global_js/backend_apis/products.js';
+  
+  // Global variable to hold our products
+  let productData = [];
+  let isLoading = false;
+  let error = null;
+  
+  // DOM elements
   const container = document.getElementById("product-list");
   const viewMoreBtn = document.getElementById("view-more-btn");
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.className = 'loading-indicator';
+  loadingIndicator.textContent = 'Loading products...';
+  
+  // Initial visible count
   let visibleCount = 8;
-
+  
+  // Function to show loading state
+  function showLoading() {
+    container.innerHTML = '';
+    container.appendChild(loadingIndicator);
+  }
+  
+  // Function to show error state
+  function showError(message) {
+    container.innerHTML = '';
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message';
+    errorElement.textContent = message || 'Failed to load products. Please try again later.';
+    container.appendChild(errorElement);
+  }
+  
+  // Modified render function
   function renderProducts(limit) {
     container.innerHTML = "";
+    
+    // Show message if no products
+    if (productData.length === 0) {
+      const emptyMessage = document.createElement('div');
+      emptyMessage.className = 'empty-message';
+      emptyMessage.textContent = 'No earrings available at the moment.';
+      container.appendChild(emptyMessage);
+      return;
+    }
+    
+    // Render products up to the limit
     productData.slice(0, limit).forEach(product => {
       const card = document.createElement("div");
       card.classList.add("pro");
       card.innerHTML = `
         <div class="wishlist-icon-card active"
-             data-id="${product.id}"
-             data-name="${product.name}"
-             data-price="${product.price.toFixed(2)}"
+             data-id="${product.id}" 
+             data-name="${product.name}" 
+             data-price="${product.price.toFixed(2)}" 
              data-image="${product.image}">
-          <i class="far fa-heart"></i>
+            <i class="far fa-heart"></i>
         </div>
+
         <a href="product.html?id=${product.id}">
-          <img src="${product.image}" alt="${product.name}">
+          <img src="${product.image}" alt="${product.name}" onerror="this.src='IMAGES/placeholder.jpg'">
         </a>
+
         <div class="des">
           <span>${product.name}</span>
           <h4>₹${product.price.toFixed(2)}</h4>
-          <button class="add-to-cart"
-                  data-id="${product.id}"
-                  data-name="${product.name}"
-                  data-price="${product.price.toFixed(2)}"
-                  data-image="${product.image}">Add to Cart</button>
-          <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.price.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">Buy Now</a>
+          <button class="add-to-cart" 
+                  data-id="${product.id}" 
+                  data-name="${product.name}" 
+                  data-price="${product.price.toFixed(2)}" 
+                  data-image="${product.image}">
+            Add to Cart
+          </button>
+          <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.price.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">
+            Buy Now
+          </a>
         </div>
       `;
       container.appendChild(card);
     });
 
-    if (visibleCount >= productData.length) {
-      viewMoreBtn.style.display = "none";
+    // Hide view more button if all products are visible
+    viewMoreBtn.style.display = visibleCount >= productData.length ? "none" : "block";
+  }
+  
+  // Initialize the page
+  async function initializePage() {
+    try {
+      showLoading();
+      productData = await fetchProductsByCategory("Rings");
+      renderProducts(visibleCount);
+    } catch (err) {
+      console.error('Initialization error:', err);
+      showError(err.message);
     }
   }
-
-  renderProducts(visibleCount);
-
+  
+  // View more button event listener
   viewMoreBtn.addEventListener("click", () => {
-    visibleCount += 4;
+    visibleCount += 8;
     renderProducts(visibleCount);
   });
+  
+  // Start the page
+  initializePage();
 </script>
-
-
 
 <div id="view-more-container" style="text-align:center; margin-top: 20px;">
   <button id="view-more-btn">View More</button>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const products = document.querySelectorAll('.pro');
-    const viewMoreBtn = document.getElementById('view-more-btn');
-    let visibleCount = 8; // Show 8 products initially
-
-    function showProducts() {
-      for (let i = 0; i < visibleCount && i < products.length; i++) {
-        products[i].style.display = 'block';
-      }
-    }
-
-    // Initially hide all, then show first batch
-    products.forEach(p => p.style.display = 'none');
-    showProducts();
-
-    viewMoreBtn.addEventListener('click', () => {
-      visibleCount += 8;
-      showProducts();
-
-      if (visibleCount >= products.length) {
-        viewMoreBtn.style.display = 'none';
-      }
-    });
-  });
-</script>
 
 <section id="section7" style="background-image: url(images/review\ bg1.jpg); background-size: cover; height: 70%;">
   <div class="sticky-container">  

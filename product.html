@@ -309,2529 +309,538 @@
     }
   </style>
 </head>
+
+
 <body>
-  <div class="container">
-    <!-- Left: Image Section -->
-    <div class="image-section">
-      <img id="product-image" src="" alt="Product Image" class="main-image">
-      <div class="zoom-overlay">
-        <img id="zoomed-image" src="" alt="Zoomed Product" style="max-width: 80%; max-height: 80%;">
-      </div>
-      <div class="sub-images" id="sub-images-container">
-        <!-- Sub images will be populated by JavaScript -->
-      </div>
+    <div class="container" id="main-container">
+        <div class="loading-container">
+            <div class="loading"></div>
+            <span style="margin-left: 10px;">Loading product details...</span>
+        </div>
     </div>
 
-    <!-- Right: Product Info Section -->
-    <div class="details-section">
-      <h1 id="product-title" class="product-title">Loading...</h1>
-      
-      <div class="rating">
-        <div class="stars">★★★★★</div>
-        <span class="review-count">(42 reviews)</span>
-      </div>
-
-      <div class="price-block">
-        <span id="product-price" class="price">$0.00</span>
-        <span id="old-price" class="old-price"></span>
-        <span id="discount-badge" class="discount-badge" style="display: none;"></span>
-      </div>
-
-      <hr class="divider" />
-
-      <div class="size-section">
-        <span class="size-label">Select Ring Size <a href="#" class="size-guide">Size Guide</a></span>
-        <div class="size-buttons" id="size-buttons">
-          <!-- Sizes will be populated by JavaScript -->
-        </div>
-      </div>
-
-      <div id="product-description" class="description">
-        <p>Loading product details...</p>
-        <ul class="features">
-          <li>High-quality materials</li>
-          <li>Handcrafted with precision</li>
-          <li>30-day return policy</li>
-          <li>Free shipping on orders over $50</li>
-        </ul>
-      </div>
-
-      <div class="action-buttons">
-        <button class="add-to-cart" id="add-to-cart-btn">
-          <span id="cart-btn-text">Add to Cart</span>
-        </button>
-        <button class="buy-now" id="buy-now-btn">Buy Now</button>
-   <button class="wishlist-btn" id="wishlist-btn">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="black" stroke="currentColor">
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-  </svg>
-  Wishlist
-</button>
-
-      </div>
-    </div>
-  </div>
-
-<script>
-    // Product data
-    const products = {
-      "1": {
-        id: "1",
-        title: "Silver Simple Ring",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 111.webp",
-        subImages: [
-          "IMAGES/PRODUCT 111.webp",
-          "IMAGES/PRODUCT 111.webp",
-          "IMAGES/PRODUCT 111.webp",
-          "IMAGES/PRODUCT 111.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["5", "6", "7", "8", "9"],
-        unavailableSizes: ["9"]
-      },
-      "2": {
-        id: "2",
-        title: "Elegant Band",
-        price: 58.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 333.jpg",
-        subImages: [
-          "IMAGES/PRODUCT 333.jpg",
-          "IMAGES/PRODUCT 333.jpg",
-          "IMAGES/PRODUCT 333.jpg",
-          "IMAGES/PRODUCT 333.jpg"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "3": {
-        id: "3",
-        title: "Elegant Band",
-        price: 78.00,
-        oldPrice: 98.00,
-        image: "IMAGES/PRODUCT1010.webp",
-        subImages: [
-          "IMAGES/PRODUCT1010.webp",
-          "IMAGES/PRODUCT1010.webp",
-          "IMAGES/PRODUCT1010.webp",
-          "IMAGES/PRODUCT1010.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "4": {
-        id: "4",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 555.webp",
-        subImages: [
-          "IMAGES/PRODUCT 555.webp",
-          "IMAGES/PRODUCT 555.webp",
-          "IMAGES/PRODUCT 555.webp",
-          "IMAGES/PRODUCT 555.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "5": {
-        id: "5",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 444.webp",
-        subImages: [
-          "IMAGES/PRODUCT 444.webp",
-          "IMAGES/PRODUCT 444.webp",
-          "IMAGES/PRODUCT 444.webp",
-          "IMAGES/PRODUCT 444.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "6": {
-        id: "6",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 777.webp",
-        subImages: [
-          "IMAGES/PRODUCT 777.webp",
-          "IMAGES/PRODUCT 777.webp",
-          "IMAGES/PRODUCT 777.webp",
-          "IMAGES/PRODUCT 777.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "7": {
-        id: "7",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT888.jpg",
-        subImages: [
-          "IMAGES/PRODUCT888.jpg",
-          "IMAGES/PRODUCT888.jpg",
-          "IMAGES/PRODUCT888.jpg",
-          "IMAGES/PRODUCT888.jpg"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "8": {
-        id: "8",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 999.jpeg",
-        subImages: [
-          "IMAGES/PRODUCT 999.jpeg",
-          "IMAGES/PRODUCT 999.jpeg",
-          "IMAGES/PRODUCT 999.jpeg",
-          "IMAGES/PRODUCT 999.jpeg"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "9": {
-        id: "9",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 1111.jpg",
-        subImages: [
-          "IMAGES/PRODUCT 1111.jpg",
-          "IMAGES/PRODUCT 1111.jpg",
-          "IMAGES/PRODUCT 1111.jpg",
-          "IMAGES/PRODUCT 1111.jpg"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "10": {
-        id: "10",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT 111.webp",
-        subImages: [
-          "IMAGES/PRODUCT 111.webp",
-          "IMAGES/PRODUCT 111.webp",
-          "IMAGES/PRODUCT 111.webp",
-          "IMAGES/PRODUCT 111.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "11": {
-        id: "11",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/rings 1212.jpg",
-        subImages: [
-          "IMAGES/rings 1212.jpg",
-          "IMAGES/rings 1212.jpg",
-          "IMAGES/rings 1212.jpg",
-          "IMAGES/rings 1212.jpg"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "12": {
-        id: "12",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 68.00,
-        image: "IMAGES/PRODUCT1010.webp",
-        subImages: [
-          "IMAGES/PRODUCT1010.webp",
-          "IMAGES/PRODUCT1010.webp",
-          "IMAGES/PRODUCT1010.webp",
-          "IMAGES/PRODUCT1010.webp"
-        ],
-        description: "This elegant silver ring features a minimalist design perfect for everyday wear. Crafted from sterling silver with a polished finish that resists tarnishing.",
-        features: [
-          "Made from 925 sterling silver",
-          "Hypoallergenic and nickel-free",
-          "Available in sizes 5-9",
-          "Weight: 2.5 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-  
-      "17": {
-        id: "17",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings 11.jpg",
-        subImages: [
-          "IMAGES/earrings 11.jpg",
-          "IMAGES/earrings 11.jpg",
-          "IMAGES/earrings 11.jpg",
-          "IMAGES/earrings 11.jpg"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "18": {
-        id: "18",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings444.jpg",
-        subImages: [
-          "IMAGES/earrings444.jpg",
-          "IMAGES/earrings444.jpg",
-          "IMAGES/earrings444.jpg",
-          "IMAGES/earrings444.jpg"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "19": {
-        id: "19",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings1010.webp",
-        subImages: [
-          "IMAGES/earrings1010.webp",
-          "IMAGES/earrings1010.webp",
-          "IMAGES/earrings1010.webp",
-          "IMAGES/earrings1010.webp"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      "20": {
-        id: "20",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings22.webp",
-        subImages: [
-          "IMAGES/earrings22.webp",
-          "IMAGES/earrings22.webp",
-          "IMAGES/earrings22.webp",
-          "IMAGES/earrings22.webp"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-       "21": {
-        id: "21",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings44.webp",
-        subImages: [
-          "IMAGES/earrings44.webp",
-          "IMAGES/earrings44.webp",
-          "IMAGES/earrings44.webp",
-          "IMAGES/earrings44.webp"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "22": {
-        id: "22",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings55.webp",
-        subImages: [
-          "IMAGES/earrings55.webp",
-          "IMAGES/earrings55.webp",
-          "IMAGES/earrings55.webp",
-          "IMAGES/earrings55.webp"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-          "23": {
-        id: "23",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings66.jpg",
-        subImages: [
-          "IMAGES/earrings66.jpg",
-          "IMAGES/earrings66.jpg",
-          "IMAGES/earrings66.jpg",
-          "IMAGES/earrings66.jpg"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-
-         "24": {
-        id: "24",
-        title: "Elegant Band",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/earrings77.avif",
-        subImages: [
-          "IMAGES/earrings77.avif",
-          "IMAGES/earrings77.avif",
-          "IMAGES/earrings77.avif",
-          "IMAGES/earrings77.avif"
-        ],
-        description: "A timeless band with a delicate engraved pattern that catches the light beautifully. Perfect as a wedding band or standalone piece.",
-        features: [
-          "14k gold plated over sterling silver",
-          "Width: 2mm",
-          "Comfort-fit design",
-          "Weight: 3.2 grams"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-  "25": {
-        id: "25",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck9.webp",
-        subImages: [
-          "IMAGES/neck9.webp",
-          "IMAGES/neck9.webp",
-          "IMAGES/neck9.webp",
-          "IMAGES/neck9.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-       features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "26": {
-        id: "26",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck 17.webp",
-        subImages: [
-          "IMAGES/neck 17.webp",
-          "IMAGES/neck 17.webp",
-          "IMAGES/neck 17.webp",
-          "IMAGES/neck 17.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
- "27": {
-        id: "27",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck11.webp",
-        subImages: [
-          "IMAGES/neck11.webp",
-          "IMAGES/neck11.webp",
-          "IMAGES/neck11.webp",
-          "IMAGES/neck11.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "28": {
-        id: "28",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck16.webp",
-        subImages: [
-          "IMAGES/neck16.webp",
-          "IMAGES/neck16.webp",
-          "IMAGES/neck16.webp",
-          "IMAGES/neck16.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "27": {
-        id: "27",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck11.webp",
-        subImages: [
-          "IMAGES/neck11.webp",
-          "IMAGES/neck11.webp",
-          "IMAGES/neck11.webp",
-          "IMAGES/neck11.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "29": {
-        id: "29",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck13.jpg",
-        subImages: [
-          "IMAGES/neck13.jpg",
-          "IMAGES/neck13.jpg",
-          "IMAGES/neck13.jpg",
-          "IMAGES/neck13.jpg"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "30": {
-        id: "30",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck15.png",
-        subImages: [
-          "IMAGES/neck15.png",
-          "IMAGES/neck15.png",
-          "IMAGES/neck15.png",
-          "IMAGES/neck15.png"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "31": {
-        id: "31",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck8.webp",
-        subImages: [
-          "IMAGES/neck8.webp",
-          "IMAGES/neck8.webp",
-          "IMAGES/neck8.webp",
-          "IMAGES/neck8.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "32": {
-        id: "32",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck12.jpg",
-        subImages: [
-          "IMAGES/neck12.jpg",
-          "IMAGES/neck12.jpg",
-          "IMAGES/neck12.jpg",
-          "IMAGES/neck12.jpg"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "33": {
-        id: "33",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck1.webp",
-        subImages: [
-          "IMAGES/neck1.webp",
-          "IMAGES/neck1.webp",
-          "IMAGES/neck1.webp",
-          "IMAGES/neck1.webp"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "34": {
-        id: "34",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck2.avif",
-        subImages: [
-          "IMAGES/neck2.avif",
-          "IMAGES/neck2.avif",
-          "IMAGES/neck2.avif",
-          "IMAGES/neck2.avif"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-       "35": {
-        id: "35",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck5.jpg",
-        subImages: [
-          "IMAGES/neck5.jpg",
-          "IMAGES/neck5.jpg",
-          "IMAGES/neck5.jpg",
-          "IMAGES/neck5.jpg"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-             "36": {
-        id: "36",
-        title: "Elegant Chain",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/neck7.jpg",
-        subImages: [
-          "IMAGES/neck7.jpg",
-          "IMAGES/neck7.jpg",
-          "IMAGES/neck7.jpg",
-          "IMAGES/neck7.jpg"
-        ],
-        description: "Grace in Every Detail <br>Designed for the woman who values subtle luxury, these chains add sophistication to everyday wear and shimmer effortlessly in evening light. Whether it's a fine Figaro, classic curb, or dainty box chain, each style speaks to refined femininity and enduring beauty.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          "Comfort-fit design",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      
-
-             "38": {
-        id: "38",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet12.jpg",
-        subImages: [
-          "IMAGES/bracelet12.jpg",
-          "IMAGES/bracelet12.jpg",
-          "IMAGES/bracelet12.jpg",
-          "IMAGES/bracelet12.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-          "39": {
-        id: "39",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet5.jpeg",
-        subImages: [
-          "IMAGES/bracelet5.jpeg",
-          "IMAGES/bracelet5.jpeg",
-          "IMAGES/bracelet5.jpeg",
-          "IMAGES/bracelet5.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "39": {
-        id: "39",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet5.jpeg",
-        subImages: [
-          "IMAGES/bracelet5.jpeg",
-          "IMAGES/bracelet5.jpeg",
-          "IMAGES/bracelet5.jpeg",
-          "IMAGES/bracelet5.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "40": {
-        id: "40",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet6.jpg",
-        subImages: [
-          "IMAGES/bracelet6.jpg",
-          "IMAGES/bracelet6.jpg",
-          "IMAGES/bracelet6.jpg",
-          "IMAGES/bracelet6.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "41": {
-        id: "41",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet11.jpg",
-        subImages: [
-          "IMAGES/bracelet11.jpg",
-          "IMAGES/bracelet11.jpg",
-          "IMAGES/bracelet11.jpg",
-          "IMAGES/bracelet11.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "42": {
-        id: "42",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet8.jpegs",
-        subImages: [
-          "IMAGES/bracelet8.jpegs",
-          "IMAGES/bracelet8.jpegs",
-          "IMAGES/bracelet8.jpegs",
-          "IMAGES/bracelet8.jpegs"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "43": {
-        id: "43",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet111.webp",
-        subImages: [
-          "IMAGES/bracelet111.webp",
-          "IMAGES/bracelet111.webp",
-          "IMAGES/bracelet111.webp",
-          "IMAGES/bracelet111.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "44": {
-        id: "44",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet7.webp",
-        subImages: [
-          "IMAGES/bracelet7.webp",
-          "IMAGES/bracelet7.webp",
-          "IMAGES/bracelet7.webp",
-          "IMAGES/bracelet7.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "45": {
-        id: "45",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet1.jpeg",
-        subImages: [
-          "IMAGES/bracelet1.jpeg",
-          "IMAGES/bracelet1.jpeg",
-          "IMAGES/bracelet1.jpeg",
-          "IMAGES/bracelet1.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "46": {
-        id: "46",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet10.jpeg",
-        subImages: [
-          "IMAGES/bracelet10.jpeg",
-          "IMAGES/bracelet10.jpeg",
-          "IMAGES/bracelet10.jpeg",
-          "IMAGES/bracelet10.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "47": {
-        id: "47",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet9.jpeg",
-        subImages: [
-          "IMAGES/bracelet9.jpeg",
-          "IMAGES/bracelet9.jpeg",
-          "IMAGES/bracelet9.jpeg",
-          "IMAGES/bracelet9.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-          "48": {
-        id: "48",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet4.webp",
-        subImages: [
-          "IMAGES/bracelet4.webp",
-          "IMAGES/bracelet4.webp",
-          "IMAGES/bracelet4.webp",
-          "IMAGES/bracelet4.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-      
-          "49": {
-        id: "49",
-        title: "Adorning Your Wrist",
-        price: 48.00,
-        oldPrice: 78.00,
-        image: "IMAGES/bracelet3.jpeg",
-        subImages: [
-          "IMAGES/bracelet3.jpeg",
-          "IMAGES/bracelet3.jpeg",
-          "IMAGES/bracelet3.jpeg",
-          "IMAGES/bracelet3.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-        "64": {
-        id: "64",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding images.jpeg",
-        subImages: [
-          "IMAGES/wedding images.jpeg",
-          "IMAGES/wedding images.jpeg",
-          "IMAGES/wedding images.jpeg",
-          "IMAGES/wedding images.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "65": {
-        id: "65",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding3.webp",
-        subImages: [
-          "IMAGES/wedding3.webp",
-          "IMAGES/wedding3.webp",
-          "IMAGES/wedding3.webp",
-          "IMAGES/wedding3.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "66": {
-        id: "66",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding4.avif",
-        subImages: [
-          "IMAGES/wedding4.avif",
-          "IMAGES/wedding4.avif",
-          "IMAGES/wedding4.avif",
-          "IMAGES/wedding4.avif"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "67": {
-        id: "67",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding5.jpeg",
-        subImages: [
-          "IMAGES/wedding5.jpeg",
-          "IMAGES/wedding5.jpeg",
-          "IMAGES/wedding5.jpeg",
-          "IMAGES/wedding5.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "68": {
-        id: "68",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/weddin2.webp",
-        subImages: [
-          "IMAGES/weddin2.webp",
-          "IMAGES/weddin2.webp",
-          "IMAGES/weddin2.webp",
-          "IMAGES/weddin2.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "69": {
-        id: "69",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding8.webp",
-        subImages: [
-          "IMAGES/wedding8.webp",
-          "IMAGES/wedding8.webp",
-          "IMAGES/wedding8.webp",
-          "IMAGES/wedding8.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-
-
-      
-        "70": {
-        id: "70",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding10.webp",
-        subImages: [
-          "IMAGES/wedding10.webp",
-          "IMAGES/wedding10.webp",
-          "IMAGES/wedding10.webp",
-          "IMAGES/wedding10.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "71": {
-        id: "71",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding11.jpg",
-        subImages: [
-          "IMAGES/wedding11.jpg",
-          "IMAGES/wedding11.jpg",
-          "IMAGES/wedding11.jpg",
-          "IMAGES/wedding11.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-
-      
-        "72": {
-        id: "72",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding12.webp",
-        subImages: [
-          "IMAGES/wedding12.webp",
-          "IMAGES/wedding12.webp",
-          "IMAGES/wedding12.webp",
-          "IMAGES/wedding12.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-
-      
-        "73": {
-        id: "73",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding13.webp",
-        subImages: [
-          "IMAGES/wedding13.webp",
-          "IMAGES/wedding13.webp",
-          "IMAGES/wedding13.webp",
-          "IMAGES/wedding13.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "74": {
-        id: "74",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop 777.jpg",
-        subImages: [
-          "IMAGES/shop 777.jpg",
-          "IMAGES/shop 777.jpg",
-          "IMAGES/shop 777.jpg",
-          "IMAGES/shop 777.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      
-        "75": {
-        id: "75",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/wedding7.jpg",
-        subImages: [
-          "IMAGES/wedding7.jpg",
-          "IMAGES/wedding7.jpg",
-          "IMAGES/wedding7.jpg",
-          "IMAGES/wedding7.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-       "76": {
-        id: "76",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office1.avif",
-        subImages: [
-          "IMAGES/office1.avif",
-          "IMAGES/office1.avif",
-          "IMAGES/office1.avif",
-          "IMAGES/office1.avif"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "77": {
-        id: "77",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office2.webp",
-        subImages: [
-          "IMAGES/office2.webp",
-          "IMAGES/office2.webp",
-          "IMAGES/office2.webp",
-          "IMAGES/office2.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "78": {
-        id: "78",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office3.webp",
-        subImages: [
-          "IMAGES/office3.webp",
-          "IMAGES/office3.webp",
-          "IMAGES/office3.webp",
-          "IMAGES/office3.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "79": {
-        id: "79",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office4.webp",
-        subImages: [
-          "IMAGES/office4.webp",
-          "IMAGES/office4.webp",
-          "IMAGES/office4.webp",
-          "IMAGES/office4.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "80": {
-        id: "80",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office5.webp",
-        subImages: [
-          "IMAGES/office5.webp",
-          "IMAGES/office5.webp",
-          "IMAGES/office5.webp",
-          "IMAGES/office5.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "81": {
-        id: "81",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office6.webp",
-        subImages: [
-          "IMAGES/office6.webp",
-          "IMAGES/office6.webp",
-          "IMAGES/office6.webp",
-          "IMAGES/office6.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "82": {
-        id: "82",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office7.webp",
-        subImages: [
-          "IMAGES/office7.webp",
-          "IMAGES/office7.webp",
-          "IMAGES/office7.webp",
-          "IMAGES/office7.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "83": {
-        id: "83",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office8.webp",
-        subImages: [
-          "IMAGES/office8.webp",
-          "IMAGES/office8.webp",
-          "IMAGES/office8.webp",
-          "IMAGES/office8.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-
-       "84": {
-        id: "84",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office9.webp",
-        subImages: [
-          "IMAGES/office9.webp",
-          "IMAGES/office9.webp",
-          "IMAGES/office9.webp",
-          "IMAGES/office9.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "85": {
-        id: "85",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office10.webp",
-        subImages: [
-          "IMAGES/office10.webp",
-          "IMAGES/office10.webp",
-          "IMAGES/office10.webp",
-          "IMAGES/office10.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "86": {
-        id: "86",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office11.jpg",
-        subImages: [
-          "IMAGES/office11.jpg",
-          "IMAGES/office11.jpg",
-          "IMAGES/office11.jpg",
-          "IMAGES/office11.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-       "87": {
-        id: "87",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/office12.jpg",
-        subImages: [
-          "IMAGES/office12.jpg",
-          "IMAGES/office12.jpg",
-          "IMAGES/office12.jpg",
-          "IMAGES/office12.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-         "88": {
-        id: "88",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual 4.jpeg",
-        subImages: [
-          "IMAGES/casual 4.jpeg",
-          "IMAGES/casual 4.jpeg",
-          "IMAGES/casual 4.jpeg",
-          "IMAGES/casual 4.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-         "89": {
-        id: "89",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual 6.jpeg",
-        subImages: [
-          "IMAGES/casual 6.jpeg",
-          "IMAGES/casual 6.jpeg",
-          "IMAGES/casual 6.jpeg",
-          "IMAGES/casual 6.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-         "90": {
-        id: "90",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual 8.jpg",
-        subImages: [
-          "IMAGES/casual 8.jpg",
-          "IMAGES/casual 8.jpg",
-          "IMAGES/casual 8.jpg",
-          "IMAGES/casual 8.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-         "91": {
-        id: "91",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual1.webp",
-        subImages: [
-          "IMAGES/casual1.webp",
-          "IMAGES/casual1.webp",
-          "IMAGES/casual1.webp",
-          "IMAGES/casual1.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-         "92": {
-        id: "92",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual2.webp",
-        subImages: [
-          "IMAGES/casual2.webp",
-          "IMAGES/casual2.webp",
-          "IMAGES/casual2.webp",
-          "IMAGES/casual2.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-         "93": {
-        id: "93",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual3.jpg",
-        subImages: [
-          "IMAGES/casual3.jpg",
-          "IMAGES/casual3.jpg",
-          "IMAGES/casual3.jpg",
-          "IMAGES/casual3.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-         "94": {
-        id: "94",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual5.jpeg",
-        subImages: [
-          "IMAGES/casual5.jpeg",
-          "IMAGES/casual5.jpeg",
-          "IMAGES/casual5.jpeg",
-          "IMAGES/casual5.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-     "95": {
-        id: "95",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/casual7.webp",
-        subImages: [
-          "IMAGES/casual7.webp",
-          "IMAGES/casual7.webp",
-          "IMAGES/casual7.webp",
-          "IMAGES/casual7.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-
-      "97": {
-        id: "97",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop 333.webp",
-        subImages: [
-          "IMAGES/shop 333.webp",
-          "IMAGES/shop 333.webp",
-          "IMAGES/shop 333.webp",
-          "IMAGES/shop 333.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "98": {
-        id: "98",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop444.webp",
-        subImages: [
-          "IMAGES/shop444.webp",
-          "IMAGES/shop444.webp",
-          "IMAGES/shop444.webp",
-          "IMAGES/shop444.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "99": {
-        id: "99",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop 888.jpg",
-        subImages: [
-          "IMAGES/shop 888.jpg",
-          "IMAGES/shop 888.jpg",
-          "IMAGES/shop 888.jpg",
-          "IMAGES/shop 888.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "100": {
-        id: "100",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop 777.jpg",
-        subImages: [
-          "IMAGES/shop 777.jpg",
-          "IMAGES/shop 777.jpg",
-          "IMAGES/shop 777.jpg",
-          "IMAGES/shop 777.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "101": {
-        id: "101",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop 1010.webp",
-        subImages: [
-          "IMAGES/shop 1010.webp",
-          "IMAGES/shop 1010.webp",
-          "IMAGES/shop 1010.webp",
-          "IMAGES/shop 1010.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "102": {
-        id: "102",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop1414.webp",
-        subImages: [
-          "IMAGES/shop1414.webp",
-          "IMAGES/shop1414.webp",
-          "IMAGES/shop1414.webp",
-          "IMAGES/shop1414.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "103": {
-        id: "103",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop1616.webp",
-        subImages: [
-          "IMAGES/shop1616.webp",
-          "IMAGES/shop1616.webp",
-          "IMAGES/shop1616.webp",
-          "IMAGES/shop1616.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "104": {
-        id: "104",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop1818.jpeg",
-        subImages: [
-          "IMAGES/shop1818.jpeg",
-          "IMAGES/shop1818.jpeg",
-          "IMAGES/shop1818.jpeg",
-          "IMAGES/shop1818.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "105": {
-        id: "105",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop222.jpg",
-        subImages: [
-          "IMAGES/shop222.jpg",
-          "IMAGES/shop222.jpg",
-          "IMAGES/shop222.jpg",
-          "IMAGES/shop222.jpg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "106": {
-        id: "106",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop666.webp",
-        subImages: [
-          "IMAGES/shop666.webp",
-          "IMAGES/shop666.webp",
-          "IMAGES/shop666.webp",
-          "IMAGES/shop666.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "107": {
-        id: "107",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop1515.webp",
-        subImages: [
-          "IMAGES/shop1515.webp",
-          "IMAGES/shop1515.webp",
-          "IMAGES/shop1515.webp",
-          "IMAGES/shop1515.webp"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-
-
-      "108": {
-        id: "108",
-        title: "Adorning Your Wrist",
-        price: 4800.00,
-        oldPrice: 7800.00,
-        image: "IMAGES/shop1212.jpeg",
-        subImages: [
-          "IMAGES/shop1212.jpeg",
-          "IMAGES/shop1212.jpeg",
-          "IMAGES/shop1212.jpeg",
-          "IMAGES/shop1212.jpeg"
-        ],
-        description: "Wrap your wrist in timeless elegance with our handcrafted bracelets — designed to complement every style, mood, and moment.",
-        features: [
-          "Crafted from 100% 925 sterling silver",
-          "Width: 12mm",
-          " Handcrafted Designs",
-          "Lightweight and gentle on skin"
-        ],
-        sizes: ["4", "5", "6", "7", "8"],
-        unavailableSizes: []
-      },
-      // ... rest of your product data remains the same ...
-
-
-      
-    };
-    // Current product and selected options
-    let currentProduct = null;
-    let selectedSize = null;
-
-    // Initialize the page
-    document.addEventListener('DOMContentLoaded', function() {
-      initializeProductPage();
-    });
-
-    function initializeProductPage() {
-      // Get product ID from URL
-      const productId = getProductIdFromUrl();
-      
-      // Load product data
-      loadProduct(productId);
-      
-      // Set up UI components
-      setupImageZoom();
-      setupEventListeners();
-    }
-
-    function getProductIdFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id");
-    }
-
-    // Load product data
-    function loadProduct(productId) {
-      const product = products[productId];
-      
-      if (!product) {
-        showProductNotFound();
-        return;
-      }
-
-      currentProduct = product;
-      
-      updateProductInfo(product);
-      updateProductImages(product);
-      updateProductDescription(product);
-      updateSizeOptions(product);
-      checkWishlistStatus();
-    }
-
-    function showProductNotFound() {
-      document.querySelector(".container").innerHTML = `
-        <div style="padding: 40px; text-align: center;">
-          <h2>Product not found</h2>
-          <p>The requested product could not be found.</p>
-          <a href="index.html" style="color: #007bff;">Return to shop</a>
-        </div>
-      `;
-    }
-
-    function updateProductInfo(product) {
-      document.getElementById("product-title").textContent = product.title;
-      document.getElementById("product-price").textContent = formatPrice(product.price);
-      
-      const oldPriceElement = document.getElementById("old-price");
-      if (product.oldPrice) {
-        oldPriceElement.textContent = formatPrice(product.oldPrice);
-        
-        const discount = calculateDiscount(product.oldPrice, product.price);
-        const discountBadge = document.getElementById("discount-badge");
-        discountBadge.textContent = `${discount}% OFF`;
-        discountBadge.style.display = "inline-block";
-      } else {
-        oldPriceElement.style.display = "none";
-      }
-    }
-
-    function formatPrice(price) {
-      return `₹${price.toFixed(2)}`;
-    }
-
-    function calculateDiscount(oldPrice, currentPrice) {
-      return Math.round(((oldPrice - currentPrice) / oldPrice) * 100);
-    }
-
-    function updateProductImages(product) {
-      document.getElementById("product-image").src = product.image;
-      document.getElementById("zoomed-image").src = product.image;
-      
-      const subImagesContainer = document.getElementById("sub-images-container");
-      subImagesContainer.innerHTML = "";
-      
-      product.subImages.forEach((imgSrc, index) => {
-        const img = document.createElement("img");
-        img.src = imgSrc;
-        img.alt = `${product.title} - View ${index + 1}`;
-        img.onclick = () => changeImage(imgSrc);
-        subImagesContainer.appendChild(img);
-      });
-    }
-
-    function updateProductDescription(product) {
-      const descriptionElement = document.getElementById("product-description");
-      descriptionElement.innerHTML = `
-        <p>${product.description}</p>
-        <ul class="features">
-          ${product.features.map(f => `<li>${f}</li>`).join("")}
-        </ul>
-      `;
-    }
-
-    function updateSizeOptions(product) {
-      const sizeButtonsContainer = document.getElementById("size-buttons");
-      sizeButtonsContainer.innerHTML = "";
-      
-      if (product.sizes && product.sizes.length > 0) {
-        product.sizes.forEach(size => {
-          const button = document.createElement("button");
-          button.className = "size-btn";
-          if (product.unavailableSizes.includes(size)) {
-            button.className += " unavailable";
-            button.title = "This size is currently unavailable";
-          }
-          button.textContent = size;
-          button.onclick = () => selectSize(size, button);
-          sizeButtonsContainer.appendChild(button);
+    <script type="module">
+        // Backend API configuration
+        const API_BASE = 'http://localhost:8080/api';
+
+        /**
+         * Fetches all products from backend
+         * @returns {Promise} Array of product objects
+         */
+        const fetchAllProducts = async () => {
+            try {
+                const response = await fetch(`${API_BASE}/products/get-all-product`, {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await handleResponse(response);
+                
+                // Transform backend data to match frontend structure
+                return data.map(product => ({
+                    id: product.productId,
+                    title: product.ProductTitle,
+                    name: product.ProductTitle,
+                    price: product.ProductPrice,
+                    oldPrice: product.ProductOldPrice || null, // Add this field to backend if needed
+                    image: `data:image/jpeg;base64,${product.ProductImage}`,
+                    // Create sub-images array (you may need to modify backend to support multiple images)
+                    subImages: [
+                        `data:image/jpeg;base64,${product.ProductImage}`,
+                        `data:image/jpeg;base64,${product.ProductImage}`,
+                        `data:image/jpeg;base64,${product.ProductImage}`,
+                        `data:image/jpeg;base64,${product.ProductImage}`
+                    ],
+                    description: product.ProductDescription,
+                    features: product.ProductFeatures || [
+                        "Feature not availabe"
+                    ],
+                    sizes: product.ProductSizes || [],
+                    unavailableSizes: product.ProductUnavailableSizes || [], // Add this field to backend if needed
+                    stock: product.ProductStock,
+                    discount: product.productDiscount
+                }));
+                
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                throw error;
+            }
+        };
+
+        /**
+         * Handles API response
+         * @param {Response} response 
+         * @returns {Promise}
+         */
+        const handleResponse = async (response) => {
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(error || 'Request failed');
+            }
+            return response.json();
+        };
+
+        // Global variables
+        let products = {};
+        let currentProduct = null;
+        let selectedSize = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductPage();
         });
-      } else {
-        sizeButtonsContainer.innerHTML = '<p>One size fits all</p>';
-      }
-    }
 
-    function setupImageZoom() {
-      const mainImage = document.getElementById("product-image");
-      const zoomOverlay = document.querySelector(".zoom-overlay");
-      
-      mainImage.addEventListener("click", function() {
-        zoomOverlay.classList.add("active");
-      });
-      
-      zoomOverlay.addEventListener("click", function() {
-        this.classList.remove("active");
-      });
-    }
+        async function initializeProductPage() {
+            try {
+                // Load products from backend
+                await loadProductsFromBackend();
+                
+                // Get product ID from URL
+                const productId = getProductIdFromUrl();
+                
+                // Load specific product data
+                loadProduct(productId);
+                
+                // Set up UI components
+                setupImageZoom();
+                setupEventListeners();
+                
+            } catch (error) {
+                showError('Failed to load product data. Please try again later.');
+                console.error('Error initializing product page:', error);
+            }
+        }
 
-    function setupEventListeners() {
-      document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
-      document.getElementById('buy-now-btn').addEventListener('click', buyNow);
-      document.getElementById('wishlist-btn').addEventListener('click', addToWishlist);
-    }
+        async function loadProductsFromBackend() {
+            try {
+                const productsArray = await fetchAllProducts();
+                
+                // Convert array to object with id as key for easier lookup
+                products = {};
+                productsArray.forEach(product => {
+                    products[product.id] = product;
+                });
+                
+            } catch (error) {
+                throw new Error('Failed to load products from backend');
+            }
+        }
 
-    // Image handling
-    function changeImage(imageSrc) {
-      document.getElementById("product-image").src = imageSrc;
-      document.getElementById("zoomed-image").src = imageSrc;
-    }
+        function getProductIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("id");
+        }
 
-    // Size selection
-    function selectSize(size, button) {
-      if (button.classList.contains("unavailable")) return;
-      
-      document.querySelectorAll(".size-btn").forEach(btn => {
-        btn.classList.remove("active");
-      });
-      
-      button.classList.add("active");
-      selectedSize = size;
-    }
+        function showError(message) {
+            document.getElementById('main-container').innerHTML = `
+                <div class="error-container">
+                    <h2>Error</h2>
+                    <p>${message}</p>
+                    <button onclick="window.location.reload()">Try Again</button>
+                </div>
+            `;
+        }
 
-    // Cart functionality
-    function addToCart() {
-      if (!currentProduct) {
-        showAlert("Product not loaded yet");
-        return;
-      }
-      
-      if (currentProduct.sizes && currentProduct.sizes.length > 0 && !selectedSize) {
-        showAlert("Please select a size first");
-        return;
-      }
-      
-      const productToAdd = createCartProduct(currentProduct, selectedSize);
-      updateCartWithProduct(productToAdd);
-      showAddToCartConfirmation();
-    }
+        // Load product data
+        function loadProduct(productId) {
+            const product = products[productId];
+            
+            if (!product) {
+                showProductNotFound();
+                return;
+            }
 
-    function showAlert(message) {
-      alert(message);
-    }
+            currentProduct = product;
+            
+            // Render the product page
+            renderProductPage();
+            
+            updateProductInfo(product);
+            updateProductImages(product);
+            updateProductDescription(product);
+            updateSizeOptions(product);
+            checkWishlistStatus();
+        }
 
-    function createCartProduct(product, size) {
-      return {
-        id: product.id,
-        title: product.title,
-        name: product.title,
-        price: product.price,
-        image: product.image,
-        size: size || 'One Size',
-        quantity: 1
-      };
-    }
+        function renderProductPage() {
+            document.getElementById('main-container').innerHTML = `
+                <!-- Left: Image Section -->
+                <div class="image-section">
+                    <img id="product-image" src="" alt="Product Image" class="main-image">
+                    <div class="zoom-overlay">
+                        <img id="zoomed-image" src="" alt="Zoomed Product" style="max-width: 80%; max-height: 80%;">
+                    </div>
+                    <div class="sub-images" id="sub-images-container">
+                        <!-- Sub images will be populated by JavaScript -->
+                    </div>
+                </div>
 
-    function updateCartWithProduct(product) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      
-      const existingIndex = findProductInCart(cart, product);
-      
-      if (existingIndex !== -1) {
-        cart[existingIndex].quantity += 1;
-      } else {
-        cart.push(product);
-      }
-      
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-    }
+                <!-- Right: Product Info Section -->
+                <div class="details-section">
+                    <h1 id="product-title" class="product-title">Loading...</h1>
+                    
+                    <div class="rating">
+                        <div class="stars">★★★★★</div>
+                        <span class="review-count">(42 reviews)</span>
+                    </div>
 
-    function findProductInCart(cart, product) {
-      return cart.findIndex(item => 
-        item.id === product.id && 
-        (item.size === product.size || (!item.size && !product.size))
-      );
-    }
+                    <div class="price-block">
+                        <span id="product-price" class="price">$0.00</span>
+                        <span id="old-price" class="old-price"></span>
+                        <span id="discount-badge" class="discount-badge" style="display: none;"></span>
+                    </div>
 
-    function showAddToCartConfirmation() {
-      const cartBtnText = document.getElementById("cart-btn-text");
-      cartBtnText.innerHTML = `Added to Cart <span class="loading"></span>`;
-      
-      setTimeout(() => {
-        cartBtnText.textContent = "Added to Cart!";
-      }, 500);
-      
-      setTimeout(() => {
-        cartBtnText.textContent = "Add to Cart";
-      }, 2000);
-    }
+                    <hr class="divider" />
 
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      
-      const cartCountElements = document.querySelectorAll('.cart-count');
-      if (cartCountElements) {
-        cartCountElements.forEach(el => {
-          el.textContent = totalItems;
-        });
-      }
-    }
+                    <div class="size-section">
+                        <span class="size-label">Select Ring Size <a href="#" class="size-guide">Size Guide</a></span>
+                        <div class="size-buttons" id="size-buttons">
+                            <!-- Sizes will be populated by JavaScript -->
+                        </div>
+                    </div>
 
-    function buyNow() {
-      addToCart();
-      setTimeout(() => {
-        window.location.href = "cart.html";
-      }, 500);
-    }
+                    <div id="product-description" class="description">
+                        <p>Loading product details...</p>
+                        <ul class="features">
+                            <li>High-quality materials</li>
+                            <li>Handcrafted with precision</li>
+                            <li>30-day return policy</li>
+                            <li>Free shipping on orders over $50</li>
+                        </ul>
+                    </div>
 
-    // Wishlist functionality
-    function addToWishlist() {
-      if (!currentProduct) {
-        showAlert("Product not loaded yet");
-        return;
-      }
-      
-      const wishlistBtn = document.getElementById('wishlist-btn');
-      const productToAdd = createWishlistProduct(currentProduct);
-      const wishlist = getWishlist();
-      
-      const existingIndex = findProductInWishlist(wishlist, productToAdd.id);
-      
-      if (existingIndex !== -1) {
-        removeFromWishlist(wishlist, existingIndex, wishlistBtn);
-      } else {
-        addToWishlistArray(wishlist, productToAdd, wishlistBtn);
-      }
-      
-      updateWishlistCount();
-    }
+                    <div class="action-buttons">
+                        <button class="add-to-cart" id="add-to-cart-btn">
+                            <span id="cart-btn-text">Add to Cart</span>
+                        </button>
+                        <button class="buy-now" id="buy-now-btn">Buy Now</button>
+                        <button class="wishlist-btn" id="wishlist-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="black" stroke="currentColor">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            Wishlist
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Re-setup event listeners after rendering
+            setupImageZoom();
+            setupEventListeners();
+        }
 
-    function createWishlistProduct(product) {
-      return {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        image: product.image
-      };
-    }
+        function showProductNotFound() {
+            document.getElementById('main-container').innerHTML = `
+                <div style="padding: 40px; text-align: center; grid-column: 1 / -1;">
+                    <h2>Product not found</h2>
+                    <p>The requested product could not be found.</p>
+                    <a href="index.html" style="color: #007bff;">Return to shop</a>
+                </div>
+            `;
+        }
 
-    function getWishlist() {
-      return JSON.parse(localStorage.getItem('wishlist')) || [];
-    }
+        function updateProductInfo(product) {
+            document.getElementById("product-title").textContent = product.title;
+            document.getElementById("product-price").textContent = formatPrice(product.price);
+            
+            const oldPriceElement = document.getElementById("old-price");
+            if (product.oldPrice) {
+                oldPriceElement.textContent = formatPrice(product.oldPrice);
+                oldPriceElement.style.display = "inline";
+                
+                const discount = calculateDiscount(product.oldPrice, product.price);
+                const discountBadge = document.getElementById("discount-badge");
+                discountBadge.textContent = `${discount}% OFF`;
+                discountBadge.style.display = "inline-block";
+            } else {
+                oldPriceElement.style.display = "none";
+            }
+        }
 
-    function findProductInWishlist(wishlist, productId) {
-      return wishlist.findIndex(item => item.id === productId);
-    }
+        function formatPrice(price) {
+            return `₹${price.toFixed(2)}`;
+        }
 
-    function removeFromWishlist(wishlist, index, button) {
-      wishlist.splice(index, 1);
-      updateWishlistButton(button, false);
-      showAlert(`${currentProduct.title} removed from wishlist`);
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
+        function calculateDiscount(oldPrice, currentPrice) {
+            return Math.round(((oldPrice - currentPrice) / oldPrice) * 100);
+        }
 
-    function addToWishlistArray(wishlist, product, button) {
-      wishlist.push(product);
-      updateWishlistButton(button, true);
-      showAlert(`${currentProduct.title} added to wishlist`);
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
+        function updateProductImages(product) {
+            document.getElementById("product-image").src = product.image;
+            document.getElementById("zoomed-image").src = product.image;
+            
+            const subImagesContainer = document.getElementById("sub-images-container");
+            subImagesContainer.innerHTML = "";
+            
+            product.subImages.forEach((imgSrc, index) => {
+                const img = document.createElement("img");
+                img.src = imgSrc;
+                img.alt = `${product.title} - View ${index + 1}`;
+                img.onclick = () => changeImage(imgSrc);
+                subImagesContainer.appendChild(img);
+            });
+        }
 
-    function updateWishlistButton(button, isInWishlist) {
-      if (isInWishlist) {
-        button.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
-          In Wishlist
-        `;
-      } else {
-        button.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
-          Add to Wishlist
-        `;
-      }
-    }
+        function updateProductDescription(product) {
+            const descriptionElement = document.getElementById("product-description");
+            descriptionElement.innerHTML = `
+                <p>${product.description}</p>
+                <ul class="features">
+                    ${product.features.map(f => `<li>${f}</li>`).join("")}
+                </ul>
+            `;
+        }
 
-    function checkWishlistStatus() {
-      if (!currentProduct) return;
-      
-      const wishlist = getWishlist();
-      const exists = findProductInWishlist(wishlist, currentProduct.id) !== -1;
-      const wishlistBtn = document.getElementById('wishlist-btn');
-      
-      updateWishlistButton(wishlistBtn, exists);
-    }
+        function updateSizeOptions(product) {
+            const sizeButtonsContainer = document.getElementById("size-buttons");
+            sizeButtonsContainer.innerHTML = "";
+            
+            if (product.sizes && product.sizes.length > 0) {
+                product.sizes.forEach(size => {
+                    const button = document.createElement("button");
+                    button.className = "size-btn";
+                    if (product.unavailableSizes && product.unavailableSizes.includes(size)) {
+                        button.className += " unavailable";
+                        button.title = "This size is currently unavailable";
+                    }
+                    button.textContent = size;
+                    button.onclick = () => selectSize(size, button);
+                    sizeButtonsContainer.appendChild(button);
+                });
+            } else {
+                sizeButtonsContainer.innerHTML = '<p>One size fits all</p>';
+            }
+        }
 
-    function updateWishlistCount() {
-      const wishlist = getWishlist();
-      const wishlistCountElements = document.querySelectorAll('.wishlist-count');
-      
-      if (wishlistCountElements) {
-        wishlistCountElements.forEach(el => {
-          el.textContent = wishlist.length;
-        });
-      }
-    }
-</script>
+        function setupImageZoom() {
+            const mainImage = document.getElementById("product-image");
+            const zoomOverlay = document.querySelector(".zoom-overlay");
+            
+            if (mainImage && zoomOverlay) {
+                mainImage.addEventListener("click", function() {
+                    zoomOverlay.classList.add("active");
+                });
+                
+                zoomOverlay.addEventListener("click", function() {
+                    this.classList.remove("active");
+                });
+            }
+        }
 
+        function setupEventListeners() {
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const buyNowBtn = document.getElementById('buy-now-btn');
+            const wishlistBtn = document.getElementById('wishlist-btn');
+            
+            if (addToCartBtn) addToCartBtn.addEventListener('click', addToCart);
+            if (buyNowBtn) buyNowBtn.addEventListener('click', buyNow);
+            if (wishlistBtn) wishlistBtn.addEventListener('click', addToWishlist);
+        }
+
+        // Image handling
+        function changeImage(imageSrc) {
+            document.getElementById("product-image").src = imageSrc;
+            document.getElementById("zoomed-image").src = imageSrc;
+        }
+
+        // Size selection
+        function selectSize(size, button) {
+            if (button.classList.contains("unavailable")) return;
+            
+            document.querySelectorAll(".size-btn").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            
+            button.classList.add("active");
+            selectedSize = size;
+        }
+
+        // Cart functionality
+        function addToCart() {
+            if (!currentProduct) {
+                showAlert("Product not loaded yet");
+                return;
+            }
+            
+            if (currentProduct.sizes && currentProduct.sizes.length > 0 && !selectedSize) {
+                showAlert("Please select a size first");
+                return;
+            }
+            
+            const productToAdd = createCartProduct(currentProduct, selectedSize);
+            updateCartWithProduct(productToAdd);
+            showAddToCartConfirmation();
+        }
+
+        function showAlert(message) {
+            alert(message);
+        }
+
+        function createCartProduct(product, size) {
+            return {
+                id: product.id,
+                title: product.title,
+                name: product.title,
+                price: product.price,
+                image: product.image,
+                size: size || 'One Size',
+                quantity: 1
+            };
+        }
+
+        function updateCartWithProduct(product) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingIndex = findProductInCart(cart, product);
+            
+            if (existingIndex !== -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push(product);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function findProductInCart(cart, product) {
+            return cart.findIndex(item => 
+                item.id === product.id && 
+                (item.size === product.size || (!item.size && !product.size))
+            );
+        }
+
+        function showAddToCartConfirmation() {
+            const cartBtnText = document.getElementById("cart-btn-text");
+            cartBtnText.innerHTML = `Added to Cart <span class="loading"></span>`;
+            
+            setTimeout(() => {
+                cartBtnText.textContent = "Added to Cart!";
+            }, 500);
+            
+            setTimeout(() => {
+                cartBtnText.textContent = "Add to Cart";
+            }, 2000);
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            if (cartCountElements) {
+                cartCountElements.forEach(el => {
+                    el.textContent = totalItems;
+                });
+            }
+        }
+
+        function buyNow() {
+            addToCart();
+            setTimeout(() => {
+                window.location.href = "cart.html";
+            }, 500);
+        }
+
+        // Wishlist functionality
+        function addToWishlist() {
+            if (!currentProduct) {
+                showAlert("Product not loaded yet");
+                return;
+            }
+            
+            const wishlistBtn = document.getElementById('wishlist-btn');
+            const productToAdd = createWishlistProduct(currentProduct);
+            const wishlist = getWishlist();
+            
+            const existingIndex = findProductInWishlist(wishlist, productToAdd.id);
+            
+            if (existingIndex !== -1) {
+                removeFromWishlist(wishlist, existingIndex, wishlistBtn);
+            } else {
+                addToWishlistArray(wishlist, productToAdd, wishlistBtn);
+            }
+            
+            updateWishlistCount();
+        }
+
+        function createWishlistProduct(product) {
+            return {
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.image
+            };
+        }
+
+        function getWishlist() {
+            return JSON.parse(localStorage.getItem('wishlist')) || [];
+        }
+
+        function findProductInWishlist(wishlist, productId) {
+            return wishlist.findIndex(item => item.id === productId);
+        }
+
+        function removeFromWishlist(wishlist, index, button) {
+            wishlist.splice(index, 1);
+            updateWishlistButton(button, false);
+            showAlert(`${currentProduct.title} removed from wishlist`);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function addToWishlistArray(wishlist, product, button) {
+            wishlist.push(product);
+            updateWishlistButton(button, true);
+            showAlert(`${currentProduct.title} added to wishlist`);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function updateWishlistButton(button, isInWishlist) {
+            if (isInWishlist) {
+                button.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="red" stroke="red">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    In Wishlist
+                `;
+            } else {
+                button.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    Add to Wishlist
+                `;
+            }
+        }
+
+        function checkWishlistStatus() {
+            if (!currentProduct) return;
+            
+            const wishlist = getWishlist();
+            const exists = findProductInWishlist(wishlist, currentProduct.id) !== -1;
+            const wishlistBtn = document.getElementById('wishlist-btn');
+            
+            if (wishlistBtn) {
+                updateWishlistButton(wishlistBtn, exists);
+            }
+        }
+
+        function updateWishlistCount() {
+            const wishlist = getWishlist();
+            const wishlistCountElements = document.querySelectorAll('.wishlist-count');
+            
+            if (wishlistCountElements) {
+                wishlistCountElements.forEach(el => {
+                    el.textContent = wishlist.length;
+                });
+            }
+        }
+
+        // Make functions available globally for onclick handlers
+        window.changeImage = changeImage;
+        window.selectSize = selectSize;
+    </script>
 </body>
+
 </html>
