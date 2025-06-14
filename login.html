@@ -131,43 +131,53 @@
   </script>
 
 
-
-
-
-
   <!-- Login Form -->
   <section class="login-form">
     <div class="form-container" id="loginFormContainer" style="margin-top: 7%;">
-      <h2>Login</h2>
-      <form id="loginForm">
-        <input type="tel" id="loginContactNumber" name="contactNumber" placeholder="Contact Number" required
-          pattern="[0-9]{10}">
-        <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="tel" id="loginContactNumber" name="contactNumber" placeholder="Contact Number" required
+      pattern="[0-9]{10}">
+    <input type="password" id="loginPassword" name="password" placeholder="Password" required>
 
-        <button type="button" id="loginButton" style="width: 150px;">Login</button>
-      </form>
-      <p id="loginErrorMessage" class="error-message">Please fill out all fields correctly.</p>
-      <p><button id="showRegisterButton" style="width: 200px;">Don't have an account? Register</button></p>
-    </div>
+    <button type="button" id="loginButton" style="width: 150px;">Login</button>
+  </form>
+  <p id="loginErrorMessage" class="error-message">Please fill out all fields correctly.</p>
+  <p><button id="showRegisterButton" style="width: 200px;">Don't have an account? Register</button></p>
+</div>
+
+<!-- Login Success Overlay -->
+<div id="loginSuccessOverlay" class="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+  <div class="overlay-content" style="background: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 400px; width: 90%;">
+    <div style="color: #4CAF50; font-size: 48px; margin-bottom: 20px;">✓</div>
+    <h3 style="color: #333; margin-bottom: 15px;">Login Successful!</h3>
+    <p id="welcomeMessage" style="color: #666; margin-bottom: 25px;">Welcome back! Redirecting to dashboard...</p>
+    <button id="loginSuccessOkBtn" style="background-color: #4CAF50; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; font-size: 16px;">Continue</button>
+  </div>
+</div>
 
     <!-- Registration Form -->
     <div id="registrationFormContainer" class="form-container hidden" style="margin-top: 3%;">
       <h2>Register</h2>
       <form id="registrationForm" class="registration-form">
 
-        <input type="tel" id="regContactNumber" name="contactNumber" placeholder="Contact Number" required
-          pattern="[0-9]{10}">
+        <input type="text" name="customerName" placeholder="Enter Your Name" id="customerName" required>
+
+        <input type="email" name="email" placeholder="Email Address" id="email" required>
+
+        <input type="tel" id="regContactNumber" name="mobile" placeholder="Contact Number" required pattern="[0-9]{10}">
         <input type="password" id="regPassword" name="password" placeholder="Password" required>
         <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-        <input type="date" id="birthdate" name="birthdate" required>
+        <p>Select DOB</p>
+        <input type="date" id="birthdate" name="customerDOB" required>
 
 
         <div class="form-group">
           <label for="marital-status" style="margin-left: 1%; margin-top: 12%;">Marital Status:-</label>
-          <select id="marital-status" name="marital-status" required style="width: 60%; margin-left: 26%;">
+          <select id="marital-status" name="maritalStatus" required style="width: 60%; margin-left: 26%;">
             <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+            <option value="Married">Married</option>
+            <option value="Single">Single</option>
           </select>
         </div>
 
@@ -178,33 +188,138 @@
             style="width: 55%; margin-left: 26%; height: -10%;">
         </div>
 
-
-
-
-        <button type="button" id="registerButton" style="width: 150px; margin-top:20%">Register</button>
+        <button type="button" id="registerButton" >Register</button>
       </form>
       <p id="registerErrorMessage" class="error-message">Please fill out all fields correctly.</p>
-      <p><button id="showLoginButton" style="width: 200px; ">Already have an account? Login</button></p>
+      <p id="registerSuccessMessage" class="success-message" style="color: green; display: none;">Registration
+        successful!</p>
+      <p><button id="showLoginButton">Already have an account? Login</button></p>
+    </div>
+
+    <!-- Success Overlay -->
+    <div id="successOverlay" class="overlay"
+      style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+      <div class="overlay-content"
+        style="background: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 400px; width: 90%;">
+        <div style="color: #4CAF50; font-size: 48px; margin-bottom: 20px;">✓</div>
+        <h3 style="color: #333; margin-bottom: 15px;">Registration Successful!</h3>
+        <p style="color: #666; margin-bottom: 25px;">Your account has been created successfully. You can now login to
+          your account.</p>
+        <button id="successOkBtn"
+          style="background-color: #4CAF50; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; font-size: 16px;">OK</button>
+      </div>
     </div>
 
 
 
+    <script src="global_js/backend_apis/users.js"></script>
     <script>
-      // Handle login form submission
-      document.getElementById('loginButton').addEventListener('click', function () {
 
-        const password = document.getElementById('loginPassword').value;
-        const contactNumber = document.getElementById('loginContactNumber').value;
 
-        if (password === "" || contactNumber === "") {
-          document.getElementById('loginErrorMessage').style.display = 'block';
-        } else {
-          // You can replace this with actual login logic (e.g., API call)
-          alert('Login Successful!');
-          document.getElementById('loginForm').reset();
-          document.getElementById('loginErrorMessage').style.display = 'none';
+
+// Replace your existing login button handler with this updated version
+document.getElementById('loginButton').addEventListener('click', async function () {
+  const password = document.getElementById('loginPassword').value.trim();
+  const contactNumber = document.getElementById('loginContactNumber').value.trim();
+  const errorMessage = document.getElementById('loginErrorMessage');
+
+  // Hide previous error messages
+  errorMessage.style.display = 'none';
+
+  // Basic validation
+  if (password === "" || contactNumber === "") {
+    errorMessage.textContent = 'Please fill out all fields correctly.';
+    errorMessage.style.display = 'block';
+    return;
+  }
+
+  // Validate mobile number format (10 digits)
+  if (!/^[0-9]{10}$/.test(contactNumber)) {
+    errorMessage.textContent = 'Please enter a valid 10-digit mobile number.';
+    errorMessage.style.display = 'block';
+    return;
+  }
+
+  try {
+    // Disable login button during API call
+    this.disabled = true;
+    this.textContent = 'Logging in...';
+
+    // Call login API using userAPI instance (from users.js)
+    const loginResult = await userAPI.login(contactNumber, password);
+
+    if (loginResult.success) {
+      // Clear login form
+      document.getElementById('loginForm').reset();
+      errorMessage.style.display = 'none';
+
+      // Update welcome message with user's name
+      const welcomeMsg = document.getElementById('welcomeMessage');
+      if (loginResult.data && loginResult.data.customerName) {
+        welcomeMsg.textContent = `Welcome back, ${loginResult.data.customerName}! Redirecting to dashboard...`;
+      }
+
+      // Show success overlay
+      document.getElementById('loginSuccessOverlay').style.display = 'flex';
+
+      // Auto-redirect after 3 seconds if user doesn't click Continue
+      setTimeout(() => {
+        if (document.getElementById('loginSuccessOverlay').style.display === 'flex') {
+          redirectToHome();
         }
-      });
+      }, 3000);
+
+    } else {
+      // Show error message from API response
+      errorMessage.textContent = loginResult.message;
+      errorMessage.style.display = 'block';
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    errorMessage.textContent = 'An unexpected error occurred. Please try again.';
+    errorMessage.style.display = 'block';
+  } finally {
+    // Re-enable login button
+    this.disabled = false;
+    this.textContent = 'Login';
+  }
+});
+
+// Add this success overlay OK button handler (new)
+document.getElementById('loginSuccessOkBtn').addEventListener('click', function () {
+  redirectToHome();
+});
+
+// Add this redirect function (new)
+function redirectToHome() {
+  // Hide overlay
+  document.getElementById('loginSuccessOverlay').style.display = 'none';
+  
+  // Redirect to index.html
+  window.location.href = '/index.html';
+}
+
+// Check if user is already logged in when page loads (new)
+if (typeof userAPI !== 'undefined' && userAPI.isLoggedIn()) {
+  console.log('User already logged in, redirecting...');
+  window.location.href = '/index.html';
+}
+      // Handle login form submission
+      // document.getElementById('loginButton').addEventListener('click', function () {
+
+      //   const password = document.getElementById('loginPassword').value;
+      //   const contactNumber = document.getElementById('loginContactNumber').value;
+
+      //   if (password === "" || contactNumber === "") {
+      //     document.getElementById('loginErrorMessage').style.display = 'block';
+      //   } else {
+      //     // You can replace this with actual login logic (e.g., API call)
+      //     alert('Login Successful!');
+      //     document.getElementById('loginForm').reset();
+      //     document.getElementById('loginErrorMessage').style.display = 'none';
+      //   }
+      // });
 
       // Handle registration form submission
       document.getElementById('registerButton').addEventListener('click', function () {
@@ -255,6 +370,131 @@
           anniversaryGroup.style.display = 'none'; // Hide anniversary field when "No" or "Single" is selected
         }
       });
+
+      //--------------- registration js for user --------------------//
+
+      // Show/hide anniversary field based on marital status
+      document.getElementById('marital-status').addEventListener('change', function () {
+        const anniversaryGroup = document.getElementById('anniversaryGroup');
+        if (this.value === 'Married') {
+          anniversaryGroup.style.display = 'block';
+          document.getElementById('anniversary').required = true;
+        } else {
+          anniversaryGroup.style.display = 'none';
+          document.getElementById('anniversary').required = false;
+          document.getElementById('anniversary').value = '';
+        }
+      });
+
+      // Registration form submission
+      document.getElementById('registerButton').addEventListener('click', async function () {
+        const form = document.getElementById('registrationForm');
+        const formData = new FormData(form);
+
+        // Get form values
+        const customerName = formData.get('customerName');
+        const email = formData.get('email');
+        const mobile = formData.get('mobile');
+        const password = formData.get('password');
+        const confirmPassword = formData.get('confirmPassword');
+        const customerDOB = formData.get('customerDOB');
+        const maritalStatus = formData.get('maritalStatus');
+        const anniversary = formData.get('anniversary');
+
+        // Hide previous messages
+        document.getElementById('registerErrorMessage').style.display = 'none';
+        document.getElementById('registerSuccessMessage').style.display = 'none';
+
+        // Basic validation
+        if (!customerName || !email || !mobile || !password || !customerDOB || !maritalStatus) {
+          document.getElementById('registerErrorMessage').textContent = 'Please fill out all required fields.';
+          document.getElementById('registerErrorMessage').style.display = 'block';
+          return;
+        }
+
+        // Password confirmation check
+        if (password !== confirmPassword) {
+          document.getElementById('registerErrorMessage').textContent = 'Passwords do not match.';
+          document.getElementById('registerErrorMessage').style.display = 'block';
+          return;
+        }
+
+        // Mobile number validation
+        if (!/^[0-9]{10}$/.test(mobile)) {
+          document.getElementById('registerErrorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
+          document.getElementById('registerErrorMessage').style.display = 'block';
+          return;
+        }
+
+        // Anniversary validation for married users
+        if (maritalStatus === 'Married' && !anniversary) {
+          document.getElementById('registerErrorMessage').textContent = 'Please select anniversary date for married status.';
+          document.getElementById('registerErrorMessage').style.display = 'block';
+          return;
+        }
+
+        // Prepare payload
+        const payload = {
+          customerName: customerName,
+          email: email,
+          mobile: `+${mobile}`, // Adding + prefix as per payload format
+          maritalStatus: maritalStatus,
+          customerDOB: customerDOB,
+          anniversary: maritalStatus === 'Married' ? anniversary : null,
+          status: "active",
+          password: password
+        };
+
+        try {
+          // Disable button during request
+          this.disabled = true;
+          this.textContent = 'Registering...';
+
+          const response = await fetch('http://localhost:8080/api/users/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+
+            // Clear form
+            form.reset();
+            document.getElementById('anniversaryGroup').style.display = 'none';
+
+            // Show success overlay
+            document.getElementById('successOverlay').style.display = 'flex';
+
+          } else {
+            const errorData = await response.json();
+            document.getElementById('registerErrorMessage').textContent = errorData.message || 'Registration failed. Please try again.';
+            document.getElementById('registerErrorMessage').style.display = 'block';
+          }
+
+        } catch (error) {
+          console.error('Registration error:', error);
+          document.getElementById('registerErrorMessage').textContent = 'Network error. Please check your connection and try again.';
+          document.getElementById('registerErrorMessage').style.display = 'block';
+        } finally {
+          // Re-enable button
+          this.disabled = false;
+          this.textContent = 'Register';
+        }
+      });
+
+      // Success overlay OK button handler
+      document.getElementById('successOkBtn').addEventListener('click', function () {
+        document.getElementById('successOverlay').style.display = 'none';
+
+        // Optional: Trigger login form show (assuming you have this functionality)
+        if (typeof showLoginForm === 'function') {
+          showLoginForm();
+        }
+      });
+
     </script>
 
     <style>
@@ -1048,10 +1288,6 @@
         .wishlist-notification i {
           color: #d4af37;
         }
-
-
-
-
 
         .wishlist-icon-card {
           position: absolute;
