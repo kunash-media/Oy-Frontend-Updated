@@ -4,6 +4,7 @@
  * 
  * This module handles user authentication and local storage management
  * Session timeout is set to 1 hour (3600000 ms)
+ * 
  */
 
 class UserAPI {
