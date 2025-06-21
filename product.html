@@ -15,6 +15,63 @@
       padding: 20px;
     }
 
+    .header-icons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .icon-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .icon-link:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .wishlist-icon:hover .badge {
+            background: #c82333;
+        }
+
+        .cart-icon:hover .badge {
+            background: #c82333;
+        }
+
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -312,11 +369,31 @@
 
 
 <body>
+
+    <!-- Header Icons Section -->
+    <div class="header-icons">
+        <a href="wishlist.html" class="icon-link wishlist-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span class="badge wishlist-badge">0</span>
+        </a>
+        <a href="cart.html" class="icon-link cart-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="badge cart-badge">0</span>
+        </a>
+    </div>
+
     <div class="container" id="main-container">
         <div class="loading-container">
             <div class="loading"></div>
             <span style="margin-left: 10px;">Loading product details...</span>
         </div>
+
     </div>
 
     <script type="module">
@@ -343,9 +420,8 @@
                     title: product.ProductTitle,
                     name: product.ProductTitle,
                     price: product.ProductPrice,
-                    oldPrice: product.ProductOldPrice || null, // Add this field to backend if needed
+                    oldPrice: product.ProductOldPrice || null,
                     image: `data:image/jpeg;base64,${product.ProductImage}`,
-                    // Create sub-images array (you may need to modify backend to support multiple images)
                     subImages: [
                         `data:image/jpeg;base64,${product.ProductImage}`,
                         `data:image/jpeg;base64,${product.ProductImage}`,
@@ -354,10 +430,10 @@
                     ],
                     description: product.ProductDescription,
                     features: product.ProductFeatures || [
-                        "Feature not availabe"
+                        "Feature not available"
                     ],
                     sizes: product.ProductSizes || [],
-                    unavailableSizes: product.ProductUnavailableSizes || [], // Add this field to backend if needed
+                    unavailableSizes: product.ProductUnavailableSizes || [],
                     stock: product.ProductStock,
                     discount: product.productDiscount
                 }));
@@ -389,6 +465,7 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             initializeProductPage();
+            initializeBadgeCounters();
         });
 
         async function initializeProductPage() {
@@ -701,7 +778,7 @@
             }
             
             localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
+            updateCartCountDisplay();
         }
 
         function findProductInCart(cart, product) {
@@ -724,15 +801,14 @@
             }, 2000);
         }
 
-        function updateCartCount() {
+        function updateCartCountDisplay() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             
-            const cartCountElements = document.querySelectorAll('.cart-count');
-            if (cartCountElements) {
-                cartCountElements.forEach(el => {
-                    el.textContent = totalItems;
-                });
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                cartBadge.textContent = totalItems;
+                animateBadge('.cart-badge');
             }
         }
 
@@ -762,7 +838,7 @@
                 addToWishlistArray(wishlist, productToAdd, wishlistBtn);
             }
             
-            updateWishlistCount();
+            updateWishlistCountDisplay();
         }
 
         function createWishlistProduct(product) {
@@ -818,29 +894,122 @@
             if (!currentProduct) return;
             
             const wishlist = getWishlist();
-            const exists = findProductInWishlist(wishlist, currentProduct.id) !== -1;
+            const isInWishlist = wishlist.some(item => item.id === currentProduct.id);
             const wishlistBtn = document.getElementById('wishlist-btn');
             
             if (wishlistBtn) {
-                updateWishlistButton(wishlistBtn, exists);
+                updateWishlistButton(wishlistBtn, isInWishlist);
             }
         }
 
-        function updateWishlistCount() {
+        function updateWishlistCountDisplay() {
             const wishlist = getWishlist();
-            const wishlistCountElements = document.querySelectorAll('.wishlist-count');
+            const totalItems = wishlist.length;
             
-            if (wishlistCountElements) {
-                wishlistCountElements.forEach(el => {
-                    el.textContent = wishlist.length;
-                });
+            const wishlistBadge = document.querySelector('.wishlist-badge');
+            if (wishlistBadge) {
+                wishlistBadge.textContent = totalItems;
+                animateBadge('.wishlist-badge');
             }
         }
 
-        // Make functions available globally for onclick handlers
-        window.changeImage = changeImage;
-        window.selectSize = selectSize;
-    </script>
+        // Badge counter initialization
+        function initializeBadgeCounters() {
+            updateCartCountDisplay();
+            updateWishlistCountDisplay();
+        }
+
+        // Badge animation helper
+        function animateBadge(selector) {
+            const badge = document.querySelector(selector);
+            if (badge) {
+                badge.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    badge.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        // Stock management
+        function checkProductStock() {
+            if (currentProduct && currentProduct.stock <= 0) {
+                const addToCartBtn = document.getElementById('add-to-cart-btn');
+                const buyNowBtn = document.getElementById('buy-now-btn');
+                
+                if (addToCartBtn) {
+                    addToCartBtn.disabled = true;
+                    addToCartBtn.innerHTML = '<span>Out of Stock</span>';
+                    addToCartBtn.classList.add('disabled-btn');
+                }
+                
+                if (buyNowBtn) {
+                    buyNowBtn.disabled = true;
+                    buyNowBtn.innerHTML = 'Out of Stock';
+                    buyNowBtn.classList.add('disabled-btn');
+                }
+            }
+        }
+
+        // Error handling for images
+        function handleImageError(img) {
+            img.src = 'assets/placeholder-image.jpg'; // fallback image
+            img.alt = 'Image not available';
+        }
+
+        // Search functionality for size guide
+        function showSizeGuide() {
+            // Create modal or popup for size guide
+            const modal = document.createElement('div');
+            modal.className = 'size-guide-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3>Ring Size Guide</h3>
+                    <div class="size-chart">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Diameter (mm)</th>
+                                    <th>Circumference (mm)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>5</td><td>15.7</td><td>49.3</td></tr>
+                                <tr><td>6</td><td>16.5</td><td>51.9</td></tr>
+                                <tr><td>7</td><td>17.3</td><td>54.4</td></tr>
+                                <tr><td>8</td><td>18.1</td><td>57.0</td></tr>
+                                <tr><td>9</td><td>18.9</td><td>59.5</td></tr>
+                                <tr><td>10</td><td>19.8</td><td>62.1</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.querySelector('.close-modal').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+
+        // Export functions for global access if needed
+        window.productPageUtils = {
+            addToCart,
+            addToWishlist,
+            selectSize,
+            changeImage,
+            showSizeGuide
+        };
+
+</script>
 </body>
 
 </html>
