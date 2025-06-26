@@ -1,1049 +1,1064 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--ICON-->
-  <link rel="shortcut icon" href="IMAGES/01.png">
-  <title>Silver Jewels</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!--ICON-->
+<link rel="shortcut icon" href="IMAGES/01.png">
+    <title>Silver Jewels</title>
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
-
 <body>
 
+   
+ <!-- HEADER -->
+<header id="header">
+  <!-- TOP BAR -->
+  <div class="header-top-bar">
+    <span>Welcome To OY JEWELS Store</span>
+  </div>
 
-  <!-- HEADER -->
-  <header id="header">
-    <!-- TOP BAR -->
-    <div class="header-top-bar">
-      <span>Welcome To OY JEWELS Store</span>
+
+  <!-- MAIN NAVIGATION -->
+  <nav class="navigation">
+    <a href="#" class="logo">
+      <img src="IMAGES/01.png" alt="Logo" />
+    </a>
+
+    <!-- NAVBAR LINKS -->
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+
+      <li class="dropdown">
+        <a href="#">Collection</a>
+        <ul class="dropdown-menu">
+          <li><a href="earring.html?filter=earrings">Earrings</a></li>
+          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+          <li><a href="rings.html?filter=rings">Rings</a></li>
+          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+        </ul>
+      </li>
+
+       <li class="dropdown">
+        <a href="#">Shop By</a>
+        <ul class="dropdown-menu">
+          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
+          <li><a href="office.html">Office</a></li>
+          <li><a href="casual.html">Casual</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="gifts.html">Gifting</a>
+        <ul class="dropdown-menu">
+          <li><a href="gifts.html?for=mother">Mother</a></li>
+          <li><a href="gifts.html?for=sister">Sister</a></li>
+          <li><a href="gifts.html?for=wife">Wife</a></li>
+          <li><a href="gifts.html?for=friend">Friend</a></li>
+        </ul>
+      </li>
+
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="about.html">About Us</a></li>
+
+           <!-- My Orders added at the end -->
+  <li><a href="order.html">My Orders</a></li>
+    </ul>
+
+     <!-- RIGHT ICONS -->
+    <div class="right-nav">
+<div class="hamburger" id="hamburger">
+  <i class="fa fa-bars"></i>
+</div>
+<!-- In your header/navigation -->
+<a href="wishlist.html" class="wishlist-link">
+  <div class="wishlist-badge">
+<i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
+  </div>
+</a>
+
+<!-- Floating notification element -->
+<div class="wishlist-notification" id="wishlist-notification">
+  <i class="fas fa-check-circle"></i>
+  <span class="notification-message">Item added to wishlist</span>
+</div>      
+
+<!--LOGIN / MYPROFILE-->
+<div class="user-dropdown">
+  <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+  <div class="dropdown-content">
+    <a href="profile.html">My Profile</a>
+    <a href="login.html">Login</a>
+    <!-- Alternatively for logout when user is logged in:
+    <a href="profile.html">My Profile</a>
+    <a href="logout.html">Logout</a>
+    -->
+  </div>
+</div>  
+
+      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
+  </nav>
+
+   <!-- Search Bar -->
+  <div class="search-bar" >
+  <input type="text" placeholder="Search for jewelry..." id="searchInput">
+  <button><i class="fa fa-search"></i></button>
+  <div class="search-suggestions" id="searchSuggestions"></div>
+</div>
+
+<!-- Include the JavaScript file -->
+<script src="search.js"></script>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+</script>
+
+<!-- JavaScript to toggle menu -->
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.getElementById("navbar").classList.toggle("active");
+  });
+</script>
+
+<script>
+  document.getElementById("hamburger").addEventListener("click", function () {
+    document.querySelector(".nav-links").classList.toggle("active");
+  });
+</script>
 
 
-    <!-- MAIN NAVIGATION -->
-    <nav class="navigation">
-      <a href="#" class="logo">
-        <img src="IMAGES/01.png" alt="Logo" />
-      </a>
-
-      <!-- NAVBAR LINKS -->
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-
-        <li class="dropdown">
-          <a href="#">Collection</a>
-          <ul class="dropdown-menu">
-            <li><a href="earring.html?filter=earrings">Earrings</a></li>
-            <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
-            <li><a href="rings.html?filter=rings">Rings</a></li>
-            <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#">Shop By</a>
-          <ul class="dropdown-menu">
-            <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
-            <li><a href="office.html">Office</a></li>
-            <li><a href="casual.html">Casual</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="gifts.html">Gifting</a>
-          <ul class="dropdown-menu">
-            <li><a href="gifts.html?for=mother">Mother</a></li>
-            <li><a href="gifts.html?for=sister">Sister</a></li>
-            <li><a href="gifts.html?for=wife">Wife</a></li>
-            <li><a href="gifts.html?for=friend">Friend</a></li>
-          </ul>
-        </li>
-
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="about.html">About Us</a></li>
-      </ul>
-
-      <!-- RIGHT ICONS -->
-      <div class="right-nav">
-        <div class="hamburger" id="hamburger">
-          <i class="fa fa-bars"></i>
-        </div>
-        <!-- In your header/navigation -->
-        <a href="wishlist.html" class="wishlist-link">
-          <div class="wishlist-badge">
-            <i class="fa-solid fa-heart" style="color: #ffffff;"></i> <span class="wishlist-count">0</span>
-          </div>
-        </a>
-
-        <!-- Floating notification element -->
-        <div class="wishlist-notification" id="wishlist-notification">
-          <i class="fas fa-check-circle"></i>
-          <span class="notification-message">Item added to wishlist</span>
-        </div> <a href="login.html"><i class="fa fa-user"></i></a>
-        <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
-      </div>
-    </nav>
-
-    <!-- Search Bar -->
-    <div class="search-bar">
-      <input type="text" placeholder="Search for jewelry..." id="searchInput">
-      <button><i class="fa fa-search"></i></button>
-      <div class="search-suggestions" id="searchSuggestions"></div>
-    </div>
-
-    <!-- Include the JavaScript file -->
-    <script src="search.js"></script>
-  </header>
-
-  <script>
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
-    }
-  </script>
-
-  <!-- JavaScript to toggle menu -->
-  <script>
-    document.getElementById("hamburger").addEventListener("click", function () {
-      document.getElementById("navbar").classList.toggle("active");
-    });
-  </script>
-
-  <script>
-    document.getElementById("hamburger").addEventListener("click", function () {
-      document.querySelector(".nav-links").classList.toggle("active");
-    });
-  </script>
-
-
-  <section id="shipping">
+<section id="shipping" >
     <div class="container" style="text-align: center;"><br>
-      <p>
-      <h4> Shipping Time:</h4>
-      • Estimated delivery time 5-7 business days.<br>
-      • All order processing occurs on business days only, which are Monday through Saturday, from 9 am to 7 pm EST.
-      <br>
-      • Orders placed on Sundays, holidays, or after 6 pm EST are processed the next business day.<br><br>
-      <h4> Shipping Charges: </h4>
-      • We offer free shipping on all orders over Rs. 499. Please note that we do not offer free shipping on
-      international orders and returns.<br><br>
-      <h4>Tracking: </h4>
-      • You will receive tracking details over WhatsApp, email and SMS, once the order is shipped.<br><br>
-      <h4>Exchange Policy: </h4>
-      1. <b>No Refunds Policy:</b> At OY Jewells, we strive to provide the highest quality handcrafted jewelry .<br> Due
-      to the personalized and delicate nature of our products, we do not offer refunds once an order has been placed.
-      <br>We encourage customers to carefully review their orders before finalizing the purchase to ensure complete
-      satisfaction.<br><br>
-      2.<b> Exchange Policy:</b> We offer exchanges under the following conditions only for orders from India:<br><br>
-      <b>• Eligibility:</b> Free exchanges are allowed once for orders over ₹999 within 48hrs of delivery.<br>
-      Please ensure that the product is in its original packaging, unused, and in the same condition as
-      received.<br><br>
-      <b> • Exchange Process:</b> For orders eligible for free exchange, we will arrange for a reverse pickup at no
-      extra cost to you. <br>
-      Once we receive the returned item, we will ship the exchanged product to you.<br><br>
-      <b> • Exchange Fee:</b> For orders below ₹999, an exchange fee of ₹100 will be charged. <br>This fee covers the
-      cost of reverse pickup, new delivery, and handling charges.<br><br>
-      <b> • Damaged Items:</b> In the unlikely event that your product arrives damaged due to shipment, we will offer a
-      free exchange irrespective of the order value.
-      <br> Please contact us immediately upon receiving the damaged item, and we will arrange for the necessary
-      exchange.<br><br>
-      <b> 3. How to Initiate an Exchange:</b> <br>To initiate an exchange, please contact our customer service team
-      within 48 hours of delivery at mobile and whatsapp number 1234567890 or mail to <b>support@OYJewells.com.</b>
-      <br>Our team will guide you through the process and ensure a smooth exchange.<br><br>
-      <b> 4. Non-Exchangeable Items:</b><br> Please note that items that have been used, altered, or are not in their
-      original condition will not be eligible for exchange. <br>Additionally, custom or personalized items are not
-      eligible for exchange.<br><br>
-      <b> 5. Customer Satisfaction </b><br>At OY Jewells, customer satisfaction is our top priority. While we do not
-      offer refunds, our team is dedicated to resolving any issues with your order. Please reach out to us if you have
-      any concerns, and we will do our best to assist you.<br><br>
-      <b> 6. No exchanges </b><br>for orders from outside India. We carefully pack after doing quality checks.<br><br>
-
-      <h4> Replacement & Exchange: </h4><br>
-      • You can also avail replacement or exchange of your order as per your requirements.
-      <br> The conditions remain the same as those applicable to returns.<br>
-      • The replacement will only be shipped after the initial return has been picked up or delivered.<br><br>
-
-
-      <b> Exchange Process:</b><br>
-      • You can initiate a exchange request from our website. Alternatively, you can reach out to our Customer Support
-      team, and they’ll guide you through the process. <br>
-      • Once you have booked the exchange request, we request you to be available for the reverse pick-up, and we
-      request you to answer calls from the delivery partner.<br>
-      • In the absence of your availability or inability to answer the calls, the delivery partner may, at their
-      discretion, cancel the reverse pick-up.<br>
-      • In all such cases, the process will have to be re-initiated again, and the overall timeline will increase.
-      <br>In the unlikely event that you receive an empty parcel or a missing product, we would request you to reach out
-      to our customer support team for assistance within 48 hours of the package being delivered. <br><br>We will be
-      requiring a 360-degree unpacking video of the parcel for us to process the request further.<br><br> Please note
-      that insufficient evidence or visible signs of tampering with the packet may result in your claim not being
-      honoured. <br><br> In all such cases, the brand reserves the right to take the final decision, and mail it to
-      <br><br><b>support@oyjewells.com</b><br>
-
-
-
-      </p>
-    </div>
-  </section>
-
-  <style>
-    header {
-      width: 100%;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background-color: #000;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .header-top-bar {
-      background-color: #111;
-      color: white;
-      padding: 4px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    .navigation {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0px 30px;
-      background-color: #000;
-      color: white;
-    }
-
-    .logo img {
-      height: 70px;
-      margin-left: 50%;
-    }
-
-    /* NAVBAR LINKS */
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-    }
-
-    .nav-links li {
-      position: relative;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-size: 17px;
-      padding: 8px;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #eba25d;
-    }
-
-    /* DROPDOWN */
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 32px;
-      left: 0;
-      background-color: #111;
-      padding: 10px 0;
-      min-width: 200px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      z-index: 10;
-    }
-
-    .dropdown-menu li {
-      display: block;
-      padding: 5px 20px;
-    }
-
-    .dropdown-menu li a {
-      color: white;
-      font-size: 16px;
-    }
-
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    /* RIGHT NAV ICONS */
-    .right-nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-right: 6%;
-    }
-
-    .right-nav a {
-      color: white;
-      font-size: 20px;
-      position: relative;
-    }
-
-    #cart-count {
-      background-color: red;
-      color: white;
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 50%;
-      position: absolute;
-      top: -6px;
-      right: -10px;
-    }
-
-
-    .hamburger {
-      font-size: 24px;
-      color: white;
-      display: none;
-      cursor: pointer;
-      margin-right: 15px;
-      /* Space between hamburger and logo */
-      order: 1;
-      /* Ensure it's first */
-    }
-
-    /* Mobile styles */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-        /* Show hamburger */
-      }
-
-      .logo img {
-        height: 70px;
-        margin-left: 0;
-        /* Remove previous margin */
-      }
-
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: #000;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 30px;
-        gap: 15px;
-        z-index: 999;
-        display: none;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .right-nav {
-        margin-left: auto;
-        /* Push to the right */
-      }
-    }
-
-
-
-
-
-    /* Search bar container */
-    .search-bar {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      /* Adjust based on your layout */
-      margin: 3px auto;
-      font-family: spantax;
-
-    }
-
-    /* Input field */
-    .search-bar input[type="text"] {
-      width: 100%;
-      padding: 6px 20px;
-      border: 1px solid #e0e0e0;
-      border-radius: 24px;
-      /* Rounded edges */
-      font-size: 16px;
-      outline: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-      font-family: spantax;
-
-    }
-
-    .search-bar input[type="text"]:focus {
-      border-color: #b8a07e;
-      /* Gold-like accent (common for jewelry sites) */
-      box-shadow: 0 2px 12px rgba(184, 160, 126, 0.2);
-    }
-
-    /* Search button */
-    .search-bar button {
-      position: absolute;
-      right: 5px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #b8a07e;
-      /* Gold accent */
-
-      font-size: 16px;
-      padding: 8px 12px;
-    }
-
-    /* Suggestions dropdown */
-    .search-suggestions {
-      display: none;
-      position: absolute;
-      width: 100%;
-      max-height: 300px;
-      overflow-y: auto;
-      background: white;
-      border: 1px solid #e0e0e0;
-      border-radius: 0 0 8px 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      margin-top: 4px;
-    }
-
-    /* Individual suggestion items */
-    .suggestion-item {
-      display: block;
-      padding: 12px 16px;
-      color: #333;
-      text-decoration: none;
-      font-size: 15px;
-      border-bottom: 1px solid #f5f5f5;
-      transition: all 0.2s ease;
-    }
-
-    .suggestion-item:last-child {
-      border-bottom: none;
-    }
-
-    /* Hover & active states */
-    .suggestion-item:hover,
-    .suggestion-item:focus {
-      background-color: #f9f9f9;
-      color: #b8a07e;
-      /* Gold accent on hover */
-    }
-
-    .suggestion-item:active {
-      background-color: #f0f0f0;
-    }
-
-    /* Scrollbar styling (optional) */
-    .search-suggestions::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .search-suggestions::-webkit-scrollbar-thumb {
-      background: #d4c8b1;
-      /* Light gold scrollbar */
-      border-radius: 4px;
-    }
-
-    .search-suggestions::-webkit-scrollbar-track {
-      background: #f9f9f9;
-    }
-
-
-
-    /* Responsive styles */
-    @media (max-width: 480px) {
-      .search-bar {
-        max-width: 100%;
-        padding: 0 12px;
-      }
-
-      .search-bar input[type="text"] {
-        font-size: 14px;
-        padding: 8px 36px 8px 12px;
-      }
-
-      .search-bar button {
-        font-size: 16px;
-        right: 1px;
-      }
-
-      .suggestion-item {
-        font-size: 14px;
-        padding: 10px 14px;
-      }
-    }
-
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #000;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 30px;
-        gap: 15px;
-        z-index: 999;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      .right-nav {
-        gap: 15px;
-      }
-
-      .search-bar {
-        flex-direction: column;
-        padding: 10px 20px;
-      }
-
-      .search-bar input {
-        width: 100%;
-        border-radius: 25px;
-      }
-
-      .search-bar button {
-        border-radius: 25px;
-        width: 50%;
-        margin-top: 5px;
-      }
-    }
-
-    /* Overall styling for the shipping section */
-    /* Overall Styling for the Shipping Section */
-    /* Shipping & Exchange Policy Styling */
-    #shipping {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
-      line-height: 1.8;
-      padding: 40px 0;
-      background-color: #f9f9f9;
-    }
-
-    #shipping .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px;
-      text-align: left;
-    }
-
+<p>
+    <h4>  Shipping Time:</h4>
+    •	Estimated delivery time 5-7 business days.<br>
+    •	All order processing occurs on business days only, which are Monday through Saturday, from 9 am to 7 pm EST. <br>
+    •	Orders placed on Sundays, holidays, or after 6 pm EST are processed the next business day.<br><br>
+<h4>    Shipping Charges: </h4>
+    •	We offer free shipping on all orders over Rs. 499. Please note that we do not offer free shipping on international orders and returns.<br><br>
+    <h4>Tracking: </h4>
+    •	You will receive tracking details over WhatsApp, email and SMS, once the order is shipped.<br><br>
+    <h4>Exchange Policy: </h4>
+    1. <b>No Refunds Policy:</b> At OY Jewells, we strive to provide the highest quality handcrafted jewelry .<br> Due to the personalized and delicate nature of our products, we do not offer refunds once an order has been placed. <br>We encourage customers to carefully review their orders before finalizing the purchase to ensure complete satisfaction.<br><br>
+    2.<b> Exchange Policy:</b> We offer exchanges under the following conditions only for orders from India:<br><br>
+    <b>•	Eligibility:</b> Free exchanges are allowed once for orders over ₹999 within 48hrs of delivery.<br> 
+    Please ensure that the product is in its original packaging, unused, and in the same condition as received.<br><br>
+   <b> •	Exchange Process:</b> For orders eligible for free exchange, we will arrange for a reverse pickup at no extra cost to you. <br>
+   Once we receive the returned item, we will ship the exchanged product to you.<br><br>
+   <b> •	Exchange Fee:</b> For orders below ₹999, an exchange fee of ₹100 will be charged. <br>This fee covers the cost of reverse pickup, new delivery, and handling charges.<br><br>
+<b>    •	Damaged Items:</b> In the unlikely event that your product arrives damaged due to shipment, we will offer a free exchange irrespective of the order value.
+<br> Please contact us immediately upon receiving the damaged item, and we will arrange for the necessary exchange.<br><br>
+   <b> 3. How to Initiate an Exchange:</b> <br>To initiate an exchange, please contact our customer service team within 48 hours of delivery at mobile and whatsapp number 1234567890 or mail to <b>support@OYJewells.com.</b> 
+   <br>Our team will guide you through the process and ensure a smooth exchange.<br><br>
+  <b>  4. Non-Exchangeable Items:</b><br> Please note that items that have been used, altered, or are not in their original condition will not be eligible for exchange. <br>Additionally, custom or personalized items are not eligible for exchange.<br><br>
+ <b>   5. Customer Satisfaction </b><br>At OY Jewells, customer satisfaction is our top priority. While we do not offer refunds, our team is dedicated to resolving any issues with your order. Please reach out to us if you have any concerns, and we will do our best to assist you.<br><br>
+ <b>   6. No exchanges </b><br>for orders from outside India. We carefully pack after doing quality checks.<br><br>
+    
+  <h4>  Replacement & Exchange: </h4><br>
+    •	You can also avail replacement or exchange of your order as per your requirements.
+    <br> The conditions remain the same as those applicable to returns.<br>
+    •	The replacement will only be shipped after the initial return has been picked up or delivered.<br><br>
+    
+    
+   <b> Exchange Process:</b><br>
+    •	You can initiate a exchange request from our website. Alternatively, you can reach out to our Customer Support team, and they’ll guide you through the process. <br>
+    •	Once you have booked the exchange request, we request you to be available for the reverse pick-up, and we request you to answer calls from the delivery partner.<br>
+    •	In the absence of your availability or inability to answer the calls, the delivery partner may, at their discretion, cancel the reverse pick-up.<br>
+    •	In all such cases, the process will have to be re-initiated again, and the overall timeline will increase.
+    <br>In the unlikely event that you receive an empty parcel or a missing product, we would request you to reach out to our customer support team for assistance within 48 hours of the package being delivered.  <br><br>We will be requiring a 360-degree unpacking video of the parcel for us to process the request further.<br><br> Please note that insufficient evidence or visible signs of tampering with the packet may result in your claim not being honoured. <br><br> In all such cases, the brand reserves the right to take the final decision, and mail it to <br><br><b>support@oyjewells.com</b><br>
+    
+
+
+</p></div>
+</section>
+
+<style>
+
+
+header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #000;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.header-top-bar {
+  background-color: #111;
+  color: white;
+  padding: 4px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30px;
+  background-color: #000;
+  color: white;
+}
+
+.logo img {
+  height: 70px;
+  margin-left: 50%;
+}
+
+/* NAVBAR LINKS */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #eba25d;
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  background-color: #111;
+  padding: 10px 0;
+  min-width: 200px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  display: block;
+  padding: 5px 20px;
+}
+
+.dropdown-menu li a {
+  color: white;
+  font-size: 16px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* RIGHT NAV ICONS */
+.right-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-right: 6%;
+}
+
+.right-nav a {
+  color: white;
+  font-size: 20px;
+  position: relative;
+}
+
+#cart-count {
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 50%;
+  position: absolute;
+  top: -6px;
+  right: -10px;
+}
+
+
+.hamburger {
+  font-size: 24px;
+  color: white;
+  display: none;
+  cursor: pointer;
+  margin-right: 15px; /* Space between hamburger and logo */
+  order: 1; /* Ensure it's first */
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Show hamburger */
+  }
+  
+  .logo img {
+    height: 70px;
+    margin-left: 0; /* Remove previous margin */
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 30px;
+    gap: 15px;
+    z-index: 999;
+    display: none;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .right-nav {
+    margin-left: auto; /* Push to the right */
+  }
+}
+
+
+  .user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .user-icon {
+    display: inline-block;
+    padding: 10px;
+    color: #333;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-icon:hover {
+    color: #007bff; /* Change to your preferred hover color */
+    transform: scale(1.1);
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .user-dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+
+/* Search bar container */
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Adjust based on your layout */
+  margin: 3px auto;
+   font-family: spantax;
+
+}
+
+/* Input field */
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 6px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px; /* Rounded edges */
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+   font-family: spantax;
+
+}
+
+.search-bar input[type="text"]:focus {
+  border-color: #b8a07e; /* Gold-like accent (common for jewelry sites) */
+  box-shadow: 0 2px 12px rgba(184, 160, 126, 0.2);
+}
+
+/* Search button */
+.search-bar button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b8a07e; /* Gold accent */
+  
+  font-size: 16px;
+  padding: 8px 12px;
+}
+
+/* Suggestions dropdown */
+.search-suggestions {
+  display: none;
+  position: absolute;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 4px;
+}
+
+/* Individual suggestion items */
+.suggestion-item {
+  display: block;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.2s ease;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+/* Hover & active states */
+.suggestion-item:hover,
+.suggestion-item:focus {
+  background-color: #f9f9f9;
+  color: #b8a07e; /* Gold accent on hover */
+}
+
+.suggestion-item:active {
+  background-color: #f0f0f0;
+}
+
+/* Scrollbar styling (optional) */
+.search-suggestions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+  background: #d4c8b1; /* Light gold scrollbar */
+  border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+  background: #f9f9f9;
+}
+
+
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .search-bar {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
+  .search-bar input[type="text"] {
+    font-size: 14px;
+    padding: 8px 36px 8px 12px;
+  }
+
+  .search-bar button {
+    font-size: 16px;
+    right: 1px;
+  }
+
+  .suggestion-item {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #000;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 30px;
+    gap: 15px;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .right-nav {
+    gap: 15px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    padding: 10px 20px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    border-radius: 25px;
+  }
+
+  .search-bar button {
+    border-radius: 25px;
+    width: 50%;
+    margin-top: 5px;
+  }
+}
+/* Overall styling for the shipping section */
+  /* Overall Styling for the Shipping Section */
+/* Shipping & Exchange Policy Styling */
+#shipping {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.8;
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+#shipping .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left;
+}
+
+#shipping h4 {
+    color: #8b4513; /* Earthy brown tone */
+    font-size: 20px;
+    margin: 30px 0 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#shipping b {
+    color: #5a3921; /* Dark brown for emphasis */
+    font-weight: 600;
+}
+
+#shipping p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* List items styling */
+#shipping ul {
+    padding-left: 20px;
+}
+
+#shipping li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 15px;
+}
+
+#shipping li:before {
+    content: "•";
+    color: #8b4513;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Policy sections */
+#shipping .policy-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0d6cc;
+}
+
+/* Highlight important contact info */
+#shipping .contact-highlight {
+    background-color: #f5e8d9;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Numbered list for steps */
+#shipping ol {
+    padding-left: 25px;
+    counter-reset: item;
+}
+
+#shipping ol li {
+    margin-bottom: 15px;
+    position: relative;
+    list-style-type: none;
+}
+
+#shipping ol li:before {
+    content: counter(item) ".";
+    counter-increment: item;
+    color: #8b4513;
+    font-weight: bold;
+    position: absolute;
+    left: -25px;
+}
+
+/* Decorative elements */
+#shipping .container:before,
+#shipping .container:after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2px;
+    background: #d4a76a;
+    margin: 0 auto 30px;
+}
+
+#shipping .container:after {
+    margin: 30px auto 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
     #shipping h4 {
-      color: #8b4513;
-      /* Earthy brown tone */
-      font-size: 20px;
-      margin: 30px 0 15px;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    #shipping b {
-      color: #5a3921;
-      /* Dark brown for emphasis */
-      font-weight: 600;
-    }
-
-    #shipping p {
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
-
-    /* List items styling */
-    #shipping ul {
-      padding-left: 20px;
-    }
-
-    #shipping li {
-      margin-bottom: 10px;
-      position: relative;
-      padding-left: 15px;
-    }
-
-    #shipping li:before {
-      content: "•";
-      color: #8b4513;
-      position: absolute;
-      left: 0;
-      font-weight: bold;
-    }
-
-    /* Policy sections */
-    #shipping .policy-section {
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #e0d6cc;
-    }
-
-    /* Highlight important contact info */
-    #shipping .contact-highlight {
-      background-color: #f5e8d9;
-      padding: 15px;
-      border-radius: 5px;
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    /* Numbered list for steps */
-    #shipping ol {
-      padding-left: 25px;
-      counter-reset: item;
-    }
-
-    #shipping ol li {
-      margin-bottom: 15px;
-      position: relative;
-      list-style-type: none;
-    }
-
-    #shipping ol li:before {
-      content: counter(item) ".";
-      counter-increment: item;
-      color: #8b4513;
-      font-weight: bold;
-      position: absolute;
-      left: -25px;
-    }
-
-    /* Decorative elements */
-    #shipping .container:before,
-    #shipping .container:after {
-      content: "";
-      display: block;
-      width: 100px;
-      height: 2px;
-      background: #d4a76a;
-      margin: 0 auto 30px;
-    }
-
-    #shipping .container:after {
-      margin: 30px auto 0;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      #shipping h4 {
         font-size: 18px;
-      }
-
-      #shipping p {
+    }
+    
+    #shipping p {
         font-size: 15px;
-      }
-
-      #shipping .contact-highlight {
+    }
+    
+    #shipping .contact-highlight {
         padding: 10px;
-      }
     }
+}
 
 
-    footer {
-      background-color: #020202;
-      font-family: spantax;
-    }
+footer {
+  background-color: #020202;
+  font-family: spantax;
+}
 
-    .footer-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    .footer-container {
-      padding: 20px;
-      display: flex;
-      gap: 110px;
-    }
+.footer-container {
+  padding: 20px;
+  display: flex;
+  gap: 110px;
+}
 
-    .footer-logo-section {
-      flex: 0 0 120px;
-    }
+.footer-logo-section {
+  flex: 0 0 120px;
+}
 
-    .footer-logo {
-      width: 100%;
-      height: auto;
-    }
+.footer-logo {
+  width: 100%;
+  height: auto;
+}
 
-    .footer-content {
-      flex: 1;
-    }
+.footer-content {
+  flex: 1;
+}
 
-    .footer-sections {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-between;
-    }
+.footer-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
 
-    .footer-section {
-      flex: 1;
-      min-width: 120px;
-    }
+.footer-section {
+  flex: 1;
+  min-width: 120px;
+}
 
-    .footer-section h3 {
-      font-size: 14px;
-      margin-bottom: 12px;
-      color: #fff6f6;
-      text-transform: uppercase;
-    }
+.footer-section h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #fff6f6;
+  text-transform: uppercase;
+}
 
-    .footer-section ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    .footer-section ul li {
-      margin-bottom: 8px;
-    }
+.footer-section ul li {
+  margin-bottom: 8px;
+}
 
-    .footer-section ul li a {
-      text-decoration: none;
-      color: #ffffff;
-      font-size: 19px;
-      transition: color 0.2s ease;
-    }
+.footer-section ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 19px;
+  transition: color 0.2s ease;
+}
 
-    .social-icons {
-      display: flex;
-      gap: 12px;
-      text-align: center;
-    }
+.social-icons {
+  display: flex;
+  gap: 12px;
+  text-align: center;
+}
 
-    .social-icons li a {
-      font-size: 18px;
-      margin-right: 20px;
-    }
+.social-icons li a {
+  font-size: 18px;
+  margin-right: 20px;
+}
 
-    .footer-bottom {
-      border-top: 1px solid #333;
-      padding: 2px 2px;
-      font-size: 12px;
-      color: #888;
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding: 2px 2px;
+  font-size: 12px;
+  color: #888;
 
-    }
+}
 
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .footer-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 15px;
-      }
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .footer-logo-section {
+    flex: 0 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  .footer-sections {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .company-section {
+    display: none;
+  }
+  
+  .footer-section {
+    text-align: center;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 11px;
+  }
+}/* Center the footer bottom text */
+.footer-bottom .footer-container {
+  justify-content: center;
+  display: flex;
+}
 
-      .footer-logo-section {
-        flex: 0 0 auto;
-        text-align: center;
-        margin-bottom: 5px;
-      }
+/* Hide Shop section on smaller screens */
+@media (max-width: 768px) {
+  .footer-section:nth-child(1) {
+    display: none;
+  }
+}
 
-      .footer-logo {
-        max-width: 100px;
-      }
+    </style><br><br>
+<footer>
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+      </div>
+      
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="neck.html">Necklaces</a></li>
+              <li><a href="rings.html">Rings</a></li>
+              <li><a href="bracelet.html">Bracelets</a></li>
+              <li><a href="earring.html">Earrings</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section company-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+               <li><a href="faqs.html">FAQS</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="shipping.html">Shipping Policy</a></li>
+          <li><a href="cancel.html">Cancellation Policy</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+            </ul>
+          </div>
 
-      .footer-sections {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .company-section {
-        display: none;
-      }
-
-      .footer-section {
-        text-align: center;
-      }
-
-      .social-icons {
-        justify-content: center;
-      }
-
-      .footer-bottom {
-        text-align: center;
-        padding: 10px 15px;
-        font-size: 11px;
-      }
-    }
-
-    /* Center the footer bottom text */
-    .footer-bottom .footer-container {
-      justify-content: center;
-      display: flex;
-    }
-
-    /* Hide Shop section on smaller screens */
-    @media (max-width: 768px) {
-      .footer-section:nth-child(1) {
-        display: none;
-      }
-    }
-  </style><br><br>
-  <footer>
-    <div class="footer-wrapper">
-      <div class="footer-container">
-        <div class="footer-logo-section">
-          <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
-        </div>
-
-        <div class="footer-content">
-          <div class="footer-sections">
-            <div class="footer-section">
-              <h3>Shop</h3>
-              <ul>
-                <li><a href="necklace.html">Necklaces</a></li>
-                <li><a href="ring.html">Rings</a></li>
-                <li><a href="brac.html">Bracelets</a></li>
-                <li><a href="ear.html">Earrings</a></li>
-              </ul>
-            </div>
-
-            <div class="footer-section company-section">
-              <h3>Company</h3>
-              <ul>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/store">Store Location</a></li>
-                <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
-              </ul>
-            </div>
-
-            <div class="footer-section">
-              <h3>Legal</h3>
-              <ul>
-                <li><a href="faqs.html">FAQS</a></li>
-                <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="shipping.html">Shipping Policy</a></li>
-                <li><a href="cancel.html">Cancellation Policy</a></li>
-                <li><a href="terms.html">Terms & Conditions</a></li>
-              </ul>
-            </div>
-
-            <div class="footer-section">
-              <h3>Follow</h3>
-              <ul class="social-icons">
-                <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-              </ul>
-            </div>
+          <div class="footer-section">
+            <h3>Follow</h3>
+            <ul class="social-icons">
+              <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            </ul>
           </div>
         </div>
       </div>
-
-      <div class="footer-bottom">
-        <div class="footer-container">
-          &copy; 2025 Kunash Media Solutions. All rights reserved.
-        </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
 
-  <script>
-    class WishlistManager {
-      constructor() {
+      <script>
+class WishlistManager {
+    constructor() {
         this.init();
-      }
+    }
 
-      init() {
+    init() {
         this.updateWishlistBadge();
         this.updateWishlistIcons();
 
         document.addEventListener('click', (e) => {
-          if (e.target.closest('.wishlist-icon-card')) {
-            e.preventDefault();
-            e.stopPropagation();
-            const wishlistIcon = e.target.closest('.wishlist-icon-card');
-            this.toggleWishlist(wishlistIcon);
-          }
+            if (e.target.closest('.wishlist-icon-card')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const wishlistIcon = e.target.closest('.wishlist-icon-card');
+                this.toggleWishlist(wishlistIcon);
+            }
         });
-      }
+    }
 
-      toggleWishlist(iconElement) {
+    toggleWishlist(iconElement) {
         const productData = {
-          id: iconElement.dataset.id,
-          name: iconElement.dataset.name,
-          price: iconElement.dataset.price,
-          image: iconElement.dataset.image
+            id: iconElement.dataset.id,
+            name: iconElement.dataset.name,
+            price: iconElement.dataset.price,
+            image: iconElement.dataset.image
         };
 
         let wishlist = this.getWishlist();
         const existingIndex = wishlist.findIndex(item => item.id === productData.id);
 
         if (existingIndex >= 0) {
-          wishlist.splice(existingIndex, 1);
-          this.updateIconState(iconElement, false);
-          this.showNotification('Removed from wishlist', 'remove');
+            wishlist.splice(existingIndex, 1);
+            this.updateIconState(iconElement, false);
+            this.showNotification('Removed from wishlist', 'remove');
         } else {
-          wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
-          this.updateIconState(iconElement, true);
-          this.showNotification('Added to wishlist', 'success');
-          iconElement.classList.add('pulse');
-          setTimeout(() => iconElement.classList.remove('pulse'), 600);
+            wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
+            this.updateIconState(iconElement, true);
+            this.showNotification('Added to wishlist', 'success');
+            iconElement.classList.add('pulse');
+            setTimeout(() => iconElement.classList.remove('pulse'), 600);
         }
 
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
         this.updateWishlistBadge();
-      }
+    }
 
-      updateIconState(iconElement, isActive) {
+    updateIconState(iconElement, isActive) {
         const icon = iconElement.querySelector('i');
         if (isActive) {
-          iconElement.classList.add('active');
-          icon.classList.remove('far');
-          icon.classList.add('fas');
+            iconElement.classList.add('active');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
         } else {
-          iconElement.classList.remove('active');
-          icon.classList.remove('fas');
-          icon.classList.add('far');
+            iconElement.classList.remove('active');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
         }
-      }
+    }
 
-      updateWishlistIcons() {
+    updateWishlistIcons() {
         const wishlist = this.getWishlist();
         const wishlistIds = wishlist.map(item => item.id);
 
         document.querySelectorAll('.wishlist-icon-card').forEach(icon => {
-          const productId = icon.dataset.id;
-          const isInWishlist = wishlistIds.includes(productId);
-          this.updateIconState(icon, isInWishlist);
+            const productId = icon.dataset.id;
+            const isInWishlist = wishlistIds.includes(productId);
+            this.updateIconState(icon, isInWishlist);
         });
-      }
+    }
 
-      updateWishlistBadge() {
+    updateWishlistBadge() {
         const wishlist = this.getWishlist();
         const count = wishlist.length;
         const badge = document.querySelector('.wishlist-count');
         if (badge) {
-          badge.textContent = count;
-          badge.style.display = count > 0 ? 'flex' : 'none';
-          badge.classList.add('count-updated');
-          setTimeout(() => badge.classList.remove('count-updated'), 400);
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+            badge.classList.add('count-updated');
+            setTimeout(() => badge.classList.remove('count-updated'), 400);
         }
-      }
+    }
 
-      showNotification(message, type = 'success') {
+    showNotification(message, type = 'success') {
         const notification = document.getElementById('wishlist-notification');
         if (!notification) return;
 
         const messageEl = notification.querySelector('.notification-message');
         if (messageEl) {
-          messageEl.textContent = message;
+            messageEl.textContent = message;
         }
 
         notification.className = `wishlist-notification ${type}`;
         notification.classList.add('show');
 
         setTimeout(() => notification.classList.remove('show'), 3000);
-      }
-
-      getWishlist() {
-        try {
-          return JSON.parse(localStorage.getItem('wishlist')) || [];
-        } catch (error) {
-          console.error('Error parsing wishlist from localStorage:', error);
-          return [];
-        }
-      }
-
-      getWishlistCount() {
-        return this.getWishlist().length;
-      }
-
-      goToWishlist() {
-        window.location.href = 'wishlist.html';
-      }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const wishlistManager = new WishlistManager();
-      updateCartCount();
-    });
+    getWishlist() {
+        try {
+            return JSON.parse(localStorage.getItem('wishlist')) || [];
+        } catch (error) {
+            console.error('Error parsing wishlist from localStorage:', error);
+            return [];
+        }
+    }
 
-    // Handle "Add to Cart" clicks
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add-to-cart')) {
+    getWishlistCount() {
+        return this.getWishlist().length;
+    }
+
+    goToWishlist() {
+        window.location.href = 'wishlist.html';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const wishlistManager = new WishlistManager();
+    updateCartCount();
+});
+
+// Handle "Add to Cart" clicks
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
         const button = e.target;
         const productData = {
-          id: button.dataset.id,
-          name: button.dataset.name,
-          price: parseFloat(button.dataset.price),
-          image: button.dataset.image
+            id: button.dataset.id,
+            name: button.dataset.name,
+            price: parseFloat(button.dataset.price),
+            image: button.dataset.image
         };
 
         addToCart(productData.id, productData.name, productData.price, productData.image);
-      }
-    });
+    }
+});
 
-    // ✅ SINGLE addToCart FUNCTION — includes `image`
-    function addToCart(id, name, price, image) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// ✅ SINGLE addToCart FUNCTION — includes `image`
+function addToCart(id, name, price, image) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-      const existing = cart.find(item => item.id === id);
-      if (existing) {
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
         existing.quantity += 1;
-      } else {
+    } else {
         cart.push({ id, name, price, image, quantity: 1 });
-      }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
     }
 
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const countEl = document.getElementById('cart-count');
-      if (countEl) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countEl = document.getElementById('cart-count');
+    if (countEl) {
         countEl.textContent = totalItems;
         countEl.style.display = totalItems > 0 ? 'flex' : 'none';
-      }
     }
+}
 
-    function showCartNotification(message) {
-      const notification = document.getElementById('wishlist-notification');
-      if (notification) {
+function showCartNotification(message) {
+    const notification = document.getElementById('wishlist-notification');
+    if (notification) {
         const messageEl = notification.querySelector('.notification-message');
         if (messageEl) {
-          messageEl.textContent = message;
+            messageEl.textContent = message;
         }
         notification.className = 'wishlist-notification success';
         notification.classList.add('show');
         setTimeout(() => notification.classList.remove('show'), 2000);
-      }
     }
+}
 
-    // Manual Wishlist Count Update (if needed externally)
-    function updateWishlistCount() {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      const count = wishlist.length;
-      const badge = document.querySelector('.wishlist-count');
-      if (badge) {
+// Manual Wishlist Count Update (if needed externally)
+function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const count = wishlist.length;
+    const badge = document.querySelector('.wishlist-count');
+    if (badge) {
         badge.textContent = count;
         badge.style.display = count > 0 ? 'flex' : 'none';
-      }
     }
-  </script>
+}
+</script>
 </body>
-
 </html>

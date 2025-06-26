@@ -68,7 +68,9 @@
 
       <li><a href="contact.html">Contact Us</a></li>
       <li><a href="about.html">About Us</a></li>
-      <li><a href="order.html">My Orders</a></li>
+
+           <!-- My Orders added at the end -->
+  <li><a href="order.html">My Orders</a></li>
     </ul>
 
      <!-- RIGHT ICONS -->
@@ -87,7 +89,20 @@
 <div class="wishlist-notification" id="wishlist-notification">
   <i class="fas fa-check-circle"></i>
   <span class="notification-message">Item added to wishlist</span>
-</div>      <a href="login.html"><i class="fa fa-user"></i></a>
+</div>  
+
+<!--LOGIN / MYPROFILE-->
+<div class="user-dropdown">
+  <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+  <div class="dropdown-content">
+    <a href="profile.html">My Profile</a>
+    <a href="login.html">Login</a>
+    <!-- Alternatively for logout when user is logged in:
+    <a href="profile.html">My Profile</a>
+    <a href="logout.html">Logout</a>
+    -->
+  </div>
+</div>    
       <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
   </nav>
@@ -195,7 +210,7 @@ header {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
   padding: 8px;
   transition: color 0.3s;
 }
@@ -303,7 +318,51 @@ header {
 
 
 
-
+  .user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .user-icon {
+    display: inline-block;
+    padding: 10px;
+    color: #333;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-icon:hover {
+    color: #007bff; /* Change to your preferred hover color */
+    transform: scale(1.1);
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .user-dropdown:hover .dropdown-content {
+    display: block;
+  }
 
 /* Search bar container */
 .search-bar {
@@ -702,7 +761,7 @@ footer {
 }
 
     </style><br><br>
-  <footer>
+<footer>
   <div class="footer-wrapper">
     <div class="footer-container">
       <div class="footer-logo-section">
@@ -714,19 +773,18 @@ footer {
           <div class="footer-section">
             <h3>Shop</h3>
             <ul>
-              <li><a href="necklace.html">Necklaces</a></li>
-              <li><a href="ring.html">Rings</a></li>
-              <li><a href="brac.html">Bracelets</a></li>
-              <li><a href="ear.html">Earrings</a></li>
+              <li><a href="neck.html">Necklaces</a></li>
+              <li><a href="rings.html">Rings</a></li>
+              <li><a href="bracelet.html">Bracelets</a></li>
+              <li><a href="earring.html">Earrings</a></li>
             </ul>
           </div>
           
           <div class="footer-section company-section">
             <h3>Company</h3>
             <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/store">Store Location</a></li>
-              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
             </ul>
           </div>
           
@@ -745,9 +803,8 @@ footer {
           <div class="footer-section">
             <h3>Follow</h3>
             <ul class="social-icons">
-              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+              <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
             </ul>
           </div>
         </div>
@@ -761,7 +818,6 @@ footer {
     </div>
   </div>
 </footer>
-
 
 
 <script>

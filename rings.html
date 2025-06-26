@@ -27,7 +27,6 @@
   
 
 
-
 <style>/* Navbar Container */
   /* General Reset */
 * {
@@ -81,7 +80,7 @@ header {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
   padding: 8px;
   transition: color 0.3s;
 }
@@ -187,7 +186,51 @@ header {
   }
 }
 
-
+  .user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .user-icon {
+    display: inline-block;
+    padding: 10px;
+    color: #333;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-icon:hover {
+    color: #007bff; /* Change to your preferred hover color */
+    transform: scale(1.1);
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .user-dropdown:hover .dropdown-content {
+    display: block;
+  }
 
 /* Search bar container */
 .search-bar {
@@ -735,16 +778,31 @@ footer {
   transition: color 0.2s ease;
 }
 
-.social-icons {
+/* Ensure the FOLLOW section is vertically aligned */
+.footer-section .social-icons {
   display: flex;
   gap: 12px;
-  text-align: center;
+  align-items: center;
+  margin-top: 8px; /* Adjust this to control spacing from "FOLLOW" */
+  margin-right: 130px;
+  padding: 0;
+  list-style: none;
 }
 
-.social-icons li a {
+/* Make icons perfectly circular and centered */
+.footer-section .social-icons li a {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   font-size: 18px;
-  margin-right: 20px;
+  transition: all 0.3s ease;
 }
+
 
 .footer-bottom {
   border-top: 1px solid #333;
@@ -1009,7 +1067,9 @@ footer {
 
       <li><a href="contact.html">Contact Us</a></li>
       <li><a href="about.html">About Us</a></li>
-      <li><a href="order.html">My Orders</a></li>
+
+           <!-- My Orders added at the end -->
+  <li><a href="order.html">My Orders</a></li>
     </ul>
 
     <!-- RIGHT ICONS -->
@@ -1028,7 +1088,20 @@ footer {
 <div class="wishlist-notification" id="wishlist-notification">
   <i class="fas fa-check-circle"></i>
   <span class="notification-message">Item added to wishlist</span>
-</div>      <a href="login.html"><i class="fa fa-user"></i></a>
+</div>    
+<!--LOGIN / MYPROFILE-->
+<div class="user-dropdown">
+  <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+  <div class="dropdown-content">
+    <a href="profile.html">My Profile</a>
+    <a href="login.html">Login</a>
+    <!-- Alternatively for logout when user is logged in:
+    <a href="profile.html">My Profile</a>
+    <a href="logout.html">Logout</a>
+    -->
+  </div>
+</div>  
+
       <a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
   </nav>
