@@ -18,12 +18,82 @@ class UserProfile {
     init() {
         // Check if user is logged in
         if (!window.userAPI || !window.userAPI.isLoggedIn()) {
-            this.showNotification('Please log in to access your profile', 'error');
-            // Redirect to login page after 2 seconds
-            setTimeout(() => {
+            // Hide all existing page content
+            document.body.style.display = 'flex';
+            document.body.style.justifyContent = 'center';
+            document.body.style.alignItems = 'center';
+            document.body.style.minHeight = '100vh';
+            document.body.style.margin = '0';
+            document.body.style.padding = '20px';
+            document.body.style.boxSizing = 'border-box';
+            document.body.style.backgroundColor = '#f5f5f5';
+            document.body.innerHTML = ''; // Clear existing content
+
+            // Create login prompt container
+            const loginPrompt = document.createElement('div');
+            loginPrompt.style.textAlign = 'center';
+            loginPrompt.style.padding = '40px';
+            loginPrompt.style.backgroundColor = 'white';
+            loginPrompt.style.borderRadius = '12px';
+            loginPrompt.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            loginPrompt.style.maxWidth = '400px';
+            loginPrompt.style.width = '100%';
+
+            // Add icon
+            const icon = document.createElement('div');
+
+            icon.innerHTML = `
+                <svg width="48" height="48" viewBox="0 0 24 24" style="color: #666;">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M8.21 13.89a6 6 0 0 1 7.58 0" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>`;
+
+            icon.style.fontSize = '48px';
+            icon.style.marginBottom = '16px';
+
+            // Add title
+            const title = document.createElement('h2');
+            title.textContent = 'Profile not found';
+            title.style.margin = '0 0 8px 0';
+            title.style.color = '#333';
+            title.style.fontFamily = 'Arial, sans-serif';
+
+            // Add description
+            const desc = document.createElement('p');
+            desc.textContent = 'Please log in to access your profile.';
+            desc.style.margin = '0 0 24px 0';
+            desc.style.color = '#666';
+            desc.style.fontFamily = 'Arial, sans-serif';
+
+            // Add login button
+            const loginBtn = document.createElement('button');
+            loginBtn.textContent = 'Login';
+            loginBtn.style.backgroundColor = '#511D43';
+            loginBtn.style.color = 'white';
+            loginBtn.style.border = 'none';
+            loginBtn.style.borderRadius = '6px';
+            loginBtn.style.padding = '12px 24px';
+            loginBtn.style.fontSize = '16px';
+            loginBtn.style.cursor = 'pointer';
+            loginBtn.style.fontWeight = '600';
+            loginBtn.style.transition = 'background-color 0.2s';
+            loginBtn.onmouseenter = () => loginBtn.style.backgroundColor = '#3A152F';
+            loginBtn.onmouseleave = () => loginBtn.style.backgroundColor = '#511D43';
+            loginBtn.onclick = () => {
                 window.location.href = '/login.html'; // Adjust path as needed
-            }, 4000);
-            return;
+            };
+
+            // Append elements
+            loginPrompt.appendChild(icon);
+            loginPrompt.appendChild(title);
+            loginPrompt.appendChild(desc);
+            loginPrompt.appendChild(loginBtn);
+
+            // Add to document
+            document.body.appendChild(loginPrompt);
+
+            return; // Stop further execution
         }
 
         // Get current user from session
@@ -63,7 +133,7 @@ class UserProfile {
         // Close overlay buttons
         const closeOverlay = document.getElementById('close-overlay');
         const cancelPassword = document.getElementById('cancel-password');
-        
+
         closeOverlay.addEventListener('click', () => this.hidePasswordOverlay());
         cancelPassword.addEventListener('click', () => this.hidePasswordOverlay());
 
@@ -82,7 +152,7 @@ class UserProfile {
         // Real-time password validation
         const newPasswordInput = document.getElementById('newPassword');
         const confirmPasswordInput = document.getElementById('confirmPassword');
-        
+
         confirmPasswordInput.addEventListener('input', () => {
             this.validatePasswordMatch();
         });
@@ -144,7 +214,7 @@ class UserProfile {
         // Handle anniversary field (optional)
         const anniversaryGroup = document.getElementById('anniversary-group');
         const anniversaryInput = document.getElementById('anniversary');
-        
+
         if (userData.anniversary && userData.anniversary.trim() !== '') {
             anniversaryInput.value = userData.anniversary;
             anniversaryGroup.classList.remove('hidden');
@@ -154,7 +224,7 @@ class UserProfile {
 
         // Update current user data
         this.currentUser = userData;
-        
+
         // Handle anniversary visibility based on marital status
         this.handleMaritalStatusChange();
     }
@@ -164,7 +234,7 @@ class UserProfile {
      */
     toggleEditMode(enable) {
         this.isEditMode = enable;
-        
+
         // Get form elements
         const editableFields = ['customerName', 'mobile', 'maritalStatus', 'customerDOB', 'anniversary'];
         const editBtn = document.getElementById('edit-profile-btn');
@@ -216,7 +286,7 @@ class UserProfile {
     handleMaritalStatusChange() {
         const maritalStatus = document.getElementById('maritalStatus').value;
         const anniversaryGroup = document.getElementById('anniversary-group');
-        
+
         if (maritalStatus === 'Married') {
             anniversaryGroup.style.display = 'block';
         } else {
@@ -235,7 +305,7 @@ class UserProfile {
         try {
             // Validate form data
             const formData = this.getFormData();
-            
+
             if (!this.validateFormData(formData)) {
                 return;
             }
@@ -284,7 +354,7 @@ class UserProfile {
      */
     getFormData() {
         const maritalStatus = document.getElementById('maritalStatus').value;
-        
+
         return {
             customerName: document.getElementById('customerName').value.trim(),
             email: document.getElementById('email').value.trim(), // Email remains readonly but included
@@ -345,10 +415,10 @@ class UserProfile {
     showPasswordOverlay() {
         const overlay = document.getElementById('password-overlay');
         overlay.classList.add('show');
-        
+
         // Clear previous form data
         document.getElementById('password-form').reset();
-        
+
         // Focus on old password field
         setTimeout(() => {
             document.getElementById('oldPassword').focus();
@@ -361,7 +431,7 @@ class UserProfile {
     hidePasswordOverlay() {
         const overlay = document.getElementById('password-overlay');
         overlay.classList.remove('show');
-        
+
         // Clear form
         document.getElementById('password-form').reset();
     }
@@ -415,7 +485,7 @@ class UserProfile {
                 this.hidePasswordOverlay();
             } else {
                 const errorData = await response.json();
-                
+
                 // Check for specific error messages
                 if (errorData.message && errorData.message.toLowerCase().includes('old password')) {
                     this.showNotification('Old password is incorrect', 'error');
@@ -468,11 +538,11 @@ class UserProfile {
      */
     showNotification(message, type = 'info', duration = 5000) {
         const container = document.getElementById('notification-container');
-        
+
         // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
-        
+
         notification.innerHTML = `
             ${message}
             <button class="close-notification" onclick="this.parentElement.remove()">&times;</button>

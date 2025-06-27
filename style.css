@@ -226,7 +226,7 @@ header {
   width: 100%;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
   background-color: #000;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -246,14 +246,14 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0px 30px;
-  background-color: #000;
+  background-color: #080808;
   color: white;
 }
 
 .logo img {
-  height: 80px;
+  height: 70px;
   margin-left: 50%;
-  margin-top: 18%;
+  /* margin-top: 10%; */
 }
 
 /* NAVBAR LINKS */
@@ -536,12 +536,24 @@ header {
 }
 
 /* Search bar container */
+
+/* Search bar container */
+.search-div {
+  background-color: #0d0d0e;
+  position: sticky;
+  top: 98.9px;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+}
+
 .search-bar {
   position: relative;
   width: 100%;
-  max-width: 400px; /* Adjust based on your layout */
-  margin: 1px auto;
+  max-width: 500px;
+  margin: 0 auto;
   font-family: spantax;
+  padding: 4px;
 }
 
 /* Input field */
@@ -549,17 +561,16 @@ header {
   width: 100%;
   padding: 6px 20px;
   border: 1px solid #e0e0e0;
-  border-radius: 24px; /* Rounded edges */
+  border-radius: 24px;
   font-size: 16px;
   outline: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-   font-family: spantax;
-
+  font-family: spantax;
 }
 
 .search-bar input[type="text"]:focus {
-  border-color: #b8a07e; /* Gold-like accent (common for jewelry sites) */
+  border-color: #b8a07e;
   box-shadow: 0 2px 12px rgba(184, 160, 126, 0.2);
 }
 
@@ -572,8 +583,7 @@ header {
   background: none;
   border: none;
   cursor: pointer;
-  color: #b8a07e; /* Gold accent */
-  
+  color: #b8a07e;
   font-size: 16px;
   padding: 8px 12px;
 }
@@ -612,20 +622,20 @@ header {
 .suggestion-item:hover,
 .suggestion-item:focus {
   background-color: #f9f9f9;
-  color: #b8a07e; /* Gold accent on hover */
+  color: #b8a07e;
 }
 
 .suggestion-item:active {
   background-color: #f0f0f0;
 }
 
-/* Scrollbar styling (optional) */
+/* Scrollbar styling */
 .search-suggestions::-webkit-scrollbar {
   width: 6px;
 }
 
 .search-suggestions::-webkit-scrollbar-thumb {
-  background: #d4c8b1; /* Light gold scrollbar */
+  background: #d4c8b1;
   border-radius: 4px;
 }
 
@@ -633,13 +643,23 @@ header {
   background: #f9f9f9;
 }
 
+/* Enhanced Responsive Styles */
+@media (max-width: 768px) {
+  .search-div {
+    position: relative;
+    top: auto;
+    padding: 0;
+  }
 
+  .search-bar {
+    padding: 4px 12px;
+  }
+}
 
-/* Responsive styles */
 @media (max-width: 480px) {
   .search-bar {
     max-width: 100%;
-    padding: 0 12px;
+    padding: 4px 12px;
   }
 
   .search-bar input[type="text"] {
@@ -649,12 +669,21 @@ header {
 
   .search-bar button {
     font-size: 19px;
-   
   }
 
   .suggestion-item {
     font-size: 14px;
     padding: 10px 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  .search-bar {
+    padding: 4px 8px;
+  }
+
+  .search-bar input[type="text"] {
+    padding: 8px 4px 8px 10px;
   }
 }
 

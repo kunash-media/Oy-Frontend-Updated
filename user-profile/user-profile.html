@@ -3,15 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>User Profile | OY JEWELS</title>
+    <link rel="shortcut icon" href="../IMAGES/01.png">
+    
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="user-profile.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
+    <header id="header">
+        <!-- TOP BAR -->
+        <div class="header-top-bar">
+            <span>Welcome To OY JEWELS Store</span>
+        </div>
+
+        <!-- MAIN NAVIGATION -->
+        <nav class="navigation">
+            <a href="../index.html" class="logo">
+                <img src="../IMAGES/01.png" alt="OY JEWELS Logo">
+            </a>
+
+            <!-- NAVBAR LINKS -->
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Collection</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../earring.html?filter=earrings">Earrings</a></li>
+                        <li><a href="../neck.html?filter=necklaces">Necklaces</a></li>
+                        <li><a href="../rings.html?filter=rings">Rings</a></li>
+                        <li><a href="../bracelet.html?filter=bracelets">Bracelets</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Shop By</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../wedding.html?occasion=wedding">Wedding</a></li>
+                        <li><a href="../office.html">Office</a></li>
+                        <li><a href="../casual.html">Casual</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="../gifts.html">Gifting</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../gifts.html?for=mother">Mother</a></li>
+                        <li><a href="../gifts.html?for=sister">Sister</a></li>
+                        <li><a href="../gifts.html?for=wife">Wife</a></li>
+                        <li><a href="../gifts.html?for=friend">Friend</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../contact.html">Contact Us</a></li>
+                <li><a href="../about.html">About Us</a></li>
+                <li><a href="../order.html">My Orders</a></li>
+            </ul>
+
+            <!-- RIGHT ICONS -->
+            <div class="right-nav">
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <a href="../wishlist.html" class="wishlist-link">
+                    <div class="wishlist-badge">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </div>
+                </a>
+
+                <div class="wishlist-notification" id="wishlist-notification">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="notification-message">Item added to wishlist</span>
+                </div>
+
+                <div class="user-dropdown">
+                    <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
+                    <div class="dropdown-content">
+                        <a href="user-profile.html">My Profile</a>
+                        <a href="../login.html">Login</a>
+                    </div>
+                </div>  
+
+                <a href="../cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a>
+            </div>
+        </nav>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search for jewelry..." id="searchInput">
+            <button><i class="fas fa-search"></i></button>
+            <div class="search-suggestions" id="searchSuggestions"></div>
+        </div>
+    </header>
+
     <!-- Notification Container -->
     <div id="notification-container"></div>
 
     <!-- Main Profile Container -->
-    <div class="profile-container">
+    <main class="profile-container">
         <div class="profile-header">
             <h1>User Profile</h1>
         </div>
@@ -19,17 +121,17 @@
         <!-- Profile Form -->
         <form id="profile-form" class="profile-form">
             <div class="form-group">
-                <label for="customerName">Customer Name</label>
+                <label for="customerName">Full Name</label>
                 <input type="text" id="customerName" name="customerName" readonly>
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" readonly>
             </div>
 
             <div class="form-group">
-                <label for="mobile">Mobile</label>
+                <label for="mobile">Phone Number</label>
                 <input type="tel" id="mobile" name="mobile" readonly>
             </div>
 
@@ -49,13 +151,13 @@
                 <input type="date" id="customerDOB" name="customerDOB" readonly>
             </div>
 
-            <div class="form-group" id="anniversary-group">
-                <label for="anniversary">Anniversary</label>
+            <div class="form-group hidden" id="anniversary-group">
+                <label for="anniversary">Anniversary Date</label>
                 <input type="date" id="anniversary" name="anniversary" readonly>
             </div>
 
             <div class="form-group">
-                <label for="status">Status</label>
+                <label for="status">Account Status</label>
                 <input type="text" id="status" name="status" readonly>
             </div>
 
@@ -74,7 +176,7 @@
                 </button>
             </div>
         </form>
-    </div>
+    </main>
 
     <!-- Password Change Overlay -->
     <div id="password-overlay" class="overlay">
@@ -86,18 +188,18 @@
             
             <form id="password-form" class="password-form">
                 <div class="form-group">
-                    <label for="oldPassword">Enter Old Password</label>
+                    <label for="oldPassword">Current Password</label>
                     <input type="password" id="oldPassword" name="oldPassword" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="newPassword">Enter New Password</label>
-                    <input type="password" id="newPassword" name="newPassword" required>
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" required minlength="8">
                 </div>
 
                 <div class="form-group">
                     <label for="confirmPassword">Confirm New Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8">
                 </div>
 
                 <div class="form-actions">
@@ -105,7 +207,7 @@
                         Cancel
                     </button>
                     <button type="submit" id="submit-password" class="btn btn-primary">
-                        Change Password
+                        Update Password
                     </button>
                 </div>
             </form>
@@ -118,9 +220,34 @@
         <p>Loading...</p>
     </div>
 
-    <!-- Include User API -->
+    <!-- JavaScript Files -->
+    <script src="../search.js"></script>
     <script src="../../global_js/backend_apis/users.js"></script>
-    <!-- Include Profile Script -->
     <script src="user-profile.js"></script>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById("hamburger").addEventListener("click", function() {
+            document.querySelector(".nav-links").classList.toggle("active");
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropdown > a')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+        
+        // Initialize dropdowns
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const menu = this.nextElementSibling;
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
 </body>
 </html>
