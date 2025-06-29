@@ -1912,3 +1912,48 @@ font-size: 20px;
   opacity: 1;
 }
 
+
+
+#logoutOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.692);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#logoutOverlay div {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    max-width: 300px;
+
+    
+}
+
+.logout-confirm-box{
+    border: 1px solid #636060;
+}
+
+#logoutOverlay button {
+    margin-right: 10px;
+    padding: 5px 15px;
+    background-color: #511D43;
+    border: none;
+    cursor: pointer;
+    color: whitesmoke;
+    border-radius: 4px;
+}
+
+#logoutOverlay button:hover{
+   background-color: #511d43d4;
+}
+
+

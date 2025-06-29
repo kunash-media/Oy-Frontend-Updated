@@ -203,31 +203,45 @@ class UserProfile {
      * Populate the profile form with user data
      */
     populateProfileForm(userData) {
-        // Populate form fields
-        document.getElementById('customerName').value = userData.customerName || '';
-        document.getElementById('email').value = userData.email || '';
-        document.getElementById('mobile').value = userData.mobile || '';
-        document.getElementById('maritalStatus').value = userData.maritalStatus || '';
-        document.getElementById('customerDOB').value = userData.customerDOB || '';
-        document.getElementById('status').value = userData.status || '';
 
-        // Handle anniversary field (optional)
-        const anniversaryGroup = document.getElementById('anniversary-group');
-        const anniversaryInput = document.getElementById('anniversary');
+    //------for array date format to string format function-------//   
+    // Convert array dates to yyyy-MM-dd format for HTML inputs
+    // const formatDateForInput = (dateArray) => {
+    //     if (!dateArray || dateArray.length !== 3) return '';
+    //     const [year, month, day] = dateArray;
+    //     // Note: month is 1-12 in your data (no need for +1 adjustment)
+    //     return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    // };
 
-        if (userData.anniversary && userData.anniversary.trim() !== '') {
-            anniversaryInput.value = userData.anniversary;
-            anniversaryGroup.classList.remove('hidden');
-        } else {
-            anniversaryGroup.classList.add('hidden');
-        }
-
-        // Update current user data
-        this.currentUser = userData;
-
-        // Handle anniversary visibility based on marital status
-        this.handleMaritalStatusChange();
+    // Populate form fields
+    document.getElementById('customerName').value = userData.customerName || '';
+    document.getElementById('email').value = userData.email || '';
+    document.getElementById('mobile').value = userData.mobile || '';
+    document.getElementById('maritalStatus').value = userData.maritalStatus || '';
+    document.getElementById('status').value = userData.status || '';
+    
+    // Handle dates (convert from array to string format)
+    document.getElementById('customerDOB').value = userData.customerDOB;
+    
+    // Handle anniversary field
+    const anniversaryGroup = document.getElementById('anniversary-group');
+    const anniversaryInput = document.getElementById('anniversary');
+    
+    const anniversaryDate = userData.anniversary;
+    if (anniversaryDate && userData.maritalStatus === 'Married') {
+        anniversaryInput.value = anniversaryDate;
+        anniversaryGroup.classList.remove('hidden');
+    } else {
+        anniversaryInput.value = '';
+        anniversaryGroup.classList.add('hidden');
     }
+
+    // Update current user data
+    this.currentUser = userData;
+
+    // Handle anniversary visibility based on marital status
+    this.handleMaritalStatusChange();
+}
 
     /**
      * Toggle edit mode

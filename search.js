@@ -1,16 +1,16 @@
 /* SEARCH SUGGESTIONS */
 // Sample product data mapped to your HTML pages
 const products = [
-  { name: "Diamond Ring", url: "rings.html" },
-  { name: "Gold Ring", url: "rings.html" },
-  { name: "Silver Ring", url: "rings.html" },
-  { name: "Gold Necklace", url: "neck.html" },
-  { name: "Silver Necklace", url: "neck.html" },
-  { name: "Pearl Necklace", url: "neck.html" },
-  { name: "Silver Bracelet", url: "bracelet.html" },
-  { name: "Gold Bracelet", url: "bracelet.html" },
-  { name: "Pearl Earrings", url: "earrings.html" },
-  { name: "Diamond Earrings", url: "earring.html" }
+  { name: "Diamond Ring", url: "/rings.html" },
+  { name: "Gold Ring", url: "/rings.html" },
+  { name: "Silver Ring", url: "/rings.html" },
+  { name: "Gold Necklace", url: "/neck.html" },
+  { name: "Silver Necklace", url: "/neck.html" },
+  { name: "Pearl Necklace", url: "/neck.html" },
+  { name: "Silver Bracelet", url: "/bracelet.html" },
+  { name: "Gold Bracelet", url: "/bracelet.html" },
+  { name: "Pearl Earrings", url: "/earrings.html" },
+  { name: "Diamond Earrings", url: "/earring.html" }
 ];
 
 const searchInput = document.getElementById('searchInput');

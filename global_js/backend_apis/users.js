@@ -10,7 +10,7 @@
 class UserAPI {
     constructor() {
         // Session timeout: 1 hour in milliseconds
-        this.SESSION_TIMEOUT = 5 * 60 * 1000; // 3600000 ms = 1 min
+        this.SESSION_TIMEOUT = 15 * 60 * 1000; // 3600000 ms = 1 min
         this.API_BASE_URL = 'http://localhost:8080/api/users';
         this.STORAGE_KEYS = {
             USER_DATA: 'userData',
@@ -213,6 +213,16 @@ class UserAPI {
             return 0;
         }
     }
+
+     // Add this method to check login state more reliably
+     checkLoginState() {
+        try {
+            return this.isLoggedIn();
+        } catch (error) {
+            console.error('Error checking login state:', error);
+            return false;
+        }
+    }
 }
 
 // Create and export a single instance of UserAPI
@@ -223,3 +233,10 @@ const userAPI = new UserAPI();
 
 // For global access in browser environment
 window.userAPI = userAPI;
+
+// Dispatch ready event after a small delay to ensure all listeners are set up
+setTimeout(() => {
+    window.dispatchEvent(new CustomEvent('userAPIReady', {
+        detail: { userAPI }
+    }));
+}, 100);

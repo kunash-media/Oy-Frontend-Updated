@@ -1030,7 +1030,7 @@ font-weight: 600;
 
     <!-- NAVBAR LINKS -->
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="/index.html">Home</a></li>
 
       <li class="dropdown">
         <a href="#">Collection</a>
@@ -1051,7 +1051,7 @@ font-weight: 600;
         </ul>
       </li>
       <li class="dropdown">
-        <a href="gifts.html">Gifting</a>
+        <a href="/gifts.html">Gifting</a>
         <ul class="dropdown-menu">
           <li><a href="gifts.html?for=mother">Mother</a></li>
           <li><a href="gifts.html?for=sister">Sister</a></li>
@@ -1060,11 +1060,11 @@ font-weight: 600;
         </ul>
       </li>
 
-      <li><a href="contact.html">Contact Us</a></li>
-      <li><a href="about.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="/about.html">About Us</a></li>
 
-           <!-- My Orders added at the end -->
-  <li><a href="order.html">My Orders</a></li>
+      <!-- My Orders added at the end -->
+      <li><a href="/user-order/order.html">My Orders</a></li>
     </ul>
 
     <!-- RIGHT ICONS -->
@@ -1095,8 +1095,8 @@ font-weight: 600;
 <div class="user-dropdown">
   <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
   <div class="dropdown-content">
-    <a href="profile.html">My Profile</a>
-    <a href="login.html">Login</a>
+    <a href="/user-profile/user-profile.html">My Profile</a>
+    <a href="/login.html">Login</a>
     <!-- Alternatively for logout when user is logged in:
     <a href="profile.html">My Profile</a>
     <a href="logout.html">Logout</a>
@@ -1104,7 +1104,7 @@ font-weight: 600;
   </div>
 </div>  
 
-<a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+<a href="/cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
   </nav>
 
@@ -1596,5 +1596,8 @@ function updateWishlistCount() {
     }
 }
 </script>
+ <script src="/global_js/backend_apis/users.js"></script>
+<script src="/user-profile/user-logout.js"></script>
+
 </body>
 </html>

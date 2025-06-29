@@ -69,7 +69,7 @@
 
                 <li><a href="../contact.html">Contact Us</a></li>
                 <li><a href="../about.html">About Us</a></li>
-                <li><a href="../order.html">My Orders</a></li>
+                <li><a href="../user-order/order.html">My Orders</a></li>
             </ul>
 
             <!-- RIGHT ICONS -->
@@ -93,8 +93,8 @@
                 <div class="user-dropdown">
                     <a href="#" class="user-icon"><i class="fas fa-user"></i></a>
                     <div class="dropdown-content">
-                        <a href="user-profile.html">My Profile</a>
-                        <a href="../login.html">Login</a>
+                        <a href="../user-profile/user-profile.html">My Profile</a>
+                        <!-- <a href="../login.html">Logout</a> -->
                     </div>
                 </div>  
 
@@ -108,6 +108,8 @@
             <div class="search-suggestions" id="searchSuggestions"></div>
         </div>
     </header>
+
+    <script src="../search.js"></script>
 
     <!-- Notification Container -->
     <div id="notification-container"></div>
@@ -174,6 +176,9 @@
                 <button type="button" id="change-password-btn" class="btn btn-primary">
                     Change Password
                 </button>
+                <button type="button" id="logout-btn" class="btn btn-danger">
+                    Logout
+                </button>
             </div>
         </form>
     </main>
@@ -214,17 +219,15 @@
         </div>
     </div>
 
+
+
     <!-- Loading Spinner -->
     <div id="loading-spinner" class="loading-spinner">
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
 
-    <!-- JavaScript Files -->
-    <script src="../search.js"></script>
-    <script src="../../global_js/backend_apis/users.js"></script>
-    <script src="user-profile.js"></script>
-    
+  
     <script>
         // Mobile menu toggle
         document.getElementById("hamburger").addEventListener("click", function() {
@@ -248,6 +251,41 @@
                 menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
             });
         });
+
+        // Logout functionality
+        // Logout button integration with existing user-logout.js
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for UserSessionManager to initialize
+            const checkSessionManager = setInterval(() => {
+                if (window.userAPI) {
+                    clearInterval(checkSessionManager);
+                    setupLogoutButton();
+                }
+            }, 100);
+
+            function setupLogoutButton() {
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        // Trigger the same behavior as the nav logout link
+                        const logoutOverlay = document.getElementById('logoutOverlay');
+                        if (logoutOverlay) {
+                            logoutOverlay.style.display = 'flex';
+                        } else {
+                            // Fallback if overlay doesn't exist yet
+                            window.location.href = '/login.html';
+                        }
+                    });
+                }
+            }
+        });
     </script>
+
+      <!-- JavaScript Files -->
+      <script src="/global_js/backend_apis/users.js"></script>
+      <script src="/user-profile/user-logout.js"></script>
+      <script src="/user-profile/user-profile.js"></script>
+    
 </body>
 </html>

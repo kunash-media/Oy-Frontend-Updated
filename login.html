@@ -40,7 +40,7 @@
 
     <!-- NAVBAR LINKS -->
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="/index.html">Home</a></li>
 
       <li class="dropdown">
         <a href="#">Collection</a>
@@ -62,7 +62,7 @@
       </li>
 
       <li class="dropdown">
-        <a href="gifts.html">Gifting</a>
+        <a href="/gifts.html">Gifting</a>
         <ul class="dropdown-menu">
           <li><a href="gifts.html?for=mother">Mother</a></li>
           <li><a href="gifts.html?for=sister">Sister</a></li>
@@ -71,11 +71,11 @@
         </ul>
       </li>
 
-      <li><a href="contact.html">Contact Us</a></li>
-      <li><a href="about.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="/about.html">About Us</a></li>
 
-           <!-- My Orders added at the end -->
-  <li><a href="order.html">My Orders</a></li>
+      <!-- My Orders added at the end -->
+      <li><a href="/user-order/order.html">My Orders</a></li>
     </ul>
 
     <!-- RIGHT ICONS -->
@@ -84,7 +84,7 @@
   <i class="fa fa-bars"></i>
 </div>
 <!-- In your header/navigation -->
-<a href="wishlist.html" class="wishlist-link">
+<a href="/wishlist.html" class="wishlist-link">
   <div class="wishlist-badge">
 <i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
   </div>
@@ -101,7 +101,7 @@
   <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
   <div class="dropdown-content">
     <a href="/user-profile/user-profile.html">My Profile</a>
-    <a href="login.html">Login</a>
+    <a href="/login.html">Login/Logout</a>
     <!-- Alternatively for logout when user is logged in:
     <a href="profile.html">My Profile</a>
     <a href="logout.html">Logout</a>
@@ -109,7 +109,7 @@
   </div>
 </div>  
 
-<a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>    </div>
+<a href="/cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>    </div>
   </nav>
 
  <div class="search-bar" >
@@ -382,129 +382,134 @@ if (typeof userAPI !== 'undefined' && userAPI.isLoggedIn()) {
         }
       });
 
-      //--------------- registration js for user --------------------//
+  // Show/hide anniversary field based on marital status
+document.getElementById('marital-status').addEventListener('change', function () {
+  const anniversaryGroup = document.getElementById('anniversaryGroup');
+  if (this.value === 'Married') {
+    anniversaryGroup.style.display = 'block';
+    document.getElementById('anniversary').required = true;
+  } else {
+    anniversaryGroup.style.display = 'none';
+    document.getElementById('anniversary').required = false;
+    document.getElementById('anniversary').value = '';
+  }
+});
 
-      // Show/hide anniversary field based on marital status
-      document.getElementById('marital-status').addEventListener('change', function () {
-        const anniversaryGroup = document.getElementById('anniversaryGroup');
-        if (this.value === 'Married') {
-          anniversaryGroup.style.display = 'block';
-          document.getElementById('anniversary').required = true;
-        } else {
-          anniversaryGroup.style.display = 'none';
-          document.getElementById('anniversary').required = false;
-          document.getElementById('anniversary').value = '';
-        }
-      });
+// Convert yyyy-MM-dd to [year, month, day] array for backend
+function formatDateForBackend(dateString) {
+  if (!dateString) return null;
+  const [year, month, day] = dateString.split('-').map(Number);
+  return [year, month, day];
+}
 
-      // Registration form submission
-      document.getElementById('registerButton').addEventListener('click', async function () {
-        const form = document.getElementById('registrationForm');
-        const formData = new FormData(form);
+// Registration form submission
+document.getElementById('registerButton').addEventListener('click', async function () {
+  const form = document.getElementById('registrationForm');
+  const formData = new FormData(form);
 
-        // Get form values
-        const customerName = formData.get('customerName');
-        const email = formData.get('email');
-        const mobile = formData.get('mobile');
-        const password = formData.get('password');
-        const confirmPassword = formData.get('confirmPassword');
-        const customerDOB = formData.get('customerDOB');
-        const maritalStatus = formData.get('maritalStatus');
-        const anniversary = formData.get('anniversary');
+  // Get form values
+  const customerName = formData.get('customerName');
+  const email = formData.get('email');
+  const mobile = formData.get('mobile');
+  const password = formData.get('password');
+  const confirmPassword = formData.get('confirmPassword');
+  const customerDOB = formData.get('customerDOB');
+  const maritalStatus = formData.get('maritalStatus');
+  const anniversary = formData.get('anniversary');
 
-        // Hide previous messages
-        document.getElementById('registerErrorMessage').style.display = 'none';
-        document.getElementById('registerSuccessMessage').style.display = 'none';
+  // Hide previous messages
+  document.getElementById('registerErrorMessage').style.display = 'none';
+  document.getElementById('registerSuccessMessage').style.display = 'none';
 
-        // Basic validation
-        if (!customerName || !email || !mobile || !password || !customerDOB || !maritalStatus) {
-          document.getElementById('registerErrorMessage').textContent = 'Please fill out all required fields.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Basic validation
+  if (!customerName || !email || !mobile || !password || !customerDOB || !maritalStatus) {
+    document.getElementById('registerErrorMessage').textContent = 'Please fill out all required fields.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Password confirmation check
-        if (password !== confirmPassword) {
-          document.getElementById('registerErrorMessage').textContent = 'Passwords do not match.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Password confirmation check
+  if (password !== confirmPassword) {
+    document.getElementById('registerErrorMessage').textContent = 'Passwords do not match.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Mobile number validation
-        if (!/^[0-9]{10}$/.test(mobile)) {
-          document.getElementById('registerErrorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Mobile number validation
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    document.getElementById('registerErrorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Anniversary validation for married users
-        if (maritalStatus === 'Married' && !anniversary) {
-          document.getElementById('registerErrorMessage').textContent = 'Please select anniversary date for married status.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Anniversary validation for married users
+  if (maritalStatus === 'Married' && !anniversary) {
+    document.getElementById('registerErrorMessage').textContent = 'Please select anniversary date for married status.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Prepare payload
-        const payload = {
-          customerName: customerName,
-          email: email,
-          mobile: `${mobile}`, // Adding + prefix as per payload format
-          maritalStatus: maritalStatus,
-          customerDOB: customerDOB,
-          anniversary: maritalStatus === 'Married' ? anniversary : null,
-          status: "active",
-          password: password
-        };
+  // Prepare payload with properly formatted dates
+  const payload = {
+    customerName: customerName,
+    email: email,
+    mobile: mobile,
+    maritalStatus: maritalStatus,
+    customerDOB: formatDateForBackend(customerDOB),
+    anniversary: maritalStatus === 'Married' ? formatDateForBackend(anniversary) : null,
+    status: "active",
+    password: password
+  };
 
-        try {
-          // Disable button during request
-          this.disabled = true;
-          this.textContent = 'Registering...';
+  try {
+    // Disable button during request
+    this.disabled = true;
+    this.textContent = 'Registering...';
 
-          const response = await fetch('http://localhost:8080/api/users/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-          });
+    const response = await fetch('http://localhost:8080/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
 
-          if (response.ok) {
-            const result = await response.json();
+    if (response.ok) {
+      const result = await response.json();
 
-            // Clear form
-            form.reset();
-            document.getElementById('anniversaryGroup').style.display = 'none';
+      // Clear form
+      form.reset();
+      document.getElementById('anniversaryGroup').style.display = 'none';
 
-            // Show success overlay
-            document.getElementById('successOverlay').style.display = 'flex';
+      // Show success overlay
+      document.getElementById('successOverlay').style.display = 'flex';
 
-          } else {
-            const errorData = await response.json();
-            document.getElementById('registerErrorMessage').textContent = errorData.message || 'Registration failed. Please try again.';
-            document.getElementById('registerErrorMessage').style.display = 'block';
-          }
+    } else {
+      const errorData = await response.json();
+      document.getElementById('registerErrorMessage').textContent = errorData.message || 'Registration failed. Please try again.';
+      document.getElementById('registerErrorMessage').style.display = 'block';
+    }
 
-        } catch (error) {
-          console.error('Registration error:', error);
-          document.getElementById('registerErrorMessage').textContent = 'Network error. Please check your connection and try again.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-        } finally {
-          // Re-enable button
-          this.disabled = false;
-          this.textContent = 'Register';
-        }
-      });
+  } catch (error) {
+    console.error('Registration error:', error);
+    document.getElementById('registerErrorMessage').textContent = 'Network error. Please check your connection and try again.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+  } finally {
+    // Re-enable button
+    this.disabled = false;
+    this.textContent = 'Register';
+  }
+});
 
-      // Success overlay OK button handler
-      document.getElementById('successOkBtn').addEventListener('click', function () {
-        document.getElementById('successOverlay').style.display = 'none';
+// Success overlay OK button handler
+document.getElementById('successOkBtn').addEventListener('click', function () {
+  document.getElementById('successOverlay').style.display = 'none';
 
-        // Optional: Trigger login form show (assuming you have this functionality)
-        if (typeof showLoginForm === 'function') {
-          showLoginForm();
-        }
-      });
+  // Optional: Trigger login form show (assuming you have this functionality)
+  if (typeof showLoginForm === 'function') {
+    showLoginForm();
+  }
+});
 
     </script>
 

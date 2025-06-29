@@ -226,11 +226,6 @@ function closePopup() {
 
 
 
-
-
-
-
-
 /* SEARCH SUGGESTIONS */
 // Sample product data mapped to your HTML pages
 const products = [

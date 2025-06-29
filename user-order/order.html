@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders | Jewelry Store</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/user-order/order.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="shortcut icon" href="../IMAGES/01.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Your header/navigation would go here -->
+
+  <!-- HEADER -->
+  <header id="header">
+    <!-- TOP BAR -->
+    <div class="header-top-bar">
+      <span>Welcome To OY JEWELS Store</span>
+    </div>
+
+
+    <!-- MAIN NAVIGATION -->
+    <nav class="navigation">
+      <a href="#" class="logo">
+        <img src="../IMAGES/01.png" alt="Logo" />
+      </a>
+
+      <!-- NAVBAR LINKS -->
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+
+        <li class="dropdown">
+          <a href="#">Collection</a>
+          <ul class="dropdown-menu">
+            <li><a href="../earring.html?filter=earrings">Earrings</a></li>
+            <li><a href="../neck.html?filter=necklaces">Necklaces</a></li>
+            <li><a href="../rings.html?filter=rings">Rings</a></li>
+            <li><a href="../bracelet.html?filter=bracelets">Bracelets</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#">Shop By</a>
+          <ul class="dropdown-menu">
+            <li><a href="../wedding.html?occasion=wedding">Wedding</a></li>
+            <li><a href="../office.html">Office</a></li>
+            <li><a href="../casual.html">Casual</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="../gifts.html">Gifting</a>
+          <ul class="dropdown-menu">
+            <li><a href="../ggifts.html?for=mother">Mother</a></li>
+            <li><a href="../gifts.html?for=sister">Sister</a></li>
+            <li><a href="../gifts.html?for=wife">Wife</a></li>
+            <li><a href="../gifts.html?for=friend">Friend</a></li>
+          </ul>
+        </li>
+
+        <li><a href="../contact.html">Contact Us</a></li>
+        <li><a href="../about.html">About Us</a></li>
+
+        <!-- My Orders added at the end -->
+        <li><a href="/user-order/order.html">My Orders</a></li>
+      </ul>
+
+      <!-- RIGHT ICONS -->
+      <div class="right-nav">
+        <div class="hamburger" id="hamburger">
+          <i class="fa fa-bars"></i>
+        </div>
+        <!-- In your header/navigation -->
+        <a href="../wishlist.html" class="wishlist-link">
+          <div class="wishlist-badge">
+            <i class="fa-solid fa-heart" style="color: #ffffff;"></i> <span class="wishlist-count">0</span>
+          </div>
+        </a>
+
+        <!-- Floating notification element -->
+        <div class="wishlist-notification" id="wishlist-notification">
+          <i class="fas fa-check-circle"></i>
+          <span class="notification-message">Item added to wishlist</span>
+        </div>
+
+        <!--LOGIN / MYPROFILE-->
+        <div class="user-dropdown">
+          <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+          <div class="dropdown-content">
+            <a href="../user-profile/user-profile.html">My Profile</a>
+            <!-- <a href="../login.html">Login/Logout</a> -->
+          </div>
+        </div>
+
+        <a href="../cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+      </div>
+    </nav>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search for jewelry..." id="searchInput">
+      <button><i class="fa fa-search"></i></button>
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+
+    <!-- Include the JavaScript file -->
+    <script src="../search.js"></script>
+  </header>
+
+
+  <div class="container">
+    <div class="orders-header">
+      <h1>My Orders</h1>
+      <p>View your order history and track shipments</p>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-orders" id="loadingOrders" style="display: none;">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <p>Loading your orders...</p>
+    </div>
+
+    <!-- Orders List Container -->
+    <div class="orders-list" id="ordersList" style="display: none;">
+      <!-- Orders will be populated here by JavaScript -->
+    </div>
+
+    <!-- Empty Orders (Original) -->
+    <div class="empty-orders" id="emptyOrders">
+      <div class="empty-orders-icon">
+        <i class="fas fa-box-open"></i>
+      </div>
+      <h2>No Orders Yet</h2>
+      <p>You haven't placed any orders with us yet. Start shopping to discover our beautiful jewelry collection.</p>
+      <a href="../index.html" class="shop-btn">Shop Now</a>
+    </div>
+
+    <div class="order-help">
+      <h3>Need help with an order?</h3>
+      <p>If you have questions about an order you've placed or need assistance with tracking, our customer service team
+        is happy to help.</p>
+      <a href="/contact.html" class="contact-link">Contact Us →</a>
+    </div>
+  </div>
+
+  <!-- Your footer would go here -->
+  <footer>
+    <div class="footer-wrapper">
+      <div class="footer-container">
+        <div class="footer-logo-section">
+          <img src="../IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+        </div>
+
+        <div class="footer-content">
+          <div class="footer-sections">
+            <div class="footer-section">
+              <h3>Shop</h3>
+              <ul>
+                <li><a href="necklace.html">Necklaces</a></li>
+                <li><a href="ring.html">Rings</a></li>
+                <li><a href="brac.html">Bracelets</a></li>
+                <li><a href="ear.html">Earrings</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section company-section">
+              <h3>Company</h3>
+              <ul>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/store">Store Location</a></li>
+                <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>Legal</h3>
+              <ul>
+                <li><a href="faqs.html">FAQS</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="shipping.html">Shipping Policy</a></li>
+                <li><a href="cancel.html">Cancellation Policy</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>Follow</h3>
+              <ul class="social-icons">
+                <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-container">
+          &copy; 2025 Kunash Media Solutions. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+   <!-- Order Management Script -->
+  <script type="module">
+    // Import products API
+    import { fetchAllProducts } from '/global_js/backend_apis/products.js';
+
+    class OrderManager {
+      constructor() {
+        this.API_BASE_URL = 'http://localhost:8080/api/orders';
+        this.products = [];
+        this.init();
+      }
+
+      async init() {
+        try {
+          // Load products first
+          await this.loadProducts();
+          // Load orders
+          await this.loadOrders();
+        } catch (error) {
+          console.error('Error initializing order manager:', error);
+          this.showEmptyState();
+        }
+      }
+
+      async loadProducts() {
+        try {
+          this.products = await fetchAllProducts();
+        } catch (error) {
+          console.error('Error loading products:', error);
+          this.products = [];
+        }
+      }
+
+      async loadOrders() {
+        // Show loading state
+        this.showLoadingState();
+
+        try {
+          // Check if user is logged in
+          if (!window.userAPI || !window.userAPI.isLoggedIn()) {
+            console.log('User not logged in');
+            this.showEmptyState();
+            return;
+          }
+
+          // Get current user
+          const currentUser = window.userAPI.getCurrentUser();
+          if (!currentUser || !currentUser.userId) {
+            console.log('No valid user found');
+            this.showEmptyState();
+            return;
+          }
+
+          // Fetch orders from API
+          const response = await fetch(`${this.API_BASE_URL}/user/${currentUser.userId}`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const orders = await response.json();
+          
+          // Hide loading state
+          this.hideLoadingState();
+
+          if (orders && orders.length > 0) {
+            this.displayOrders(orders);
+          } else {
+            this.showEmptyState();
+          }
+
+        } catch (error) {
+          console.error('Error loading orders:', error);
+          this.hideLoadingState();
+          this.showEmptyState();
+        }
+      }
+
+      showLoadingState() {
+        document.getElementById('loadingOrders').style.display = 'block';
+        document.getElementById('emptyOrders').style.display = 'none';
+        document.getElementById('ordersList').style.display = 'none';
+      }
+
+      hideLoadingState() {
+        document.getElementById('loadingOrders').style.display = 'none';
+      }
+
+      showEmptyState() {
+        document.getElementById('emptyOrders').style.display = 'block';
+        document.getElementById('ordersList').style.display = 'none';
+        this.hideLoadingState();
+      }
+
+      displayOrders(orders) {
+        const ordersList = document.getElementById('ordersList');
+        const emptyOrders = document.getElementById('emptyOrders');
+        
+        // Hide empty state and show orders list
+        emptyOrders.style.display = 'none';
+        ordersList.style.display = 'block';
+        
+        // Clear existing content
+        ordersList.innerHTML = '';
+        
+        // Create orders HTML
+        orders.forEach(order => {
+          const orderCard = this.createOrderCard(order);
+          ordersList.appendChild(orderCard);
+        });
+      }
+
+      createOrderCard(order) {
+        const orderCard = document.createElement('div');
+        orderCard.className = 'order-card';
+        
+        // Format dates
+        const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        const deliveryDate = new Date(order.deliveryDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        // Create order items HTML
+        const orderItemsHTML = order.items.map(item => {
+          const product = this.getProductById(item.productId);
+          const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
+          
+          return `
+            <div class="order-item clickable-item" onclick="orderManager.redirectToProduct(${item.productId})">
+              <div class="item-image">
+                <img src="${productImage}" alt="${item.name}" />
+              </div>
+              <div class="item-details">
+                <h4>${item.name}</h4>
+                <p class="item-price">₹${item.productPrice.toFixed(2)}</p>
+                <p class="item-quantity">Quantity: ${item.productQuantity}</p>
+                <p class="item-subtotal">Subtotal: ₹${item.subtotal.toFixed(2)}</p>
+              </div>
+              <div class="item-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        orderCard.innerHTML = `
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Order #${order.orderId}</h3>
+              <p class="order-date">Placed on ${orderDate}</p>
+            </div>
+            <div class="order-status">
+              <span class="status-badge status-${order.status.toLowerCase()}">${this.capitalizeFirst(order.status)}</span>
+            </div>
+          </div>
+          
+          <div class="order-body">
+            <div class="order-items">
+              ${orderItemsHTML}
+            </div>
+            
+            <div class="order-summary">
+              <div class="summary-row">
+                <span>Total Items:</span>
+                <span>${order.items.length}</span>
+              </div>
+              <div class="summary-row">
+                <span>Expected Delivery:</span>
+                <span>${deliveryDate}</span>
+              </div>
+              <div class="summary-row total">
+                <span>Order Total:</span>
+                <span>₹${order.total.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="order-actions">
+            <button class="btn-secondary" onclick="orderManager.trackOrder(${order.orderId})">
+              <i class="fas fa-truck"></i> Track Order
+            </button>
+            <button class="btn-primary" onclick="orderManager.viewOrderDetails(${order.orderId})">
+              <i class="fas fa-eye"></i> View Details
+            </button>
+          </div>
+        `;
+
+        return orderCard;
+      }
+
+      getProductById(productId) {
+        return this.products.find(product => product.id === productId);
+      }
+
+      capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      // Action methods
+      trackOrder(orderId) {
+        alert(`Tracking functionality for Order #${orderId} will be implemented soon.`);
+      }
+
+      viewOrderDetails(orderId) {
+        alert(`Order details for Order #${orderId} will be shown in a modal.`);
+      }
+
+      redirectToProduct(productId) {
+        // Redirect to product details page with product ID
+        window.location.href = `/product.html?id=${productId}`;
+        // Alternative: If you have a different product page structure, modify the URL accordingly
+        // window.location.href = `/product.html?productId=${productId}`;
+      }
+    }
+
+    // Initialize when DOM is loaded and userAPI is ready
+    function initializeOrderManager() {
+      if (window.userAPI) {
+        window.orderManager = new OrderManager();
+      } else {
+        // Wait for userAPI to be ready
+        window.addEventListener('userAPIReady', () => {
+          window.orderManager = new OrderManager();
+        });
+      }
+    }
+
+    // Initialize
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeOrderManager);
+    } else {
+      initializeOrderManager();
+    }
+  </script>
+  <script src="/global_js/backend_apis/users.js"></script>
+  <script src="../user-profile/user-logout.js"></script>
+</body>
+
+</html>
