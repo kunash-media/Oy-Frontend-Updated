@@ -46,7 +46,10 @@
             <li><a href="../earring.html?filter=earrings">Earrings</a></li>
             <li><a href="../neck.html?filter=necklaces">Necklaces</a></li>
             <li><a href="../rings.html?filter=rings">Rings</a></li>
+            <li><a href="../chain.html?filter=chain">Chains</a></li>
             <li><a href="../bracelet.html?filter=bracelets">Bracelets</a></li>
+            <li><a href="../mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
+          <li><a href="../hair.html?filter=hair">Hair Accessories</a></li>
           </ul>
         </li>
 
@@ -62,7 +65,7 @@
         <li class="dropdown">
           <a href="../gifts.html">Gifting</a>
           <ul class="dropdown-menu">
-            <li><a href="../ggifts.html?for=mother">Mother</a></li>
+            <li><a href="../gifts.html?for=mother">Mother</a></li>
             <li><a href="../gifts.html?for=sister">Sister</a></li>
             <li><a href="../gifts.html?for=wife">Wife</a></li>
             <li><a href="../gifts.html?for=friend">Friend</a></li>
@@ -155,6 +158,90 @@
     </div>
   </div>
 
+<!-- Receipt Overlay -->
+<div class="receipt-overlay" id="receiptOverlay" style="display: none;">
+  <div class="receipt-container">
+    <div class="receipt-header">
+      <button class="close-receipt" onclick="orderManager.closeReceipt()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="receipt-content">
+      <!-- Company Header -->
+      <div class="receipt-company-header">
+        <img src="../IMAGES/01.png" alt="OY Jewels" class="receipt-logo">
+        <h2>OY JEWELS</h2>
+        <p>Premium Jewelry Store</p>
+      </div>
+      
+      <!-- Order Info -->
+      <div class="receipt-order-info">
+        <h3>ORDER RECEIPT</h3>
+        <div class="receipt-order-details">
+          <div class="detail-row">
+            <span>Order ID:</span>
+            <span id="receiptOrderId">-</span>
+          </div>
+          <div class="detail-row">
+            <span>Order Date:</span>
+            <span id="receiptOrderDate">-</span>
+          </div>
+          <div class="detail-row">
+            <span>Status:</span>
+            <span id="receiptOrderStatus" class="status-badge">-</span>
+          </div>
+          <div class="detail-row">
+            <span>Expected Delivery:</span>
+            <span id="receiptDeliveryDate">-</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Items List -->
+      <div class="receipt-items">
+        <h4>Order Items</h4>
+        <div class="receipt-items-list" id="receiptItemsList">
+          <!-- Items will be populated here -->
+        </div>
+      </div>
+      
+      <!-- Payment Summary -->
+      <div class="receipt-payment-summary">
+        <h4>Payment Details</h4>
+        <div class="payment-details">
+          <div class="payment-row">
+            <span>Subtotal:</span>
+            <span id="receiptSubtotal">₹0.00</span>
+          </div>
+          <div class="payment-row">
+            <span>SGST (9%):</span>
+            <span id="receiptSGST">₹0.00</span>
+          </div>
+          <div class="payment-row">
+            <span>CGST (9%):</span>
+            <span id="receiptCGST">₹0.00</span>
+          </div>
+          <div class="payment-row discount-row" id="receiptDiscountRow" style="display: none;">
+            <span>Discount:</span>
+            <span id="receiptDiscount">-₹0.00</span>
+          </div>
+          <div class="payment-row total-row">
+            <span>Total Amount:</span>
+            <span id="receiptTotal">₹0.00</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="receipt-footer">
+        <p>Thank you for shopping with OY Jewels!</p>
+        <p>For any queries, contact us at support@oyjewels.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- Your footer would go here -->
   <footer>
     <div class="footer-wrapper">
@@ -218,247 +305,410 @@
 
   
 
-   <!-- Order Management Script -->
-  <script type="module">
-    // Import products API
-    import { fetchAllProducts } from '/global_js/backend_apis/products.js';
+<!-- Order Management Script -->
+<script type="module">
+  // Import products API
+  import { fetchAllProducts } from '/global_js/backend_apis/products.js';
 
-    class OrderManager {
-      constructor() {
-        this.API_BASE_URL = 'http://localhost:8080/api/orders';
+  class OrderManager {
+    constructor() {
+      this.API_BASE_URL = 'http://localhost:8080/api/orders';
+      this.products = [];
+      this.currentOrders = []; // ADD THIS LINE
+      this.init();
+    }
+
+    async init() {
+      try {
+        // Load products first
+        await this.loadProducts();
+        // Load orders
+        await this.loadOrders();
+      } catch (error) {
+        console.error('Error initializing order manager:', error);
+        this.showEmptyState();
+      }
+    }
+
+    async loadProducts() {
+      try {
+        this.products = await fetchAllProducts();
+      } catch (error) {
+        console.error('Error loading products:', error);
         this.products = [];
-        this.init();
       }
+    }
 
-      async init() {
-        try {
-          // Load products first
-          await this.loadProducts();
-          // Load orders
-          await this.loadOrders();
-        } catch (error) {
-          console.error('Error initializing order manager:', error);
+    async loadOrders() {
+      // Show loading state
+      this.showLoadingState();
+
+      try {
+        // Check if user is logged in
+        if (!window.userAPI || !window.userAPI.isLoggedIn()) {
+          console.log('User not logged in');
           this.showEmptyState();
+          return;
         }
-      }
 
-      async loadProducts() {
-        try {
-          this.products = await fetchAllProducts();
-        } catch (error) {
-          console.error('Error loading products:', error);
-          this.products = [];
-        }
-      }
-
-      async loadOrders() {
-        // Show loading state
-        this.showLoadingState();
-
-        try {
-          // Check if user is logged in
-          if (!window.userAPI || !window.userAPI.isLoggedIn()) {
-            console.log('User not logged in');
-            this.showEmptyState();
-            return;
-          }
-
-          // Get current user
-          const currentUser = window.userAPI.getCurrentUser();
-          if (!currentUser || !currentUser.userId) {
-            console.log('No valid user found');
-            this.showEmptyState();
-            return;
-          }
-
-          // Fetch orders from API
-          const response = await fetch(`${this.API_BASE_URL}/user/${currentUser.userId}`);
-          
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const orders = await response.json();
-          
-          // Hide loading state
-          this.hideLoadingState();
-
-          if (orders && orders.length > 0) {
-            this.displayOrders(orders);
-          } else {
-            this.showEmptyState();
-          }
-
-        } catch (error) {
-          console.error('Error loading orders:', error);
-          this.hideLoadingState();
+        // Get current user
+        const currentUser = window.userAPI.getCurrentUser();
+        if (!currentUser || !currentUser.userId) {
+          console.log('No valid user found');
           this.showEmptyState();
+          return;
         }
-      }
 
-      showLoadingState() {
-        document.getElementById('loadingOrders').style.display = 'block';
-        document.getElementById('emptyOrders').style.display = 'none';
-        document.getElementById('ordersList').style.display = 'none';
-      }
+        // Fetch orders from API
+        const response = await fetch(`${this.API_BASE_URL}/user/${currentUser.userId}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-      hideLoadingState() {
-        document.getElementById('loadingOrders').style.display = 'none';
-      }
-
-      showEmptyState() {
-        document.getElementById('emptyOrders').style.display = 'block';
-        document.getElementById('ordersList').style.display = 'none';
+        const orders = await response.json();
+        
+        // Hide loading state
         this.hideLoadingState();
+
+        if (orders && orders.length > 0) {
+          // Sort orders by priority before displaying
+          const sortedOrders = this.sortOrdersByPriority(orders);
+          this.displayOrders(sortedOrders);
+        } else {
+          this.showEmptyState();
+        }
+
+      } catch (error) {
+        console.error('Error loading orders:', error);
+        this.hideLoadingState();
+        this.showEmptyState();
       }
+    }
 
-      displayOrders(orders) {
-        const ordersList = document.getElementById('ordersList');
-        const emptyOrders = document.getElementById('emptyOrders');
-        
-        // Hide empty state and show orders list
-        emptyOrders.style.display = 'none';
-        ordersList.style.display = 'block';
-        
-        // Clear existing content
-        ordersList.innerHTML = '';
-        
-        // Create orders HTML
-        orders.forEach(order => {
-          const orderCard = this.createOrderCard(order);
-          ordersList.appendChild(orderCard);
-        });
-      }
+    // New method to sort orders by priority
+    sortOrdersByPriority(orders) {
+      const statusPriority = {
+        'placed': 1,  // Top priority
+        'shipped': 2,     // Mid priority
+        'delivered': 3,
+        'cancel' : 4       // Last priority
+      };
 
-      createOrderCard(order) {
-        const orderCard = document.createElement('div');
-        orderCard.className = 'order-card';
+      return orders.sort((a, b) => {
+        const priorityA = statusPriority[a.status.toLowerCase()] || 999; // Unknown statuses go to end
+        const priorityB = statusPriority[b.status.toLowerCase()] || 999;
         
-        // Format dates
-        const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
+        if (priorityA !== priorityB) {
+          return priorityA - priorityB; // Sort by priority
+        }
         
-        const deliveryDate = new Date(order.deliveryDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
+        // If same priority, sort by order date (newest first)
+        return new Date(b.orderDate) - new Date(a.orderDate);
+      });
+    }
 
-        // Create order items HTML
-        const orderItemsHTML = order.items.map(item => {
-          const product = this.getProductById(item.productId);
-          const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
-          
-          return `
-            <div class="order-item clickable-item" onclick="orderManager.redirectToProduct(${item.productId})">
-              <div class="item-image">
-                <img src="${productImage}" alt="${item.name}" />
-              </div>
-              <div class="item-details">
-                <h4>${item.name}</h4>
-                <p class="item-price">₹${item.productPrice.toFixed(2)}</p>
-                <p class="item-quantity">Quantity: ${item.productQuantity}</p>
-                <p class="item-subtotal">Subtotal: ₹${item.subtotal.toFixed(2)}</p>
-              </div>
-              <div class="item-arrow">
-                <i class="fas fa-chevron-right"></i>
-              </div>
-            </div>
-          `;
-        }).join('');
+    showLoadingState() {
+      document.getElementById('loadingOrders').style.display = 'block';
+      document.getElementById('emptyOrders').style.display = 'none';
+      document.getElementById('ordersList').style.display = 'none';
+    }
 
-        orderCard.innerHTML = `
-          <div class="order-header">
-            <div class="order-info">
-              <h3>Order #${order.orderId}</h3>
-              <p class="order-date">Placed on ${orderDate}</p>
+    hideLoadingState() {
+      document.getElementById('loadingOrders').style.display = 'none';
+    }
+
+    showEmptyState() {
+      document.getElementById('emptyOrders').style.display = 'block';
+      document.getElementById('ordersList').style.display = 'none';
+      this.hideLoadingState();
+    }
+
+    displayOrders(orders) {
+      this.currentOrders = orders; // ADD THIS LINE
+      
+      const ordersList = document.getElementById('ordersList');
+      const emptyOrders = document.getElementById('emptyOrders');
+      
+      // Hide empty state and show orders list
+      emptyOrders.style.display = 'none';
+      ordersList.style.display = 'block';
+      
+      // Clear existing content
+      ordersList.innerHTML = '';
+      
+      // Create orders HTML
+      orders.forEach(order => {
+        const orderCard = this.createOrderCard(order);
+        ordersList.appendChild(orderCard);
+      });
+    }
+
+    createOrderCard(order) {
+      const orderCard = document.createElement('div');
+      orderCard.className = 'order-card';
+      
+      // Format dates
+      const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
+      const deliveryDate = new Date(order.deliveryDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      // Create order items HTML
+      const orderItemsHTML = order.items.map(item => {
+        const product = this.getProductById(item.productId);
+        const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
+        
+        return `
+          <div class="order-item clickable-item" onclick="orderManager.redirectToProduct(${item.productId})">
+            <div class="item-image">
+              <img src="${productImage}" alt="${item.name}" />
             </div>
-            <div class="order-status">
-              <span class="status-badge status-${order.status.toLowerCase()}">${this.capitalizeFirst(order.status)}</span>
+            <div class="item-details">
+              <h4>${item.name}</h4>
+              <p class="item-price">₹${item.productPrice.toFixed(2)}</p>
+              <p class="item-quantity">Quantity: ${item.productQuantity}</p>
+              <p class="item-subtotal">Subtotal: ₹${item.subtotal.toFixed(2)}</p>
             </div>
-          </div>
-          
-          <div class="order-body">
-            <div class="order-items">
-              ${orderItemsHTML}
+            <div class="item-arrow">
+              <i class="fas fa-chevron-right"></i>
             </div>
-            
-            <div class="order-summary">
-              <div class="summary-row">
-                <span>Total Items:</span>
-                <span>${order.items.length}</span>
-              </div>
-              <div class="summary-row">
-                <span>Expected Delivery:</span>
-                <span>${deliveryDate}</span>
-              </div>
-              <div class="summary-row total">
-                <span>Order Total:</span>
-                <span>₹${order.total.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="order-actions">
-            <button class="btn-secondary" onclick="orderManager.trackOrder(${order.orderId})">
-              <i class="fas fa-truck"></i> Track Order
-            </button>
-            <button class="btn-primary" onclick="orderManager.viewOrderDetails(${order.orderId})">
-              <i class="fas fa-eye"></i> View Details
-            </button>
           </div>
         `;
+      }).join('');
 
-        return orderCard;
-      }
+      orderCard.innerHTML = `
+        <div class="order-header">
+          <div class="order-info">
+            <h3>Order #${order.orderId}</h3>
+            <p class="order-date">Placed on ${orderDate}</p>
+          </div>
+          <div class="order-status">
+            <span class="status-badge status-${order.status.toLowerCase()}">${this.capitalizeFirst(order.status)}</span>
+          </div>
+        </div>
+        
+        <div class="order-body">
+          <div class="order-items">
+            ${orderItemsHTML}
+          </div>
+          
+          <div class="order-summary">
+            <div class="summary-row">
+              <span>Total Items:</span>
+              <span>${order.items.length}</span>
+            </div>
+            <div class="summary-row">
+              <span>Expected Delivery:</span>
+              <span>${deliveryDate}</span>
+            </div>
+            <div class="summary-row total">
+              <span>Order Total:</span>
+              <span>₹${order.total.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-actions">
+          <button class="btn-secondary" onclick="orderManager.trackOrder(${order.orderId})">
+            <i class="fas fa-truck"></i> Track Order
+          </button>
+          <button class="btn-primary" onclick="orderManager.viewOrderDetails(${order.orderId})">
+            <i class="fas fa-eye"></i> View Details
+          </button>
+        </div>
+      `;
 
-      getProductById(productId) {
-        return this.products.find(product => product.id === productId);
-      }
-
-      capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      }
-
-      // Action methods
-      trackOrder(orderId) {
-        alert(`Tracking functionality for Order #${orderId} will be implemented soon.`);
-      }
-
-      viewOrderDetails(orderId) {
-        alert(`Order details for Order #${orderId} will be shown in a modal.`);
-      }
-
-      redirectToProduct(productId) {
-        // Redirect to product details page with product ID
-        window.location.href = `/product.html?id=${productId}`;
-        // Alternative: If you have a different product page structure, modify the URL accordingly
-        // window.location.href = `/product.html?productId=${productId}`;
-      }
+      return orderCard;
     }
 
-    // Initialize when DOM is loaded and userAPI is ready
-    function initializeOrderManager() {
-      if (window.userAPI) {
-        window.orderManager = new OrderManager();
+    getProductById(productId) {
+      return this.products.find(product => product.id === productId);
+    }
+
+    capitalizeFirst(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // Action methods
+    trackOrder(orderId) {
+      alert(`Tracking functionality for Order #${orderId} will be implemented soon.`);
+    }
+
+    // Updated viewOrderDetails method
+    viewOrderDetails(orderId) {
+      // Find the order by ID
+      const order = this.currentOrders.find(o => o.orderId === orderId);
+      
+      if (order) {
+        this.showReceiptOverlay(order);
       } else {
-        // Wait for userAPI to be ready
-        window.addEventListener('userAPIReady', () => {
-          window.orderManager = new OrderManager();
-        });
+        console.error('Order not found:', orderId);
+        alert('Order details not found. Please try again.');
       }
     }
 
-    // Initialize
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeOrderManager);
-    } else {
-      initializeOrderManager();
+    redirectToProduct(productId) {
+      // Redirect to product details page with product ID
+      window.location.href = `/product.html?id=${productId}`;
+      // Alternative: If you have a different product page structure, modify the URL accordingly
+      // window.location.href = `/product.html?productId=${productId}`;
     }
-  </script>
+
+    // Method to show receipt overlay
+    showReceiptOverlay(order) {
+      const overlay = document.getElementById('receiptOverlay');
+      
+      // Populate order information
+      document.getElementById('receiptOrderId').textContent = `#${order.orderId || 'NA'}`;
+      
+      const orderDate = order.orderDate ? 
+        new Date(order.orderDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }) : 'NA';
+      document.getElementById('receiptOrderDate').textContent = orderDate;
+      
+      const statusElement = document.getElementById('receiptOrderStatus');
+      statusElement.textContent = order.status ? this.capitalizeFirst(order.status) : 'NA';
+      statusElement.className = `status-badge status-${(order.status || 'na').toLowerCase()}`;
+      
+      const deliveryDate = order.deliveryDate ? 
+        new Date(order.deliveryDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }) : 'NA';
+      document.getElementById('receiptDeliveryDate').textContent = deliveryDate;
+      
+      // Populate items
+      this.populateReceiptItems(order.items || []);
+      
+      // Calculate and populate payment details
+      this.populatePaymentDetails(order);
+      
+      // Show overlay
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    // Method to populate receipt items
+    populateReceiptItems(items) {
+      const itemsList = document.getElementById('receiptItemsList');
+      itemsList.innerHTML = '';
+      
+      if (!items || items.length === 0) {
+        itemsList.innerHTML = '<p style="text-align: center; color: #666;">No items found</p>';
+        return;
+      }
+      
+      items.forEach(item => {
+        const product = this.getProductById(item.productId);
+        const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
+        
+        // Calculate MRP and discount
+        const productPrice = item.productPrice || 0;
+        const mrp = product ? (product.oldPrice || product.price || productPrice * 1.2) : productPrice * 1.2;
+        const discount = mrp > productPrice ? ((mrp - productPrice) / mrp * 100).toFixed(0) : 0;
+        
+        const itemElement = document.createElement('div');
+        itemElement.className = 'receipt-item';
+        
+        itemElement.innerHTML = `
+          <div class="receipt-item-image">
+            <img src="${productImage}" alt="${item.name || 'Product'}" />
+          </div>
+          <div class="receipt-item-details">
+            <div class="receipt-item-title">${item.name || 'NA'}</div>
+            <div class="receipt-item-prices">
+              <span class="receipt-item-mrp">MRP: ₹${mrp.toFixed(2)}</span>
+              <span class="receipt-item-price">₹${productPrice.toFixed(2)}</span>
+              ${discount > 0 ? `<span class="receipt-item-discount">${discount}% OFF</span>` : ''}
+            </div>
+            <div class="receipt-item-quantity">Quantity: ${item.productQuantity || 1}</div>
+          </div>
+        `;
+        
+        itemsList.appendChild(itemElement);
+      });
+    }
+
+    // Method to populate payment details
+    populatePaymentDetails(order) {
+      const total = order.total || 0;
+      
+      // Calculate tax-exclusive amount (assuming 18% total tax - 9% SGST + 9% CGST)
+      const taxRate = 0.18;
+      const subtotal = total / (1 + taxRate);
+      const totalTax = total - subtotal;
+      const sgst = totalTax / 2;
+      const cgst = totalTax / 2;
+      
+      // Update payment summary
+      document.getElementById('receiptSubtotal').textContent = `₹${subtotal.toFixed(2)}`;
+      document.getElementById('receiptSGST').textContent = `₹${sgst.toFixed(2)}`;
+      document.getElementById('receiptCGST').textContent = `₹${cgst.toFixed(2)}`;
+      document.getElementById('receiptTotal').textContent = `₹${total.toFixed(2)}`;
+      
+      // Handle discount if applicable
+      const discountRow = document.getElementById('receiptDiscountRow');
+      const discountAmount = order.discount || 0;
+      
+      if (discountAmount > 0) {
+        document.getElementById('receiptDiscount').textContent = `-₹${discountAmount.toFixed(2)}`;
+        discountRow.style.display = 'flex';
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
+
+    // Method to close receipt overlay
+    closeReceipt() {
+      const overlay = document.getElementById('receiptOverlay');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restore background scrolling
+    }
+  }
+
+  // Initialize when DOM is loaded and userAPI is ready
+  function initializeOrderManager() {
+    if (window.userAPI) {
+      window.orderManager = new OrderManager();
+    } else {
+      // Wait for userAPI to be ready
+      window.addEventListener('userAPIReady', () => {
+        window.orderManager = new OrderManager();
+      });
+    }
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeOrderManager);
+  } else {
+    initializeOrderManager();
+  }
+
+  // Close receipt overlay when clicking outside (ADD THIS)
+  document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('receiptOverlay');
+    if (overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+          window.orderManager.closeReceipt();
+        }
+      });
+    }
+  });
+</script>
   <script src="/global_js/backend_apis/users.js"></script>
   <script src="../user-profile/user-logout.js"></script>
 </body>

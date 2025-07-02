@@ -9,7 +9,7 @@ const products = [
   { name: "Pearl Necklace", url: "/neck.html" },
   { name: "Silver Bracelet", url: "/bracelet.html" },
   { name: "Gold Bracelet", url: "/bracelet.html" },
-  { name: "Pearl Earrings", url: "/earrings.html" },
+  { name: "Pearl Earrings", url: "/earring.html" },
   { name: "Diamond Earrings", url: "/earring.html" }
 ];
 

@@ -289,51 +289,83 @@
   }
 
 
-  @media (max-width: 768px) {
-      .nav-links {
-          display: none;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          background-color: #000;
-          width: 100%;
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 15px 30px;
-          gap: 15px;
-          z-index: 999;
-      }
-
-      .nav-links.active {
-          display: flex;
-      }
-
-      .hamburger {
-          display: block;
-      }
-
-      .right-nav {
-          gap: 15px;
-      }
-
-      .search-bar {
-          flex-direction: column;
-          padding: 10px 20px;
-      }
-
-      .search-bar input {
-          width: 100%;
-          border-radius: 25px;
-      }
-
-      .search-bar button {
-          border-radius: 25px;
-          width: 50%;
-          margin-top: 5px;
-      }
+ /* Update the existing mobile styles for nav-links */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    width: 100vw; /* Use viewport width to prevent overflow */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 30px;
+    gap: 15px;
+    z-index: 999;
+    display: none;
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-left: 0; /* Remove any potential margin */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
   }
 
+  .nav-links.active {
+    display: flex;
+  }
 
+  /* Ensure dropdown menus don't cause overflow */
+  .nav-links .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    padding-left: 15px;
+    margin-top: 10px;
+  }
+
+  /* Prevent any horizontal scrolling on body when menu is open */
+  body.nav-open {
+    overflow-x: hidden;
+  }
+}
+
+/* Update the existing mobile styles for nav-links */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    width: 100vw; /* Use viewport width to prevent overflow */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 30px;
+    gap: 15px;
+    z-index: 999;
+    display: none;
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-left: 0; /* Remove any potential margin */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Ensure dropdown menus don't cause overflow */
+  .nav-links .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    padding-left: 15px;
+    margin-top: 10px;
+  }
+
+  /* Prevent any horizontal scrolling on body when menu is open */
+  body.nav-open {
+    overflow-x: hidden;
+  }
+}
 
 
   footer {
@@ -646,6 +678,7 @@
   border: 1px solid #9ec5fe;
 }
 
+
 .status-delivered {
   background: #d1e7dd;
   color: #0a3622;
@@ -940,5 +973,349 @@
   
   .item-details h4 {
     font-size: 1rem;
+  }
+}
+
+
+/*-------------------------- view order details css ---------------------*/
+
+/* Receipt Overlay Styles - Add this to your order.css file */
+
+.receipt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(5px);
+}
+
+.receipt-container {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  border: 3px solid #d4af37;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.receipt-header {
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(135deg, #d4af37, #f4e4a1);
+  border-radius: 12px 12px 0 0;
+}
+
+.close-receipt {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-receipt:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.receipt-content {
+  padding: 20px;
+}
+
+.receipt-company-header {
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.receipt-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.receipt-company-header h2 {
+  color: #d4af37;
+  margin: 10px 0 5px 0;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.receipt-company-header p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.receipt-order-info h3 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.receipt-order-details {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #d4af37;
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-row span:first-child {
+  font-weight: 600;
+  color: #333;
+}
+
+.detail-row span:last-child {
+  color: #666;
+}
+
+.receipt-items h4,
+.receipt-payment-summary h4 {
+  color: #333;
+  border-bottom: 1px solid #d4af37;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.receipt-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.receipt-item:last-child {
+  border-bottom: none;
+}
+
+.receipt-item-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 15px;
+  border: 1px solid #ddd;
+}
+
+.receipt-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.receipt-item-details {
+  flex: 1;
+}
+
+.receipt-item-title {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.receipt-item-prices {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.receipt-item-mrp {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 12px;
+}
+
+.receipt-item-price {
+  color: #d4af37;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.receipt-item-discount {
+  background: #e8f5e8;
+  color: #2e7d32;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.receipt-item-quantity {
+  color: #666;
+  font-size: 12px;
+}
+
+.payment-details {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.payment-row:last-child {
+  margin-bottom: 0;
+}
+
+.payment-row span:first-child {
+  color: #333;
+}
+
+.payment-row span:last-child {
+  color: #666;
+  font-weight: 500;
+}
+
+.discount-row span:last-child {
+  color: #2e7d32;
+}
+
+.total-row {
+  border-top: 2px solid #d4af37;
+  padding-top: 12px;
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.total-row span {
+  color: #333;
+}
+
+.total-row span:last-child {
+  color: #d4af37;
+  font-size: 18px;
+}
+
+.receipt-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.receipt-footer p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 12px;
+}
+
+.receipt-footer p:first-child {
+  font-weight: 600;
+  color: #333;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-placed {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-processing {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.status-shipped {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .receipt-container {
+    width: 95%;
+    margin: 10px;
+    max-height: 95vh;
+  }
+  
+  .receipt-content {
+    padding: 15px;
+  }
+  
+  .receipt-company-header h2 {
+    font-size: 24px;
+  }
+  
+  .receipt-item {
+    padding: 10px 0;
+  }
+  
+  .receipt-item-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .detail-row,
+  .payment-row {
+    font-size: 13px;
   }
 }

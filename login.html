@@ -42,13 +42,16 @@
     <ul class="nav-links">
       <li><a href="/index.html">Home</a></li>
 
-      <li class="dropdown">
+       <li class="dropdown">
         <a href="#">Collection</a>
         <ul class="dropdown-menu">
           <li><a href="earring.html?filter=earrings">Earrings</a></li>
           <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
           <li><a href="rings.html?filter=rings">Rings</a></li>
+          <li><a href="chain.html?filter=chain">Chains</a></li>
           <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+          <li><a href="mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
+          <li><a href="hair.html?filter=hair">Hair Accessories</a></li>
         </ul>
       </li>
 
@@ -114,7 +117,6 @@
 
  <div class="search-bar" >
   <input type="text" placeholder="Search for jewelry..." id="searchInput">
-  <button><i class="fa fa-search"></i></button>
   <div class="search-suggestions" id="searchSuggestions"></div>
 </div>
 
@@ -782,6 +784,7 @@ document.getElementById('successOkBtn').addEventListener('click', function () {
         display: none;
         cursor: pointer;
         margin-left: 10%;
+        order: -1;
       }
 
    /*----user dropdown -----*/

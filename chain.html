@@ -4,20 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OY JEWELS</title>
+
     <!--ICON-->
 <link rel="shortcut icon" href="IMAGES/01.png">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="cart.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
   
-
 <style>/* Navbar Container */
   /* General Reset */
 * {
@@ -84,7 +86,7 @@ header {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 32px;
+  top: 22px;
   left: 0;
   background-color: #111;
   padding: 10px 0;
@@ -131,53 +133,6 @@ header {
   top: -6px;
   right: -10px;
 }
-
-
-.hamburger {
-  font-size: 24px;
-  color: white;
-  display: none;
-  cursor: pointer;
-  margin-right: 15px; /* Space between hamburger and logo */
-  order: -1; /* Ensure it's first */
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block; /* Show hamburger */
-  }
-  
-  .logo img {
-    height: 70px;
-    margin-left: 0; /* Remove previous margin */
-  }
-  
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #000;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 30px;
-    gap: 15px;
-    z-index: 999;
-    display: none;
-  }
-  
-  .nav-links.active {
-    display: flex;
-  }
-  
-  .right-nav {
-    margin-left: auto; /* Push to the right */
-  }
-}
-
-
   .user-dropdown {
     position: relative;
     display: inline-block;
@@ -224,7 +179,49 @@ header {
     display: block;
   }
 
+.hamburger {
+  font-size: 24px;
+  color: white;
+  display: none;
+  cursor: pointer;
+  margin-right: 15px; /* Space between hamburger and logo */
+  order: 1; /* Ensure it's first */
+}
 
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Show hamburger */
+  }
+  
+  .logo img {
+    height: 70px;
+    margin-left: 0; /* Remove previous margin */
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 30px;
+    gap: 15px;
+    z-index: 999;
+    display: none;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .right-nav {
+    margin-left: auto; /* Push to the right */
+  }
+}
 /* Search bar container */
 .search-bar {
   position: relative;
@@ -234,7 +231,6 @@ header {
    font-family: spantax;
 
 }
-
 /* Input field */
 .search-bar input[type="text"] {
   width: 100%;
@@ -248,12 +244,10 @@ header {
    font-family: spantax;
 
 }
-
 .search-bar input[type="text"]:focus {
   border-color: #b8a07e; /* Gold-like accent (common for jewelry sites) */
   box-shadow: 0 2px 12px rgba(184, 160, 126, 0.2);
 }
-
 /* Search button */
 .search-bar button {
   position: absolute;
@@ -268,7 +262,6 @@ header {
   font-size: 16px;
   padding: 8px 12px;
 }
-
 /* Suggestions dropdown */
 .search-suggestions {
   display: none;
@@ -283,7 +276,6 @@ header {
   z-index: 1000;
   margin-top: 4px;
 }
-
 /* Individual suggestion items */
 .suggestion-item {
   display: block;
@@ -298,58 +290,45 @@ header {
 .suggestion-item:last-child {
   border-bottom: none;
 }
-
 /* Hover & active states */
 .suggestion-item:hover,
 .suggestion-item:focus {
   background-color: #f9f9f9;
   color: #b8a07e; /* Gold accent on hover */
 }
-
 .suggestion-item:active {
   background-color: #f0f0f0;
 }
-
 /* Scrollbar styling (optional) */
 .search-suggestions::-webkit-scrollbar {
   width: 6px;
 }
-
 .search-suggestions::-webkit-scrollbar-thumb {
   background: #d4c8b1; /* Light gold scrollbar */
   border-radius: 4px;
 }
-
 .search-suggestions::-webkit-scrollbar-track {
   background: #f9f9f9;
 }
-
-
-
 /* Responsive styles */
 @media (max-width: 480px) {
   .search-bar {
     max-width: 100%;
     padding: 0 12px;
   }
-
-  .search-bar input[type="text"] {
+.search-bar input[type="text"] {
     font-size: 14px;
     padding: 8px 36px 8px 12px;
   }
-
-  .search-bar button {
+.search-bar button {
     font-size: 16px;
     right: 1px;
   }
-
-  .suggestion-item {
+.suggestion-item {
     font-size: 14px;
     padding: 10px 14px;
   }
 }
-
-
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -364,48 +343,39 @@ header {
     gap: 15px;
     z-index: 999;
   }
-
-  .nav-links.active {
+.nav-links.active {
     display: flex;
   }
-
-  .hamburger {
+.hamburger {
     display: block;
   }
-
-  .right-nav {
+.right-nav {
     gap: 15px;
   }
-
-  .search-bar {
+.search-bar {
     flex-direction: column;
     padding: 10px 20px;
   }
-
-  .search-bar input {
+.search-bar input {
     width: 100%;
     border-radius: 25px;
   }
-
-  .search-bar button {
+.search-bar button {
     border-radius: 25px;
     width: 50%;
     margin-top: 5px;
   }
 }
-
 /* Product Section */
 #product1 {
   padding: 40px 20px;
   background: #f2f2f2;
 }
-
 .pro-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 25px;
 }
-
 .pro {
   background: #fff;
   border: 1px solid #ddd;
@@ -413,34 +383,28 @@ header {
   overflow: hidden;
   transition: transform 0.3s;
 }
-
 .pro:hover {
   transform: translateY(-5px);
 }
-
 .pro img {
   width: 100%;
   height: 250px;
   object-fit: cover;
 }
-
 .des {
   padding: 15px;
   text-align: center;
 }
-
 .des span {
   display: block;
   color: #999;
   font-size: 14px;
   margin-bottom: 5px;
 }
-
 .des h4 {
   font-size: 18px;
   margin-bottom: 10px;
 }
-
 .add-to-cart {
   background: #ebbd91;
   color: #080808;
@@ -454,12 +418,10 @@ header {
   width: 100%;
   margin-bottom: 8px;
 }
-
 .add-to-cart:hover {
   background: rgb(7, 7, 7);
   color: #fff;
 }
-
 .buy-now {
   text-decoration: none;
   background: #ebbd91;
@@ -474,12 +436,10 @@ header {
   display: inline-block;
   text-align: center;
 }
-
 .buy-now:hover {
   background: rgb(7, 7, 7);
   color: #fff;
 }
-
 /* Responsive Design */
 /* Desktop - 4 columns */
 @media (min-width: 1200px) {
@@ -489,7 +449,6 @@ header {
     margin: 0 auto;
   }
 }
-
 /* Tablet - 3 columns */
 @media (min-width: 768px) and (max-width: 1199px) {
   .pro-container {
@@ -501,7 +460,6 @@ header {
     padding: 30px 15px;
   }
 }
-
 /* Mobile - 2 columns */
 @media (max-width: 767px) {
   .pro-container {
@@ -590,8 +548,7 @@ padding: 12px;
 margin-right: 40%;
 font-weight: 600;
 }
-
- .section7{
+.section7{
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
 }
 
@@ -775,8 +732,7 @@ margin-left: 150px;
     }
   }
 
-
-  footer {
+footer {
   background-color: #020202;
   font-family: spantax;
 }
@@ -1079,65 +1035,65 @@ margin-left: 150px;
 }
 
   </style>
-</head>
-<body>
- 
- 
+
+
+
  <!-- HEADER -->
 <header id="header">
   <!-- TOP BAR -->
   <div class="header-top-bar">
-    <span>Welcome To OY JEWELS Store</span>
+    <span>Welcome To OY JEWELLS Store</span>
   </div>
 
 
   <!-- MAIN NAVIGATION -->
   <nav class="navigation">
-    <a href="#" class="logo">
+    <a href="index.html" class="logo">
       <img src="IMAGES/01.png" alt="Logo" />
     </a>
 
-    <!-- NAVBAR LINKS -->
+   <!-- NAVBAR LINKS -->
     <ul class="nav-links">
       <li><a href="/index.html">Home</a></li>
 
-   <li class="dropdown">
+    
+      <li class="dropdown">
         <a href="#">Collection</a>
         <ul class="dropdown-menu">
-          <li><a href="earring.html?filter=earrings">Earrings</a></li>
-          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
-          <li><a href="rings.html?filter=rings">Rings</a></li>
-          <li><a href="chain.html?filter=chain">Chains</a></li>
-          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
-          <li><a href="mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
-          <li><a href="hair.html?filter=hair">Hair Accessories</a></li>
+          <li><a href="/earring.html?filter=earrings">Earrings</a></li>
+          <li><a href="/neck.html?filter=necklaces">Necklaces</a></li>
+          <li><a href="/rings.html?filter=rings">Rings</a></li>
+          <li><a href="/chain.html?filter=chain">Chains</a></li>
+          <li><a href="/bracelet.html?filter=bracelets">Bracelets</a></li>
+          <li><a href="/mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
+          <li><a href="/hair.html?filter=hair">Hair Accessories</a></li>
         </ul>
       </li>
 
-       <li class="dropdown">
+   <li class="dropdown">
         <a href="#">Shop By</a>
         <ul class="dropdown-menu">
-          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
-          <li><a href="office.html">Office</a></li>
-          <li><a href="casual.html">Casual</a></li>
+          <li><a href="/wedding.html?occasion=wedding">Wedding</a></li>
+          <li><a href="/office.html">Office</a></li>
+          <li><a href="/casual.html">Casual</a></li>
         </ul>
       </li>
-
       <li class="dropdown">
-        <a href="/gifts.html">Gifting</a>
+        <a href="gifts.html">Gifting</a>
         <ul class="dropdown-menu">
-          <li><a href="gifts.html?for=mother">Mother</a></li>
-          <li><a href="gifts.html?for=sister">Sister</a></li>
-          <li><a href="gifts.html?for=wife">Wife</a></li>
-          <li><a href="gifts.html?for=friend">Friend</a></li>
+          <li><a href="/gifts.html?for=mother">Mother</a></li>
+          <li><a href="/gifts.html?for=sister">Sister</a></li>
+          <li><a href="/gifts.html?for=wife">Wife</a></li>
+          <li><a href="/gifts.html?for=friend">Friend</a></li>
         </ul>
       </li>
 
       <li><a href="/contact.html">Contact Us</a></li>
       <li><a href="/about.html">About Us</a></li>
 
-      <!-- My Orders added at the end -->
-      <li><a href="/user-order/order.html">My Orders</a></li>
+
+           <!-- My Orders added at the end -->
+  <li><a href="/user-order/order.html">My Orders</a></li>
     </ul>
 
     <!-- RIGHT ICONS -->
@@ -1146,7 +1102,7 @@ margin-left: 150px;
   <i class="fa fa-bars"></i>
 </div>
 <!-- In your header/navigation -->
-<a href="/wishlist.html" class="wishlist-link">
+<a href="wishlist.html" class="wishlist-link">
   <div class="wishlist-badge">
 <i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
   </div>
@@ -1156,27 +1112,28 @@ margin-left: 150px;
 <div class="wishlist-notification" id="wishlist-notification">
   <i class="fas fa-check-circle"></i>
   <span class="notification-message">Item added to wishlist</span>
-</div>  
+</div>      
 
 <!--LOGIN / MYPROFILE-->
 <div class="user-dropdown">
   <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
   <div class="dropdown-content">
-    <a href="/user-profile/user-profile.html">My Profile</a>
-    <a href="/login.html">Login/Logout</a>
+    <a href="profile.html">My Profile</a>
+    <a href="login.html">Login</a>
     <!-- Alternatively for logout when user is logged in:
     <a href="profile.html">My Profile</a>
     <a href="logout.html">Logout</a>
     -->
   </div>
-</div>  
+</div>     
 
-      <a href="/cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+
+<a href="cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
     </div>
   </nav>
 
    <!-- Search Bar -->
-  <div class="search-bar" >
+ <div class="search-bar" >
   <input type="text" placeholder="Search for jewelry..." id="searchInput">
   <div class="search-suggestions" id="searchSuggestions"></div>
 </div>
@@ -1194,6 +1151,7 @@ margin-left: 150px;
 <!-- JavaScript to toggle menu -->
 <script>
   document.getElementById("hamburger").addEventListener("click", function () {
+    document.getElementById("navbar").classList.toggle("active");
   });
 </script>
 
@@ -1203,131 +1161,46 @@ margin-left: 150px;
   });
 </script>
 
-
-<section class="video-banner">
-  <div class="video-bg">
-    <video autoplay muted loop playsinline>
-      <source src="VIDEOS/HOME_X-Design.mp4" type="video/mp4">
-      <!-- Optional fallback -->
-      <img src="" alt="Sterling Silver Jewelry">
-    </video>
-  </div>
-  <div class="video-text">
-    <h2>STERLING SILVER : A PERFECT ADDITION TO YOUR JEWELLERY COLLECTION</h2>
-     <a href="shop.html" class="video-btn">Shop Now</a>
-  </div>
+<!-- Promotional Banner Section with Background Video -->
+<section id="page-header">
+    <div class="video-background">
+        <video autoplay muted loop playsinline poster="">
+            <source src="VIDEOS/bracelets1.mp4" type="video/mp4">
+            <source src="videos/promo-banner.webm" type="video/webm">
+            <!-- Fallback image if video doesn't load -->
+            <img src="" alt="Special offers background">
+        </video>
+    </div>
+    
+    <!--<div class="promo-content">
+        <h2>#stayhome</h2>
+        <p>Save more with coupons & up to 20% off</p>
+       
+    </div>-->
 </section>
 
-  <section id="product1" class="section4">
+
+<section id="product1" class="section4">
   <div class="pro-container" id="product-list"></div>
   <div style="text-align: center; margin-top: 20px;">
-    <button id="view-more-btn" style="padding: 10px 20px; background: #000; color: #fff;">View More</button>
+    <button id="view-more-btn" style="padding: 10px 20px; background: #000; color: #fff;">
+      View More
+    </button>
   </div>
 </section>
 
 <script>
   const productData = [
-    {
-      id: 76,
-      name: "Silver Wedding Collection",
-      price: 88.00, // discounted price for cart
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office1.avif"
-    },
-    {
-      id: 77,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office2.webp"
-    },
-    {
-      id: 78,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office3.webp"
-    },
-    {
-      id: 79,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office4.webp"
-    },
-    {
-      id: 80,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office5.webp"
-    },
-    {
-      id: 81,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office6.webp"
-    },
-    {
-      id: 82,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office7.webp"
-    },
-    {
-      id: 83,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office8.webp"
-    },
-    {
-      id: 84,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office9.webp"
-    },
-    {
-      id: 85,
-      name: "Gold Plated Earrings",
-      price: 85.00,
-      originalPrice: 66.66,
-      discountedPrice: 85.00,
-      image: "IMAGES/office10.webp"
-    },
-    {
-      id: 86,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office11.jpg"
-    },
-    {
-      id: 87,
-      name: "Silver Wedding Collection",
-      price: 88.00,
-      originalPrice: 222.22,
-      discountedPrice: 200.00,
-      image: "IMAGES/office12.jpg"
-    }
+    {id: 109, name: "Silver Chains", price: 6400.00, image: "IMAGES/chain11.jpg"},
+    {id: 110, name: "Silver Chains", price: 6400.00, image: "IMAGES/chain12.jpg"},
+    {id: 111, name: "Silver Chains", price: 6400.00, image: "IMAGES/chain13.jpg"},
+    
+    
   ];
 
   const container = document.getElementById("product-list");
   const viewMoreBtn = document.getElementById("view-more-btn");
-  let visibleCount = 4; // initial number of products to show
+  let visibleCount = 6;
 
   function renderProducts(limit) {
     container.innerHTML = "";
@@ -1340,15 +1213,16 @@ margin-left: 150px;
              data-name="${product.name}" 
              data-price="${product.price.toFixed(2)}" 
              data-image="${product.image}">
-            <i class="far fa-heart"></i>
+          <i class="far fa-heart"></i>
         </div>
+
         <a href="product.html?id=${product.id}">
           <img src="${product.image}" alt="${product.name}">
         </a>
+
         <div class="des">
           <span>${product.name}</span>
-          <span class="original-price">₹${product.originalPrice.toFixed(2)}</span>
-          <span class="discounted-price">₹${product.discountedPrice.toFixed(2)}</span>
+          <h4>₹${product.price.toFixed(2)}</h4>
           <button class="add-to-cart" 
                   data-id="${product.id}" 
                   data-name="${product.name}" 
@@ -1375,46 +1249,18 @@ margin-left: 150px;
   renderProducts(visibleCount);
 
   viewMoreBtn.addEventListener("click", () => {
-    visibleCount += 4; // load 4 more items on each click
+    visibleCount += 6;
     renderProducts(visibleCount);
   });
 </script>
 
 
-  <div id="view-more-container" style="text-align:center; margin-top: 20px;">
-    <button id="view-more-btn">View More</button>
-  </div>
 
 
-    
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const products = document.querySelectorAll('.pro');
-    const viewMoreBtn = document.getElementById('view-more-btn');
-    let visibleCount = 8; // Show 8 products initially
 
-    function showProducts() {
-      for (let i = 0; i < visibleCount && i < products.length; i++) {
-        products[i].style.display = 'block';
-      }
-    }
 
-    // Initially hide all, then show first batch
-    products.forEach(p => p.style.display = 'none');
-    showProducts();
 
-    viewMoreBtn.addEventListener('click', () => {
-      visibleCount += 8;
-      showProducts();
-
-      if (visibleCount >= products.length) {
-        viewMoreBtn.style.display = 'none';
-      }
-    });
-  });
-</script>
-
- <section id="section7" style="background-image: url(IMAGES/bgq1.jpg); background-size: cover; height: 70%;">
+<section id="section7" style="background-image: url(IMAGES/bgq1.jpg); background-size: cover; height: 70%;">
   <div class="sticky-container">  
     <div class="tagline"><b>Handpicked gifts. Heartfelt moments.</b></div>
   </div>
@@ -1462,7 +1308,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-  <br>
+
+
+<!-- Image Highlight Section -->
+<section class="image-highlight">
+  <div class="image-container">
+    <img src="IMAGES/brac1 banner.jpg" alt="Highlight Jewelry" />
+  </div>
+</section>
+
+
+
 <footer>
   <div class="footer-wrapper">
     <div class="footer-container">
@@ -1520,6 +1376,20 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   </div>
 </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 class WishlistManager {
     constructor() {
@@ -1612,7 +1482,7 @@ class WishlistManager {
             messageEl.textContent = message;
         }
 
-        notification.className = `wishlist-notification ₹{type}`;
+        notification.className = `wishlist-notification ${type}`;
         notification.classList.add('show');
 
         setTimeout(() => notification.classList.remove('show'), 3000);
@@ -1669,7 +1539,7 @@ function addToCart(id, name, price, image) {
 
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
-    showCartNotification(`₹{name} added to cart (₹₹{price.toFixed(2)})`);
+    showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
 }
 
 function updateCartCount() {
@@ -1706,8 +1576,6 @@ function updateWishlistCount() {
     }
 }
 </script>
- <script src="/global_js/backend_apis/users.js"></script>
-<script src="/user-profile/user-logout.js"></script>
 
 </body>
 </html>

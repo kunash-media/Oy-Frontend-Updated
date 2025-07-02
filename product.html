@@ -369,6 +369,228 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    /*--------- sub product css*/
+    /* Sub-Products Section Styles */
+.sub-products-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.sub-products-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sub-products-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.sub-product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    padding: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    position: relative;
+}
+
+.sub-product-item:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.sub-product-item.active {
+    border-color: #007bff;
+    background-color: #f8f9ff;
+}
+
+.sub-product-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+    border: 1px solid #f0f0f0;
+}
+
+.sub-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.sub-product-item:hover .sub-product-image img {
+    transform: scale(1.05);
+}
+
+.sub-product-info {
+    text-align: center;
+    min-height: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sub-product-color {
+    font-size: 11px;
+    font-weight: 500;
+    color: #393835;
+    margin-bottom: 2px;
+    text-transform: capitalize;
+}
+
+.sub-product-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Loading state for sub-products */
+.sub-products-loading {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.sub-product-skeleton {
+    width: 80px;
+    height: 90px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sub-products-container {
+        gap: 8px;
+    }
+    
+    .sub-product-item {
+        min-width: 70px;
+        padding: 6px;
+    }
+    
+    .sub-product-image {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .sub-product-color {
+        font-size: 10px;
+    }
+    
+    .sub-product-price {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sub-products-container {
+        gap: 6px;
+        justify-content: flex-start;
+    }
+    
+    .sub-product-item {
+        min-width: 65px;
+        padding: 5px;
+    }
+    
+    .sub-product-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .sub-products-title {
+        font-size: 14px;
+    }
+}
+
+/* Enhanced hover effects */
+.sub-product-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 6px;
+}
+
+.sub-product-item:hover::before {
+    opacity: 1;
+}
+
+/* Active state indicator */
+.sub-product-item.current-product {
+    border-color: #28a745;
+    background-color: #f8fff9;
+}
+
+.sub-product-item.current-product .sub-product-price {
+    color: #28a745;
+}
+
+/* Accessibility improvements */
+.sub-product-item:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.sub-product-item:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+    .sub-product-item {
+        background: #2a2a2a;
+        border-color: #444;
+    }
+    
+    .sub-product-item:hover {
+        border-color: #66b3ff;
+        background: #333;
+    }
+    
+    .sub-product-color {
+        color: #ccc;
+    }
+    
+    .sub-products-title {
+        color: #fff;
+    }
+}
+
   </style>
 </head>
 
@@ -440,7 +662,9 @@
                     sizes: product.ProductSizes || [],
                     unavailableSizes: product.ProductUnavailableSizes || [],
                     stock: product.ProductStock,
-                    discount: product.productDiscount
+                    discount: product.productDiscount,
+                    skuNo: product.ProductSku || product.skuNo,
+                    metalColor: product.ProductMetalColor || product.metalColor
                 }));
                 
             } catch (error) {
@@ -509,6 +733,117 @@
             }
         }
 
+        /**
+         * Gets sub-products based on SKU number (same base SKU, different colors)
+         * @param {string} currentProductId - Current product ID
+         * @returns {Array} Array of sub-products with same SKU base
+         */
+        function getSubProductsBySku(currentProductId) {
+            const currentProduct = products[currentProductId];
+            if (!currentProduct || !currentProduct.skuNo) {
+                return [];
+            }
+            
+            // Extract base SKU (e.g., "RNG-01" from "RNG-01-GRN")
+            const baseSku = currentProduct.skuNo.split('-').slice(0, 2).join('-');
+            
+            // Find all products with same base SKU but different colors
+            const subProducts = Object.values(products).filter(product => {
+                if (!product.skuNo || product.id === currentProductId) {
+                    return false;
+                }
+                
+                const productBaseSku = product.skuNo.split('-').slice(0, 2).join('-');
+                return productBaseSku === baseSku;
+            });
+            
+            return subProducts;
+        }
+
+        /**
+         * Renders sub-products section
+         * @param {Array} subProducts - Array of sub-products
+         */
+        function renderSubProducts(subProducts) {
+            if (subProducts.length === 0) {
+                return '';
+            }
+            
+            return `
+                <div class="sub-products-section">
+                    <h3 class="sub-products-title">Available Colors</h3>
+                    <div class="sub-products-container">
+                        ${subProducts.map(product => `
+                            <div class="sub-product-item" data-product-id="${product.id}" style="cursor: pointer;">
+                                <div class="sub-product-image">
+                                    <img src="${product.image}" alt="${product.title}" onerror="handleImageError(this)">
+                                </div>
+                                <div class="sub-product-info">
+                                    <div class="sub-product-color">${product.metalColor || extractColorFromSku(product.skuNo)}</div>
+                                    <div class="sub-product-price">₹${product.price.toFixed(2)}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Extracts color from SKU if metalColor is not available
+         * @param {string} skuNo - SKU number
+         * @returns {string} Color name
+         */
+        function extractColorFromSku(skuNo) {
+            if (!skuNo) return 'Unknown';
+            
+            const colorMap = {
+                'GRN': 'Green',
+                'PUR': 'Purple', 
+                'WHT': 'White',
+                'BLK': 'Black',
+                'SLV': 'Silver',
+                'GLD': 'Gold',
+                'RED': 'Red',
+                'BLU': 'Blue',
+                'YLW': 'Yellow',
+                'PNK': 'Pink'
+            };
+            
+            const parts = skuNo.split('-');
+            const colorCode = parts[parts.length - 1];
+            
+            return colorMap[colorCode] || colorCode;
+        }
+
+        /**
+         * Redirects to sub-product page
+         * @param {string} productId - Product ID to redirect to
+         */
+        function redirectToSubProduct(productId) {
+            const currentUrl = new URL(window.location);
+            currentUrl.searchParams.set('id', productId);
+            window.location.href = currentUrl.toString();
+        }
+
+        /**
+         * Sets up click handlers for sub-product items
+         */
+        function setupSubProductClickHandlers() {
+            const subProductItems = document.querySelectorAll('.sub-product-item');
+            subProductItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    if (productId) {
+                        redirectToSubProduct(productId);
+                    }
+                });
+            });
+        }
+
+        // Make redirectToSubProduct globally accessible
+        window.redirectToSubProduct = redirectToSubProduct;
+
         function getProductIdFromUrl() {
             const params = new URLSearchParams(window.location.search);
             return params.get("id");
@@ -576,7 +911,7 @@
                     <hr class="divider" />
 
                     <div class="size-section">
-                        <span class="size-label">Select Ring Size <a href="#" class="size-guide">Size Guide</a></span>
+                        <span class="size-label">Select Ring Size <a href="#" class="size-guide" onclick="showSizeGuide()">Size Guide</a></span>
                         <div class="size-buttons" id="size-buttons">
                             <!-- Sizes will be populated by JavaScript -->
                         </div>
@@ -665,13 +1000,22 @@
         }
 
         function updateProductDescription(product) {
+            const subProducts = getSubProductsBySku(product.id);
+            const subProductsHtml = renderSubProducts(subProducts);
+            
             const descriptionElement = document.getElementById("product-description");
             descriptionElement.innerHTML = `
                 <p>${product.description}</p>
                 <ul class="features">
                     ${product.features.map(f => `<li>${f}</li>`).join("")}
                 </ul>
+                ${subProductsHtml}
             `;
+            
+            // Add event listeners to sub-product items after rendering
+            if (subProducts.length > 0) {
+                setupSubProductClickHandlers();
+            }
         }
 
         function updateSizeOptions(product) {
@@ -1011,7 +1355,9 @@
             addToWishlist,
             selectSize,
             changeImage,
-            showSizeGuide
+            showSizeGuide,
+            redirectToSubProduct,
+            getSubProductsBySku
         };
 
 </script>
