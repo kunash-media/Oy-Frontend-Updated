@@ -1222,13 +1222,10 @@ margin-left: 150px;
   </script>
 
 
-
-
-
-  <!-- Responsive Banner Section -->
+  <!-- bannerFileOne -->
 <section id="main-banner">
   <div class="banner-container">
-    <img src="IMAGES/braclet banner.jpg" alt="Stunning Bracelets - Special Prices" />
+    <img src="/IMAGES/braclet banner.jpg" alt="Stunning Bracelets" />
   </div>
 </section>
 
@@ -1437,7 +1434,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-  <!-- Image Highlight Section -->
+   <!-- bannerFileTwo -->
   <section class="image-highlight">
     <div class="image-container">
       <img src="IMAGES/brac1 banner.jpg" alt="Highlight Jewelry" />
@@ -1505,6 +1502,48 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </footer>
+
+ <!-- Add this script at the end of your HTML -->
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    // Fetch banner data for the current page (change 'index' to your page name)
+    const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/bracelets');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const bannerData = await response.json();
+    
+    // Update bannerFileOne if it exists
+    if (bannerData.bannerFileOne) {
+      const mainBanner = document.querySelector('#main-banner .banner-container img');
+      if (mainBanner) {
+        mainBanner.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
+        mainBanner.alt = bannerData.header || "Stunning Bracelets"; // Update alt text if header exists
+      }
+    }
+    
+    // Update bannerFileTwo if it exists
+    if (bannerData.bannerFileTwo) {
+      const highlightBanner = document.querySelector('.image-highlight .image-container img');
+      if (highlightBanner) {
+        highlightBanner.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+        highlightBanner.alt = bannerData.text || "Highlight Jewelry"; // Update alt text if text exists
+      }
+    }
+    
+    console.log('Banners loaded successfully');
+    
+  } catch (error) {
+    console.error('Error loading banner images:', error);
+    // The original images will remain as fallback
+  }
+});
+</script>
+
+
 
   <script>
     class WishlistManager {

@@ -1217,10 +1217,11 @@ footer {
   });
 </script>
 
-<!-- Responsive Banner Section -->
+
+ <!-- bannerFileOne -->
 <section id="main-banner">
   <div class="banner-container">
-    <img src="IMAGES/ring banner1.jpg" alt="Stunning Bracelets - Special Prices" />
+    <img src="/IMAGES/ring banner1.jpg" alt="Exquisite Rings Collection" />
   </div>
 </section>
 
@@ -1396,10 +1397,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<!-- Image Highlight Section -->
+<!-- bannerFileTwo -->
 <section class="image-highlight">
   <div class="image-container">
-    <img src="IMAGES/ring banner.jpg" alt="Highlight Jewelry" />
+    <img src="/IMAGES/ring banner.jpg" alt="Featured Ring Designs" />
   </div>
 </section>
 
@@ -1601,7 +1602,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ✅ SINGLE addToCart FUNCTION — includes `image`
+
 function addToCart(id, name, price, image) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -1651,6 +1652,51 @@ function updateWishlistCount() {
     }
 }
 </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    // 1. Fetch banner data for the 'rings' page
+    const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/rings');
+    
+    // 2. Check if response is successful
+    if (!response.ok) {
+      console.warn('Banner API response not OK, using default images');
+      return; // Keep the original images
+    }
+    
+    // 3. Parse the JSON data
+    const bannerData = await response.json();
+    console.log('Loaded banner data:', bannerData);
+    
+    // 4. Update main banner (bannerFileOne)
+    const mainBannerImg = document.querySelector('#main-banner .banner-container img');
+    if (mainBannerImg && bannerData.bannerFileOne) {
+      mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
+      // Update alt text if available, otherwise keep existing
+      if (bannerData.header) {
+        mainBannerImg.alt = bannerData.header;
+      }
+    }
+    
+    // 5. Update highlight banner (bannerFileTwo)
+    const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
+    if (highlightBannerImg && bannerData.bannerFileTwo) {
+      highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+      // Update alt text if available, otherwise keep existing
+      if (bannerData.text) {
+        highlightBannerImg.alt = bannerData.text;
+      }
+    }
+    
+  } catch (error) {
+    console.error('Error loading banner images:', error);
+    // The original images will remain as fallback
+  }
+});
+</script>
+
  <script src="/global_js/backend_apis/users.js"></script>
 <script src="/user-profile/user-logout.js"></script>
 

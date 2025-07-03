@@ -1172,7 +1172,7 @@ footer {
   });
 </script>
 
-<!-- Responsive Banner Section -->
+ <!-- bannerFileOne -->
 <section id="main-banner">
   <div class="banner-container">
     <img src="IMAGES/neck banner1.jpg" alt="Stunning Bracelets - Special Prices" />
@@ -1188,6 +1188,9 @@ footer {
     </button>
   </div>
 </section>
+
+
+
 
 <script type="module">
         // Import the API functions
@@ -1306,10 +1309,6 @@ footer {
 
 
 
-
-
-
-
 <section id="section7" style="background-image: url(IMAGES/bgq1.jpg); background-size: cover; height: 70%;">
   <div class="sticky-container">  
     <div class="tagline"><b>Handpicked gifts. Heartfelt moments.</b></div>
@@ -1360,10 +1359,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<!-- Image Highlight Section -->
+<!-- bannerFileTwo -->
 <section class="image-highlight">
   <div class="image-container">
-    <img src="IMAGES/brac1 banner.jpg" alt="Highlight Jewelry" />
+    <img src="/IMAGES/brac1 banner.jpg" alt="Highlight Jewelry" />
   </div>
 </section>
 
@@ -1427,15 +1426,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   </div>
 </footer>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1626,6 +1616,51 @@ function updateWishlistCount() {
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
 }
+</script>
+
+
+<!-- Add this script at the end of your HTML -->
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    // 1. Fetch banner data for the 'chain' page
+    const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/chain');
+    
+    // 2. Check if response is successful
+    if (!response.ok) {
+      console.warn('Banner API response not OK, using default images');
+      return; // Keep the original images
+    }
+    
+    // 3. Parse the JSON data
+    const bannerData = await response.json();
+    console.log('Loaded banner data:', bannerData);
+    
+    // 4. Update main banner (bannerFileOne)
+    const mainBannerImg = document.querySelector('#main-banner .banner-container img');
+    if (mainBannerImg && bannerData.bannerFileOne) {
+      mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
+      // Update alt text if available, otherwise keep existing
+      if (bannerData.header) {
+        mainBannerImg.alt = bannerData.header;
+      }
+    }
+    
+    // 5. Update highlight banner (bannerFileTwo)
+    const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
+    if (highlightBannerImg && bannerData.bannerFileTwo) {
+      highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+      // Update alt text if available, otherwise keep existing
+      if (bannerData.text) {
+        highlightBannerImg.alt = bannerData.text;
+      }
+    }
+    
+  } catch (error) {
+    console.error('Error loading banner images:', error);
+    // The original images will remain as fallback
+  }
+});
 </script>
 
 </body>

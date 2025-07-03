@@ -1093,9 +1093,11 @@ margin-left: 150px;
 <!-- Responsive Banner Section -->
 <section id="main-banner">
   <div class="banner-container">
-    <img src="IMAGES/mangalsutra banner.jpg" alt="Stunning Bracelets - Special Prices" />
+    <img src="/IMAGES/mangalsutra banner.jpg" alt="Stunning Bracelets - Special Prices" />
   </div>
 </section>
+
+
 <section id="product1" class="section4">
   <div class="pro-container" id="product-list"></div>
   <div style="text-align: center; margin-top: 20px;">
@@ -1296,13 +1298,13 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="terms.html">Terms & Conditions</a></li>
             </ul>
           </div>
- <div class="footer-section">
-  <h3>Follow</h3>
-  <ul class="social-icons">
-    <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
-    <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-  </ul>
-</div>
+            <div class="footer-section">
+              <h3>Follow</h3>
+              <ul class="social-icons">
+                <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              </ul>
+            </div>
         </div>
         </div>
       </div>
@@ -1501,6 +1503,50 @@ function updateWishlistCount() {
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
 }
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    // 1. Fetch banner data for the 'rings' page
+    const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/wedding');
+    
+    // 2. Check if response is successful
+    if (!response.ok) {
+      console.warn('Banner API response not OK, using default images');
+      return; // Keep the original images
+    }
+    
+    // 3. Parse the JSON data
+    const bannerData = await response.json();
+    console.log('Loaded banner data:', bannerData);
+    
+    // 4. Update main banner (bannerFileOne)
+    const mainBannerImg = document.querySelector('#main-banner .banner-container img');
+    if (mainBannerImg && bannerData.bannerFileOne) {
+      mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
+      // Update alt text if available, otherwise keep existing
+      if (bannerData.header) {
+        mainBannerImg.alt = bannerData.header;
+      }
+    }
+    
+    // 5. Update highlight banner (bannerFileTwo)
+    const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
+    if (highlightBannerImg && bannerData.bannerFileTwo) {
+      highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+      // Update alt text if available, otherwise keep existing
+      if (bannerData.text) {
+        highlightBannerImg.alt = bannerData.text;
+      }
+    }
+    
+  } catch (error) {
+    console.error('Error loading banner images:', error);
+    // The original images will remain as fallback
+  }
+});
 </script>
  <script src="/global_js/backend_apis/users.js"></script>
 <script src="/user-profile/user-logout.js"></script>
