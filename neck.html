@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OY JEWELS</title>
+  <title>OY JEWELLS</title>
   <!--ICON-->
   <link rel="shortcut icon" href="IMAGES/01.png">
   <link rel="stylesheet" href="style.css">
@@ -1080,133 +1080,34 @@ footer {
   }
 
 
-   #page-header {
-        position: relative;
-        width: 100%;
-        height: 450px; /* Adjust height as needed */
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: #fff;
-        margin-top: .4%;
-    }
-    
-    .video-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
-    
-    .video-background video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .promo-content {
-        position: relative;
-        z-index: 2;
-        max-width: 800px;
-        padding: 0 20px;
-    }
-    
-    #page-header h2 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        letter-spacing: 2px;
-        color: #000;
-    }
-    
-    #page-header p {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-         color: #000;
-    }
-    
-    .promo-btn {
-        display: inline-block;
-        padding: 12px 30px;
-        background: #ff6b6b;
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        border-radius: 30px;
-        transition: all 0.3s ease;
-        border: 2px solid #ff6b6b;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    
-    .promo-btn:hover {
-        background: transparent;
-        color: #ff6b6b;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    
-    /* Dark overlay for better text contrast */
-    .video-background::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        
-    }
-    
-    /* Responsive adjustments */
- @media (max-width: 768px) {
-  #page-header {
-    height: 250px; /* Reduce height for smaller screens */
-    padding: 20px 10px;
+ /* Banner Container Styling */
+  #main-banner {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
   }
-
-  .promo-content {
-    padding: 0 10px;
+ 
+  .banner-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
   }
-
-  #page-header h2 {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+ 
+  /* Responsive adjustments (optional) */
+  @media screen and (max-width: 768px) {
+    #main-banner {
+      margin-top: 6px;
+    }
   }
-
-  #page-header p {
-    font-size: 0.9rem;
+ 
+  @media screen and (max-width: 480px) {
+    #main-banner {
+      margin-top: 4px;
+    }
   }
-
-  .promo-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #page-header {
-    height: 200px;
-  }
-
-  #page-header h2 {
-    font-size: 1.2rem;
-  }
-
-  #page-header p {
-    font-size: 0.8rem;
-  }
-
-  .promo-btn {
-    padding: 8px 16px;
-    font-size: 0.8rem;
-  }
-}
+ 
 </style>
   <!-- HEADER -->
 <header id="header">
@@ -1330,23 +1231,12 @@ footer {
     });
   </script>
 
-  <!-- Promotional Banner Section with Background Video -->
-  <section id="page-header">
-    <div class="video-background">
-      <video autoplay muted loop playsinline poster="images/promo-fallback.jpg">
-        <source src="VIDEOS/neck.mp4" type="video/mp4">
-        <source src="videos/promo-banner.webm" type="video/webm">
-        <!-- Fallback image if video doesn't load -->
-        <img src="images/promo-fallback.jpg" alt="Special offers background">
-      </video>
-    </div>
-
-    <!--<div class="promo-content">
-        <h2>#stayhome</h2>
-        <p>Save more with coupons & up to 20% off</p>
-       
-    </div>-->
-  </section>
+ <!-- Responsive Banner Section -->
+<section id="main-banner">
+  <div class="banner-container">
+    <img src="IMAGES/neck banner1.jpg" alt="Stunning Bracelets - Special Prices" />
+  </div>
+</section>
 
   <section id="product1" class="section4">
     <div class="pro-container" id="product-list"></div>
@@ -1562,13 +1452,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <div class="footer-section">
-              <h3>Follow</h3>
-              <ul class="social-icons">
-                <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-              </ul>
-            </div>
+  <h3>Follow</h3>
+  <ul class="social-icons">
+    <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+  </ul>
+</div>
+        </div>
           </div>
         </div>
       </div>

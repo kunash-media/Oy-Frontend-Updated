@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Wishlist - OY JEWELS</title>
+  <title>OY JEWELLS</title>
   <link rel="shortcut icon" href="IMAGES/01.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -504,12 +504,14 @@ function clearWishlist() {
 function removeFromWishlist(id) {
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   wishlist = wishlist.filter(item => item.id !== id);
-  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  localStorage.removeItem('wishlist', JSON.stringify(wishlist));
   
   displayWishlistItems();
   updateWishlistCount();
   showNotification('Item removed from wishlist');
 }
+
+
 
 function addToCart(id, name, price, image) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];

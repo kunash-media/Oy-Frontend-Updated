@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Details</title>
+  <title>OY JEWELLS</title>
 
     <!--ICON-->
   <link rel="shortcut icon" href="IMAGES/01.png">
@@ -591,6 +591,93 @@
     }
 }
 
+.sub-images {
+    position: relative;
+    margin-top: 20px;
+    max-width: 100%;
+}
+
+.sub-images-wrapper {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.sub-images-track {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.3s ease;
+    min-height: 80px;
+}
+
+.sub-images img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.sub-images img:hover {
+    border-color: #007bff;
+    transform: scale(1.05);
+}
+
+.sub-images img.active {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+/* Navigation arrows */
+.sub-images-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sub-images-nav:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sub-images-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sub-images-nav.prev {
+    left: -16px;
+}
+
+.sub-images-nav.next {
+    right: -16px;
+}
+
+.sub-images-nav svg {
+    width: 16px;
+    height: 16px;
+    fill: #333;
+}
+
+/* Hide navigation when not needed */
+.sub-images-nav.hidden {
+    display: none;
+}
+
   </style>
 </head>
 
@@ -626,52 +713,82 @@
     <script type="module">
         // Backend API configuration
         const API_BASE = 'http://localhost:8080/api';
+        let currentImageIndex = 0;
+        let maxVisibleImages = 4;
 
         /**
          * Fetches all products from backend
          * @returns {Promise} Array of product objects
          */
         const fetchAllProducts = async () => {
-            try {
-                const response = await fetch(`${API_BASE}/products/get-all-product`, {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                const data = await handleResponse(response);
-                
-                // Transform backend data to match frontend structure
-                return data.map(product => ({
-                    id: product.productId,
-                    title: product.ProductTitle,
-                    name: product.ProductTitle,
-                    price: product.ProductPrice,
-                    oldPrice: product.ProductOldPrice || null,
-                    image: `data:image/jpeg;base64,${product.ProductImage}`,
-                    subImages: [
-                        `data:image/jpeg;base64,${product.ProductImage}`,
-                        `data:image/jpeg;base64,${product.ProductImage}`,
-                        `data:image/jpeg;base64,${product.ProductImage}`,
-                        `data:image/jpeg;base64,${product.ProductImage}`
-                    ],
-                    description: product.ProductDescription,
-                    features: product.ProductFeatures || [
-                        "Feature not available"
-                    ],
-                    sizes: product.ProductSizes || [],
-                    unavailableSizes: product.ProductUnavailableSizes || [],
-                    stock: product.ProductStock,
-                    discount: product.productDiscount,
-                    skuNo: product.ProductSku || product.skuNo,
-                    metalColor: product.ProductMetalColor || product.metalColor
-                }));
-                
-            } catch (error) {
-                console.error('Error fetching products:', error);
-                throw error;
+    try {
+        const response = await fetch(`${API_BASE}/products/get-all-product`, {
+            headers: {
+                'Accept': 'application/json'
             }
-        };
+        });
+        
+        const data = await handleResponse(response);
+        
+        // Transform backend data to match frontend structure
+        return data.map(product => {
+            // Process main image
+            const mainImage = `data:image/jpeg;base64,${product.ProductImage}`;
+            
+            // Process sub images
+            let subImages = [];
+            
+            // Always include the main image as the first sub image
+            subImages.push(mainImage);
+            
+            // Add additional sub images if they exist
+            if (product.ProductSubImages && Array.isArray(product.ProductSubImages)) {
+                const additionalSubImages = product.ProductSubImages
+                    .filter(img => img && img.trim() !== '') // Filter out empty/null images
+                    .map(img => `data:image/jpeg;base64,${img}`);
+                
+                subImages.push(...additionalSubImages);
+            }
+            
+            // If no sub images available, duplicate main image for consistency (optional)
+            if (subImages.length === 1) {
+                // You can choose to duplicate main image or leave as single image
+                // subImages = [mainImage, mainImage, mainImage, mainImage];
+            }
+            
+            return {
+                id: product.productId,
+                title: product.ProductTitle,
+                name: product.ProductTitle,
+                price: product.ProductPrice,
+                oldPrice: product.ProductOldPrice || null,
+                image: mainImage,
+                subImages: subImages, // Now properly populated from API
+                description: product.ProductDescription,
+                features: product.ProductFeatures || [
+                    "Feature not available"
+                ],
+                sizes: product.ProductSizes || [],
+                unavailableSizes: product.ProductUnavailableSizes || [],
+                stock: product.ProductStock,
+                discount: product.productDiscount,
+                skuNo: product.ProductSku || product.skuNo,
+                metalColor: product.ProductMetalColor || product.metalColor,
+                // Additional fields from your API response
+                category: product.ProductCategory,
+                quantity: product.productQuantity,
+                shopBy: product.shopBy,
+                couponCode: product.productCouponCode,
+                stoneColor: product.stoneColor,
+                rating: product.rating
+            };
+        });
+        
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error;
+    }
+};
 
         /**
          * Handles API response
@@ -693,6 +810,7 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
+            injectSubImagesStyles(); // Add this line
             initializeProductPage();
             initializeBadgeCounters();
         });
@@ -807,7 +925,8 @@
                 'RED': 'Red',
                 'BLU': 'Blue',
                 'YLW': 'Yellow',
-                'PNK': 'Pink'
+                'PNK': 'Pink',
+                'RGLD': 'Rose Gold',
             };
             
             const parts = skuNo.split('-');
@@ -911,7 +1030,7 @@
                     <hr class="divider" />
 
                     <div class="size-section">
-                        <span class="size-label">Select Ring Size <a href="#" class="size-guide" onclick="showSizeGuide()">Size Guide</a></span>
+                        <span class="size-label">Select Size <a href="#" class="size-guide" onclick="showSizeGuide()"></a></span>
                         <div class="size-buttons" id="size-buttons">
                             <!-- Sizes will be populated by JavaScript -->
                         </div>
@@ -983,22 +1102,64 @@
             return Math.round(((oldPrice - currentPrice) / oldPrice) * 100);
         }
 
-        function updateProductImages(product) {
-            document.getElementById("product-image").src = product.image;
-            document.getElementById("zoomed-image").src = product.image;
-            
-            const subImagesContainer = document.getElementById("sub-images-container");
-            subImagesContainer.innerHTML = "";
-            
-            product.subImages.forEach((imgSrc, index) => {
-                const img = document.createElement("img");
-                img.src = imgSrc;
-                img.alt = `${product.title} - View ${index + 1}`;
-                img.onclick = () => changeImage(imgSrc);
-                subImagesContainer.appendChild(img);
-            });
+       // Enhanced updateProductImages function with better sub-image handling
+function updateProductImages(product) {
+    // Set main image
+    document.getElementById("product-image").src = product.image;
+    document.getElementById("zoomed-image").src = product.image;
+    
+    const subImagesContainer = document.getElementById("sub-images-container");
+    
+    // Only show sub-images section if there are images to display
+    if (!product.subImages || product.subImages.length === 0) {
+        subImagesContainer.innerHTML = '<p>No additional images available</p>';
+        return;
+    }
+    
+    // Create enhanced sub-images structure
+    const subImagesHtml = `
+        <div class="sub-images-wrapper">
+            <div class="sub-images-track" id="sub-images-track">
+                <!-- Images will be populated here -->
+            </div>
+        </div>
+        <button class="sub-images-nav prev hidden" id="sub-images-prev">
+            <svg viewBox="0 0 24 24">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <button class="sub-images-nav next hidden" id="sub-images-next">
+            <svg viewBox="0 0 24 24">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+    `;
+    
+    subImagesContainer.innerHTML = subImagesHtml;
+    
+    // Populate images in the track
+    const track = document.getElementById("sub-images-track");
+    product.subImages.forEach((imgSrc, index) => {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = `${product.title} - View ${index + 1}`;
+        img.onclick = () => changeImage(imgSrc, index);
+        img.onerror = () => handleImageError(img);
+        
+        // Mark first image as active (main image)
+        if (index === 0) {
+            img.classList.add('active');
         }
-
+        
+        track.appendChild(img);
+    });
+    
+    // Setup navigation if needed
+    setupSubImagesNavigation(product.subImages.length);
+    
+    // Reset current image index
+    currentImageIndex = 0;
+}
         function updateProductDescription(product) {
             const subProducts = getSubProductsBySku(product.id);
             const subProductsHtml = renderSubProducts(subProducts);
@@ -1065,10 +1226,167 @@
         }
 
         // Image handling
-        function changeImage(imageSrc) {
-            document.getElementById("product-image").src = imageSrc;
-            document.getElementById("zoomed-image").src = imageSrc;
+        // Enhanced changeImage function
+function changeImage(imageSrc, index = 0) {
+    document.getElementById("product-image").src = imageSrc;
+    document.getElementById("zoomed-image").src = imageSrc;
+    
+    // Update active state
+    document.querySelectorAll('.sub-images img').forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+    });
+    
+    currentImageIndex = index;
+}
+
+
+// New function to setup sub-images navigation
+function setupSubImagesNavigation(totalImages) {
+    const prevBtn = document.getElementById('sub-images-prev');
+    const nextBtn = document.getElementById('sub-images-next');
+    const track = document.getElementById('sub-images-track');
+    
+    if (totalImages <= maxVisibleImages) {
+        // Hide navigation if all images fit
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+        return;
+    }
+    
+    // Show navigation
+    prevBtn.classList.remove('hidden');
+    nextBtn.classList.remove('hidden');
+    
+    let currentOffset = 0;
+    const maxOffset = Math.max(0, totalImages - maxVisibleImages);
+    
+    // Update navigation state
+    function updateNavigation() {
+        prevBtn.disabled = currentOffset === 0;
+        nextBtn.disabled = currentOffset >= maxOffset;
+    }
+    
+    // Previous button click
+    prevBtn.addEventListener('click', () => {
+        if (currentOffset > 0) {
+            currentOffset--;
+            const translateX = -currentOffset * (80 + 10); // 80px width + 10px gap
+            track.style.transform = `translateX(${translateX}px)`;
+            updateNavigation();
         }
+    });
+    
+    // Next button click
+    nextBtn.addEventListener('click', () => {
+        if (currentOffset < maxOffset) {
+            currentOffset++;
+            const translateX = -currentOffset * (80 + 10); // 80px width + 10px gap
+            track.style.transform = `translateX(${translateX}px)`;
+            updateNavigation();
+        }
+    });
+    
+    // Initial state
+    updateNavigation();
+}
+
+// Add this function to inject the CSS styles
+function injectSubImagesStyles() {
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = `
+        /* Sub images container with navigation */
+        .sub-images {
+            position: relative;
+            margin-top: 20px;
+            max-width: 100%;
+        }
+
+        .sub-images-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .sub-images-track {
+            display: flex;
+            gap: 10px;
+            transition: transform 0.3s ease;
+            min-height: 80px;
+        }
+
+        .sub-images img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .sub-images img:hover {
+            border-color: #007bff;
+            transform: scale(1.05);
+        }
+
+        .sub-images img.active {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Navigation arrows */
+        .sub-images-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-images-nav:hover {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .sub-images-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .sub-images-nav.prev {
+            left: -16px;
+        }
+
+        .sub-images-nav.next {
+            right: -16px;
+        }
+
+        .sub-images-nav svg {
+            width: 16px;
+            height: 16px;
+            fill: #333;
+        }
+
+        /* Hide navigation when not needed */
+        .sub-images-nav.hidden {
+            display: none;
+        }
+    `;
+    
+    // Insert at the beginning of head to allow overrides
+    document.head.insertBefore(styleElement, document.head.firstChild);
+}
+
 
         // Size selection
         function selectSize(size, button) {

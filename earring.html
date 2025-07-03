@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OY JEWELS</title>
+  <title>OY JEWELLS</title>
   <!--ICON-->
   <link rel="shortcut icon" href="IMAGES/01.png">
   <link rel="stylesheet" href="style.css">
@@ -578,22 +578,34 @@ header {
     font-size: 13px;
   }
 }
-#page-header{
-  background-image: url(IMAGES/EARRINGS-BANNER.png);
-  width: 100%;
-  height: 40vh;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  text-align:center;
-  flex-direction: column;
-}
-#page-header p,
-#page-header h2{
-padding: 12px;
-margin-right: 40%;
-font-weight: 600;
-}
+/* Banner Container Styling */
+  #main-banner {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .banner-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+ 
+  /* Responsive adjustments (optional) */
+  @media screen and (max-width: 768px) {
+    #main-banner {
+      margin-top: 6px;
+    }
+  }
+ 
+  @media screen and (max-width: 480px) {
+    #main-banner {
+      margin-top: 4px;
+    }
+  }
+ 
 .section7{
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
 }
@@ -1206,10 +1218,12 @@ footer {
 
 
 
-  <section id="page-header">
-    <h2>#stayhome</h2>
-    <p>Save more with coupons & upto 20% off</p>
-  </section>
+  <!-- Responsive Banner Section -->
+<section id="main-banner">
+  <div class="banner-container">
+    <img src="IMAGES/earring banner.jpg" alt="Stunning Bracelets - Special Prices" />
+  </div>
+</section>
   <section id="product1" class="section4">
     <div class="pro-container" id="product-list"></div>
     <div style="text-align: center; margin-top: 20px;">
@@ -1429,13 +1443,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <div class="footer-section">
-              <h3>Follow</h3>
-              <ul class="social-icons">
-                <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-              </ul>
-            </div>
+  <h3>Follow</h3>
+  <ul class="social-icons">
+    <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+  </ul>
+</div>
+        </div>
           </div>
         </div>
       </div>

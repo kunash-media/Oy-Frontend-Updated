@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OY JEWELS</title>
-
+   <title>OY JEWELLS</title>
   <!--ICON-->
   <link rel="shortcut icon" href="IMAGES/01.png">
   <link rel="stylesheet" href="style.css">
@@ -597,25 +596,34 @@
         font-size: 13px;
       }
     }
-
-    #page-header {
-      background-image: url(IMAGES/EARRINGS-BANNER.png);
-      width: 100%;
-      height: 40vh;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      flex-direction: column;
+/* Banner Container Styling */
+  #main-banner {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .banner-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+ 
+  /* Responsive adjustments (optional) */
+  @media screen and (max-width: 768px) {
+    #main-banner {
+      margin-top: 6px;
     }
-
-    #page-header p,
-    #page-header h2 {
-      padding: 12px;
-      margin-right: 40%;
-      font-weight: 600;
+  }
+ 
+  @media screen and (max-width: 480px) {
+    #main-banner {
+      margin-top: 4px;
     }
-
+  }
+ 
     .section7{
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
 }
@@ -1217,23 +1225,12 @@ margin-left: 150px;
 
 
 
-  <!-- Promotional Banner Section with Background Video -->
-  <section id="page-header">
-    <div class="video-background">
-      <video autoplay muted loop playsinline poster="">
-        <source src="VIDEOS/bracelets1.mp4" type="video/mp4">
-        <source src="videos/promo-banner.webm" type="video/webm">
-        <!-- Fallback image if video doesn't load -->
-        <img src="" alt="Special offers background">
-      </video>
-    </div>
-
-    <!--<div class="promo-content">
-        <h2>#stayhome</h2>
-        <p>Save more with coupons & up to 20% off</p>
-       
-    </div>-->
-  </section>
+  <!-- Responsive Banner Section -->
+<section id="main-banner">
+  <div class="banner-container">
+    <img src="IMAGES/braclet banner.jpg" alt="Stunning Bracelets - Special Prices" />
+  </div>
+</section>
 
 
   <section id="product1" class="section4">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OY JEWELS</title>
+  <title>OY JEWELLS</title>
     <!--ICON-->
 <link rel="shortcut icon" href="IMAGES/01.png">
   <link rel="stylesheet" href="style.css">
@@ -616,14 +616,34 @@ header {
   justify-content: center;
   text-align:center;
   flex-direction: column;
-}
-
-#page-header p,
-#page-header h2{
-padding: 12px;
-margin-right: 40%;
-font-weight: 600;
-}
+}/* Banner Container Styling */
+  #main-banner {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .banner-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+ 
+  /* Responsive adjustments (optional) */
+  @media screen and (max-width: 768px) {
+    #main-banner {
+      margin-top: 6px;
+    }
+  }
+ 
+  @media screen and (max-width: 480px) {
+    #main-banner {
+      margin-top: 4px;
+    }
+  }
+ 
 
  .section7{
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
@@ -1235,16 +1255,10 @@ footer {
 </script>
 
 
-<section class="video-banner">
-  <div class="video-bg">
-    <video autoplay muted loop playsinline>
-      <source src="VIDEOS/HOME_X-Design.mp4" type="video/mp4">
-      <!-- Optional fallback -->
-      <img src="images/fallback.jpg" alt="Sterling Silver Jewelry">
-    </video>
-  </div>
-  <div class="video-text">
-    <h2>STERLING SILVER : A PERFECT ADDITION TO YOUR JEWELLERY COLLECTION</h2>
+<!-- Responsive Banner Section -->
+<section id="main-banner">
+  <div class="banner-container">
+    <img src="IMAGES/gifts banner.jpg" alt="Stunning Bracelets - Special Prices" />
   </div>
 </section>
 
@@ -1497,14 +1511,14 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="terms.html">Terms & Conditions</a></li>
             </ul>
           </div>
-
-          <div class="footer-section">
-            <h3>Follow</h3>
-            <ul class="social-icons">
-              <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            </ul>
-          </div>
+ <div class="footer-section">
+  <h3>Follow</h3>
+  <ul class="social-icons">
+    <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+  </ul>
+</div>
+        </div>
         </div>
       </div>
     </div>

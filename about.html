@@ -146,65 +146,56 @@
         }
         
         .team {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .team-member {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-        
-        .team-member:nth-child(1) { animation-delay: 0.2s; }
-        .team-member:nth-child(2) { animation-delay: 0.4s; }
-        .team-member:nth-child(3) { animation-delay: 0.6s; }
-        .team-member:nth-child(4) { animation-delay: 0.8s; }
-        
-        .team-member:hover {
-            transform: translateY(-10px) !important;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        
-        .member-image {
-            height: 300px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .member-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-        }
-        
-        .member-info {
-            padding: 1.5rem;
-        }
-        
-        .member-info h3 {
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .member-role {
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: 1rem;
-            display: block;
-        }
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+    
+    .team-member {
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+        text-align: center;
+        padding: 30px 20px;
+        background: rgb(236, 186, 115);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .team-member:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .member-info h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.4em;
+        color: #333;
+        font-weight: 600;
+    }
+    
+    .member-role {
+        display: block;
+        margin-bottom: 0;
+        color: #555;
+        font-size: 0.95em;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Animation styles */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
         
         .stats {
             display: grid;
@@ -271,142 +262,6 @@
         }
         
 
-footer {
-  background-color: #020202;
-  font-family: spantax;
-}
-
-.footer-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-container {
-  padding: 20px;
-  display: flex;
-  gap: 110px;
-}
-
-.footer-logo-section {
-  flex: 0 0 120px;
-}
-
-.footer-logo {
-  width: 100%;
-  height: auto;
-}
-
-.footer-content {
-  flex: 1;
-}
-
-.footer-sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-}
-
-.footer-section {
-  flex: 1;
-  min-width: 120px;
-}
-
-.footer-section h3 {
-  font-size: 14px;
-  margin-bottom: 12px;
-  color: #fff6f6;
-  text-transform: uppercase;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 8px;
-}
-
-.footer-section ul li a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 19px;
-  transition: color 0.2s ease;
-}
-
-.social-icons {
-  display: flex;
-  gap: 12px;
-  text-align: center;
-}
-
-.social-icons li a {
-  font-size: 18px;
-  margin-right: 20px;
-}
-
-.footer-bottom {
-  border-top: 1px solid #333;
-  padding: 2px 2px;
-  font-size: 12px;
-  color: #888;
-
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 20px;
-    padding: 15px;
-  }
-  
-  .footer-logo-section {
-    flex: 0 0 auto;
-    text-align: center;
-    margin-bottom: 5px;
-  }
-  
-  .footer-logo {
-    max-width: 100px;
-  }
-  
-  .footer-sections {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .company-section {
-    display: none;
-  }
-  
-  .footer-section {
-    text-align: center;
-  }
-  
-  .social-icons {
-    justify-content: center;
-  }
-  
-  .footer-bottom {
-    text-align: center;
-    padding: 10px 15px;
-    font-size: 11px;
-  }
-}/* Center the footer bottom text */
-.footer-bottom .footer-container {
-  justify-content: center;
-  display: flex;
-}
-
-/* Hide Shop section on smaller screens */
-@media (max-width: 768px) {
-  .footer-section:nth-child(1) {
-    display: none;
-  }
-}
 
         /* Animations */
         @keyframes fadeInUp {
@@ -471,9 +326,9 @@ footer {
                 <p class="mission-statement">Founded in 2015, we are a collective of designers, developers, and strategists dedicated to crafting exceptional digital experiences that drive real results.</p>
                 <p>Our journey began in a small co-working space with just three people and a shared vision. Today, we've grown into an award-winning agency with team members across four countries, but we've never lost our startup spirit or commitment to excellence.</p>
                 <p>We believe in the power of design thinking combined with technical excellence to solve complex problems in simple, elegant ways. Every project we undertake is approached with fresh eyes and a dedication to pushing boundaries.</p>
-            </div>
+          
             
-            <h2 class="section-title animate-on-scroll">Our Approach</h2>
+           <!-- <h2 class="section-title animate-on-scroll">Our Approach</h2>
             <div class="stats">
                 <div class="stat-item animate-on-scroll">
                     <div class="stat-number" data-count="150">0</div>
@@ -491,99 +346,54 @@ footer {
                     <div class="stat-number" data-count="7">0</div>
                     <div class="stat-label">Years Experience</div>
                 </div>
-            </div>
+            </div>--> 
             
-            <h2 class="section-title animate-on-scroll">Meet the Team</h2>
-            <div class="team">
-                <div class="team-member animate-on-scroll">
-                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
-                    <div class="member-info">
-                        <h3>Alex Chen</h3>
-                        <span class="member-role">Founder & CEO</span>
-                        <p>Visionary leader with a passion for creating products that make a difference.</p>
-                    </div>
-                </div>
-                
-                <div class="team-member animate-on-scroll">
-                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
-                    <div class="member-info">
-                        <h3>Jamie Rivera</h3>
-                        <span class="member-role">Design Director</span>
-                        <p>Design thinker who believes beautiful solutions should be accessible to all.</p>
-                    </div>
-                </div>
-                
-                <div class="team-member animate-on-scroll">
-                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
-                    <div class="member-info">
-                        <h3>Sam Taylor</h3>
-                        <span class="member-role">Engineering Lead</span>
-                        <p>Problem solver who builds robust architectures for seamless experiences.</p>
-                    </div>
-                </div>
+      <h2 class="section-title animate-on-scroll">Meet the Team</h2>
+<div class="team">
+    <div class="team-member animate-on-scroll">
+        <div class="member-info">
+            <h3>OMKAR MAHAJAN</h3>
+            <span class="member-role">Founder & CEO</span>
+        </div>
+    </div>
+    
+    <div class="team-member animate-on-scroll">
+        <div class="member-info">
+            <h3>YASHKUMAR MADGULWAR</h3>
+            <span class="member-role">Founder & CEO</span>
+        </div>
+    </div>
+    
+    </div>
+   
+</div>
+
+
+
+
+<script>
+    // Simple scroll animation trigger
+    document.addEventListener('DOMContentLoaded', function() {
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+</script>
             </div>
         </section>
     </div>
     
-   <footer>
-  <div class="footer-wrapper">
-    <div class="footer-container">
-      <div class="footer-logo-section">
-        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
-      </div>
-      
-      <div class="footer-content">
-        <div class="footer-sections">
-          <div class="footer-section">
-            <h3>Shop</h3>
-            <ul>
-              <li><a href="necklace.html">Necklaces</a></li>
-              <li><a href="ring.html">Rings</a></li>
-              <li><a href="brac.html">Bracelets</a></li>
-              <li><a href="ear.html">Earrings</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-section company-section">
-            <h3>Company</h3>
-            <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/store">Store Location</a></li>
-              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-section">
-            <h3>Legal</h3>
-            <ul>
-               <li><a href="faqs.html">FAQS</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="shipping.html">Shipping Policy</a></li>
-          <li><a href="cancel.html">Cancellation Policy</a></li>
-          <li><a href="terms.html">Terms & Conditions</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h3>Follow</h3>
-            <ul class="social-icons">
-              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      <div class="footer-container">
-        &copy; 2025 Kunash Media Solutions. All rights reserved.
-      </div>
-    </div>
-  </div>
-</footer>
+  
 
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

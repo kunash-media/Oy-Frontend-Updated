@@ -1,3 +1,5 @@
+//C:\Jewelry-frontend-updated\global_js\backend_apis\products.js
+
 const API_BASE = 'http://localhost:8080/api';
 
 /**

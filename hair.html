@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OY JEWELS</title>
-
+  <title>OY JEWELLS</title>
     <!--ICON-->
 <link rel="shortcut icon" href="IMAGES/01.png">
   <link rel="stylesheet" href="style.css">
@@ -532,23 +531,34 @@ header {
   }
 }
 
-  #page-header{
-  background-image: url(IMAGES/EARRINGS-BANNER.png);
-  width: 100%;
-  height: 40vh;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  text-align:center;
-  flex-direction: column;
-}
-
-#page-header p,
-#page-header h2{
-padding: 12px;
-margin-right: 40%;
-font-weight: 600;
-}
+  /* Banner Container Styling */
+  #main-banner {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .banner-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+ 
+  /* Responsive adjustments (optional) */
+  @media screen and (max-width: 768px) {
+    #main-banner {
+      margin-top: 6px;
+    }
+  }
+ 
+  @media screen and (max-width: 480px) {
+    #main-banner {
+      margin-top: 4px;
+    }
+  }
+ 
 
   .section7{
   clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
@@ -1161,32 +1171,12 @@ footer {
   });
 </script>
 
-
-
-
-
-
-
-
-
-<!-- Promotional Banner Section with Background Video -->
-<section id="page-header">
-    <div class="video-background">
-        <video autoplay muted loop playsinline poster="">
-            <source src="VIDEOS/bracelets1.mp4" type="video/mp4">
-            <source src="videos/promo-banner.webm" type="video/webm">
-            <!-- Fallback image if video doesn't load -->
-            <img src="" alt="Special offers background">
-        </video>
-    </div>
-    
-    <!--<div class="promo-content">
-        <h2>#stayhome</h2>
-        <p>Save more with coupons & up to 20% off</p>
-       
-    </div>-->
+<!-- Responsive Banner Section -->
+<section id="main-banner">
+  <div class="banner-container">
+    <img src="IMAGES/gifts banner.jpg" alt="Stunning Bracelets - Special Prices" />
+  </div>
 </section>
-
 
 <section id="product1" class="section4">
   <div class="pro-container" id="product-list"></div>
@@ -1197,74 +1187,123 @@ footer {
   </div>
 </section>
 
-<script>
-  const productData = [
-    {id: 112, name: "Hair Accessories", price: 6400.00, image: "IMAGES/hair.jpg"},
-    {id: 113, name: "Hair Accessories", price: 6400.00, image: "IMAGES/hair4.jpg"},
-    {id: 114, name: "Hair Accessories", price: 6400.00, image: "IMAGES/hair 2.jpg"},
-    
-    
-  ];
+    <script type="module">
+        // Import the API functions
+        import { fetchProductsByCategory } from './global_js/backend_apis/products.js';
 
-  const container = document.getElementById("product-list");
-  const viewMoreBtn = document.getElementById("view-more-btn");
-  let visibleCount = 6;
+        let productData = [];
+        const container = document.getElementById("product-list");
+        const viewMoreBtn = document.getElementById("view-more-btn");
+        let visibleCount = 6;
 
-  function renderProducts(limit) {
-    container.innerHTML = "";
-    productData.slice(0, limit).forEach(product => {
-      const card = document.createElement("div");
-      card.classList.add("pro");
-      card.innerHTML = `
-        <div class="wishlist-icon-card active"
-             data-id="${product.id}" 
-             data-name="${product.name}" 
-             data-price="${product.price.toFixed(2)}" 
-             data-image="${product.image}">
-          <i class="far fa-heart"></i>
-        </div>
+        // Function to load products from backend
+        async function loadProducts() {
+            try {
+                // Show loading state
+                container.innerHTML = '<div class="loading">Loading products...</div>';
+                
+                // Fetch products from backend - filtering by 'hair accessories' category
+                productData = await fetchProductsByCategory('hair accessories');
+                
+                // If no products found, try variations
+                if (productData.length === 0) {
+                    productData = await fetchProductsByCategory('hair');
+                }
+                
+                // If still no products, try 'accessories'
+                if (productData.length === 0) {
+                    productData = await fetchProductsByCategory('accessories');
+                }
+                
+                // If still no products, fetch all and filter manually
+                if (productData.length === 0) {
+                    const { fetchAllProducts } = await import('./global_js/backend_apis/products.js');
+                    const allProducts = await fetchAllProducts();
+                    productData = allProducts.filter(product => 
+                        product.category && 
+                        (product.category.toLowerCase().includes('hair') ||
+                         product.category.toLowerCase().includes('accessories') ||
+                         product.name.toLowerCase().includes('hair') ||
+                         product.name.toLowerCase().includes('accessories'))
+                    );
+                }
+                
+                // Initial render
+                renderProducts(visibleCount);
+                
+            } catch (error) {
+                console.error('Error loading products:', error);
+                container.innerHTML = `
+                    <div class="error">
+                        <p>Error loading products. Please try again later.</p>
+                        <button onclick="loadProducts()">Retry</button>
+                    </div>
+                `;
+            }
+        }
 
-        <a href="product.html?id=${product.id}">
-          <img src="${product.image}" alt="${product.name}">
-        </a>
+        function renderProducts(limit) {
+            container.innerHTML = "";
+            
+            if (productData.length === 0) {
+                container.innerHTML = '<div class="no-products">No products found in this category.</div>';
+                viewMoreBtn.style.display = "none";
+                return;
+            }
+            
+            productData.slice(0, limit).forEach(product => {
+                const card = document.createElement("div");
+                card.classList.add("pro");
+                card.innerHTML = `
+                    <div class="wishlist-icon-card active"
+                         data-id="${product.id}" 
+                         data-name="${product.name}" 
+                         data-price="${product.price.toFixed(2)}" 
+                         data-image="${product.image}">
+                        <i class="far fa-heart"></i>
+                    </div>
 
-        <div class="des">
-          <span>${product.name}</span>
-          <h4>₹${product.price.toFixed(2)}</h4>
-          <button class="add-to-cart" 
-                  data-id="${product.id}" 
-                  data-name="${product.name}" 
-                  data-price="${product.price.toFixed(2)}" 
-                  data-image="${product.image}">
-            Add to Cart
-          </button>
-          <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.price.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">
-            Buy Now
-          </a>
-        </div>
-      `;
-      container.appendChild(card);
-    });
+                    <a href="product.html?id=${product.id}">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    </a>
 
-    if (visibleCount >= productData.length) {
-      viewMoreBtn.style.display = "none";
-    } else {
-      viewMoreBtn.style.display = "inline-block";
-    }
-  }
+                    <div class="des">
+                        <span>${product.name}</span>
+                        <h4>₹${product.price.toFixed(2)}</h4>
+                        <button class="add-to-cart" 
+                                data-id="${product.id}" 
+                                data-name="${product.name}" 
+                                data-price="${product.price.toFixed(2)}" 
+                                data-image="${product.image}">
+                            Add to Cart
+                        </button>
+                        <a href="checkout.html?product=${product.id}&name=${encodeURIComponent(product.name)}&price=${product.price.toFixed(2)}&image=${encodeURIComponent(product.image)}" class="buy-now">
+                            Buy Now
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
 
-  // Initial render
-  renderProducts(visibleCount);
+            if (visibleCount >= productData.length) {
+                viewMoreBtn.style.display = "none";
+            } else {
+                viewMoreBtn.style.display = "inline-block";
+            }
+        }
 
-  viewMoreBtn.addEventListener("click", () => {
-    visibleCount += 6;
-    renderProducts(visibleCount);
-  });
-</script>
+        // View More button event listener
+        viewMoreBtn.addEventListener("click", () => {
+            visibleCount += 6;
+            renderProducts(visibleCount);
+        });
 
+        // Load products when page loads
+        loadProducts();
 
-
-
+        // Make loadProducts available globally for retry functionality
+        window.loadProducts = loadProducts;
+    </script>
 
 
 
@@ -1367,12 +1406,13 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
 
           <div class="footer-section">
-            <h3>Follow</h3>
-            <ul class="social-icons">
-              <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            </ul>
-          </div>
+  <h3>Follow</h3>
+  <ul class="social-icons">
+    <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+  </ul>
+</div>
+        </div>
         </div>
       </div>
     </div>
