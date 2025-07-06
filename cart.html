@@ -1188,7 +1188,7 @@ header {
   <i class="fa fa-bars"></i>
 </div>
 <!-- In your header/navigation -->
-<a href="wishlist.html" class="wishlist-link">
+<a href="/wishlist.html" class="wishlist-link">
   <div class="wishlist-badge">
 <i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
   </div>
@@ -1234,7 +1234,7 @@ header {
 </div>
 
 <!-- Include the JavaScript file -->
-<script src="search.js"></script>
+<script src="/search.js"></script>
 </header>
 
   <!-- Main Cart Content -->
@@ -1570,7 +1570,7 @@ function addCartEventListeners() {
 
 function updateQuantity(productId, change) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const itemIndex = cart.findIndex(item => item.id === productId);
+  const itemIndex = cart.findIndex(item => item.id == productId);
   
   if (itemIndex !== -1) {
     cart[itemIndex].quantity += change;
