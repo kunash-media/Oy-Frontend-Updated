@@ -1076,31 +1076,36 @@
             `;
         }
 
-        function updateProductInfo(product) {
-            document.getElementById("product-title").textContent = product.title;
-            document.getElementById("product-price").textContent = formatPrice(product.price);
+ function updateProductInfo(product) {
+    document.getElementById("product-title").textContent = product.title;
+    document.getElementById("product-price").textContent = formatPrice(product.price);
+    
+    const oldPriceElement = document.getElementById("old-price");
+    if (product.oldPrice) {
+        oldPriceElement.textContent = formatPrice(product.oldPrice);
+        oldPriceElement.style.display = "inline";
+        
+        // Check for productDiscount first, otherwise calculate
+        const discount = product.discount !== undefined 
+            ? parseFloat(product.discount) 
+            : calculateDiscount(product.oldPrice, product.price);
             
-            const oldPriceElement = document.getElementById("old-price");
-            if (product.oldPrice) {
-                oldPriceElement.textContent = formatPrice(product.oldPrice);
-                oldPriceElement.style.display = "inline";
-                
-                const discount = calculateDiscount(product.oldPrice, product.price);
-                const discountBadge = document.getElementById("discount-badge");
-                discountBadge.textContent = `${discount}% OFF`;
-                discountBadge.style.display = "inline-block";
-            } else {
-                oldPriceElement.style.display = "none";
-            }
-        }
+        const discountBadge = document.getElementById("discount-badge");
+        discountBadge.textContent = `${discount}% OFF`;
+        discountBadge.style.display = "inline-block";
+        console.log("productDiscount :" , product.discount);
+    } else {
+        oldPriceElement.style.display = "none";
+    }
+}
 
-        function formatPrice(price) {
-            return `₹${price.toFixed(2)}`;
-        }
+function formatPrice(price) {
+    return `₹${price.toFixed(2)}`;
+}
 
-        function calculateDiscount(oldPrice, currentPrice) {
-            return Math.round(((oldPrice - currentPrice) / oldPrice) * 100);
-        }
+function calculateDiscount(oldPrice, currentPrice) {
+    return Math.round(((oldPrice - currentPrice) / oldPrice) * 100);
+}
 
        // Enhanced updateProductImages function with better sub-image handling
 function updateProductImages(product) {
