@@ -20,7 +20,6 @@ function closeCart() {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', loadCart);
 
 function loadCart() {
@@ -135,52 +134,6 @@ function loadCart() {
   });
 
 
-
-
-
-    /*document.addEventListener("DOMContentLoaded", function () {
-  const slider = document.getElementById("slider");
-  const slides = document.querySelectorAll(".slide");
-  const totalSlides = slides.length;
-  let currentIndex = 0;
-
-  function moveToNextSlide() {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }
-
-  setInterval(moveToNextSlide, 3000);
-});
-
-
-
-
-
-
-
-
-
-    let slideIndex = 0;
-         showSlides();
-         
-         function showSlides() {
-           let i;
-           let slides = document.getElementsByClassName("mySlides");
-           let dots = document.getElementsByClassName("dot");
-           for (i = 0; i < slides.length; i++) {
-             slides[i].style.display = "none";  
-           }
-           slideIndex++;
-           if (slideIndex > slides.length) {slideIndex = 1}    
-           for (i = 0; i < dots.length; i++) {
-             dots[i].className = dots[i].className.replace(" active", "");
-           }
-           slides[slideIndex-1].style.display = "block";  
-           dots[slideIndex-1].className += " active";
-           setTimeout(showSlides, 2000); // Change image every 2 seconds
-         }*/
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
@@ -222,7 +175,6 @@ function closePopup() {
   const popup = document.getElementById('offerPopup');
   popup.classList.remove('active');
 }
-
 
 
 
@@ -276,21 +228,6 @@ document.addEventListener('click', function(e) {
     searchSuggestions.style.display = 'none';
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Add this to your JavaScript

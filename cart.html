@@ -6,7 +6,8 @@
   
   <title>OY JEWELLS</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
+  <!-- <link rel="stylesheet" href="./header.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,56 +28,73 @@
     href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
     rel="stylesheet">
   
- <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+ <style>/* Navbar Container */
+ /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Spantax';
+}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
-      line-height: 1.6;
-    }
-
- 
+/* Header Styles */
 header {
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 999;
-  background-color: #000;
-  font-family: 'Segoe UI', sans-serif;
+  background-color: #ffffff;
 }
 
+/* Top Bar with Scrolling Text */
 .header-top-bar {
-  background-color: #111;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   padding: 4px;
-  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
   font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
+.scrolling-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 25s linear infinite;
+}
+
+.scrolling-text span {
+  margin-right: 50px;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Main Navigation */
 .navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 30px;
-  background-color: #000;
+  padding: 0 20px;
+  background: linear-gradient(135deg, #511D43, #A91E4A);
   color: white;
+  position: relative;
 }
 
 .logo img {
-  height: 70px;
-  margin-left: 50%;
+  height: 80px;
+  padding: 5px 0;
+  margin-top: 20px;
 }
 
-/* NAVBAR LINKS */
+/* Navbar Links */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 15px;
 }
 
 .nav-links li {
@@ -86,479 +104,269 @@ header {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 18px;
-  padding: 8px;
+  font-size: 14px;
+  padding: 10px 8px;
   transition: color 0.3s;
+  display: block;
+  text-transform: uppercase;
+  font-weight: 550;
+  letter-spacing: 0.8px;
 }
 
 .nav-links a:hover {
   color: #eba25d;
 }
 
-/* DROPDOWN */
+/* Dropdown Menu */
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 32px;
+  top: 100%;
   left: 0;
-  background-color: #111;
+  background-color: #ffffff;
   padding: 10px 0;
   min-width: 200px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1001 !important;
+  border-radius: 0 0 5px 5px;
 }
 
 .dropdown-menu li {
   display: block;
-  padding: 5px 20px;
+  padding: 5px 15px;
 }
 
 .dropdown-menu li a {
-  color: white;
-  font-size: 16px;
+  color: #333;
+  font-size: 15px;
+  transition: all 0.3s;
+  text-transform: capitalize;
+}
+
+.dropdown-menu li a:hover {
+  color: #A91E4A;
+  padding-left: 5px;
 }
 
 .dropdown:hover .dropdown-menu {
   display: block;
 }
 
-/* RIGHT NAV ICONS */
+/* Right Nav Icons */
 .right-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-right: 6%;
+  gap: 15px;
 }
 
 .right-nav a {
   color: white;
   font-size: 20px;
   position: relative;
+  padding: 10px 5px;
 }
 
-#cart-count {
-  background-color: red;
+#cart-count, .wishlist-count {
+  background-color: #f19d01;
   color: white;
-  font-size: 10px;
-  padding: 2px 7px;
+  font-size: 12px;
+  padding: 2px 6px;
   border-radius: 50%;
   position: absolute;
-  top: -6px;
-  right: -10px;
+  top: 5px;
+  right: -5px;
 }
 
-
-.hamburger {
-  font-size: 24px;
-  color: white;
-  display: none;
-  cursor: pointer;
-  margin-right: 15px; /* Space between hamburger and logo */
-  order: -1; /* Ensure it's first */
+.wishlist-count {
+  top: 3px;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block; /* Show hamburger */
-  }
-  
-  .logo img {
-    height: 70px;
-    margin-left: 0; /* Remove previous margin */
-  }
-  
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #000;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 30px;
-    gap: 15px;
-    z-index: 999;
-    display: none;
-  }
-  
-  .nav-links.active {
-    display: flex;
-  }
-  
-  .right-nav {
-    margin-left: auto; /* Push to the right */
-  }
-}
-
-
-
-
-
-/* Search bar container */
-.search-bar {
+/* User Dropdown */
+.user-dropdown {
   position: relative;
-  width: 100%;
-  max-width: 400px; /* Adjust based on your layout */
-  margin: 3px auto;
-   font-family: spantax;
-
 }
 
-/* Input field */
-.search-bar input[type="text"] {
-  width: 100%;
-  padding: 6px 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 24px; /* Rounded edges */
-  font-size: 16px;
-  outline: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-   font-family: spantax;
-
-}
-
-.search-bar input[type="text"]:focus {
-  border-color: #b8a07e; /* Gold-like accent (common for jewelry sites) */
-  box-shadow: 0 2px 12px rgba(184, 160, 126, 0.2);
-}
-
-/* Search button */
-.search-bar button {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #b8a07e; /* Gold accent */
-  
-  font-size: 16px;
-  padding: 8px 12px;
-}
-
-/* Suggestions dropdown */
-.search-suggestions {
+.dropdown-content {
   display: none;
   position: absolute;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  margin-top: 4px;
-}
-
-/* Individual suggestion items */
-.suggestion-item {
-  display: block;
-  padding: 12px 16px;
-  color: #333;
-  text-decoration: none;
-  font-size: 15px;
-  border-bottom: 1px solid #f5f5f5;
-  transition: all 0.2s ease;
-}
-
-.suggestion-item:last-child {
-  border-bottom: none;
-}
-
-/* Hover & active states */
-.suggestion-item:hover,
-.suggestion-item:focus {
-  background-color: #f9f9f9;
-  color: #b8a07e; /* Gold accent on hover */
-}
-
-.suggestion-item:active {
-  background-color: #f0f0f0;
-}
-
-/* Scrollbar styling (optional) */
-.search-suggestions::-webkit-scrollbar {
-  width: 6px;
-}
-
-.search-suggestions::-webkit-scrollbar-thumb {
-  background: #d4c8b1; /* Light gold scrollbar */
+  right: 0;
+  background-color: #e9e0e0;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1001 !important;
   border-radius: 4px;
 }
 
-.search-suggestions::-webkit-scrollbar-track {
-  background: #f9f9f9;
+.dropdown-content a {
+  color: #333;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
 }
 
-
-
-/* Responsive styles */
-@media (max-width: 480px) {
-  .search-bar {
-    max-width: 100%;
-    padding: 0 12px;
-  }
-
-  .search-bar input[type="text"] {
-    font-size: 14px;
-    padding: 8px 36px 8px 12px;
-  }
-
-  .search-bar button {
-    font-size: 16px;
-    right: 1px;
-  }
-
-  .suggestion-item {
-    font-size: 14px;
-    padding: 10px 14px;
-  }
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+  color: #A91E4A;
 }
 
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
 
+/* Search Bar */
+.search-div {
+  padding: 2px 0;
+  position: sticky;
+  top: 98px;
+  z-index: 998;
+  background: linear-gradient(135deg, #511D43, #A91E4A);
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  outline: none;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-bar input[type="text"]:focus {
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.search-bar button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #A91E4A;
+  font-size: 18px;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+}
+
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  .navigation {
+    padding: 0 15px;
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  .hamburger {
+    display: block;
+    order: 1;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .logo {
+    order: 2;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .right-nav {
+    order: 3;
+    gap: 10px;
+  }
+
   .nav-links {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 150%;
     left: 0;
-    background-color: #000;
+    right: 0;
+    background-color: #ffffff;
     width: 100%;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 30px;
-    gap: 15px;
-    z-index: 999;
+    padding: 10px 0;
+    gap: 0;
+    box-shadow: 0 4px 6px rgb(255, 255, 255);
   }
 
   .nav-links.active {
     display: flex;
   }
 
-  .hamburger {
-    display: block;
-  }
-
-  .right-nav {
-    gap: 15px;
-  }
-
-  .search-bar {
-    flex-direction: column;
-    padding: 10px 20px;
-  }
-
-  .search-bar input {
+  .nav-links li {
     width: 100%;
-    border-radius: 25px;
+    border-bottom: 1px solid #ffffff;
   }
 
-  .search-bar button {
-    border-radius: 25px;
-    width: 50%;
-    margin-top: 5px;
-  }
-}
-
-
-
-  /* Wishlist Badge Styles */
-  .wishlist-badge {
-    position: relative;
-    display: inline-block;
-    margin-left: 5px;
-   
-  }
-  
-  .wishlist-icon {
-    position: relative;
-    font-size: 26px;
-    color: #ffffff;
-    transition: all 0.3s ease;
-  }
-  
-  .wishlist-count {
-    position: absolute;
-    top: -8px;
-    right: -12px;
-    background-color: #f0071a; /* Gold color */
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    transform-origin: center;
-  }
-  
-  /* Animation when adding to wishlist */
-  @keyframes heartBeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.2); }
-    50% { transform: scale(0.9); }
-    75% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  
-  @keyframes countPop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-  }
-  
-  .wishlist-added {
-    animation: heartBeat 0.6s ease;
-    color: #ffffff; /* Red color when in wishlist */
-  }
-  
-  .count-updated {
-    animation: countPop 0.4s ease;
-    background-color: #ff4757; /* Flash red when updated */
-  }
-  
-  /* Floating notification */
-  .wishlist-notification {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 14px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .wishlist-notification.show {
-    opacity: 1;
-    bottom: 40px;
-  }
-  
-  .wishlist-notification i {
-    color: #d4af37;
+  .nav-links a {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 12px 20px;
+    font-size: 15px;
+    text-transform: capitalize;
   }
 
-
-
-
-
-     .wishlist-icon-card {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .wishlist-icon-card:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .wishlist-icon-card i {
-            font-size: 16px;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-
-      .wishlist-icon-card.active i {
-  background-color: #ffffff;
-  color: #f70000;
-  transform: scale(1.2);
-  padding: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  transition: all 0.3s ease;
-}
-
-
-
-        .wishlist-icon-card.active {
-            background: rgba(255, 71, 87, 0.1);
-        }
-
-        /* Animation for adding to wishlist */
-        @keyframes heartPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
-        .wishlist-icon-card.pulse {
-            animation: heartPulse 0.6s ease;
-        }
-  .user-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .user-icon {
-    display: inline-block;
-    padding: 10px;
-    color: #333;
-    font-size: 18px;
-    transition: all 0.3s ease;
-  }
-  
-  .user-icon:hover {
-    color: #007bff; /* Change to your preferred hover color */
-    transform: scale(1.1);
-  }
-  
-  .dropdown-content {
+  .dropdown-menu {
+    position: static;
     display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 4px;
-    overflow: hidden;
+    width: 100%;
+    box-shadow: none;
+    padding: 0;
+    background-color: #ffffff;
+    border-radius: 0;
   }
-  
-  .dropdown-content a {
-    color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.3s;
+
+  .dropdown-menu li {
+    padding: 0;
   }
-  
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
+
+  .dropdown-menu li a {
+    padding: 10px 30px;
   }
-  
-  .user-dropdown:hover .dropdown-content {
+
+  .dropdown.active .dropdown-menu {
     display: block;
   }
-        
-    /* New Cart Styles */
+
+  .dropdown > a::after {
+    float: right;
+    font-weight: bold;
+  }
+
+  .search-div {
+    position: relative;
+    top: auto;
+    order: 4;
+    width: 100%;
+    padding: 8px 15px;
+  }
+  
+  .search-bar {
+    width: 100%;
+  }
+}
+
+/* New Cart Styles */
     .cart-container {
       max-width: 1200px;
       margin: 40px auto;
@@ -584,7 +392,7 @@ header {
     .cart-header h1 {
       font-size: 24px;
       font-weight: 600;
-      color: #333;
+      color: #A91E4A;
       margin: 0;
     }
 
@@ -646,7 +454,7 @@ header {
       width: 32px;
       height: 32px;
       border: 1px solid #ddd;
-      background: #ff4757;
+  background: linear-gradient(135deg, #9e3783, #A91E4A);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -672,7 +480,7 @@ header {
     .remove-btn {
       background: none;
       border: none;
-      color: #ff4757;
+      color: #A91E4A;
       cursor: pointer;
       font-size: 14px;
       padding: 4px 0;
@@ -680,7 +488,7 @@ header {
     }
 
     .remove-btn:hover {
-      color: #ff3742;
+      color: #A91E4A;
       text-decoration: underline;
     }
 
@@ -710,7 +518,7 @@ header {
     }
 
     .benefits-section {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #9e3783, #A91E4A);
       border-radius: 8px;
       padding: 16px;
       margin-bottom: 24px;
@@ -828,7 +636,7 @@ header {
 
     .checkout-btn {
       width: 100%;
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  background: linear-gradient(135deg, #9e3783, #A91E4A);
       color: white;
       border: none;
       padding: 16px;
@@ -848,8 +656,8 @@ header {
 
     .clear-cart-btn {
       width: 100%;
-      background: #6c757d;
-      color: white;
+      background: #c7c1c1;
+      color: #A91E4A;
       border: none;
       padding: 12px;
       border-radius: 8px;
@@ -934,7 +742,7 @@ header {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  background: linear-gradient(135deg, #9e3783, #A91E4A);
       color: white;
       padding: 4px 12px;
       border-radius: 20px;
@@ -1013,7 +821,7 @@ header {
 
     .add-to-cart-btn {
       width: 80%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #9e3783, #A91E4A);
       color: white;
       border: none;
       padding: 12px;
@@ -1122,120 +930,128 @@ header {
     .product-card:hover .product-name {
       color: #eba25d;
     }
-  </style>
+
+
+    @media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 130px; /* Adjust based on your header height */
+    left: 0;
+    width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 20px 0;
+    transform: translateY(-150%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+  }
+}
+ </style>
+
+
 </head>
 <body>
- 
- <!-- HEADER -->
-<header id="header">
-  <!-- TOP BAR -->
-  <div class="header-top-bar">
-    <span>Welcome To OY JEWELS Store</span>
-  </div>
-
-
-  <!-- MAIN NAVIGATION -->
-  <nav class="navigation">
-    <a href="#" class="logo">
-      <img src="IMAGES/01.png" alt="Logo" />
-    </a>
-
-    <!-- NAVBAR LINKS -->
-    <ul class="nav-links">
-      <li><a href="/index.html">Home</a></li>
-
-      <li class="dropdown">
-        <a href="#">Collection</a>
-        <ul class="dropdown-menu">
-          <li><a href="earring.html?filter=earrings">Earrings</a></li>
-          <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
-          <li><a href="rings.html?filter=rings">Rings</a></li>
-          <li><a href="chain.html?filter=chain">Chains</a></li>
-          <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
-          <li><a href="mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
-          <li><a href="hair.html?filter=hair">Hair Accessories</a></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#">Shop By</a>
-        <ul class="dropdown-menu">
-          <li><a href="wedding.html?occasion=wedding">Wedding</a></li>
-          <li><a href="office.html">Office</a></li>
-          <li><a href="casual.html">Casual</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="gifts.html">Gifting</a>
-        <ul class="dropdown-menu">
-          <li><a href="gifts.html?for=mother">Mother</a></li>
-          <li><a href="gifts.html?for=sister">Sister</a></li>
-          <li><a href="gifts.html?for=wife">Wife</a></li>
-          <li><a href="gifts.html?for=friend">Friend</a></li>
-        </ul>
-      </li>
-
-      <li><a href="/contact.html">Contact Us</a></li>
-      <li><a href="/about.html">About Us</a></li>
-
-      <!-- My Orders added at the end -->
-      <li><a href="/user-order/order.html">My Orders</a></li>
-    </ul>
-
-    <!-- RIGHT ICONS -->
-    <div class="right-nav">
-<div class="hamburger" id="hamburger">
-  <i class="fa fa-bars"></i>
-</div>
-<!-- In your header/navigation -->
-<a href="/wishlist.html" class="wishlist-link">
-  <div class="wishlist-badge">
-<i class="fa-solid fa-heart" style="color: #ffffff;"></i>    <span class="wishlist-count">0</span>
-  </div>
-</a>
-
-<!-- Floating notification element -->
-<div class="wishlist-notification" id="wishlist-notification">
-  <i class="fas fa-check-circle"></i>
-  <span class="notification-message">Item added to wishlist</span>
-</div>
-
-
-<!-- Floating notification element -->
-<div class="wishlist-notification" id="wishlist-notification">
-  <i class="fas fa-check-circle"></i>
-  <span class="notification-message">Item added to wishlist</span>
-</div>
-
-
-
-<!--LOGIN / MYPROFILE-->
-<div class="user-dropdown">
-  <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
-  <div class="dropdown-content">
-    <a href="/user-profile/user-profile.html">My Profile</a>
-    <a href="/login.html">Login/Logout</a>
-    <!-- Alternatively for logout when user is logged in:
-    <a href="profile.html">My Profile</a>
-    <a href="logout.html">Logout</a>
-    -->
-  </div>
-</div>  
-
-
-      <a href="/cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+<!-- HEADER -->
+  <header id="header">
+    <!-- TOP BAR -->
+    <div class="header-top-bar">
+      <div class="scrolling-text">
+        <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹500 ✨</span>
+        <span>🔔 New Collection Just Launched - Shop Now!</span>
+            <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
+        <span>💝 Anniversary Offer - Extra Off for Couples</span>
+      </div>
     </div>
-  </nav>
 
-   <!-- Search Bar -->
- <div class="search-bar" >
-  <input type="text" placeholder="Search for jewelry..." id="searchInput">
-  <div class="search-suggestions" id="searchSuggestions"></div>
-</div>
+    <!-- MAIN NAVIGATION -->
+    <nav class="navigation">
+      <a href="#" class="logo">
+        <img src="IMAGES/01.png" alt="OY JEWELLS Logo" />
+      </a>
 
-<!-- Include the JavaScript file -->
-<script src="/search.js"></script>
-</header>
+      <!-- NAVBAR LINKS -->
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#">Collection</a>
+          <ul class="dropdown-menu">
+            <li><a href="earring.html?filter=earrings">Earrings</a></li>
+            <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+            <li><a href="rings.html?filter=rings">Rings</a></li>
+            <li><a href="chain.html?filter=chain">Chains</a></li>
+            <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+            <li><a href="mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
+            <li><a href="hair.html?filter=hair">Hair Accessories</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Return & Exchange</a></li>
+        <li><a href="./user-order/order.html">My Orders</a></li>
+      </ul>
+
+      <!-- RIGHT ICONS -->
+      <div class="right-nav">
+        <!-- Wishlist -->
+        <a href="/wishlist.html" class="wishlist-link">
+          <div class="wishlist-badge">
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-count">0</span>
+          </div>
+        </a>
+        
+      <!--LOGIN / MYPROFILE-->
+      <div class="user-dropdown">
+        <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+        <div class="dropdown-content">
+          <a href="/user-profile/user-profile.html">My Profile</a>
+          <a href="/login.html">Login/Logout</a>
+        
+        </div>
+      </div> 
+        
+        <!-- Cart -->
+        <a href="/cart.html">
+          <i class="fa fa-shopping-cart"></i>
+          <span id="cart-count">0</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
+      </div>
+    </nav>
+
+    <!-- SEARCH BAR -->
+    <!-- <div class="search-div">
+      <div class="search-bar">
+        <input type="text" placeholder="" id="searchInput">
+        <button type="submit"><i class="fas fa-search"></i></button>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
+    </div> -->
+  </header>
+
+  
+
+  <!-- <script src="./search.js"></script> -->
 
   <!-- Main Cart Content -->
   <div class="cart-container">

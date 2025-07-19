@@ -21,8 +21,12 @@ export const fetchAllBanners = async () => {
       pageName: banner.pageName,
       header: banner.header,
       text: banner.text,
+      // NEW: Handle bannerFileOne as array of carousel images
+      carouselImages: banner.bannerFileOne ? banner.bannerFileOne.map(img => 
+        `data:image/jpeg;base64,${img}`
+      ) : [],
+      // Keep other single banner images as before
       images: [
-        banner.bannerFileOne ? `data:image/jpeg;base64,${banner.bannerFileOne}` : null,
         banner.bannerFileTwo ? `data:image/jpeg;base64,${banner.bannerFileTwo}` : null,
         banner.bannerFileThree ? `data:image/jpeg;base64,${banner.bannerFileThree}` : null,
         banner.bannerFileFour ? `data:image/jpeg;base64,${banner.bannerFileFour}` : null
@@ -56,7 +60,17 @@ export const fetchBannerByPageName = async (pageName) => {
 };
 
 /**
- * Gets banner images for a specific page
+ * NEW: Gets carousel images for a specific page (from bannerFileOne)
+ * @param {string} pageName 
+ * @returns {Promise<Array>} Array of carousel image URLs
+ */
+export const getCarouselImagesForPage = async (pageName) => {
+  const banner = await fetchBannerByPageName(pageName);
+  return banner ? banner.carouselImages : [];
+};
+
+/**
+ * Gets banner images for a specific page (bannerFileTwo, Three, Four)
  * @param {string} pageName 
  * @returns {Promise<Array>} Array of image URLs
  */

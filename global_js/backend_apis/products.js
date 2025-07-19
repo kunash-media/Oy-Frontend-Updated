@@ -26,7 +26,9 @@ export const fetchAllProducts = async () => {
       features: product.ProductFeatures,
       sizes: product.ProductSizes,
       stock: product.ProductStock,
-      category: product.ProductCategory
+      category: product.ProductCategory,
+      productDiscount : product.productDiscount,
+      productOldPrice : product.ProductOldPrice
     }));
     
   } catch (error) {

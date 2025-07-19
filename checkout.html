@@ -664,19 +664,30 @@ function getCartItems() {
     }
 }
 
-// Check for Buy Now item in URL parameters
 function getBuyNowItem() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('product')) {
-        return {
-            id: urlParams.get('product'),
-            name: urlParams.get('name') || 'Jewelry Item',
-            price: parseFloat(urlParams.get('price')) || 0,
-            image: urlParams.get('image') || 'https://via.placeholder.com/60x60/FFD700/000000?text=JWL',
-            quantity: 1
-        };
-    }
-    return null;
+  // Check sessionStorage first
+  const storedItem = sessionStorage.getItem('buyNowItem');
+  if (storedItem) {
+    const item = JSON.parse(storedItem);
+    // Clear sessionStorage to avoid stale data
+    sessionStorage.removeItem('buyNowItem');
+    return item;
+  }
+
+  // Fallback to URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('product')) {
+    return {
+      id: urlParams.get('product'),
+      name: urlParams.get('name') || 'Jewelry Item',
+      price: parseFloat(urlParams.get('price')) || 0,
+      image: urlParams.get('image') || 'https://via.placeholder.com/60x60/FFD700/000000?text=JWL',
+      quantity: 1
+    };
+  }
+
+  console.error('No buy now item found');
+  return null;
 }
 
 // Generate random order ID

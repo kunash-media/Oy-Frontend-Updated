@@ -7,6 +7,7 @@
   <title>My Orders | Jewelry Store</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/user-order/order.css">
+  <link rel="stylesheet" href="../header.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <link rel="shortcut icon" href="../IMAGES/01.png">
@@ -17,6 +18,7 @@
     href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
     rel="stylesheet">
 
+    
 </head>
 
 <body>
@@ -26,20 +28,23 @@
   <header id="header">
     <!-- TOP BAR -->
     <div class="header-top-bar">
-      <span>Welcome To OY JEWELS Store</span>
+      <div class="scrolling-text">
+        <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹500 ✨</span>
+        <span>🔔 New Collection Just Launched - Shop Now!</span>
+            <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
+        <span>💝 Anniversary Offer - Extra Off for Couples</span>
+      </div>
     </div>
-
 
     <!-- MAIN NAVIGATION -->
     <nav class="navigation">
       <a href="#" class="logo">
-        <img src="../IMAGES/01.png" alt="Logo" />
+        <img src="../IMAGES/01.png" alt="OY JEWELLS Logo" />
       </a>
 
       <!-- NAVBAR LINKS -->
       <ul class="nav-links">
         <li><a href="../index.html">Home</a></li>
-
         <li class="dropdown">
           <a href="#">Collection</a>
           <ul class="dropdown-menu">
@@ -49,81 +54,199 @@
             <li><a href="../chain.html?filter=chain">Chains</a></li>
             <li><a href="../bracelet.html?filter=bracelets">Bracelets</a></li>
             <li><a href="../mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
-          <li><a href="../hair.html?filter=hair">Hair Accessories</a></li>
+            <li><a href="../hair.html?filter=hair">Hair Accessories</a></li>
           </ul>
         </li>
-
-        <li class="dropdown">
-          <a href="#">Shop By</a>
-          <ul class="dropdown-menu">
-            <li><a href="../wedding.html?occasion=wedding">Wedding</a></li>
-            <li><a href="../office.html">Office</a></li>
-            <li><a href="../casual.html">Casual</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="../gifts.html">Gifting</a>
-          <ul class="dropdown-menu">
-            <li><a href="../gifts.html?for=mother">Mother</a></li>
-            <li><a href="../gifts.html?for=sister">Sister</a></li>
-            <li><a href="../gifts.html?for=wife">Wife</a></li>
-            <li><a href="../gifts.html?for=friend">Friend</a></li>
-          </ul>
-        </li>
-
         <li><a href="../contact.html">Contact Us</a></li>
         <li><a href="../about.html">About Us</a></li>
-
-        <!-- My Orders added at the end -->
-        <li><a href="/user-order/order.html">My Orders</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Return & Exchange</a></li>
+        <li><a href="../user-order/order.html">My Orders</a></li>
       </ul>
 
       <!-- RIGHT ICONS -->
       <div class="right-nav">
-        <div class="hamburger" id="hamburger">
-          <i class="fa fa-bars"></i>
-        </div>
-        <!-- In your header/navigation -->
+        <!-- Wishlist -->
         <a href="../wishlist.html" class="wishlist-link">
           <div class="wishlist-badge">
-            <i class="fa-solid fa-heart" style="color: #ffffff;"></i> <span class="wishlist-count">0</span>
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-count">0</span>
           </div>
         </a>
-
-        <!-- Floating notification element -->
-        <div class="wishlist-notification" id="wishlist-notification">
-          <i class="fas fa-check-circle"></i>
-          <span class="notification-message">Item added to wishlist</span>
+        
+      <!--LOGIN / MYPROFILE-->
+      <div class="user-dropdown">
+        <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+        <div class="dropdown-content">
+          <a href="/user-profile/user-profile.html">My Profile</a>
+          <!-- <a href="../login.html">Login/Logout</a> -->
+        
         </div>
-
-        <!--LOGIN / MYPROFILE-->
-        <div class="user-dropdown">
-          <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
-          <div class="dropdown-content">
-            <a href="../user-profile/user-profile.html">My Profile</a>
-            <!-- <a href="../login.html">Login/Logout</a> -->
-          </div>
-        </div>
-
-        <a href="../cart.html"><i class="fa fa-shopping-cart"></i><span id="cart-count">0</span></a>
+      </div> 
+        
+        <!-- Cart -->
+        <a href="../cart.html">
+          <i class="fa fa-shopping-cart"></i>
+          <span id="cart-count">0</span>
+        </a>
+      </div>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
       </div>
     </nav>
 
-    <div class="search-bar">
-      <input type="text" placeholder="Search for jewelry..." id="searchInput">
-      <button><i class="fa fa-search"></i></button>
-      <div class="search-suggestions" id="searchSuggestions"></div>
+    <!-- SEARCH BAR -->
+    <div class="search-div">
+      <div class="search-bar">
+        <input type="text" placeholder="" id="searchInput">
+        <!-- <button type="submit"><i class="fas fa-search"></i></button> -->
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
     </div>
-
-    <!-- Include the JavaScript file -->
-    <script src="../search.js"></script>
   </header>
+
+   <script>
+    // Mobile Navigation Toggle
+    document.addEventListener("DOMContentLoaded", function() {
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      
+      // Toggle mobile menu
+      hamburger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle("active");
+        
+        // Toggle hamburger icon
+        const icon = hamburger.querySelector("i");
+        if (navLinks.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Handle dropdown clicks on mobile
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+      
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+              if (otherDropdown !== parent && otherDropdown.classList.contains('active')) {
+                otherDropdown.classList.remove('active');
+              }
+            });
+          }
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu on scroll
+      window.addEventListener('scroll', function() {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+      
+      // Close menu on touch (for mobile)
+      document.addEventListener('touchstart', function(event) {
+        if (!event.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Animated Search Placeholder
+      const jewelryTerms = [
+        "Earrings",
+        "Necklaces",
+        "Bracelets",
+        "Mangalsutra",
+        "Chains",
+      ];
+
+      const searchInput = document.getElementById('searchInput');
+      let currentTermIndex = 0;
+      let isDeleting = false;
+      let currentText = '';
+      let typingSpeed = 100; // milliseconds per character
+
+      function typePlaceholder() {
+        const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
+        
+        if (isDeleting) {
+          // Delete character
+          currentText = fullTerm.substring(0, currentText.length - 1);
+        } else {
+          // Add character
+          currentText = fullTerm.substring(0, currentText.length + 1);
+        }
+
+        searchInput.placeholder = currentText;
+
+        // Determine if we should delete or type next
+        if (!isDeleting && currentText === fullTerm) {
+          // Pause at end of typing
+          setTimeout(() => isDeleting = true, 1000);
+        } else if (isDeleting && currentText === '') {
+          // Move to next term after deleting
+          isDeleting = false;
+          currentTermIndex = (currentTermIndex + 1) % jewelryTerms.length;
+          setTimeout(typePlaceholder, 500);
+          return;
+        }
+
+        // Adjust speed for deleting vs typing
+        const speed = isDeleting ? typingSpeed / 2 : typingSpeed;
+        setTimeout(typePlaceholder, speed);
+      }
+
+      // Start the typing effect
+      typePlaceholder();
+    });
+  </script>
+
+  <script src="../search.js"></script>
 
 
   <div class="container">
     <div class="orders-header">
-      <h1>My Orders</h1>
+      <h2>My Orders</h2>
       <p>View your order history and track shipments</p>
     </div>
 
@@ -360,7 +483,7 @@
         }
 
         // Fetch orders from API
-        const response = await fetch(`${this.API_BASE_URL}/user/${currentUser.userId}`);
+        const response = await fetch(`${this.API_BASE_URL}/get-by-userId/${currentUser.userId}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -517,9 +640,11 @@
         </div>
         
         <div class="order-actions">
-          <button class="btn-secondary" onclick="orderManager.trackOrder(${order.orderId})">
+         
+            <a href="https://www.shiprocket.in/shipment-tracking/" class="btn-secondary">
             <i class="fas fa-truck"></i> Track Order
-          </button>
+            </a>
+        
           <button class="btn-primary" onclick="orderManager.viewOrderDetails(${order.orderId})">
             <i class="fas fa-eye"></i> View Details
           </button>

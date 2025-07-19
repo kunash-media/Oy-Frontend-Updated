@@ -6,199 +6,333 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OY JEWELLS</title>
   <link rel="stylesheet" href="/style.css">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=spantax:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-  <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=spantax:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 
   <!--ICON-->
   <link rel="shortcut icon" href="/IMAGES/01.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
     rel="stylesheet">
+
 </head>
 
 <body>
 
-
-
-  <!-- Add this to your homepage HTML -->
-  <div id="offerPopup" class="popup-overlay">
-    <div class="popup-content">
-      <button class="close-btn" onclick="closePopup()">×</button>
-      <div class="popup-left">
-        <img src="/IMAGES/popup.jpg" alt="Jewelry" />
-      </div>
-      <div class="popup-right">
-        <p class="intro">ON YOUR FIRST PURCHASE</p>
-        <h2>Get Upto 20% Off +<br>Free Shipping</h2>
-
-        <button class="signup-btn" onclick="window.location.href='login.html'">Sign Up</button><br><br>
-
-        <hr />
-
-        <div class="social-icons">
-          <span>Social Media :</span>
-          <a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank" rel="noopener noreferrer"><i
-              class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"
-            rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- HEADER -->
+<!-- HEADER -->
   <header id="header">
     <!-- TOP BAR -->
     <div class="header-top-bar">
-      <span>Welcome To OY JEWELS Store</span>
+      <div class="scrolling-text">
+        <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹500 ✨</span>
+        <span>🔔 New Collection Just Launched - Shop Now!</span>
+        <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
+        <span>💝 Anniversary Offer - Extra Off for Couples</span>
+      </div>
     </div>
-
 
     <!-- MAIN NAVIGATION -->
     <nav class="navigation">
       <a href="#" class="logo">
-        <img src="/IMAGES/01.png" alt="Logo" />
+        <img src="IMAGES/01.png" alt="OY JEWELLS Logo" />
       </a>
 
       <!-- NAVBAR LINKS -->
       <ul class="nav-links">
-        <li><a href="/index.html">Home</a></li>
-
+        <li><a href="index.html">Home</a></li>
         <li class="dropdown">
           <a href="#">Collection</a>
           <ul class="dropdown-menu">
-            <li><a href="/earring.html?filter=earrings">Earrings</a></li>
-            <li><a href="/neck.html?filter=necklaces">Necklaces</a></li>
-            <li><a href="/rings.html?filter=rings">Rings</a></li>
-            <li><a href="/chain.html?filter=chain">Chains</a></li>
-            <li><a href="/bracelet.html?filter=bracelets">Bracelets</a></li>
-            <li><a href="/mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
-            <li><a href="/hair.html?filter=hair">Hair Accessories</a></li>
+            <li><a href="earring.html?filter=earrings">Earrings</a></li>
+            <li><a href="neck.html?filter=necklaces">Necklaces</a></li>
+            <li><a href="rings.html?filter=rings">Rings</a></li>
+            <li><a href="chain.html?filter=chain">Chains</a></li>
+            <li><a href="bracelet.html?filter=bracelets">Bracelets</a></li>
+            <li><a href="mangalsutra.html?filter=mangalsutra">Mangalsutra</a></li>
+            <li><a href="hair.html?filter=hair">Hair Accessories</a></li>
           </ul>
         </li>
-
-        <li class="dropdown">
-          <a href="#">Shop By</a>
-          <ul class="dropdown-menu">
-            <li><a href="/wedding.html?occasion=wedding">Wedding</a></li>
-            <li><a href="/office.html">Office</a></li>
-            <li><a href="/casual.html">Casual</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="">Gifting</a>
-          <ul class="dropdown-menu">
-            <li><a href="gifts.html?for=mother">Mother</a></li>
-            <li><a href="gifts.html?for=sister">Sister</a></li>
-            <li><a href="gifts.html?for=wife">Wife</a></li>
-            <li><a href="gifts.html?for=friend">Friend</a></li>
-          </ul>
-        </li>
-
-        <li><a href="/contact.html">Contact Us</a></li>
-        <li><a href="/about.html">About Us</a></li>
-
-
-        <!-- My Orders added at the end -->
-        <li><a href="/user-order/order.html">My Orders</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Return & Exchange</a></li>
+        <li><a href="./user-order/order.html">My Orders</a></li>
       </ul>
 
       <!-- RIGHT ICONS -->
       <div class="right-nav">
-
-        <div class="hamburger" id="hamburger">
-          <i class="fa fa-bars"></i>
-        </div>
         <!-- Wishlist -->
-        <a href="/wishlist.html" class="wishlist-link">
+        <a href="wishlist.html" class="wishlist-link">
           <div class="wishlist-badge">
-            <i class="fa-solid fa-heart" style="color: #ffffff;"></i>
+            <i class="fa-solid fa-heart"></i>
             <span class="wishlist-count">0</span>
           </div>
         </a>
-
-
-        <div class="user-dropdown">
-          <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
-          <div class="dropdown-content">
-            <a href="/user-profile/user-profile.html">My Profile</a>
-            <a href="/login.html">Login/Logout</a>
-          </div>
+        
+         <!--LOGIN / MYPROFILE-->
+      <div class="user-dropdown">
+        <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+        <div class="dropdown-content">
+          <a href="/user-profile/user-profile.html">My Profile</a>
+          <a href="/login.html">Login/Logout</a>
+        
         </div>
-
+      </div>  
+        
         <!-- Cart -->
-        <a href="/cart.html">
+        <a href="cart.html">
           <i class="fa fa-shopping-cart"></i>
           <span id="cart-count">0</span>
         </a>
       </div>
-
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
       </div>
     </nav>
 
-
-    <div class="search-bar">
-      <input type="text" placeholder="Search for jewelry..." id="searchInput">
-      <div class="search-suggestions" id="searchSuggestions"></div>
+    <!-- SEARCH BAR -->
+    <div class="search-div">
+      <div class="search-bar">
+        <input type="text" placeholder="" id="searchInput">
+        <button type="submit"><i class="fas fa-search"></i></button>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
     </div>
   </header>
 
-  <script>
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
-    }
-  </script>
+ 
+<!-- Floating WhatsApp and Phone Icons -->
+  <div class="floating-icons">
+    <!-- WhatsApp Icon -->
+    <a href="https://wa.me/918482859816" target="_blank" title="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
 
-  <!-- JavaScript to toggle menu -->
-  <script>
-    document.getElementById("hamburger").addEventListener("click", function () {
+    <!-- Phone Icon -->
+    <a href="tel:8482859816" class="phone-icon" title="Call Now">
+      <i class="fas fa-phone"></i>
+    </a>
+  </div>
+<!-- Include the JavaScript file -->
+<script src="/search.js"></script>
 
-    });
-  </script>
+ 
+  <!-- Floating WhatsApp and Phone Icons -->
+  <div class="floating-icons">
+    <!-- WhatsApp Icon -->
+    <a href="https://wa.me/918482859816" target="_blank" title="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
 
-  <script>
-    document.getElementById("hamburger").addEventListener("click", function () {
-      document.querySelector(".nav-links").classList.toggle("active");
-    });
-  </script>
+    <!-- Phone Icon -->
+    <a href="tel:8482859816" class="phone-icon" title="Call Now">
+      <i class="fas fa-phone"></i>
+    </a>
+  </div>
 
 
  
-  <section id="section1">
+  <!-- <section id="section1"> -->
     
      <!-- bannerFileOne -->
-    <section id="main-banner">
+    <!-- <section id="main-banner">
       <div class="main-banner-box">
         <div class="slideshow-container">
           <div class="mySlides">
-            <div class="numbertext "></div>
+            <div class="numbertext "></div> -->
             <!-- replace src img with backend bannerFileOne -->
-            <img src="/IMAGES/main banner.jpg" style="width:100%">
+            <!-- <img src="/IMAGES/main banner.jpg" style="width:100%">
           </div>
         </div>
       </div>  
     </section>
+  </section> -->
+
+
+  <!-- Sections -->
+<section id="section1">
+  <!-- MAIN BANNER -->
+  <section id="main-banner">
+    <div class="main-banner-box">
+      <div class="slideshow-container">
+        <!-- Slide 1 -->
+        <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="./IMAGES/MAIN.png" style="width:100%">
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="/IMAGES/MAIN 1.jpg" style="width:100%">
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="/IMAGES/MAIN BANNER 3.jpg" style="width:100%">
+    
+        </div>
+        
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+      <br>
+      
+      <!-- The dots/circles -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span> 
+      </div>
+    </div>
+  </section>
+</section>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    // Fetch banner data for the 'index' page
+    const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/index');
+    const bannerData = await response.json();
+    
+    if (!response.ok) throw new Error('Failed to fetch banner data');
+    
+    // NEW: Update carousel images (bannerFileOne - now array of images)
+    if (bannerData.bannerFileOne && Array.isArray(bannerData.bannerFileOne)) {
+      updateCarouselImages(bannerData.bannerFileOne);
+    }
+    
+    // UNCHANGED: Update other single banner images as before
+    if (bannerData.bannerFileTwo) {
+      const singleBannerImg = document.querySelector('.single-banner img');
+      if (singleBannerImg) {
+        singleBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+      }
+    }
+    
+    if (bannerData.bannerFileThree) {
+      const section5BannerImg = document.querySelector('#section5 .banner-image img');
+      if (section5BannerImg) {
+        section5BannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileThree}`;
+      }
+    }
+    
+    // UNCHANGED: Update text content if needed
+    if (bannerData.header) {
+      const heading = document.querySelector('.animate-heading');
+      if (heading) heading.textContent = bannerData.header;
+    }
+    
+    if (bannerData.text) {
+      const subheading = document.querySelector('.animate-subheading');
+      if (subheading) subheading.textContent = bannerData.text;
+    }
+    
+  } catch (error) {
+    console.error('Error loading banner images:', error);
+    // Fallback to default images if API fails
+  }
+});
+
+/**
+ * NEW FUNCTION: Updates carousel images dynamically
+ * @param {Array} imageArray - Array of base64 image strings
+ */
+function updateCarouselImages(imageArray) {
+  const slidesContainer = document.querySelector('.slideshow-container');
+  const dotsContainer = document.querySelector('div[style*="text-align:center"]');
+  
+  if (!slidesContainer || !dotsContainer) {
+    console.error('Carousel containers not found');
+    return;
+  }
+  
+  // Clear existing slides and dots (but keep navigation buttons)
+  const existingSlides = slidesContainer.querySelectorAll('.mySlides');
+  const existingDots = dotsContainer.querySelectorAll('.dot');
+  
+  existingSlides.forEach(slide => slide.remove());
+  existingDots.forEach(dot => dot.remove());
+  
+  // Create new slides from backend images
+  imageArray.forEach((imageBase64, index) => {
+    // Create slide element
+    const slideDiv = document.createElement('div');
+    slideDiv.className = 'mySlides fade';
+    slideDiv.innerHTML = `
+      <div class="numbertext"></div>
+      <img src="data:image/jpeg;base64,${imageBase64}" style="width:100%">
+    `;
+    
+    // Insert slide before navigation buttons
+    const prevButton = slidesContainer.querySelector('.prev');
+    slidesContainer.insertBefore(slideDiv, prevButton);
+    
+    // Create dot for navigation
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    dot.setAttribute('onclick', `currentSlide(${index + 1})`);
+    dotsContainer.appendChild(dot);
+  });
+  
+  // Reset slideshow to first slide
+  slideIndex = 1;
+  showSlides(slideIndex);
+  
+  console.log(`Updated carousel with ${imageArray.length} images`);
+}
+
+// UNCHANGED: Keep all existing carousel functionality
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1} 
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none"; 
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  if (slides.length > 0) {
+    slides[slideIndex-1].style.display = "block"; 
+    dots[slideIndex-1].className += " active";
+  }
+}
+
+// Auto slide change every 3 seconds
+setInterval(function() {
+  plusSlides(1);
+}, 3000);
+</script>
+
 
     <section id="collection" class="product-section">
       <div class="product-card1">
@@ -313,29 +447,14 @@
       </div>
     </section>
 
-    <!-- bannerFileThree -->
-    <section id="section5">
-      <div class="big-banner">
-        <div class="overlay">
-          <div class="content">
-            <h1 class="animate-heading">OYJEWELLS</h1>
-            <p class="animate-subheading">
-              Avail exciting offers on each order <br>
-              Offers so great, it's worth the wait!!!!!
-            </p><br>
-            <a href="/gifts.html" class="shop-now-btn animate-button">Shop Now</a>
-          </div>
-        </div>
-        <div class="banner-image">
-           <!-- replace src img with backend bannerFileThree -->
-          <img src="/IMAGES/beige.jpg" alt="Palmonas Product Image">
-        </div>
-        <div class="overlay-image">
-          <img src="/IMAGES/shop1414.webp" alt="Palmonas Product Image">
-        </div>
-      </div>
-
-    </section>
+  <section id="bottom-banner">
+  <div class="big-banner">
+    <div class="overlay"></div>
+    <div class="banner-image">
+      <img src="IMAGES/MAIN BANNER 3.jpg" alt="Oy Product Image">
+    </div>
+  </div>
+</section>
 
     <br>
     <section id="section7" style="background-image: url(IMAGES/bgq1.jpg); background-size: cover; height: 70%;">
@@ -386,126 +505,345 @@
         }
       });
     </script>
+
+    
     <br>
-    <footer>
-      <div class="footer-wrapper">
-        <div class="footer-container">
-          <div class="footer-logo-section">
-            <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
-          </div>
-
-          <div class="footer-content">
-            <div class="footer-sections">
-              <div class="footer-section">
-                <h3>Shop</h3>
-                <ul>
-                  <li><a href="neck.html">Necklaces</a></li>
-                  <li><a href="rings.html">Rings</a></li>
-                  <li><a href="bracelet.html">Bracelets</a></li>
-                  <li><a href="earring.html">Earrings</a></li>
-                </ul>
-              </div>
-
-              <div class="footer-section company-section">
-                <h3>Company</h3>
-                <ul>
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-              </div>
-
-              <div class="footer-section">
-                <h3>Legal</h3>
-                <ul>
-                  <li><a href="faqs.html">FAQS</a></li>
-                  <li><a href="disclaimer.html">Disclaimer</a></li>
-                  <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                  <li><a href="shipping.html">Shipping Policy</a></li>
-                  <li><a href="cancel.html">Cancellation Policy</a></li>
-                  <li><a href="terms.html">Terms & Conditions</a></li>
-                </ul>
-              </div>
-
-              <div class="footer-section">
-                <h3>Follow</h3>
-                <ul class="social-icons">
-                  <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet"
-                      target="_blank"><i class="fab fa-instagram"></i></a></li>
-                  <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i
-                        class="fab fa-facebook-f"></i></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
+   <footer>
+  <div class="footer-wrapper">
+    <div class="footer-container">
+      <div class="footer-logo-section">
+        <img src="IMAGES/01.png" alt="OY Logo" class="footer-logo">
+        <div class="social-icons-below-logo">
+          <ul class="social-icons">
+            <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+          </ul>
         </div>
       </div>
-
-      <div class="footer-bottom">
-        <div class="footer-container">
-          &copy; 2025 OY JEWELLS. All rights reserved.
+     
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="neck.html">Necklaces</a></li>
+              <li><a href="rings.html">Rings</a></li>
+              <li><a href="bracelet.html">Bracelets</a></li>
+              <li><a href="earring.html">Earrings</a></li>
+            </ul>
+          </div>
+         
+          <div class="footer-section company-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+         
+          <div class="footer-section">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="faqs.html">FAQS</a></li>
+              <li><a href="disclaimer.html">Disclaimer</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="shipping.html">Shipping Policy</a></li>
+              <li><a href="cancel.html">Cancellation Policy</a></li>
+              <li><a href="terms.html">Terms & Conditions</a></li>
+            </ul>
+          </div>
+         
+          <div class="footer-section">
+            <h3>Address</h3>
+            <p class="business-address">
+              Ward No. 2 Sr. No. 690, Hanuman Mandir, Mukhed, Mukhed Police Station, Mukhed, Nanded-431715. Maharashtra
+            </p>
+          </div>
         </div>
-      </div>
-      </div>
-    </footer>
-    
-    
-<!-- <section id="main-banner">
-  <div class="main-banner-box">
-    <div class="slideshow-container">
-      <div class="mySlides">
-        <div class="numbertext "></div>
-      
-        <img src="/IMAGES/main banner.jpg" style="width:100%">
       </div>
     </div>
-  </div>  
-</section> -->
+   
+    <div class="footer-bottom">
+      <div class="footer-container">
+        &copy; 2025 Kunash Media Solutions. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+      <script>
+    // Mobile Navigation Toggle
+    document.addEventListener("DOMContentLoaded", function() {
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      
+      // Toggle mobile menu
+      hamburger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle("active");
+        
+        // Toggle hamburger icon
+        const icon = hamburger.querySelector("i");
+        if (navLinks.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Handle dropdown clicks on mobile
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+      
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+              if (otherDropdown !== parent && otherDropdown.classList.contains('active')) {
+                otherDropdown.classList.remove('active');
+              }
+            });
+          }
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu on scroll
+      window.addEventListener('scroll', function() {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+      
+      // Close menu on touch (for mobile)
+      document.addEventListener('touchstart', function(event) {
+        if (!event.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Animated Search Placeholder
+      const jewelryTerms = [
+        "Earrings",
+        "Necklaces",
+        "Bracelets",
+        "Mangalsutra",
+        "Chains",
+      ];
+
+      const searchInput = document.getElementById('searchInput');
+      let currentTermIndex = 0;
+      let isDeleting = false;
+      let currentText = '';
+      let typingSpeed = 100; // milliseconds per character
+
+      function typePlaceholder() {
+        const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
+        
+        if (isDeleting) {
+          // Delete character
+          currentText = fullTerm.substring(0, currentText.length - 1);
+        } else {
+          // Add character
+          currentText = fullTerm.substring(0, currentText.length + 1);
+        }
+
+        searchInput.placeholder = currentText;
+
+        // Determine if we should delete or type next
+        if (!isDeleting && currentText === fullTerm) {
+          // Pause at end of typing
+          setTimeout(() => isDeleting = true, 1000);
+        } else if (isDeleting && currentText === '') {
+          // Move to next term after deleting
+          isDeleting = false;
+          currentTermIndex = (currentTermIndex + 1) % jewelryTerms.length;
+          setTimeout(typePlaceholder, 500);
+          return;
+        }
+
+        // Adjust speed for deleting vs typing
+        const speed = isDeleting ? typingSpeed / 2 : typingSpeed;
+        setTimeout(typePlaceholder, speed);
+      }
+
+      // Start the typing effect
+      typePlaceholder();
+    });
+  </script>
 
 
-
-<!-- Add this script at the end of your HTML -->
 <script>
-document.addEventListener('DOMContentLoaded', async function() {
-  try {
-    // Fetch banner data for the 'index' page
-    const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/index');
-    const bannerData = await response.json();
-    
-    if (!response.ok) throw new Error('Failed to fetch banner data');
-    
-    // Update banner images if they exist in the response
-    if (bannerData.bannerFileOne) {
-      const mainBannerImg = document.querySelector('#main-banner .mySlides img');
-      mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
-    }
-    
-    if (bannerData.bannerFileTwo) {
-      const singleBannerImg = document.querySelector('.single-banner img');
-      singleBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
-    }
-    
-    if (bannerData.bannerFileThree) {
-      const section5BannerImg = document.querySelector('#section5 .banner-image img');
-      section5BannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileThree}`;
-    }
-    
-    // Optionally update text content if needed
-    if (bannerData.header) {
-      const heading = document.querySelector('.animate-heading');
-      if (heading) heading.textContent = bannerData.header;
-    }
-    
-    if (bannerData.text) {
-      const subheading = document.querySelector('.animate-subheading');
-      if (subheading) subheading.textContent = bannerData.text;
-    }
-    
-  } catch (error) {
-    console.error('Error loading banner images:', error);
-    // Fallback to default images if API fails
-  }
-});
-</script>
+    // Mobile Navigation Toggle
+    document.addEventListener("DOMContentLoaded", function() {
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      
+      // Toggle mobile menu
+      hamburger.addEventListener("click", function(e) {
+        e.stopPropagation();
+        navLinks.classList.toggle("active");
+        
+        // Toggle hamburger icon
+        const icon = hamburger.querySelector("i");
+        if (navLinks.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Handle dropdown clicks on mobile
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+      
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+              if (otherDropdown !== parent && otherDropdown.classList.contains('active')) {
+                otherDropdown.classList.remove('active');
+              }
+            });
+          }
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu on scroll
+      window.addEventListener('scroll', function() {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+      
+      // Close menu on touch (for mobile)
+      document.addEventListener('touchstart', function(event) {
+        if (!event.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Animated Search Placeholder
+      const jewelryTerms = [
+        "Earrings",
+        "Necklaces",
+        "Bracelets",
+        "Mangalsutra",
+        "Chains",
+      ];
+
+      const searchInput = document.getElementById('searchInput');
+      let currentTermIndex = 0;
+      let isDeleting = false;
+      let currentText = '';
+      let typingSpeed = 100; // milliseconds per character
+
+      function typePlaceholder() {
+        const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
+        
+        if (isDeleting) {
+          // Delete character
+          currentText = fullTerm.substring(0, currentText.length - 1);
+        } else {
+          // Add character
+          currentText = fullTerm.substring(0, currentText.length + 1);
+        }
+
+        searchInput.placeholder = currentText;
+
+        // Determine if we should delete or type next
+        if (!isDeleting && currentText === fullTerm) {
+          // Pause at end of typing
+          setTimeout(() => isDeleting = true, 1000);
+        } else if (isDeleting && currentText === '') {
+          // Move to next term after deleting
+          isDeleting = false;
+          currentTermIndex = (currentTermIndex + 1) % jewelryTerms.length;
+          setTimeout(typePlaceholder, 500);
+          return;
+        }
+
+        // Adjust speed for deleting vs typing
+        const speed = isDeleting ? typingSpeed / 2 : typingSpeed;
+        setTimeout(typePlaceholder, speed);
+      }
+
+      // Start the typing effect
+      typePlaceholder();
+    });
+  </script>
+
+
+    <script src="/global_js/backend_apis/banner.js"></script>
     <script src="/global_js/backend_apis/users.js"></script>
     <script src="/user-profile/user-logout.js"></script>
     <script src="script.js"></script>

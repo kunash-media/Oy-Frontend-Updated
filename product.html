@@ -182,6 +182,7 @@
       border-radius: 4px;
       font-size: 0.9em;
     }
+    
 
     .rating {
       display: flex;
@@ -1086,9 +1087,12 @@
         oldPriceElement.style.display = "inline";
         
         // Check for productDiscount first, otherwise calculate
-        const discount = product.discount !== undefined 
-            ? parseFloat(product.discount) 
-            : calculateDiscount(product.oldPrice, product.price);
+        const discount = product.discount !== undefined && product.discount !== null && product.discount !== ''
+        ? parseFloat(product.discount)
+        : calculateDiscount(product.oldPrice, product.price);
+
+        // Then ensure the value is safe to display
+        const displayDiscount = !isNaN(discount) ? discount.toFixed(2) : '0.00';
             
         const discountBadge = document.getElementById("discount-badge");
         discountBadge.textContent = `${discount}% OFF`;

@@ -596,7 +596,7 @@
 
 .shop-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  background: linear-gradient(135deg, #511D43, #A91E4A);
   color: white;
   padding: 12px 30px;
   text-decoration: none;
@@ -641,7 +641,7 @@
   padding: 20px 25px;
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-bottom: 1px solid #e0e0e0;
-}
+}   
 
 .order-info h3 {
   font-size: 1.3rem;
@@ -844,12 +844,12 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  background: linear-gradient(135deg, #511D43, #A91E4A);
   color: white;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #c19b26, #e8c547);
+  background: linear-gradient(135deg, #511d43ce, #a91e4abc);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
