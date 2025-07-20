@@ -1836,12 +1836,15 @@ function renderProducts(limit) {
     `;
     return;
   }
-
   // Render products up to the limit
   productData.slice(0, limit).forEach(product => {
     // Get the actual price values
     const currentPrice = parseFloat(product.price || 0);
     const oldPrice = parseFloat(product.productOldPrice || 0);
+    const stock = product.stock;
+
+    // Log stock for debugging
+    console.log(`Product ${product.id} stock:`, stock);
 
     // Calculate discount percentage
     let discountPercentage = 0;
@@ -1856,6 +1859,16 @@ function renderProducts(limit) {
 
     const card = document.createElement("div");
     card.classList.add("pro");
+
+    // Determine button attributes based on stock
+    const addToCartAttributes = stock <= 0 
+      ? 'disabled style="opacity: 0.5; background-color: #cccccc; cursor: not-allowed;"' 
+      : '';
+    const buyNowAttributes = stock <= 0 
+      ? 'disabled style="opacity: 0.5; background-color: #cccccc; cursor: not-allowed;"' 
+      : '';
+    const buyNowText = stock <= 0 ? 'Out of Stock' : 'Buy Now';
+
     card.innerHTML = `
       <div class="wishlist-icon-card active"
            data-id="${product.id}" 
@@ -1889,15 +1902,17 @@ function renderProducts(limit) {
                 data-id="${product.id}" 
                 data-name="${product.name}" 
                 data-price="${currentPrice.toFixed(2)}" 
-                data-image="${product.image}">
+                data-image="${product.image}"
+                ${addToCartAttributes}>
           Add to Cart
         </button>
         <button class="buy-now" 
                 data-id="${product.id}" 
                 data-name="${product.name}" 
                 data-price="${currentPrice.toFixed(2)}" 
-                data-image="${product.image}">
-          Buy Now
+                data-image="${product.image}"
+                ${buyNowAttributes}>
+          ${buyNowText}
         </button>
       </div>
     `;
@@ -1906,24 +1921,32 @@ function renderProducts(limit) {
 
   // Add event listeners for Buy Now buttons
   document.querySelectorAll('.buy-now').forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault(); // Prevent default behavior
+    // Only add event listener if button is not disabled
+    if (!button.disabled) {
+      button.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default behavior
 
-      // Get product data from button attributes
-      const productData = {
-        id: button.getAttribute('data-id'),
-        name: button.getAttribute('data-name'),
-        price: parseFloat(button.getAttribute('data-price')),
-        image: button.getAttribute('data-image'),
-        quantity: 1
-      };
+        // Get product data from button attributes
+        const productData = {
+          id: button.getAttribute('data-id'),
+          name: button.getAttribute('data-name'),
+          price: parseFloat(button.getAttribute('data-price')),
+          image: button.getAttribute('data-image'),
+          quantity: 1
+        };
 
-      // Store in sessionStorage
-      sessionStorage.setItem('buyNowItem', JSON.stringify(productData));
+        // Log for debugging
+        console.log('Buy Now clicked for product:', productData);
 
-      // Redirect to checkout page with minimal URL parameters
-      window.location.href = `checkout.html?product=${productData.id}&name=${encodeURIComponent(productData.name)}&price=${productData.price.toFixed(2)}`;
-    });
+        // Store in sessionStorage
+        sessionStorage.setItem('buyNowItem', JSON.stringify(productData));
+
+        // Redirect to checkout page with minimal URL parameters
+        window.location.href = `checkout.html?product=${productData.id}&name=${encodeURIComponent(productData.name)}&price=${productData.price.toFixed(2)}`;
+      });
+    } else {
+      console.log(`Buy Now button for product ${button.getAttribute('data-id')} is disabled`);
+    }
   });
 
   // Hide view more button if all products are visible

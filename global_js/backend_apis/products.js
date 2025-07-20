@@ -25,7 +25,7 @@ export const fetchAllProducts = async () => {
       description: product.ProductDescription,
       features: product.ProductFeatures,
       sizes: product.ProductSizes,
-      stock: product.ProductStock,
+      stock: product.productQuantity,
       category: product.ProductCategory,
       productDiscount : product.productDiscount,
       productOldPrice : product.ProductOldPrice
