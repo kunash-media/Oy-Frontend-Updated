@@ -1275,36 +1275,6 @@ header {
       </div>
 
 
-           <!-- Product 4 -->
-      <div class="product-card">
-   <a href="wishlist.html" class="wishlist-btn">
-          <i class="fa fa-heart"></i>
-        </a>
-        <a href="product.html?id=4" class="product-link">
-          <img src="IMAGES/PRODUCT 777.webp" alt="GIVA Signal" class="product-image">
-          <div class="product-info">
-            <div class="product-rating">
-              <div class="stars">★★★★☆</div>
-              <span class="rating-count">| 164</span>
-            </div>
-            <h3 class="product-name">OY Signal Gold Necklace</h3>
-            <div class="product-pricing">
-              <span class="current-price">₹8,499</span>
-              <span class="original-price">₹12,799</span>
-              <span class="discount-badge">Get it for ₹6</span>
-            </div>
-          </div>
-        </a>
-        <button class="add-to-cart-btn add-to-cart" 
-                data-id="rec4" 
-                data-name="OY Signal Gold Necklace" 
-                data-price="8499" 
-                data-image="IMAGES/PRODUCT 777.webp">
-          Add to Cart
-        </button>
-      </div>
-    </div>
-    </div>
   </section>
 
 
@@ -1345,6 +1315,7 @@ function displayCart() {
         <div class="item-details">
           <div class="item-name">${item.name}</div>
           <div class="item-price">₹${item.price.toLocaleString()}</div>
+          <div class="item-size">size :${item.size || 'free size'}</div>
           <div class="quantity-controls">
             <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
             <span class="quantity-display">${item.quantity}</span>

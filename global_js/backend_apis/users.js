@@ -10,7 +10,7 @@
 class UserAPI {
     constructor() {
         // Session timeout: 1 hour in milliseconds
-        this.SESSION_TIMEOUT = 60 * 60 * 1000; // 3600000 ms = 1 min
+        this.SESSION_TIMEOUT = 24 * 60 * 60 * 1000; // 3600000 ms = 1 min
         this.API_BASE_URL = 'http://localhost:8080/api/users';
         this.STORAGE_KEYS = {
             USER_DATA: 'userData',
@@ -78,7 +78,8 @@ class UserAPI {
             // Store user data (excluding sensitive password)
             const userDataToStore = {
                 userId: userData.userId,
-                customerName: userData.customerName,
+                customerFirstName: userData.customerFirstName,
+                customerLastName : userData.customerLastName,
                 email: userData.email,
                 mobile: userData.mobile,
                 maritalStatus: userData.maritalStatus,

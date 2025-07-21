@@ -1,14 +1,17 @@
 /**
  * User Profile Management Script
- * Handles profile data loading, editing, password change functionality, and notifications
+ * Handles profile data loading, editing, password change functionality, notifications, and shipping address management
  */
 
 class UserProfile {
     constructor() {
         this.API_BASE_URL = 'http://localhost:8080/api/users';
+        this.API_ADDRESS_URL = 'http://localhost:8080/api/addresses'; // Added for shipping address APIs
         this.currentUser = null;
         this.originalUserData = null;
         this.isEditMode = false;
+        this.shippingAddress = null; // Added to store current shipping address
+        this.isEditingAddress = false; // Added to track if editing or adding address
         this.init();
     }
 
@@ -41,14 +44,12 @@ class UserProfile {
 
             // Add icon
             const icon = document.createElement('div');
-
             icon.innerHTML = `
                 <svg width="48" height="48" viewBox="0 0 24 24" style="color: #666;">
                     <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
                     <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
                     <path d="M8.21 13.89a6 6 0 0 1 7.58 0" stroke="currentColor" stroke-width="2" fill="none"/>
                 </svg>`;
-
             icon.style.fontSize = '48px';
             icon.style.marginBottom = '16px';
 
@@ -92,7 +93,6 @@ class UserProfile {
 
             // Add to document
             document.body.appendChild(loginPrompt);
-
             return; // Stop further execution
         }
 
@@ -133,7 +133,6 @@ class UserProfile {
         // Close overlay buttons
         const closeOverlay = document.getElementById('close-overlay');
         const cancelPassword = document.getElementById('cancel-password');
-
         closeOverlay.addEventListener('click', () => this.hidePasswordOverlay());
         cancelPassword.addEventListener('click', () => this.hidePasswordOverlay());
 
@@ -152,20 +151,23 @@ class UserProfile {
         // Real-time password validation
         const newPasswordInput = document.getElementById('newPassword');
         const confirmPasswordInput = document.getElementById('confirmPassword');
-
-        confirmPasswordInput.addEventListener('input', () => {
-            this.validatePasswordMatch();
-        });
-
-        newPasswordInput.addEventListener('input', () => {
-            this.validatePasswordMatch();
-        });
+        confirmPasswordInput.addEventListener('input', () => this.validatePasswordMatch());
+        newPasswordInput.addEventListener('input', () => this.validatePasswordMatch());
 
         // Handle marital status change for anniversary field
         const maritalStatusSelect = document.getElementById('maritalStatus');
-        maritalStatusSelect.addEventListener('change', () => {
-            this.handleMaritalStatusChange();
-        });
+        maritalStatusSelect.addEventListener('change', () => this.handleMaritalStatusChange());
+
+        // NEW: Setup event listeners for shipping address functionality
+        const addShippingAddressBtn = document.getElementById('add-shipping-address-btn');
+        const editShippingAddressBtn = document.getElementById('edit-shipping-address-btn');
+        const cancelShippingAddressBtn = document.getElementById('cancel-shipping-address-btn');
+        const shippingAddressForm = document.getElementById('shipping-address-form');
+
+        addShippingAddressBtn.addEventListener('click', () => this.openShippingAddressOverlay(false));
+        editShippingAddressBtn.addEventListener('click', () => this.openShippingAddressOverlay(true));
+        cancelShippingAddressBtn.addEventListener('click', () => this.closeShippingAddressOverlay());
+        shippingAddressForm.addEventListener('submit', (e) => this.handleShippingAddressSubmit(e));
     }
 
     /**
@@ -187,6 +189,8 @@ class UserProfile {
                 this.populateProfileForm(userData);
                 this.originalUserData = { ...userData }; // Store original data
                 this.showNotification('Profile loaded successfully', 'success');
+                // NEW: Load shipping address after profile data
+                await this.loadShippingAddress();
             } else {
                 const errorData = await response.json();
                 this.showNotification(errorData.message || 'Failed to load profile data', 'error');
@@ -200,57 +204,175 @@ class UserProfile {
     }
 
     /**
+ * Load shipping address data from API
+ * Updated to hide add-shipping-address-btn when an address exists
+ */
+async loadShippingAddress() {
+    try {
+        this.showLoading(true);
+        const response = await fetch(`${this.API_ADDRESS_URL}/get-address-by-userId/${this.currentUser.userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (response.ok) {
+            const addresses = await response.json();
+            const addButton = document.getElementById('add-shipping-address-btn');
+            const container = document.getElementById('shipping-address-container');
+
+            if (addresses.length > 0) {
+                this.shippingAddress = addresses[0]; // Assuming one address per user
+                this.displayShippingAddress();
+                addButton.style.display = 'none'; // Hide Add/Edit button in form-actions
+                container.style.display = 'block'; // Show container with Edit button
+            } else {
+                addButton.textContent = 'Add Shipping Address';
+                addButton.style.display = 'inline-block'; // Show Add button
+                container.style.display = 'none'; // Hide container
+            }
+        } else {
+            this.showNotification('Failed to load shipping address', 'error');
+        }
+    } catch (error) {
+        console.error('Error loading shipping address:', error);
+        this.showNotification('Network error while loading shipping address', 'error');
+    } finally {
+        this.showLoading(false);
+    }
+}
+
+    /**
+     * NEW: Display shipping address in the rectangular container
+     */
+    displayShippingAddress() {
+        const addressText = document.getElementById('shipping-address-text');
+        const address = this.shippingAddress;
+        addressText.textContent = `${address.shippingAddress}, ${address.shippingCity}, ${address.shippingState}, ${address.shippingPincode}, ${address.shippingCountry} | Phone: ${address.customerPhone} | Email: ${address.customerEmail}`;
+    }
+
+    /**
+     * NEW: Open the overlay form for adding/editing shipping address
+     */
+    openShippingAddressOverlay(isEditing) {
+        this.isEditingAddress = isEditing;
+        const overlay = document.getElementById('shipping-address-overlay');
+        const form = document.getElementById('shipping-address-form');
+        const title = document.getElementById('overlay-title');
+        
+        title.textContent = isEditing ? 'Edit Shipping Address' : 'Add Shipping Address';
+        
+        // Populate form if editing
+        if (isEditing && this.shippingAddress) {
+            document.getElementById('shipping-customer-phone').value = this.shippingAddress.customerPhone || '';
+            document.getElementById('shipping-customer-email').value = this.shippingAddress.customerEmail || '';
+            document.getElementById('shipping-address').value = this.shippingAddress.shippingAddress || '';
+            document.getElementById('shipping-city').value = this.shippingAddress.shippingCity || '';
+            document.getElementById('shipping-state').value = this.shippingAddress.shippingState || '';
+            document.getElementById('shipping-pincode').value = this.shippingAddress.shippingPincode || '';
+            document.getElementById('shipping-country').value = this.shippingAddress.shippingCountry || '';
+        } else {
+            form.reset();
+        }
+        
+        overlay.style.display = 'flex';
+        overlay.classList.add('show'); // Align with existing overlay show logic
+    }
+
+    /**
+     * NEW: Close the shipping address overlay form
+     */
+    closeShippingAddressOverlay() {
+        const overlay = document.getElementById('shipping-address-overlay');
+        overlay.style.display = 'none';
+        overlay.classList.remove('show');
+        document.getElementById('shipping-address-form').reset();
+    }
+
+    /**
+     * NEW: Handle form submission for adding/editing shipping address
+     */
+    async handleShippingAddressSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const payload = {
+            customerPhone: form.customerPhone.value,
+            customerEmail: form.customerEmail.value,
+            shippingAddress: form.shippingAddress.value,
+            shippingCity: form.shippingCity.value,
+            shippingState: form.shippingState.value,
+            shippingPincode: form.shippingPincode.value,
+            shippingCountry: form.shippingCountry.value
+        };
+
+        try {
+            this.showLoading(true);
+            const url = this.isEditingAddress 
+                ? `${this.API_ADDRESS_URL}/patch-address/${this.currentUser.userId}/${this.shippingAddress.shippingId}`
+                : `${this.API_ADDRESS_URL}/create-address/${this.currentUser.userId}`;
+            const method = this.isEditingAddress ? 'PATCH' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                await this.loadShippingAddress(); // Refresh address display
+                this.closeShippingAddressOverlay();
+                this.showNotification(`Shipping address ${this.isEditingAddress ? 'updated' : 'added'} successfully`, 'success');
+            } else {
+                const errorData = await response.json();
+                this.showNotification(errorData.message || 'Failed to save shipping address', 'error');
+            }
+        } catch (error) {
+            console.error('Error saving shipping address:', error);
+            this.showNotification('Network error while saving shipping address', 'error');
+        } finally {
+            this.showLoading(false);
+        }
+    }
+
+    /**
      * Populate the profile form with user data
      */
     populateProfileForm(userData) {
+        // Populate form fields with separate first and last name
+        document.getElementById('customerFirstName').value = userData.customerFirstName || '';
+        document.getElementById('customerLastName').value = userData.customerLastName || '';
+        document.getElementById('email').value = userData.email || '';
+        document.getElementById('mobile').value = userData.mobile || '';
+        document.getElementById('maritalStatus').value = userData.maritalStatus || '';
+        
+        // Handle dates
+        document.getElementById('customerDOB').value = userData.customerDOB;
+        
+        // Handle anniversary field
+        const anniversaryGroup = document.getElementById('anniversary-group');
+        const anniversaryInput = document.getElementById('anniversary');
+        
+        const anniversaryDate = userData.anniversary;
+        if (anniversaryDate && userData.maritalStatus === 'Married') {
+            anniversaryInput.value = anniversaryDate;
+            anniversaryGroup.classList.remove('hidden');
+        } else {
+            anniversaryInput.value = '';
+            anniversaryGroup.classList.add('hidden');
+        }
 
-    //------for array date format to string format function-------//   
-    // Convert array dates to yyyy-MM-dd format for HTML inputs
-    // const formatDateForInput = (dateArray) => {
-    //     if (!dateArray || dateArray.length !== 3) return '';
-    //     const [year, month, day] = dateArray;
-    //     // Note: month is 1-12 in your data (no need for +1 adjustment)
-    //     return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    // };
+        // Update current user data
+        this.currentUser = userData;
 
-    // Populate form fields
-    document.getElementById('customerName').value = userData.customerName || '';
-    document.getElementById('email').value = userData.email || '';
-    document.getElementById('mobile').value = userData.mobile || '';
-    document.getElementById('maritalStatus').value = userData.maritalStatus || '';
-    document.getElementById('status').value = userData.status || '';
-    
-    // Handle dates (convert from array to string format)
-    document.getElementById('customerDOB').value = userData.customerDOB;
-    
-    // Handle anniversary field
-    const anniversaryGroup = document.getElementById('anniversary-group');
-    const anniversaryInput = document.getElementById('anniversary');
-    
-    const anniversaryDate = userData.anniversary;
-    if (anniversaryDate && userData.maritalStatus === 'Married') {
-        anniversaryInput.value = anniversaryDate;
-        anniversaryGroup.classList.remove('hidden');
-    } else {
-        anniversaryInput.value = '';
-        anniversaryGroup.classList.add('hidden');
+        // Handle anniversary visibility based on marital status
+        this.handleMaritalStatusChange();
     }
-
-    // Update current user data
-    this.currentUser = userData;
-
-    // Handle anniversary visibility based on marital status
-    this.handleMaritalStatusChange();
-}
 
     /**
      * Toggle edit mode
      */
     toggleEditMode(enable) {
         this.isEditMode = enable;
-
-        // Get form elements
-        const editableFields = ['customerName', 'mobile', 'maritalStatus', 'customerDOB', 'anniversary'];
+        const editableFields = ['customerFirstName', 'customerLastName', 'mobile', 'maritalStatus', 'customerDOB', 'anniversary'];
         const editBtn = document.getElementById('edit-profile-btn');
         const saveBtn = document.getElementById('save-profile-btn');
         const cancelBtn = document.getElementById('cancel-edit-btn');
@@ -269,7 +391,6 @@ class UserProfile {
                 }
             });
 
-            // Show/hide buttons
             editBtn.style.display = 'none';
             saveBtn.style.display = 'inline-block';
             cancelBtn.style.display = 'inline-block';
@@ -287,7 +408,6 @@ class UserProfile {
                 }
             });
 
-            // Show/hide buttons
             editBtn.style.display = 'inline-block';
             saveBtn.style.display = 'none';
             cancelBtn.style.display = 'none';
@@ -305,7 +425,6 @@ class UserProfile {
             anniversaryGroup.style.display = 'block';
         } else {
             anniversaryGroup.style.display = 'none';
-            // Clear anniversary value if not married
             if (this.isEditMode) {
                 document.getElementById('anniversary').value = '';
             }
@@ -317,15 +436,12 @@ class UserProfile {
      */
     async saveProfileChanges() {
         try {
-            // Validate form data
             const formData = this.getFormData();
-
             if (!this.validateFormData(formData)) {
                 return;
             }
 
             this.showLoading(true);
-
             const response = await fetch(`${this.API_BASE_URL}/update/${this.currentUser.userId}`, {
                 method: 'PATCH',
                 headers: {
@@ -368,15 +484,15 @@ class UserProfile {
      */
     getFormData() {
         const maritalStatus = document.getElementById('maritalStatus').value;
-
         return {
-            customerName: document.getElementById('customerName').value.trim(),
-            email: document.getElementById('email').value.trim(), // Email remains readonly but included
+            customerFirstName: document.getElementById('customerFirstName').value.trim(),
+            customerLastName: document.getElementById('customerLastName').value.trim(),
+            email: document.getElementById('email').value.trim(),
             mobile: document.getElementById('mobile').value.trim(),
             maritalStatus: maritalStatus,
             customerDOB: document.getElementById('customerDOB').value,
             anniversary: maritalStatus === 'Married' ? document.getElementById('anniversary').value : null,
-            status: document.getElementById('status').value.trim() // Status remains readonly but included
+            // status: document.getElementById('status').value.trim()
         };
     }
 
@@ -384,21 +500,24 @@ class UserProfile {
      * Validate form data
      */
     validateFormData(formData) {
-        // Customer name validation
-        if (!formData.customerName) {
-            this.showNotification('Customer name is required', 'warning');
-            document.getElementById('customerName').focus();
+        if (!formData.customerFirstName) {
+            this.showNotification('First name is required', 'warning');
+            document.getElementById('customerFirstName').focus();
             return false;
         }
 
-        // Mobile validation
+        if (!formData.customerLastName) {
+            this.showNotification('Last name is required', 'warning');
+            document.getElementById('customerLastName').focus();
+            return false;
+        }
+
         if (!formData.mobile) {
             this.showNotification('Mobile number is required', 'warning');
             document.getElementById('mobile').focus();
             return false;
         }
 
-        // Mobile format validation (basic)
         const mobileRegex = /^[0-9+\-\s()]+$/;
         if (!mobileRegex.test(formData.mobile)) {
             this.showNotification('Please enter a valid mobile number', 'warning');
@@ -406,14 +525,12 @@ class UserProfile {
             return false;
         }
 
-        // Date of birth validation
         if (!formData.customerDOB) {
             this.showNotification('Date of birth is required', 'warning');
             document.getElementById('customerDOB').focus();
             return false;
         }
 
-        // Anniversary validation for married status
         if (formData.maritalStatus === 'Married' && !formData.anniversary) {
             this.showNotification('Anniversary date is required for married status', 'warning');
             document.getElementById('anniversary').focus();
@@ -429,11 +546,7 @@ class UserProfile {
     showPasswordOverlay() {
         const overlay = document.getElementById('password-overlay');
         overlay.classList.add('show');
-
-        // Clear previous form data
         document.getElementById('password-form').reset();
-
-        // Focus on old password field
         setTimeout(() => {
             document.getElementById('oldPassword').focus();
         }, 300);
@@ -445,8 +558,6 @@ class UserProfile {
     hidePasswordOverlay() {
         const overlay = document.getElementById('password-overlay');
         overlay.classList.remove('show');
-
-        // Clear form
         document.getElementById('password-form').reset();
     }
 
@@ -455,12 +566,10 @@ class UserProfile {
      */
     async handlePasswordChange(event) {
         event.preventDefault();
-
         const oldPassword = document.getElementById('oldPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
 
-        // Validation
         if (!oldPassword || !newPassword || !confirmPassword) {
             this.showNotification('Please fill in all password fields', 'warning');
             return;
@@ -483,10 +592,7 @@ class UserProfile {
 
         try {
             this.showLoading(true);
-
-            // Construct change password URL
             const changePasswordUrl = `${this.API_BASE_URL}/change-password/${this.currentUser.userId}?oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}`;
-
             const response = await fetch(changePasswordUrl, {
                 method: 'PATCH',
                 headers: {
@@ -499,8 +605,6 @@ class UserProfile {
                 this.hidePasswordOverlay();
             } else {
                 const errorData = await response.json();
-
-                // Check for specific error messages
                 if (errorData.message && errorData.message.toLowerCase().includes('old password')) {
                     this.showNotification('Old password is incorrect', 'error');
                 } else {
@@ -552,20 +656,13 @@ class UserProfile {
      */
     showNotification(message, type = 'info', duration = 5000) {
         const container = document.getElementById('notification-container');
-
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
-
         notification.innerHTML = `
             ${message}
-            <button class="close-notification" onclick="this.parentElement.remove()">&times;</button>
+            <button class="close-notification" onclick="this.parentElement.remove()">×</button>
         `;
-
-        // Add to container
         container.appendChild(notification);
-
-        // Auto remove after duration
         setTimeout(() => {
             if (notification.parentElement) {
                 notification.style.transform = 'translateX(100%)';
@@ -604,7 +701,6 @@ document.addEventListener('click', () => {
 // Handle page visibility change
 document.addEventListener('visibilitychange', () => {
     if (!document.hidden && window.userProfile && window.userAPI) {
-        // Check if session is still valid when page becomes visible
         if (!window.userAPI.isLoggedIn()) {
             window.userProfile.showNotification('Session expired. Please log in again.', 'warning');
             setTimeout(() => {

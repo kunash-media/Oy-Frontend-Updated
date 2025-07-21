@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pincode Address Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+    input, button { padding: 10px; margin: 5px 0; width: 100%; }
+    #result { margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+    .office { margin-bottom: 10px; padding: 10px; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>Find Address by Pincode</h1>
+  <input type="text" id="pincode" placeholder="Enter 6-digit pincode (e.g., 110001)" maxlength="6">
+  <button onclick="fetchAddress()">Search</button>
+  
+  <div id="result" style="display: none;">
+    <h3>Address Details:</h3>
+    <div id="addressData"></div>
+  </div>
+
+  <script>
+    async function fetchAddress() {
+      const pincode = document.getElementById('pincode').value.trim();
+      if (!pincode || pincode.length !== 6) {
+        alert("Please enter a valid 6-digit pincode");
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+        const data = await response.json();
+        
+        if (data[0].Status === "Error") {
+          throw new Error(data[0].Message);
+        }
+
+        displayResults(data[0].PostOffice);
+      } catch (error) {
+        document.getElementById('result').style.display = 'none';
+        alert("Error: " + error.message);
+      }
+    }
+
+    function displayResults(offices) {
+      const resultDiv = document.getElementById('result');
+      const addressDiv = document.getElementById('addressData');
+      
+      addressDiv.innerHTML = offices.map(office => `
+        <div class="office">
+          <strong>${office.Name}</strong><br>
+          District: ${office.District}<br>
+          State: ${office.State}<br>
+          Pincode: ${office.Pincode}
+        </div>
+      `).join('');
+
+      resultDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

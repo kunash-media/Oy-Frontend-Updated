@@ -8,7 +8,7 @@
     <style>
         /* === Global Styles === */
         :root {
-            --gold: #d4af37;
+            --gradient-primary: linear-gradient(135deg, #511D43, #A91E4A);
             --black: #1a1a1a;
             --white: #ffffff;
             --gray: #f5f5f5;
@@ -42,7 +42,7 @@
 
         /* === Header === */
         header {
-            background: url('IMAGES/contact\ image.webp') no-repeat center center/cover;
+            background: url('IMAGES/CONTACT\ BANNER.jpg') no-repeat center center/cover;
             height: 300px;
             display: flex;
             align-items: center;
@@ -52,14 +52,27 @@
             position: relative;
         }
 
-        header::before {
-            content: '';
+        /* === Back Arrow === */
+        .back-arrow {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 20px;
+            left: 20px;
+  color: #A91E4A;
+            font-size: 1.5rem;
+            background: #ffffff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .back-arrow:hover {
             background: rgba(0, 0, 0, 0.5);
+            transform: translateX(-3px);
         }
 
         header h1 {
@@ -67,8 +80,8 @@
             margin-bottom: 1rem;
             position: relative;
             z-index: 1;
-             color: #d4af37;
-    margin-bottom: 5%;
+            color:#ddd;
+            margin-bottom: 5%;
         }
 
         header p {
@@ -77,8 +90,8 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
-              margin-bottom: 10%;
-              font-family: spantax;
+            margin-bottom: 10%;
+            font-family: spantax;
         }
 
         /* === Contact Sections === */
@@ -97,7 +110,7 @@
             display: block;
             width: 80px;
             height: 3px;
-            background: var(--gold);
+            background: linear-gradient(135deg, #511D43, #A91E4A);
             margin: 15px auto;
         }
 
@@ -124,7 +137,9 @@
 
         .contact-card i {
             font-size: 2.5rem;
-            color: var(--gold);
+            background: linear-gradient(135deg, #511D43, #A91E4A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
 
@@ -163,7 +178,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: var(--gold);
+            border-color: #A91E4A;
         }
 
         textarea.form-control {
@@ -173,21 +188,21 @@
 
         .btn {
             display: inline-block;
-            background: var(--gold);
+            background: linear-gradient(135deg, #511D43, #A91E4A);
             color: var(--white);
             padding: 12px 30px;
             border: none;
             border-radius: 4px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 1px;
         }
 
         .btn:hover {
-            background: #c19b2c;
+            background: linear-gradient(135deg, #A91E4A, #511D43);
         }
 
         /* === Trust Badges === */
@@ -205,7 +220,9 @@
 
         .badge i {
             font-size: 2rem;
-            color: var(--gold);
+            background: linear-gradient(135deg, #511D43, #A91E4A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
         }
 
@@ -237,7 +254,9 @@
         .faq-question::after {
             content: '+';
             font-size: 1.5rem;
-            color: var(--gold);
+            background: linear-gradient(135deg, #511D43, #A91E4A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .faq-question.active::after {
@@ -278,14 +297,14 @@
         }
 
         .social-links a:hover {
-            background: var(--gold);
+            background: linear-gradient(135deg, #511D43, #A91E4A);
             transform: translateY(-3px);
         }
 
         /* === Footer === */
     
 footer {
-  background-color: #020202;
+  background:linear-gradient(135deg, #511D43, #A91E4A);
   font-family: spantax;
 }
 
@@ -302,11 +321,44 @@ footer {
 
 .footer-logo-section {
   flex: 0 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-logo {
   width: 100%;
   height: auto;
+}
+
+.social-icons-below-logo {
+  margin-top: 15px;
+}
+
+.social-icons-below-logo .social-icons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.social-icons-below-logo .social-icons li a {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.social-icons-below-logo .social-icons li a:hover {
+  transform: scale(1.1);
+  background-color: #f0f0f0;
 }
 
 .footer-content {
@@ -349,23 +401,19 @@ footer {
   transition: color 0.2s ease;
 }
 
-.social-icons {
-  display: flex;
-  gap: 12px;
-  text-align: center;
-}
-
-.social-icons li a {
-  font-size: 18px;
-  margin-right: 20px;
+.business-address {
+  color: #fff;
+  font-size: 19px;
+  line-height: 1.5;
+  margin-top: 10px;
+  max-width: 250px;
 }
 
 .footer-bottom {
   border-top: 1px solid #333;
   padding: 2px 2px;
-  font-size: 12px;
-  color: #888;
-
+  font-size: 16px;
+  color: #ffffff;
 }
 
 /* Responsive Styles */
@@ -399,7 +447,7 @@ footer {
     text-align: center;
   }
   
-  .social-icons {
+  .social-icons-below-logo .social-icons {
     justify-content: center;
   }
   
@@ -408,21 +456,24 @@ footer {
     padding: 10px 15px;
     font-size: 11px;
   }
-}/* Center the footer bottom text */
+  
+  /* Hide Shop section on smaller screens */
+  .footer-section:nth-child(1) {
+    display: none;
+  }
+  
+  .business-address {
+    margin: 10px auto;
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+/* Center the footer bottom text */
 .footer-bottom .footer-container {
   justify-content: center;
   display: flex;
 }
-
-/* Hide Shop section on smaller screens */
-@media (max-width: 768px) {
-  .footer-section:nth-child(1) {
-    display: none;
-  }
-}
-
-
-
 
         /* === Responsive === */
         @media (max-width: 768px) {
@@ -438,18 +489,15 @@ footer {
                 padding: 30px 20px;
             }
         }
-
-
-        
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="container">
-            <h1>Contact Us</h1>
-            <p>Your questions are our priority. Reach out to our team for personalized assistance with your jewellery needs.</p>
-        </div>
+        <a href="javascript:history.back()" class="back-arrow">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        
     </header>
 
     <!-- Contact Methods -->
@@ -460,16 +508,20 @@ footer {
                 <div class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <h3>Email Us</h3>
-                    <p>hello@luxejewels.com</p>
+                    <p>support@oyjewells.com</p>
                     <p>Response within 24 hours</p>
                 </div>
                 <div class="contact-card">
-                    <i class="fas fa-phone"></i>
-                    <h3>Call Us</h3>
-                    <p>+1 (555) 123-4567</p>
-                    <p>Mon-Fri, 9AM-6PM EST</p>
+                    <div class="contact-method">
+                        <a href="https://wa.me/918482859816" target="_blank" style="text-decoration: none; color: inherit;">
+                            <i class="fas fa-phone"></i>
+                            <h3>Connect with us</h3>
+                            <p>+918482859816</p>
+                            <p>Monday to Friday</p>
+                            <p>10:30 Am to 6:30 Pm</p>
+                        </a>
+                    </div>
                 </div>
-              
             </div>
 
             <!-- Contact Form -->
@@ -500,8 +552,8 @@ footer {
             <div class="trust-badges">
                 <div class="badge">
                     <i class="fas fa-gem"></i>
-                    <h4>Handcrafted Excellence</h4>
-                    <p>Since 1985</p>
+                    <h4>Radiance You Can Wear</h4>
+                    <p>Everyday</p>
                 </div>
                 <div class="badge">
                     <i class="fas fa-shipping-fast"></i>
@@ -510,7 +562,7 @@ footer {
                 </div>
                 <div class="badge">
                     <i class="fas fa-undo"></i>
-                    <h4>30-Day Returns</h4>
+                    <h4>24 Hours Returns</h4>
                     <p>No questions asked</p>
                 </div>
                 <div class="badge">
@@ -528,79 +580,84 @@ footer {
             <h2 class="section-title">Frequently Asked Questions</h2>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">How do I clean my jewellery?</div>
+                    <div class="faq-question">What is imitation jewellery?</div>
                     <div class="faq-answer">
-                        <p>For most pieces, mix warm water with mild dish soap. Soak for 15-20 minutes, then gently brush with a soft toothbrush. Rinse and pat dry with a lint-free cloth. Avoid harsh chemicals.</p>
+                        <p> Imitation jewellery, also known as artificial or fashion jewellery, is designed to mimic the look of fine jewellery made from precious metals and gemstones. It uses a variety of materials like base metals (brass, copper, alloy, aluminium), plated metals (gold-plated, silver-plated), and simulated stones (cubic zirconia, glass, acrylic, resin) to offer stylish and affordable alternatives.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">What's your ring resizing policy?</div>
+                    <div class="faq-question">Will the colour of the jewellery fade or tarnish?</div>
                     <div class="faq-answer">
-                        <p>We offer one complimentary resizing within 30 days of purchase. After that, resizing services start at $50 depending on the metal and design complexity.</p>
+                        <p>Imitation jewellery is designed for fashion and affordability, and while our pieces are made with quality plating, they can fade or tarnish over time with improper care or prolonged exposure to certain elements. Please refer to our "Jewellery Care" section for tips on how to extend the life of your pieces.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Do you offer engraving?</div>
+                    <div class="faq-question">How can I place an order?</div>
                     <div class="faq-answer">
-                        <p>Yes! We provide hand engraving on most pieces. Standard engraving starts at $25, with custom designs priced individually. Allow 3-5 additional business days for engraved items.</p>
+                        <p>    You can browse our collections online and add your desired items to your cart. Follow the steps at checkout to complete your purchase.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer>
+  
+<footer>
   <div class="footer-wrapper">
     <div class="footer-container">
       <div class="footer-logo-section">
-        <img src="IMAGES/01.png" alt="Palmonas Logo" class="footer-logo">
+        <img src="IMAGES/01.png" alt="OY Logo" class="footer-logo">
+        <div class="social-icons-below-logo">
+          <ul class="social-icons">
+            <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+          </ul>
+        </div>
       </div>
-      
+     
       <div class="footer-content">
         <div class="footer-sections">
           <div class="footer-section">
             <h3>Shop</h3>
             <ul>
-              <li><a href="necklace.html">Necklaces</a></li>
-              <li><a href="ring.html">Rings</a></li>
-              <li><a href="brac.html">Bracelets</a></li>
-              <li><a href="ear.html">Earrings</a></li>
+              <li><a href="neck.html">Necklaces</a></li>
+              <li><a href="rings.html">Rings</a></li>
+              <li><a href="bracelet.html">Bracelets</a></li>
+              <li><a href="earring.html">Earrings</a></li>
             </ul>
           </div>
-          
+         
           <div class="footer-section company-section">
             <h3>Company</h3>
             <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/store">Store Location</a></li>
-              <li><a href="mailto:support@palmonas.com">Contact Us</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
             </ul>
           </div>
-          
+         
           <div class="footer-section">
             <h3>Legal</h3>
             <ul>
-               <li><a href="faqs.html">FAQS</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="shipping.html">Shipping Policy</a></li>
-          <li><a href="cancel.html">Cancellation Policy</a></li>
-          <li><a href="terms.html">Terms & Conditions</a></li>
+              <li><a href="faqs.html">FAQS</a></li>
+              <li><a href="disclaimer.html">Disclaimer</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="shipping.html">Shipping Policy</a></li>
+              <li><a href="cancel.html">Cancellation Policy</a></li>
+              <li><a href="terms.html">Terms & Conditions</a></li>
             </ul>
           </div>
-
+         
           <div class="footer-section">
-            <h3>Follow</h3>
-            <ul class="social-icons">
-              <li><a href="https://instagram.com/palmonas" target="_blank"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="https://facebook.com/palmonas" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-              <li><a href="https://pinterest.com/palmonas" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-            </ul>
+            <h3>Address</h3>
+            <p class="business-address">
+              Ward No. 2 Sr. No. 690, Hanuman Mandir, Mukhed, Mukhed Police Station, Mukhed, Nanded-431715. Maharashtra
+            </p>
           </div>
         </div>
       </div>
     </div>
-    
+   
     <div class="footer-bottom">
       <div class="footer-container">
         &copy; 2025 Kunash Media Solutions. All rights reserved.
@@ -608,7 +665,6 @@ footer {
     </div>
   </div>
 </footer>
-
 
     <!-- JavaScript -->
     <script>

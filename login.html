@@ -451,17 +451,20 @@
     <div id="registrationFormContainer" class="form-container hidden" style="margin-top: 3%;">
       <h2>Register</h2>
       <form id="registrationForm" class="registration-form">
-
-        <input type="text" name="customerName" placeholder="Enter Your Name" id="customerName" required>
+        
+        <!-- Updated: Separate First Name and Last Name fields -->
+        <div class="name-row">
+            <input type="text" name="customerFirstName" placeholder="First Name" id="customerFirstName" required>
+            <input type="text" name="customerLastName" placeholder="Last Name" id="customerLastName" required>
+        </div>
 
         <input type="email" name="email" placeholder="Email Address" id="email" required>
 
         <input type="tel" id="regContactNumber" name="mobile" placeholder="Contact Number" required pattern="[0-9]{10}">
         <input type="password" id="regPassword" name="password" placeholder="Password" required>
         <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-        <p>Bithday Date</p>
+        <p>Birthday Date</p>
         <input type="date" id="birthdate" name="customerDOB" required>
-
 
         <div class="form-group">
           <label for="marital-status" style="margin-left: 1%; margin-top: 12%;">Marital Status:-</label>
@@ -480,7 +483,7 @@
         </div>
 
         <button type="button" id="registerButton">Register</button>
-      </form>
+    </form>
       <p id="registerErrorMessage" class="error-message">Please fill out all fields correctly.</p>
       <p id="registerSuccessMessage" class="success-message" style="color: green; display: none;">Registration
         successful!</p>
@@ -679,104 +682,106 @@
         return [year, month, day];
       }
 
-      // Registration form submission
-      document.getElementById('registerButton').addEventListener('click', async function () {
-        const form = document.getElementById('registrationForm');
-        const formData = new FormData(form);
+ // Registration form submission
+document.getElementById('registerButton').addEventListener('click', async function () {
+  const form = document.getElementById('registrationForm');
+  const formData = new FormData(form);
 
-        // Get form values
-        const customerName = formData.get('customerName');
-        const email = formData.get('email');
-        const mobile = formData.get('mobile');
-        const password = formData.get('password');
-        const confirmPassword = formData.get('confirmPassword');
-        const customerDOB = formData.get('customerDOB');
-        const maritalStatus = formData.get('maritalStatus');
-        const anniversary = formData.get('anniversary');
+  // Get form values - updated to handle separate first and last name
+  const customerFirstName = formData.get('customerFirstName');
+  const customerLastName = formData.get('customerLastName');
+  const email = formData.get('email');
+  const mobile = formData.get('mobile');
+  const password = formData.get('password');
+  const confirmPassword = formData.get('confirmPassword');
+  const customerDOB = formData.get('customerDOB');
+  const maritalStatus = formData.get('maritalStatus');
+  const anniversary = formData.get('anniversary');
 
-        // Hide previous messages
-        document.getElementById('registerErrorMessage').style.display = 'none';
-        document.getElementById('registerSuccessMessage').style.display = 'none';
+  // Hide previous messages
+  document.getElementById('registerErrorMessage').style.display = 'none';
+  document.getElementById('registerSuccessMessage').style.display = 'none';
 
-        // Basic validation
-        if (!customerName || !email || !mobile || !password || !customerDOB || !maritalStatus) {
-          document.getElementById('registerErrorMessage').textContent = 'Please fill out all required fields.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Basic validation - updated to check both first and last name
+  if (!customerFirstName || !customerLastName || !email || !mobile || !password || !customerDOB || !maritalStatus) {
+    document.getElementById('registerErrorMessage').textContent = 'Please fill out all required fields.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Password confirmation check
-        if (password !== confirmPassword) {
-          document.getElementById('registerErrorMessage').textContent = 'Passwords do not match.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Password confirmation check
+  if (password !== confirmPassword) {
+    document.getElementById('registerErrorMessage').textContent = 'Passwords do not match.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Mobile number validation
-        if (!/^[0-9]{10}$/.test(mobile)) {
-          document.getElementById('registerErrorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Mobile number validation
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    document.getElementById('registerErrorMessage').textContent = 'Please enter a valid 10-digit mobile number.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Anniversary validation for married users
-        if (maritalStatus === 'Married' && !anniversary) {
-          document.getElementById('registerErrorMessage').textContent = 'Please select anniversary date for married status.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-          return;
-        }
+  // Anniversary validation for married users
+  if (maritalStatus === 'Married' && !anniversary) {
+    document.getElementById('registerErrorMessage').textContent = 'Please select anniversary date for married status.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+    return;
+  }
 
-        // Prepare payload with properly formatted dates
-        const payload = {
-          customerName: customerName,
-          email: email,
-          mobile: mobile,
-          maritalStatus: maritalStatus,
-          customerDOB: formatDateForBackend(customerDOB),
-          anniversary: maritalStatus === 'Married' ? formatDateForBackend(anniversary) : null,
-          status: "active",
-          password: password
-        };
+  // Prepare payload with properly formatted dates - updated to use separate name fields
+  const payload = {
+    customerFirstName: customerFirstName,
+    customerLastName: customerLastName,
+    email: email,
+    mobile: mobile,
+    maritalStatus: maritalStatus,
+    customerDOB: formatDateForBackend(customerDOB),
+    anniversary: maritalStatus === 'Married' ? formatDateForBackend(anniversary) : null,
+    status: "active",
+    password: password
+  };
 
-        try {
-          // Disable button during request
-          this.disabled = true;
-          this.textContent = 'Registering...';
+  try {
+    // Disable button during request
+    this.disabled = true;
+    this.textContent = 'Registering...';
 
-          const response = await fetch('http://localhost:8080/api/users/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-          });
+    const response = await fetch('http://localhost:8080/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
 
-          if (response.ok) {
-            const result = await response.json();
+    if (response.ok) {
+      const result = await response.json();
 
-            // Clear form
-            form.reset();
-            document.getElementById('anniversaryGroup').style.display = 'none';
+      // Clear form
+      form.reset();
+      document.getElementById('anniversaryGroup').style.display = 'none';
 
-            // Show success overlay
-            document.getElementById('successOverlay').style.display = 'flex';
+      // Show success overlay
+      document.getElementById('successOverlay').style.display = 'flex';
 
-          } else {
-            const errorData = await response.json();
-            document.getElementById('registerErrorMessage').textContent = errorData.message || 'Registration failed. Please try again.';
-            document.getElementById('registerErrorMessage').style.display = 'block';
-          }
+    } else {
+      const errorData = await response.json();
+      document.getElementById('registerErrorMessage').textContent = errorData.message || 'Registration failed. Please try again.';
+      document.getElementById('registerErrorMessage').style.display = 'block';
+    }
 
-        } catch (error) {
-          console.error('Registration error:', error);
-          document.getElementById('registerErrorMessage').textContent = 'Network error. Please check your connection and try again.';
-          document.getElementById('registerErrorMessage').style.display = 'block';
-        } finally {
-          // Re-enable button
-          this.disabled = false;
-          this.textContent = 'Register';
-        }
-      });
+  } catch (error) {
+    console.error('Registration error:', error);
+    document.getElementById('registerErrorMessage').textContent = 'Network error. Please check your connection and try again.';
+    document.getElementById('registerErrorMessage').style.display = 'block';
+  } finally {
+    // Re-enable button
+    this.disabled = false;
+    this.textContent = 'Register';
+  }
+});
 
       // Success overlay OK button handler
       document.getElementById('successOkBtn').addEventListener('click', function () {

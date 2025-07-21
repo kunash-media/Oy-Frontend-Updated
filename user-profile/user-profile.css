@@ -742,6 +742,321 @@ body {
         background: transparent;
     }
 }
+/* 
+  Append this CSS to the END of your existing stylesheet (styles.css), replacing the previous shipping CSS.
+  These styles correct the alignment of the shipping address overlay, ensure consistent button fonts,
+  and handle the visibility of the add/edit button to prevent duplicate Edit buttons.
+  They align with your existing design (primary color, typography, spacing) and are fully responsive.
+*/
 
-/*----------------------------------------------- navbar css-------------- */
+/* Shipping Address Display Container */
+.shipping-address-box {
+    border: 2px solid #e0e0e0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
 
+.shipping-address-box p {
+    margin: 0;
+    flex-grow: 1;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.shipping-address-box .btn {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Overlay Styles for Shipping Address Form */
+#shipping-address-overlay.overlay {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#shipping-address-overlay.overlay.show {
+    display: flex;
+}
+
+.overlay-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.overlay-content h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #333;
+}
+
+.overlay-content .form-group {
+    margin-bottom: 25px;
+}
+
+.overlay-content .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.overlay-content .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.overlay-content .form-group input:focus {
+    outline: none;
+    border-color: #511D43;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
+}
+
+.overlay-content .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.overlay-content .form-actions .btn {
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 24px;
+}
+
+/* Ensure form-actions spacing when add-shipping-address-btn is hidden */
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Ensure consistent spacing even when buttons are hidden */
+    justify-content: center;
+}
+
+/* Responsive Design for Shipping Address */
+
+/* Large Desktop (1440px and above) */
+@media (min-width: 1440px) {
+    .shipping-address-box {
+        padding: 14px 18px;
+    }
+    
+    .overlay-content {
+        padding: 50px;
+        max-width: 500px;
+    }
+}
+
+/* Desktop (1024px to 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .shipping-address-box {
+        padding: 12px 16px;
+    }
+    
+    .overlay-content {
+        padding: 45px;
+        max-width: 450px;
+    }
+}
+
+/* Tablet Landscape (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .shipping-address-box {
+        padding: 10px 14px;
+    }
+    
+    .shipping-address-box p {
+        font-size: 0.95rem;
+    }
+    
+    .overlay-content {
+        padding: 35px;
+        width: 95%;
+    }
+}
+
+/* Tablet Portrait (576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .shipping-address-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .shipping-address-box .btn {
+        width: 100%;
+    }
+    
+    .overlay-content {
+        padding: 25px;
+        width: 95%;
+        margin: 15px;
+    }
+    
+    .overlay-content .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .overlay-content .form-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Mobile Large (480px to 575px) */
+@media (min-width: 480px) and (max-width: 575px) {
+    .shipping-address-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 14px;
+    }
+    
+    .shipping-address-box p {
+        font-size: 0.9rem;
+    }
+    
+    .shipping-address-box .btn {
+        width: 100%;
+    }
+    
+    .overlay-content {
+        padding: 20px;
+        width: 98%;
+        margin: 5px;
+        border-radius: 8px;
+    }
+    
+    .overlay-content .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .overlay-content .form-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Mobile Small (320px to 479px) */
+@media (max-width: 479px) {
+    .shipping-address-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 6px;
+    }
+    
+    .shipping-address-box p {
+        font-size: 0.85rem;
+    }
+    
+    .shipping-address-box .btn {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .overlay-content {
+        padding: 15px;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+    }
+    
+    .overlay-content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .overlay-content .form-group input {
+        font-size: 16px;
+    }
+    
+    .overlay-content .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .overlay-content .form-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .shipping-address-box .btn:active {
+        transform: scale(0.98);
+    }
+    
+    .overlay-content .form-group input:focus {
+        transform: scale(1.02);
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .shipping-address-box {
+        border: 2px solid #ddd;
+    }
+}
+
+/* Landscape orientation for mobile devices */
+@media (max-height: 500px) and (orientation: landscape) {
+    .shipping-address-box {
+        padding: 8px 12px;
+    }
+    
+    .overlay-content {
+        padding: 15px 20px;
+        max-height: 95vh;
+        width: 80%;
+    }
+}
+
+/* Print styles */
+@media print {
+    .shipping-address-box {
+        border: 1px solid #333;
+        background: transparent;
+    }
+    
+    .shipping-address-box .btn {
+        display: none !important;
+    }
+    
+    .overlay-content {
+        display: none !important;
+    }
+}
