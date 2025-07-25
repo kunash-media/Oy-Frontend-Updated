@@ -4,7 +4,11 @@ let cartCount = 1;
 
 // Update the count for Cart
 function updateCartCount() {
-  document.getElementById("cart-count").innerText = cartCount;
+  const cart = loadCart();
+  const countElement = document.getElementById("cart-count");
+  if (countElement) {
+    countElement.textContent = cart.length;
+  }
 }
 
 // Open the Cart modal
@@ -16,18 +20,30 @@ function openCart() {
 
 // Close the Cart modal
 function closeCart() {
- 
+  const modal = document.getElementById("cart-modal");
+  if (modal) {
+    modal.style.display = "none";
+  }
 }
 
-
-document.addEventListener('DOMContentLoaded', loadCart);
-
+// Cart management functions
 function loadCart() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  return JSON.parse(localStorage.getItem('cart')) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Display cart items in modal/table
+function displayCartItems() {
+  const cart = loadCart();
   const tableBody = document.querySelector('#cart-table tbody');
   const totalDisplay = document.getElementById('cart-total');
+  
+  if (!tableBody) return;
+  
   tableBody.innerHTML = '';
-
   let total = 0;
 
   cart.forEach((item, index) => {
@@ -47,56 +63,47 @@ function loadCart() {
     tableBody.appendChild(row);
   });
 
-  totalDisplay.textContent = total.toFixed(2);
+  if (totalDisplay) {
+    totalDisplay.textContent = total.toFixed(2);
+  }
 }
 
 function updateQuantity(index, newQty) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let cart = loadCart();
   cart[index].quantity = parseInt(newQty);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  loadCart();
+  saveCart(cart);
+  displayCartItems();
 }
 
 function removeItem(index) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let cart = loadCart();
   cart.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  loadCart();
+  saveCart(cart);
+  displayCartItems();
 }
 
-function saveCart(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart));
+function addToCart(product) {
+  const cart = loadCart();
+  cart.push(product);
+  saveCart(cart);
+  updateCartCount();
+  alert(`${product.title} added to cart!`);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// Main DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+  // Load cart on page load
+  displayCartItems();
+  updateCartCount();
+  
+  // Confirmation display
   const confirmation = document.getElementById('confirmation');
   if (confirmation) {
     confirmation.style.display = 'block';
     confirmation.style.animation = 'fadeIn 0.6s ease';
   }
-});
 
-function loadCart() {
-    return JSON.parse(localStorage.getItem('cart')) || [];
-  }
-
-  function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  function updateCartCount() {
-    const cart = loadCart();
-    document.getElementById('cart-count').textContent = cart.length;
-  }
-
-  function addToCart(product) {
-    const cart = loadCart();
-    cart.push(product);
-    saveCart(cart);
-    updateCartCount();
-    alert(`${product.title} added to cart!`);
-  }
-
+  // Add to cart buttons
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
       const card = button.closest('.product-card');
@@ -109,14 +116,8 @@ function loadCart() {
     });
   });
 
-  // Initialize cart count on load
-  updateCartCount();
-
-
-
-
-   // Buy Now Logic
-   document.querySelectorAll('.buy-now').forEach(button => {
+  // Buy Now Logic
+  document.querySelectorAll('.buy-now').forEach(button => {
     button.addEventListener('click', () => {
       const card = button.closest('.product-card');
       const product = {
@@ -133,8 +134,7 @@ function loadCart() {
     });
   });
 
-
-document.addEventListener('DOMContentLoaded', function () {
+  // Hamburger menu functionality
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
 
@@ -153,85 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     console.warn('hamburger or navLinks not found in the DOM');
   }
-});
 
-
-/* FRONT POPUP */
-
-function closePopup() {
-  document.getElementById("offerPopup").style.display = "none";
-}
-
-// Always show popup on home load
-window.onload = function() {
-  document.getElementById("offerPopup").style.display = "flex";
-};
-window.addEventListener('load', () => {
-  const popup = document.getElementById('offerPopup');
-  popup.classList.add('active');  // triggers fade + scale animation
-});
-
-function closePopup() {
-  const popup = document.getElementById('offerPopup');
-  popup.classList.remove('active');
-}
-
-
-
-/* SEARCH SUGGESTIONS */
-// Sample product data mapped to your HTML pages
-const products = [
-  { name: "Diamond Ring", url: "rings.html" },
-  { name: "Gold Ring", url: "rings.html" },
-  { name: "Silver Ring", url: "rings.html" },
-  { name: "Gold Necklace", url: "neck.html" },
-  { name: "Silver Necklace", url: "neck.html" },
-  { name: "Pearl Necklace", url: "neck.html" },
-  { name: "Silver Bracelet", url: "bracelet.html" },
-  { name: "Gold Bracelet", url: "bracelet.html" },
-  { name: "Pearl Earrings", url: "earrings.html" },
-  { name: "Diamond Earrings", url: "earring.html" }
-];
-
-const searchInput = document.getElementById('searchInput');
-const searchSuggestions = document.getElementById('searchSuggestions');
-
-searchInput.addEventListener('input', function() {
-  const input = this.value.toLowerCase();
-  searchSuggestions.innerHTML = '';
-  
-  if (input.length > 0) {
-    const matches = products.filter(product => 
-      product.name.toLowerCase().includes(input)
-    );
-    
-    if (matches.length > 0) {
-      matches.forEach(product => {
-        const suggestion = document.createElement('a');
-        suggestion.href = product.url;
-        suggestion.textContent = product.name;
-        suggestion.className = 'suggestion-item';
-        searchSuggestions.appendChild(suggestion);
-      });
-      searchSuggestions.style.display = 'block';
-    } else {
-      searchSuggestions.style.display = 'none';
-    }
-  } else {
-    searchSuggestions.style.display = 'none';
-  }
-});
-
-// Hide suggestions when clicking outside
-document.addEventListener('click', function(e) {
-  if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
-    searchSuggestions.style.display = 'none';
-  }
-});
-
-
-// Add this to your JavaScript
-document.addEventListener('DOMContentLoaded', function() {
   // Wishlist functionality
   const wishlistIcons = document.querySelectorAll('.wishlist-icon');
   
@@ -254,6 +176,87 @@ document.addEventListener('DOMContentLoaded', function() {
   updateWishlistCount();
 });
 
+/* FRONT POPUP */
+function closePopup() {
+  const popup = document.getElementById("offerPopup");
+  if (popup) {
+    popup.style.display = "none";
+    popup.classList.remove('active');
+  }
+}
+
+// Always show popup on home load
+window.onload = function() {
+  const popup = document.getElementById("offerPopup");
+  if (popup) {
+    popup.style.display = "flex";
+  }
+};
+
+window.addEventListener('load', () => {
+  const popup = document.getElementById('offerPopup');
+  if (popup) {
+    popup.classList.add('active');  // triggers fade + scale animation
+  }
+});
+
+/* SEARCH SUGGESTIONS */
+// Sample product data mapped to your HTML pages
+const products = [
+  { name: "Diamond Ring", url: "rings.html" },
+  { name: "Gold Ring", url: "rings.html" },
+  { name: "Silver Ring", url: "rings.html" },
+  { name: "Gold Necklace", url: "neck.html" },
+  { name: "Silver Necklace", url: "neck.html" },
+  { name: "Pearl Necklace", url: "neck.html" },
+  { name: "Silver Bracelet", url: "bracelet.html" },
+  { name: "Gold Bracelet", url: "bracelet.html" },
+  { name: "Pearl Earrings", url: "earrings.html" },
+  { name: "Diamond Earrings", url: "earring.html" }
+];
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+const searchSuggestions = document.getElementById('searchSuggestions');
+
+if (searchInput && searchSuggestions) {
+  searchInput.addEventListener('input', function() {
+    const input = this.value.toLowerCase();
+    searchSuggestions.innerHTML = '';
+    
+    if (input.length > 0) {
+      const matches = products.filter(product => 
+        product.name.toLowerCase().includes(input)
+      );
+      
+      if (matches.length > 0) {
+        matches.forEach(product => {
+          const suggestion = document.createElement('a');
+          suggestion.href = product.url;
+          suggestion.textContent = product.name;
+          suggestion.className = 'suggestion-item';
+          searchSuggestions.appendChild(suggestion);
+        });
+        searchSuggestions.style.display = 'block';
+      } else {
+        searchSuggestions.style.display = 'none';
+      }
+    } else {
+      searchSuggestions.style.display = 'none';
+    }
+  });
+}
+
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(e) {
+  if (searchInput && searchSuggestions && 
+      !searchInput.contains(e.target) && 
+      !searchSuggestions.contains(e.target)) {
+    searchSuggestions.style.display = 'none';
+  }
+});
+
+// Wishlist functions
 function addToWishlist(id, name, price, image) {
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   

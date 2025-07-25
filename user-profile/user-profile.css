@@ -160,11 +160,11 @@ body {
 
 /* Button Styles */
 .btn {
-    padding: 12px 24px;
-    border: none;
+    padding: 12px;
+    border: 1px solid grey;
     border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
@@ -194,7 +194,7 @@ body {
 
 .form-actions {
     text-align: center;
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 
 /* Overlay Styles */
@@ -773,9 +773,9 @@ body {
 .shipping-address-box .btn {
     margin: 0;
     font-family: Arial, sans-serif;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    /* letter-spacing: 0.5px; */
 }
 
 /* Overlay Styles for Shipping Address Form */
@@ -817,7 +817,7 @@ body {
 .overlay-content .form-group label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 600;
+    font-weight: 400;
     color: #333;
     font-size: 0.95rem;
 }
@@ -849,7 +849,7 @@ body {
 
 .overlay-content .form-actions .btn {
     font-family: Arial, sans-serif;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding: 12px 24px;

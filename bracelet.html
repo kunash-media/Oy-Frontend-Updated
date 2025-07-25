@@ -1676,14 +1676,7 @@ function renderProducts(limit) {
             <span class="old-price">₹${oldPrice.toFixed(2)}</span>
           </div>
         </div>
-        <button class="add-to-cart" 
-                data-id="${product.id}" 
-                data-name="${product.name}" 
-                data-price="${currentPrice.toFixed(2)}" 
-                data-image="${product.image}"
-                ${addToCartAttributes}>
-          Add to Cart
-        </button>
+       
         <button class="buy-now" 
                 data-id="${product.id}" 
                 data-name="${product.name}" 
@@ -1923,6 +1916,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       init() {
+        this.cleanupWishlist(); // Clean up any corrupted data first
         this.updateWishlistBadge();
         this.updateWishlistIcons();
 
@@ -1944,47 +1938,179 @@ document.addEventListener('DOMContentLoaded', function() {
           image: iconElement.dataset.image
         };
 
+        // Validate product data
+        if (!productData.id || !productData.name) {
+          console.error('Invalid product data:', productData);
+          return;
+        }
+
         let wishlist = this.getWishlist();
-        const existingIndex = wishlist.findIndex(item => item.id === productData.id);
+        const existingIndex = wishlist.findIndex(item => String(item.id) === String(productData.id));
 
         if (existingIndex >= 0) {
           wishlist.splice(existingIndex, 1);
           this.updateIconState(iconElement, false);
           this.showNotification('Removed from wishlist', 'remove');
         } else {
-          wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
+          wishlist.push(productData);
           this.updateIconState(iconElement, true);
           this.showNotification('Added to wishlist', 'success');
           iconElement.classList.add('pulse');
           setTimeout(() => iconElement.classList.remove('pulse'), 600);
         }
 
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        this.saveWishlist(wishlist);
         this.updateWishlistBadge();
+        this.updateWishlistIcons(); // Ensure icons are updated after toggle
+      }
+
+      saveWishlist(wishlist) {
+        try {
+          // Clean the wishlist before saving
+          const cleanWishlist = this.cleanWishlistData(wishlist);
+          
+          // Check total localStorage usage
+          const totalUsage = this.getLocalStorageUsage();
+          const wishlistString = JSON.stringify(cleanWishlist);
+          const wishlistSize = new TextEncoder().encode(wishlistString).length;
+          const maxStorage = 5 * 1024 * 1024; // 5MB as a conservative limit
+          const sizeThreshold = maxStorage * 0.2; // 20% of max storage (1MB)
+
+          console.log(`Wishlist size: ${wishlistSize} bytes, Total localStorage usage: ${totalUsage} bytes`);
+
+          if (wishlistSize > sizeThreshold) {
+            console.warn('Wishlist data is getting large, cleaning up...');
+            const trimmedWishlist = cleanWishlist.slice(-50); // Keep last 50 items
+            localStorage.setItem('wishlist', JSON.stringify(trimmedWishlist));
+            console.log(`Wishlist trimmed to ${trimmedWishlist.length} items`);
+          } else if (totalUsage + wishlistSize > maxStorage) {
+            console.warn('Approaching localStorage limit, attempting to free space...');
+            this.handleQuotaExceeded();
+            localStorage.setItem('wishlist', JSON.stringify(cleanWishlist));
+          } else {
+            localStorage.setItem('wishlist', wishlistString);
+            console.log(`Wishlist saved successfully with ${cleanWishlist.length} items`);
+          }
+        } catch (error) {
+          if (error.name === 'QuotaExceededError') {
+            console.error('LocalStorage quota exceeded. Clearing wishlist to recover.');
+            this.handleQuotaExceeded();
+          } else {
+            console.error('Error saving wishlist:', error);
+          }
+        }
+      }
+
+      getLocalStorageUsage() {
+        let total = 0;
+        for (let key in localStorage) {
+          if (localStorage.hasOwnProperty(key)) {
+            total += ((localStorage[key].length + key.length) * 2);
+          }
+        }
+        return total;
+      }
+
+      cleanWishlistData(wishlist) {
+        // Remove duplicates based on ID and clean up invalid entries
+        const seen = new Set();
+        return wishlist.filter(item => {
+          if (!item.id || seen.has(item.id)) {
+            return false;
+          }
+          seen.add(item.id);
+          
+          // Clean up the item object, ensure image is a URL or empty string
+          return {
+            id: String(item.id), // Ensure ID is a string
+            name: item.name || 'Unknown Product',
+            price: item.price || '0',
+            image: item.image && !item.image.startsWith('data:') ? item.image : '' // Avoid base64 images
+          };
+        });
+      }
+
+      cleanupWishlist() {
+        try {
+          const wishlist = this.getWishlist();
+          const cleanWishlist = this.cleanWishlistData(wishlist);
+          
+          if (cleanWishlist.length !== wishlist.length || 
+              JSON.stringify(cleanWishlist) !== JSON.stringify(wishlist)) {
+            this.saveWishlist(cleanWishlist);
+            console.log('Wishlist cleaned up during initialization');
+          }
+        } catch (error) {
+          console.error('Error during wishlist cleanup:', error);
+          localStorage.removeItem('wishlist');
+        }
+      }
+
+      handleQuotaExceeded() {
+        try {
+          // Clear wishlist
+          localStorage.removeItem('wishlist');
+          console.log('Wishlist cleared due to quota exceeded');
+
+          // Try to trim cart if it exists
+          const cart = localStorage.getItem('cart');
+          if (cart) {
+            try {
+              const parsedCart = JSON.parse(cart);
+              if (Array.isArray(parsedCart) && parsedCart.length > 20) {
+                const trimmedCart = parsedCart.slice(-20);
+                localStorage.setItem('cart', JSON.stringify(trimmedCart));
+                console.log(`Cart trimmed to ${trimmedCart.length} items`);
+              }
+            } catch (e) {
+              localStorage.removeItem('cart');
+              console.log('Cart cleared due to parsing error');
+            }
+          }
+
+          // Check userProfileData size
+          const userProfileData = localStorage.getItem('userProfileData');
+          if (userProfileData) {
+            const profileSize = new TextEncoder().encode(userProfileData).length;
+            console.log(`userProfileData size: ${profileSize} bytes`);
+            // Avoid clearing userProfileData, as it’s critical
+          }
+
+          this.updateWishlistBadge();
+          this.updateWishlistIcons();
+          this.showNotification('Storage full. Wishlist cleared to recover space.', 'remove');
+        } catch (error) {
+          console.error('Failed to recover from quota exceeded error:', error);
+        }
       }
 
       updateIconState(iconElement, isActive) {
         const icon = iconElement.querySelector('i');
-        if (isActive) {
-          iconElement.classList.add('active');
-          icon.classList.remove('far');
-          icon.classList.add('fas');
+        if (icon) {
+          if (isActive) {
+            iconElement.classList.add('active');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+          } else {
+            iconElement.classList.remove('active');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+          }
         } else {
-          iconElement.classList.remove('active');
-          icon.classList.remove('fas');
-          icon.classList.add('far');
+          console.warn('No <i> element found in wishlist-icon-card:', iconElement);
         }
       }
 
       updateWishlistIcons() {
         const wishlist = this.getWishlist();
-        const wishlistIds = wishlist.map(item => item.id);
+        const wishlistIds = wishlist.map(item => String(item.id)); // Ensure IDs are strings
 
         document.querySelectorAll('.wishlist-icon-card').forEach(icon => {
-          const productId = icon.dataset.id;
+          const productId = String(icon.dataset.id); // Ensure ID is string
           const isInWishlist = wishlistIds.includes(productId);
           this.updateIconState(icon, isInWishlist);
         });
+        console.log(`Updated ${wishlistIds.length} wishlist icons`);
       }
 
       updateWishlistBadge() {
@@ -1997,6 +2123,7 @@ document.addEventListener('DOMContentLoaded', function() {
           badge.classList.add('count-updated');
           setTimeout(() => badge.classList.remove('count-updated'), 400);
         }
+        console.log(`Wishlist badge updated: ${count} items`);
       }
 
       showNotification(message, type = 'success') {
@@ -2016,9 +2143,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       getWishlist() {
         try {
-          return JSON.parse(localStorage.getItem('wishlist')) || [];
+          const wishlistData = localStorage.getItem('wishlist');
+          if (!wishlistData) return [];
+          
+          const parsed = JSON.parse(wishlistData);
+          return Array.isArray(parsed) ? parsed : [];
         } catch (error) {
           console.error('Error parsing wishlist from localStorage:', error);
+          localStorage.removeItem('wishlist');
           return [];
         }
       }
@@ -2042,10 +2174,10 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.target.classList.contains('add-to-cart')) {
         const button = e.target;
         const productData = {
-          id: button.dataset.id,
+          id: String(button.dataset.id), // Ensure ID is string
           name: button.dataset.name,
           price: parseFloat(button.dataset.price),
-          image: button.dataset.image
+          image: button.dataset.image && !button.dataset.image.startsWith('data:') ? button.dataset.image : ''
         };
 
         addToCart(productData.id, productData.name, productData.price, productData.image);
@@ -2054,27 +2186,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // SINGLE addToCart FUNCTION — includes `image`
     function addToCart(id, name, price, image) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      try {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-      const existing = cart.find(item => item.id === id);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ id, name, price, image, quantity: 1 });
+        const existing = cart.find(item => String(item.id) === String(id));
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ id, name, price, image, quantity: 1 });
+        }
+
+        if (cart.length > 50) {
+          cart = cart.slice(-50);
+          console.log('Cart trimmed to last 50 items');
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
+      } catch (error) {
+        if (error.name === 'QuotaExceededError') {
+          console.error('Storage quota exceeded when adding to cart');
+          localStorage.removeItem('cart');
+          updateCartCount();
+          showCartNotification('Storage full. Cart cleared. Please try again.');
+        } else {
+          console.error('Error adding to cart:', error);
+        }
       }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
     }
 
     function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const countEl = document.getElementById('cart-count');
-      if (countEl) {
-        countEl.textContent = totalItems;
-        countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        const countEl = document.getElementById('cart-count');
+        if (countEl) {
+          countEl.textContent = totalItems;
+          countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+        console.log(`Cart count updated: ${totalItems} items`);
+      } catch (error) {
+        console.error('Error updating cart count:', error);
+        localStorage.removeItem('cart');
       }
     }
 
@@ -2093,15 +2247,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manual Wishlist Count Update (if needed externally)
     function updateWishlistCount() {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      const count = wishlist.length;
-      const badge = document.querySelector('.wishlist-count');
-      if (badge) {
-        badge.textContent = count;
-        badge.style.display = count > 0 ? 'flex' : 'none';
+      try {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const count = wishlist.length;
+        const badge = document.querySelector('.wishlist-count');
+        if (badge) {
+          badge.textContent = count;
+          badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+        console.log(`Manual wishlist count update: ${count} items`);
+      } catch (error) {
+        console.error('Error updating wishlist count:', error);
+        localStorage.removeItem('wishlist');
       }
     }
-  </script>
+</script>
 
   <script>
 document.addEventListener('DOMContentLoaded', async function() {
