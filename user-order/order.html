@@ -18,12 +18,98 @@
     href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
     rel="stylesheet">
 
-    
+  <!-- Inline CSS for Cancel Confirmation Overlay and Disabled Button -->
+  <style>
+    /* Cancel Confirmation Overlay */
+    .cancel-confirmation-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cancel-confirmation-container {
+      background: #fff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .cancel-confirmation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .cancel-confirmation-header h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .close-cancel-confirmation {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .cancel-confirmation-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .cancel-confirmation-content p {
+      margin: 0 0 20px;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .cancel-confirmation-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .cancel-loading {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .cancel-loading .loading-spinner {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .cancel-loading p {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    /* Disabled Button Style */
+    .btn-secondary.disabled {
+      background: #ccc;
+      color: #666;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  </style>
+
 </head>
 
 <body>
   <!-- Your header/navigation would go here -->
-
   <!-- HEADER -->
   <header id="header">
     <!-- TOP BAR -->
@@ -31,7 +117,7 @@
       <div class="scrolling-text">
         <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹500 ✨</span>
         <span>🔔 New Collection Just Launched - Shop Now!</span>
-            <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
+        <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
         <span>💝 Anniversary Offer - Extra Off for Couples</span>
       </div>
     </div>
@@ -73,24 +159,23 @@
             <span class="wishlist-count">0</span>
           </div>
         </a>
-        
-      <!--LOGIN / MYPROFILE-->
-      <div class="user-dropdown">
-        <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
-        <div class="dropdown-content">
-          <a href="/user-profile/user-profile.html">My Profile</a>
-          <!-- <a href="../login.html">Login/Logout</a> -->
-        
+
+        <!--LOGIN / MYPROFILE-->
+        <div class="user-dropdown">
+          <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+          <div class="dropdown-content">
+            <a href="/user-profile/user-profile.html">My Profile</a>
+            <!-- <a href="../login.html">Login/Logout</a> -->
+          </div>
         </div>
-      </div> 
-        
+
         <!-- Cart -->
         <a href="../cart.html">
           <i class="fa fa-shopping-cart"></i>
           <span id="cart-count">0</span>
         </a>
       </div>
-      
+
       <!-- Hamburger Menu -->
       <div class="hamburger" id="hamburger">
         <i class="fa fa-bars"></i>
@@ -107,17 +192,17 @@
     </div>
   </header>
 
-   <script>
+  <script>
     // Mobile Navigation Toggle
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const hamburger = document.getElementById("hamburger");
       const navLinks = document.querySelector(".nav-links");
-      
+
       // Toggle mobile menu
-      hamburger.addEventListener("click", function(e) {
+      hamburger.addEventListener("click", function (e) {
         e.stopPropagation();
         navLinks.classList.toggle("active");
-        
+
         // Toggle hamburger icon
         const icon = hamburger.querySelector("i");
         if (navLinks.classList.contains("active")) {
@@ -131,14 +216,14 @@
 
       // Handle dropdown clicks on mobile
       const dropdowns = document.querySelectorAll('.dropdown > a');
-      
+
       dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', function(e) {
+        dropdown.addEventListener('click', function (e) {
           if (window.innerWidth <= 768) {
             e.preventDefault();
             const parent = this.parentElement;
             parent.classList.toggle('active');
-            
+
             // Close other dropdowns
             document.querySelectorAll('.dropdown').forEach(otherDropdown => {
               if (otherDropdown !== parent && otherDropdown.classList.contains('active')) {
@@ -164,7 +249,7 @@
       });
 
       // Close menu on scroll
-      window.addEventListener('scroll', function() {
+      window.addEventListener('scroll', function () {
         if (window.innerWidth <= 768) {
           navLinks.classList.remove('active');
           document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -176,9 +261,9 @@
           icon.classList.add("fa-bars");
         }
       });
-      
+
       // Close menu on touch (for mobile)
-      document.addEventListener('touchstart', function(event) {
+      document.addEventListener('touchstart', function (event) {
         if (!event.target.closest('.navigation') && window.innerWidth <= 768) {
           navLinks.classList.remove('active');
           document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -208,7 +293,7 @@
 
       function typePlaceholder() {
         const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
-        
+
         if (isDeleting) {
           // Delete character
           currentText = fullTerm.substring(0, currentText.length - 1);
@@ -242,7 +327,6 @@
   </script>
 
   <script src="../search.js"></script>
-
 
   <div class="container">
     <div class="orders-header">
@@ -281,89 +365,115 @@
     </div>
   </div>
 
-<!-- Receipt Overlay -->
-<div class="receipt-overlay" id="receiptOverlay" style="display: none;">
-  <div class="receipt-container">
-    <div class="receipt-header">
-      <button class="close-receipt" onclick="orderManager.closeReceipt()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    
-    <div class="receipt-content">
-      <!-- Company Header -->
-      <div class="receipt-company-header">
-        <img src="../IMAGES/01.png" alt="OY Jewels" class="receipt-logo">
-        <h2>OY JEWELS</h2>
-        <p>Premium Jewelry Store</p>
+  <!-- Receipt Overlay -->
+  <div class="receipt-overlay" id="receiptOverlay" style="display: none;">
+    <div class="receipt-container">
+      <div class="receipt-header">
+        <button class="close-receipt" onclick="orderManager.closeReceipt()">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      
-      <!-- Order Info -->
-      <div class="receipt-order-info">
-        <h3>ORDER RECEIPT</h3>
-        <div class="receipt-order-details">
-          <div class="detail-row">
-            <span>Order ID:</span>
-            <span id="receiptOrderId">-</span>
-          </div>
-          <div class="detail-row">
-            <span>Order Date:</span>
-            <span id="receiptOrderDate">-</span>
-          </div>
-          <div class="detail-row">
-            <span>Status:</span>
-            <span id="receiptOrderStatus" class="status-badge">-</span>
-          </div>
-          <div class="detail-row">
-            <span>Expected Delivery:</span>
-            <span id="receiptDeliveryDate">-</span>
+
+      <div class="receipt-content">
+        <!-- Company Header -->
+        <div class="receipt-company-header">
+          <img src="../IMAGES/01.png" alt="OY Jewels" class="receipt-logo">
+          <h2>OY JEWELS</h2>
+          <p>Premium Jewelry Store</p>
+        </div>
+
+        <!-- Order Info -->
+        <div class="receipt-order-info">
+          <h3>ORDER RECEIPT</h3>
+          <div class="receipt-order-details">
+            <div class="detail-row">
+              <span>Order ID:</span>
+              <span id="receiptOrderId">-</span>
+            </div>
+            <div class="detail-row">
+              <span>Order Date:</span>
+              <span id="receiptOrderDate">-</span>
+            </div>
+            <div class="detail-row">
+              <span>Status:</span>
+              <span id="receiptOrderStatus" class="status-badge">-</span>
+            </div>
+            <div class="detail-row">
+              <span>Expected Delivery:</span>
+              <span id="receiptDeliveryDate">-</span>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Items List -->
-      <div class="receipt-items">
-        <h4>Order Items</h4>
-        <div class="receipt-items-list" id="receiptItemsList">
-          <!-- Items will be populated here -->
-        </div>
-      </div>
-      
-      <!-- Payment Summary -->
-      <div class="receipt-payment-summary">
-        <h4>Payment Details</h4>
-        <div class="payment-details">
-          <div class="payment-row">
-            <span>Subtotal:</span>
-            <span id="receiptSubtotal">₹0.00</span>
-          </div>
-          <div class="payment-row">
-            <span>SGST (9%):</span>
-            <span id="receiptSGST">₹0.00</span>
-          </div>
-          <div class="payment-row">
-            <span>CGST (9%):</span>
-            <span id="receiptCGST">₹0.00</span>
-          </div>
-          <div class="payment-row discount-row" id="receiptDiscountRow" style="display: none;">
-            <span>Discount:</span>
-            <span id="receiptDiscount">-₹0.00</span>
-          </div>
-          <div class="payment-row total-row">
-            <span>Total Amount:</span>
-            <span id="receiptTotal">₹0.00</span>
+
+        <!-- Items List -->
+        <div class="receipt-items">
+          <h4>Order Items</h4>
+          <div class="receipt-items-list" id="receiptItemsList">
+            <!-- Items will be populated here -->
           </div>
         </div>
-      </div>
-      
-      <!-- Footer -->
-      <div class="receipt-footer">
-        <p>Thank you for shopping with OY Jewels!</p>
-        <p>For any queries, contact us at support@oyjewels.com</p>
+
+        <!-- Payment Summary -->
+        <div class="receipt-payment-summary">
+          <h4>Payment Details</h4>
+          <div class="payment-details">
+            <div class="payment-row">
+              <span>Subtotal:</span>
+              <span id="receiptSubtotal">₹0.00</span>
+            </div>
+            <div class="payment-row">
+              <span>SGST (9%):</span>
+              <span id="receiptSGST">₹0.00</span>
+            </div>
+            <div class="payment-row">
+              <span>CGST (9%):</span>
+              <span id="receiptCGST">₹0.00</span>
+            </div>
+            <div class="payment-row discount-row" id="receiptDiscountRow" style="display: none;">
+              <span>Discount:</span>
+              <span id="receiptDiscount">-₹0.00</span>
+            </div>
+            <div class="payment-row total-row">
+              <span>Total Amount:</span>
+              <span id="receiptTotal">₹0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="receipt-footer">
+          <p>Thank you for shopping with OY Jewels!</p>
+          <p>For any queries, contact us at support@oyjewels.com</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Cancel Confirmation Overlay -->
+  <div class="cancel-confirmation-overlay" id="cancelConfirmationOverlay" style="display: none;">
+    <div class="cancel-confirmation-container">
+      <div class="cancel-confirmation-header">
+        <h3>Confirm Order Cancellation</h3>
+        <button class="close-cancel-confirmation" onclick="orderManager.closeCancelConfirmation()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="cancel-confirmation-content">
+        <p>Are you sure you want to cancel Order #<span id="cancelOrderId"></span>? This action cannot be undone.</p>
+        <div class="cancel-confirmation-actions">
+          <button class="btn-secondary" onclick="orderManager.closeCancelConfirmation()">No</button>
+          <button class="btn-primary" id="confirmCancelButton" onclick="orderManager.cancelOrder()">Yes</button>
+        </div>
+        <!-- Loader for API call -->
+        <div class="cancel-loading" id="cancelLoading" style="display: none;">
+          <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <p>Canceling your order...</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Your footer would go here -->
   <footer>
@@ -420,177 +530,176 @@
 
       <div class="footer-bottom">
         <div class="footer-container">
-          &copy; 2025 Kunash Media Solutions. All rights reserved.
+          © 2025 Kunash Media Solutions. All rights reserved.
         </div>
       </div>
     </div>
   </footer>
 
-  
+  <!-- Order Management Script -->
+  <script type="module">
+    // Import products API
+    import { fetchAllProducts } from '/global_js/backend_apis/products.js';
 
-<!-- Order Management Script -->
-<script type="module">
-  // Import products API
-  import { fetchAllProducts } from '/global_js/backend_apis/products.js';
-
-  class OrderManager {
-    constructor() {
-      this.API_BASE_URL = 'http://localhost:8080/api/orders';
-      this.products = [];
-      this.currentOrders = []; // ADD THIS LINE
-      this.init();
-    }
-
-    async init() {
-      try {
-        // Load products first
-        await this.loadProducts();
-        // Load orders
-        await this.loadOrders();
-      } catch (error) {
-        console.error('Error initializing order manager:', error);
-        this.showEmptyState();
-      }
-    }
-
-    async loadProducts() {
-      try {
-        this.products = await fetchAllProducts();
-      } catch (error) {
-        console.error('Error loading products:', error);
+    class OrderManager {
+      constructor() {
+        this.API_BASE_URL = 'http://localhost:8080/api/orders';
         this.products = [];
+        this.currentOrders = [];
+        this.init();
       }
-    }
 
-    async loadOrders() {
-      // Show loading state
-      this.showLoadingState();
-
-      try {
-        // Check if user is logged in
-        if (!window.userAPI || !window.userAPI.isLoggedIn()) {
-          console.log('User not logged in');
-          this.showEmptyState();
-          return;
-        }
-
-        // Get current user
-        const currentUser = window.userAPI.getCurrentUser();
-        if (!currentUser || !currentUser.userId) {
-          console.log('No valid user found');
-          this.showEmptyState();
-          return;
-        }
-
-        // Fetch orders from API
-        const response = await fetch(`${this.API_BASE_URL}/get-by-userId/${currentUser.userId}`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const orders = await response.json();
-        
-        // Hide loading state
-        this.hideLoadingState();
-
-        if (orders && orders.length > 0) {
-          // Sort orders by priority before displaying
-          const sortedOrders = this.sortOrdersByPriority(orders);
-          this.displayOrders(sortedOrders);
-        } else {
+      async init() {
+        try {
+          // Load products first
+          await this.loadProducts();
+          // Load orders
+          await this.loadOrders();
+        } catch (error) {
+          console.error('Error initializing order manager:', error);
           this.showEmptyState();
         }
-
-      } catch (error) {
-        console.error('Error loading orders:', error);
-        this.hideLoadingState();
-        this.showEmptyState();
       }
-    }
 
-    // New method to sort orders by priority
-    sortOrdersByPriority(orders) {
-      const statusPriority = {
-        'placed': 1,  // Top priority
-        'shipped': 2,     // Mid priority
-        'delivered': 3,
-        'cancel' : 4       // Last priority
-      };
-
-      return orders.sort((a, b) => {
-        const priorityA = statusPriority[a.status.toLowerCase()] || 999; // Unknown statuses go to end
-        const priorityB = statusPriority[b.status.toLowerCase()] || 999;
-        
-        if (priorityA !== priorityB) {
-          return priorityA - priorityB; // Sort by priority
+      async loadProducts() {
+        try {
+          this.products = await fetchAllProducts();
+        } catch (error) {
+          console.error('Error loading products:', error);
+          this.products = [];
         }
-        
-        // If same priority, sort by order date (newest first)
-        return new Date(b.orderDate) - new Date(a.orderDate);
-      });
-    }
+      }
 
-    showLoadingState() {
-      document.getElementById('loadingOrders').style.display = 'block';
-      document.getElementById('emptyOrders').style.display = 'none';
-      document.getElementById('ordersList').style.display = 'none';
-    }
+      async loadOrders() {
+        // Show loading state
+        this.showLoadingState();
 
-    hideLoadingState() {
-      document.getElementById('loadingOrders').style.display = 'none';
-    }
+        try {
+          // Check if user is logged in
+          if (!window.userAPI || !window.userAPI.isLoggedIn()) {
+            console.log('User not logged in');
+            this.showEmptyState();
+            return;
+          }
 
-    showEmptyState() {
-      document.getElementById('emptyOrders').style.display = 'block';
-      document.getElementById('ordersList').style.display = 'none';
-      this.hideLoadingState();
-    }
+          // Get current user
+          const currentUser = window.userAPI.getCurrentUser();
+          if (!currentUser || !currentUser.userId) {
+            console.log('No valid user found');
+            this.showEmptyState();
+            return;
+          }
 
-    displayOrders(orders) {
-      this.currentOrders = orders; // ADD THIS LINE
-      
-      const ordersList = document.getElementById('ordersList');
-      const emptyOrders = document.getElementById('emptyOrders');
-      
-      // Hide empty state and show orders list
-      emptyOrders.style.display = 'none';
-      ordersList.style.display = 'block';
-      
-      // Clear existing content
-      ordersList.innerHTML = '';
-      
-      // Create orders HTML
-      orders.forEach(order => {
-        const orderCard = this.createOrderCard(order);
-        ordersList.appendChild(orderCard);
-      });
-    }
+          // Fetch orders from API
+          const response = await fetch(`${this.API_BASE_URL}/get-by-userId/${currentUser.userId}`);
 
-    createOrderCard(order) {
-      const orderCard = document.createElement('div');
-      orderCard.className = 'order-card';
-      
-      // Format dates
-      const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-      
-      const deliveryDate = new Date(order.deliveryDate).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
-      // Create order items HTML
-      const orderItemsHTML = order.items.map(item => {
-        const product = this.getProductById(item.productId);
-        const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
-        
-        return `
-          <div class="order-item clickable-item" onclick="orderManager.redirectToProduct(${item.productId})">
+          const orders = await response.json();
+
+          // Hide loading state
+          this.hideLoadingState();
+
+          if (orders && orders.length > 0) {
+            // Sort orders by priority before displaying
+            const sortedOrders = this.sortOrdersByPriority(orders);
+            this.displayOrders(sortedOrders);
+          } else {
+            this.showEmptyState();
+          }
+
+        } catch (error) {
+          console.error('Error loading orders:', error);
+          this.hideLoadingState();
+          this.showEmptyState();
+        }
+      }
+
+      sortOrdersByPriority(orders) {
+        const statusPriority = {
+          'placed': 1,
+          'shipped': 2,
+          'delivered': 3,
+          'cancel': 4
+        };
+
+        return orders.sort((a, b) => {
+          const priorityA = statusPriority[a.status.toLowerCase()] || 999;
+          const priorityB = statusPriority[b.status.toLowerCase()] || 999;
+
+          if (priorityA !== priorityB) {
+            return priorityA - priorityB;
+          }
+
+          // If same priority, sort by order date (newest first)
+          return new Date(b.orderDate) - new Date(a.orderDate);
+        });
+      }
+
+      showLoadingState() {
+        document.getElementById('loadingOrders').style.display = 'block';
+        document.getElementById('emptyOrders').style.display = 'none';
+        document.getElementById('ordersList').style.display = 'none';
+      }
+
+      hideLoadingState() {
+        document.getElementById('loadingOrders').style.display = 'none';
+      }
+
+      showEmptyState() {
+        document.getElementById('emptyOrders').style.display = 'block';
+        document.getElementById('ordersList').style.display = 'none';
+        this.hideLoadingState();
+      }
+
+      displayOrders(orders) {
+        this.currentOrders = orders;
+
+        const ordersList = document.getElementById('ordersList');
+        const emptyOrders = document.getElementById('emptyOrders');
+
+        // Hide empty state and show orders list
+        emptyOrders.style.display = 'none';
+        ordersList.style.display = 'block';
+
+        // Clear existing content
+        ordersList.innerHTML = '';
+
+        // Create orders HTML
+        orders.forEach(order => {
+          const orderCard = this.createOrderCard(order);
+          ordersList.appendChild(orderCard);
+        });
+      }
+
+      createOrderCard(order) {
+        const orderCard = document.createElement('div');
+        orderCard.className = 'order-card';
+
+        // Format dates
+        const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        // Calculate if cancel button should be active (within 24 hours)
+        const orderDateTime = new Date(order.orderDate);
+        const now = new Date();
+        const hoursDiff = (now - orderDateTime) / (1000 * 60 * 60); // Difference in hours
+        const isCancelable = hoursDiff <= 24 && order.status.toLowerCase() === 'placed'; // Cancelable within 24 hours and only if status is 'placed'
+        const cancelButtonClass = isCancelable ? 'btn-secondary' : 'btn-secondary disabled'; // Add disabled class if not cancelable
+        const cancelButtonAttributes = isCancelable ? `onclick="orderManager.showCancelConfirmation(${order.orderId}, '${order.shiprocketOrderId}')"` : 'disabled';
+
+        // Create order items HTML
+        const orderItemsHTML = order.items.map(item => {
+          const product = this.getProductById(item.productId);
+          const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
+
+          return `
+          <div style="border: 1px solid #e0e0e0" class="order-item clickable-item" onclick="orderManager.redirectToProduct(${item.productId})">
             <div class="item-image">
               <img src="${productImage}" alt="${item.name}" />
             </div>
@@ -605,9 +714,9 @@
             </div>
           </div>
         `;
-      }).join('');
+        }).join('');
 
-      orderCard.innerHTML = `
+        orderCard.innerHTML = `
         <div class="order-header">
           <div class="order-info">
             <h3>Order #${order.orderId}</h3>
@@ -623,14 +732,10 @@
             ${orderItemsHTML}
           </div>
           
-          <div class="order-summary">
+          <div style="border: 1px solid #e0e0e0" class="order-summary">
             <div class="summary-row">
               <span>Total Items:</span>
               <span>${order.items.length}</span>
-            </div>
-            <div class="summary-row">
-              <span>Expected Delivery:</span>
-              <span>${deliveryDate}</span>
             </div>
             <div class="summary-row total">
               <span>Order Total:</span>
@@ -640,114 +745,104 @@
         </div>
         
         <div class="order-actions">
-         
-            <a href="https://www.shiprocket.in/shipment-tracking/" class="btn-secondary">
+          <a href="https://www.shiprocket.in/shipment-tracking/" class="btn-secondary">
             <i class="fas fa-truck"></i> Track Order
-            </a>
-        
+          </a>
+          <!-- Added Cancel Order button, conditionally disabled after 24 hours -->
+          <button class="${cancelButtonClass}" ${cancelButtonAttributes}>
+            <i class="fas fa-times"></i> Cancel Order
+          </button>
           <button class="btn-primary" onclick="orderManager.viewOrderDetails(${order.orderId})">
             <i class="fas fa-eye"></i> View Details
           </button>
         </div>
       `;
 
-      return orderCard;
-    }
-
-    getProductById(productId) {
-      return this.products.find(product => product.id === productId);
-    }
-
-    capitalizeFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    // Action methods
-    trackOrder(orderId) {
-      alert(`Tracking functionality for Order #${orderId} will be implemented soon.`);
-    }
-
-    // Updated viewOrderDetails method
-    viewOrderDetails(orderId) {
-      // Find the order by ID
-      const order = this.currentOrders.find(o => o.orderId === orderId);
-      
-      if (order) {
-        this.showReceiptOverlay(order);
-      } else {
-        console.error('Order not found:', orderId);
-        alert('Order details not found. Please try again.');
+        return orderCard;
       }
-    }
 
-    redirectToProduct(productId) {
-      // Redirect to product details page with product ID
-      window.location.href = `/product.html?id=${productId}`;
-      // Alternative: If you have a different product page structure, modify the URL accordingly
-      // window.location.href = `/product.html?productId=${productId}`;
-    }
-
-    // Method to show receipt overlay
-    showReceiptOverlay(order) {
-      const overlay = document.getElementById('receiptOverlay');
-      
-      // Populate order information
-      document.getElementById('receiptOrderId').textContent = `#${order.orderId || 'NA'}`;
-      
-      const orderDate = order.orderDate ? 
-        new Date(order.orderDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }) : 'NA';
-      document.getElementById('receiptOrderDate').textContent = orderDate;
-      
-      const statusElement = document.getElementById('receiptOrderStatus');
-      statusElement.textContent = order.status ? this.capitalizeFirst(order.status) : 'NA';
-      statusElement.className = `status-badge status-${(order.status || 'na').toLowerCase()}`;
-      
-      const deliveryDate = order.deliveryDate ? 
-        new Date(order.deliveryDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }) : 'NA';
-      document.getElementById('receiptDeliveryDate').textContent = deliveryDate;
-      
-      // Populate items
-      this.populateReceiptItems(order.items || []);
-      
-      // Calculate and populate payment details
-      this.populatePaymentDetails(order);
-      
-      // Show overlay
-      overlay.style.display = 'flex';
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    }
-
-    // Method to populate receipt items
-    populateReceiptItems(items) {
-      const itemsList = document.getElementById('receiptItemsList');
-      itemsList.innerHTML = '';
-      
-      if (!items || items.length === 0) {
-        itemsList.innerHTML = '<p style="text-align: center; color: #666;">No items found</p>';
-        return;
+      getProductById(productId) {
+        return this.products.find(product => product.id === productId);
       }
-      
-      items.forEach(item => {
-        const product = this.getProductById(item.productId);
-        const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
-        
-        // Calculate MRP and discount
-        const productPrice = item.productPrice || 0;
-        const mrp = product ? (product.oldPrice || product.price || productPrice * 1.2) : productPrice * 1.2;
-        const discount = mrp > productPrice ? ((mrp - productPrice) / mrp * 100).toFixed(0) : 0;
-        
-        const itemElement = document.createElement('div');
-        itemElement.className = 'receipt-item';
-        
-        itemElement.innerHTML = `
+
+      capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      trackOrder(orderId) {
+        alert(`Tracking functionality for Order #${orderId} will be implemented soon.`);
+      }
+
+      viewOrderDetails(orderId) {
+        const order = this.currentOrders.find(o => o.orderId === orderId);
+
+        if (order) {
+          this.showReceiptOverlay(order);
+        } else {
+          console.error('Order not found:', orderId);
+          alert('Order details not found. Please try again.');
+        }
+      }
+
+      redirectToProduct(productId) {
+        window.location.href = `/product.html?id=${productId}`;
+      }
+
+      showReceiptOverlay(order) {
+        const overlay = document.getElementById('receiptOverlay');
+
+        // Populate order information
+        document.getElementById('receiptOrderId').textContent = `#${order.orderId || 'NA'}`;
+
+        const orderDate = order.orderDate ?
+          new Date(order.orderDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          }) : 'NA';
+        document.getElementById('receiptOrderDate').textContent = orderDate;
+
+        const statusElement = document.getElementById('receiptOrderStatus');
+        statusElement.textContent = order.status ? this.capitalizeFirst(order.status) : 'NA';
+        statusElement.className = `status-badge status-${(order.status || 'na').toLowerCase()}`;
+
+        // Hide delivery date row
+        document.getElementById('receiptDeliveryDate').parentElement.style.display = 'none';
+
+        // Populate items
+        this.populateReceiptItems(order.items || []);
+
+        // Calculate and populate payment details
+        this.populatePaymentDetails(order);
+
+        // Show overlay
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      populateReceiptItems(items) {
+        const attachments = []
+        const itemsList = document.getElementById('receiptItemsList');
+        itemsList.innerHTML = '';
+
+        if (!items || items.length === 0) {
+          itemsList.innerHTML = '<p style="text-align: center; color: #666;">No items found</p>';
+          return;
+        }
+
+        items.forEach(item => {
+          const product = this.getProductById(item.productId);
+          const productImage = product ? product.image : '/IMAGES/placeholder.jpg';
+
+          // Calculate MRP and discount
+          const productPrice = item.productPrice || 0;
+          const mrp = product ? (product.oldPrice || product.price || productPrice * 1.2) : productPrice * 1.2;
+          const discount = mrp > productPrice ? ((mrp - productPrice) / mrp * 100).toFixed(0) : 0;
+
+          const itemElement = document.createElement('div');
+          itemElement.className = 'receipt-item';
+
+          itemElement.innerHTML = `
           <div class="receipt-item-image">
             <img src="${productImage}" alt="${item.name || 'Product'}" />
           </div>
@@ -761,82 +856,154 @@
             <div class="receipt-item-quantity">Quantity: ${item.productQuantity || 1}</div>
           </div>
         `;
-        
-        itemsList.appendChild(itemElement);
-      });
-    }
 
-    // Method to populate payment details
-    populatePaymentDetails(order) {
-      const total = order.total || 0;
-      
-      // Calculate tax-exclusive amount (assuming 18% total tax - 9% SGST + 9% CGST)
-      const taxRate = 0.18;
-      const subtotal = total / (1 + taxRate);
-      const totalTax = total - subtotal;
-      const sgst = totalTax / 2;
-      const cgst = totalTax / 2;
-      
-      // Update payment summary
-      document.getElementById('receiptSubtotal').textContent = `₹${subtotal.toFixed(2)}`;
-      document.getElementById('receiptSGST').textContent = `₹${sgst.toFixed(2)}`;
-      document.getElementById('receiptCGST').textContent = `₹${cgst.toFixed(2)}`;
-      document.getElementById('receiptTotal').textContent = `₹${total.toFixed(2)}`;
-      
-      // Handle discount if applicable
-      const discountRow = document.getElementById('receiptDiscountRow');
-      const discountAmount = order.discount || 0;
-      
-      if (discountAmount > 0) {
-        document.getElementById('receiptDiscount').textContent = `-₹${discountAmount.toFixed(2)}`;
-        discountRow.style.display = 'flex';
-      } else {
-        discountRow.style.display = 'none';
+          itemsList.appendChild(itemElement);
+        });
+      }
+
+      populatePaymentDetails(order) {
+        const total = order.total || 0;
+
+        // Calculate tax-exclusive amount (assuming 3% total tax)
+        const taxRate = 0.03;
+        const subtotal = total / (1 + taxRate);
+        const tax = total - subtotal;
+
+        // Update payment summary
+        document.getElementById('receiptSubtotal').textContent = `₹${subtotal.toFixed(2)}`;
+        // Replaced CGST and SGST with single Tax field
+        document.getElementById('receiptSGST').textContent = `₹${tax.toFixed(2)}`;
+        document.getElementById('receiptSGST').previousElementSibling.textContent = 'Tax (3%):';
+        document.getElementById('receiptCGST').style.display = 'none';
+        document.getElementById('receiptCGST').previousElementSibling.style.display = 'none';
+        document.getElementById('receiptTotal').textContent = `₹${total.toFixed(2)}`;
+
+        // Handle discount if applicable
+        const discountRow = document.getElementById('receiptDiscountRow');
+        const discountAmount = order.discount || 0;
+
+        if (discountAmount > 0) {
+          document.getElementById('receiptDiscount').textContent = `-₹${discountAmount.toFixed(2)}`;
+          discountRow.style.display = 'flex';
+        } else {
+          discountRow.style.display = 'none';
+        }
+      }
+
+      closeReceipt() {
+        const overlay = document.getElementById('receiptOverlay');
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+
+      // Show cancel confirmation overlay
+      showCancelConfirmation(orderId, shiprocketOrderId) {
+        const overlay = document.getElementById('cancelConfirmationOverlay');
+        document.getElementById('cancelOrderId').textContent = orderId;
+        // Store order and shiprocket IDs for use in cancelOrder
+        this.currentOrderId = orderId;
+        this.currentShiprocketOrderId = shiprocketOrderId;
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Cancel order via API
+      async cancelOrder() {
+        const overlay = document.getElementById('cancelConfirmationOverlay');
+        const loading = document.getElementById('cancelLoading');
+        const confirmButton = document.getElementById('confirmCancelButton');
+
+        // Show loader
+        loading.style.display = 'block';
+        confirmButton.disabled = true;
+
+        try {
+          const response = await fetch(`${this.API_BASE_URL}/cancel/shiprocket/${this.currentShiprocketOrderId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log('Cancel response:', result);
+
+          // Update order status in currentOrders
+          const order = this.currentOrders.find(o => o.orderId === this.currentOrderId);
+          if (order) {
+            order.status = 'cancelled';
+          }
+
+          // Refresh orders display
+          this.displayOrders(this.currentOrders);
+
+          // Close overlay
+          this.closeCancelConfirmation();
+          alert('Order canceled successfully!');
+
+        } catch (error) {
+          console.error('Error canceling order:', error);
+          alert('Failed to cancel order. Please try again.');
+        } finally {
+          // Hide loader and re-enable button
+          loading.style.display = 'none';
+          confirmButton.disabled = false;
+        }
+      }
+
+      // Close cancel confirmation overlay
+      closeCancelConfirmation() {
+        const overlay = document.getElementById('cancelConfirmationOverlay');
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
       }
     }
 
-    // Method to close receipt overlay
-    closeReceipt() {
-      const overlay = document.getElementById('receiptOverlay');
-      overlay.style.display = 'none';
-      document.body.style.overflow = 'auto'; // Restore background scrolling
-    }
-  }
-
-  // Initialize when DOM is loaded and userAPI is ready
-  function initializeOrderManager() {
-    if (window.userAPI) {
-      window.orderManager = new OrderManager();
-    } else {
-      // Wait for userAPI to be ready
-      window.addEventListener('userAPIReady', () => {
+    // Initialize when DOM is loaded and userAPI is ready
+    function initializeOrderManager() {
+      if (window.userAPI) {
         window.orderManager = new OrderManager();
-      });
+      } else {
+        // Wait for userAPI to be ready
+        window.addEventListener('userAPIReady', () => {
+          window.orderManager = new OrderManager();
+        });
+      }
     }
-  }
 
-  // Initialize
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeOrderManager);
-  } else {
-    initializeOrderManager();
-  }
-
-  // Close receipt overlay when clicking outside (ADD THIS)
-  document.addEventListener('DOMContentLoaded', function() {
-    const overlay = document.getElementById('receiptOverlay');
-    if (overlay) {
-      overlay.addEventListener('click', function(e) {
-        if (e.target === this) {
-          window.orderManager.closeReceipt();
-        }
-      });
+    // Initialize
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeOrderManager);
+    } else {
+      initializeOrderManager();
     }
-  });
-</script>
-<script>
+
+    // Close receipt and cancel confirmation overlays when clicking outside
+    document.addEventListener('DOMContentLoaded', function () {
+      const receiptOverlay = document.getElementById('receiptOverlay');
+      if (receiptOverlay) {
+        receiptOverlay.addEventListener('click', function (e) {
+          if (e.target === this) {
+            window.orderManager.closeReceipt();
+          }
+        });
+      }
+      const cancelOverlay = document.getElementById('cancelConfirmationOverlay');
+      if (cancelOverlay) {
+        cancelOverlay.addEventListener('click', function (e) {
+          if (e.target === this) {
+            window.orderManager.closeCancelConfirmation();
+          }
+        });
+      }
+    });
+  </script>
+  <script>
     //-------------whishlist managet class with icon updation-----//
-
     class WishlistManager {
       constructor() {
         this.init();
@@ -1021,10 +1188,7 @@
       }
     }
   </script>
-
-
   <script src="/global_js/backend_apis/users.js"></script>
   <script src="../user-profile/user-logout.js"></script>
 </body>
-
 </html>

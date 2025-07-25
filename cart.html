@@ -1633,13 +1633,14 @@ function updateEstimatedTotal(baseTotal) {
   }
 
   // Store properly formatted values
-  localStorage.setItem('cartTotal', JSON.stringify({
-    baseTotal: baseTotal,
-    discount: discountAmount,
-    finalTotal: finalTotal,
-    couponApplied: selectedCoupon ? selectedCoupon.code : null,
-    timestamp: new Date().toISOString()
-  }));
+ localStorage.setItem('cartTotal', JSON.stringify({
+  baseTotal: baseTotal,
+  discount: discountAmount,
+  finalTotal: finalTotal,
+  couponApplied: selectedCoupon ? selectedCoupon.code : null,
+  couponDiscount: selectedCoupon ? selectedCoupon.couponDiscount : null, // Add this line
+  timestamp: new Date().toISOString()
+}));
 
   // Update UI display (showing 2 decimal places)
   estimatedTotal.textContent = `₹${finalTotal.toFixed(2)}`;

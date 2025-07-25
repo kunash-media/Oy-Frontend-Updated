@@ -284,10 +284,26 @@
 </head>
 
 <body>
+    <!-- Add canvas-confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Add loading overlay -->
+    <div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1001; display: flex; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+            <h2 class="section-title">Processing Order...</h2>
+            <div class="spinner" style="border: 4px solid #f3f3f3; border-top: 4px solid #F1D1A5; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+            <style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+        </div>
+    </div>
 
     <a href="javascript:history.back()" class="back-arrow">
-            <i class="fas fa-arrow-left"></i>
-        </a>
+        <i class="fas fa-arrow-left"></i>
+    </a>
     <div class="checkout-container">
         <!-- Order Summary -->
         <div class="order-summary">
@@ -391,18 +407,14 @@
         </div>
 
         <!-- Success Notification -->
-        <div id="success-overlay"
-            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
-            <div
-                style="background: white; max-width: 400px; margin: 100px auto; padding: 20px; border-radius: 8px; text-align: center;">
+        <div id="success-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+            <div style="background: white; max-width: 400px; margin: 100px auto; padding: 20px; border-radius: 8px; text-align: center;">
                 <h2 class="section-title">Order Placed Successfully!</h2>
                 <p>Your order has been placed successfully.</p>
-                <button class="checkout-btn" onclick="window.location.href='./user-order/order.html'">Check
-                    Order</button>
+                <button class="checkout-btn" onclick="window.location.href='./user-order/order.html'">Check Order</button>
             </div>
         </div>
     </div>
-    <!-- <script src="script.js"></script> -->
 
     <script>
         const RAZORPAY_KEY_ID = 'rzp_live_TwaH0DLp8H8ZPg';
@@ -474,8 +486,26 @@
             }
         }
 
+        // Trigger Side Cannons confetti
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 }
+            });
+            confetti({
+                particleCount: 100,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 }
+            });
+        }
+
         // Main initialization
         document.addEventListener('DOMContentLoaded', function () {
+            // Ensure loading overlay is hidden on page load
+            document.getElementById('loading-overlay').style.display = 'none';
             cartItems = getCartItems();
             cartTotal = getCartTotal();
             displayOrderItems();
@@ -648,6 +678,9 @@
 
         // Process order
         async function processOrder(paymentMethod, razorpayData = null) {
+            // Show loading overlay
+            document.getElementById('loading-overlay').style.display = 'flex';
+
             const orderData = createOrderPayload(paymentMethod, razorpayData);
 
             try {
@@ -663,57 +696,63 @@
                     storeOrderDataForConfirmation(orderData);
                     localStorage.removeItem('cart');
                     localStorage.removeItem('cartTotal');
+                    // Hide loading overlay
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    // Trigger confetti
+                    triggerConfetti();
+                    // Show success overlay
                     document.getElementById('success-overlay').style.display = 'block';
                 } else {
                     throw new Error('Failed to create order');
                 }
             } catch (error) {
                 console.error('Error creating order:', error);
+                // Hide loading overlay
+                document.getElementById('loading-overlay').style.display = 'none';
                 Toastify({
-                        text: "Failed to place order. Please try again.",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "#ff4444",
-                        stopOnFocus: true
-                    }).showToast();
-                }
+                    text: "Failed to place order. Please try again.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#ff4444",
+                    stopOnFocus: true
+                }).showToast();
+            }
+        }
+
+        // Open Razorpay overlay
+        function openRazorpayOverlay() {
+            const userProfile = getUserProfileData();
+            const orderData = createOrderPayload('razorpay');
+
+            if (!orderData || !orderData.items || orderData.items.length === 0) {
+                Toastify({
+                    text: "Please select product item before paying.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#ff4444",
+                    stopOnFocus: true
+                }).showToast();
+                return;
             }
 
-        // Replace the openRazorpayOverlay function with the following:
-function openRazorpayOverlay() {
-    const userProfile = getUserProfileData();
-    const orderData = createOrderPayload('razorpay'); // Create payload to validate
+            const total = updateOrderTotal();
 
-    // Validate orderData and items
-    if (!orderData || !orderData.items || orderData.items.length === 0) {
-        Toastify({
-            text: "Please select product item before paying.",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "#ff4444",
-            stopOnFocus: true
-        }).showToast();
-        return;
-    }
+            document.getElementById('razorpay-amount').value = total.toFixed(2);
+            document.getElementById('currency').value = 'INR';
+            document.getElementById('receipt').value = generateReceiptId();
+            document.getElementById('customer-name').value = `${userProfile.customerFirstName} ${userProfile.customerLastName}`;
+            document.getElementById('customer-email').value = userProfile.customerEmail;
+            document.getElementById('customer-phone').value = userProfile.customerPhone;
 
-    const total = updateOrderTotal();
+            document.getElementById('razorpay-overlay').style.display = 'block';
 
-    document.getElementById('razorpay-amount').value = total.toFixed(2);
-    document.getElementById('currency').value = 'INR';
-    document.getElementById('receipt').value = generateReceiptId();
-    document.getElementById('customer-name').value = `${userProfile.customerFirstName} ${userProfile.customerLastName}`;
-    document.getElementById('customer-email').value = userProfile.customerEmail;
-    document.getElementById('customer-phone').value = userProfile.customerPhone;
-
-    document.getElementById('razorpay-overlay').style.display = 'block';
-
-    document.getElementById('confirm-razorpay-btn').onclick = initiateRazorpayPayment;
-    document.getElementById('cancel-razorpay-btn').onclick = () => {
-        document.getElementById('razorpay-overlay').style.display = 'none';
-    };
-}
+            document.getElementById('confirm-razorpay-btn').onclick = initiateRazorpayPayment;
+            document.getElementById('cancel-razorpay-btn').onclick = () => {
+                document.getElementById('razorpay-overlay').style.display = 'none';
+            };
+        }
 
         // Initiate Razorpay payment
         async function initiateRazorpayPayment() {
@@ -778,8 +817,7 @@ function openRazorpayOverlay() {
                 } else {
                     throw new Error('Payment order creation failed');
                 }
-            } 
-            catch (error) {
+            } catch (error) {
                 console.error('Error initiating payment:', error);
                 Toastify({
                     text: "Failed to initiate payment. Please try again.",
@@ -791,7 +829,6 @@ function openRazorpayOverlay() {
                 }).showToast();
             }
         }
-
     </script>
 </body>
 </html>

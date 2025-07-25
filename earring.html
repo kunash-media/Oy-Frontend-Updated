@@ -1877,7 +1877,7 @@ function renderProducts(limit) {
         sessionStorage.setItem('buyNowItem', JSON.stringify(productData));
 
         // Redirect to checkout page with minimal URL parameters
-        window.location.href = `checkout.html?product=${productData.id}&name=${encodeURIComponent(productData.name)}&price=${productData.price.toFixed(2)}`;
+        window.location.href = `cart.html?product=${productData.id}&name=${encodeURIComponent(productData.name)}&price=${productData.price.toFixed(2)}`;
       });
     } else {
       console.log(`Buy Now button for product ${button.getAttribute('data-id')} is disabled`);
