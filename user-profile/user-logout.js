@@ -6,6 +6,9 @@ class UserSessionManager {
         this.initAttempts = 0;
         this.API_BASE_URL = 'http://localhost:8080/api/users';
         this.API_ADDRESS_URL = 'http://localhost:8080/api/addresses';
+
+        // Add global flag to indicate initialization status
+        window.userSessionManagerInitialized = false;
         
         this.init();
     }
@@ -21,6 +24,7 @@ class UserSessionManager {
                 await this.storeUserProfileData();
             }
             this.initialized = true;
+            window.userSessionManagerInitialized = true;   // Set global flag
             console.log('UserSessionManager initialized successfully');
         } catch (error) {
             console.error('Initialization failed:', error);
@@ -87,29 +91,34 @@ class UserSessionManager {
                 if (!apiReady || !domReady) {
                     window.removeEventListener('userAPIReady', apiListener);
                     document.removeEventListener('DOMContentLoaded', domListener);
-                    reject(new Error('Dependencies not loaded within timeout'));
+                    console.warn('Dependencies not loaded within timeout, proceeding with partial initialization');
+                    resolve(); // Proceed with partial initialization
                 }
-            }, 3000);
+            }, 5000);
         });
     }
 
     createLogoutOverlay() {
-        if (document.getElementById('logoutOverlay')) return;
-
-        const overlay = document.createElement('div');
-        overlay.id = 'logoutOverlay';
-        overlay.className = 'logout-overlay';
-        overlay.innerHTML = `
-            <div class="logout-confirm-box">
-                <p>Are you sure you want to logout?</p>
-                <div class="logout-buttons">
-                    <button id="confirmLogout">Yes</button>
-                    <button id="cancelLogout">No</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
+    if (document.getElementById('logoutOverlay')) {
+        console.log('Logout overlay already exists');
+        return;
     }
+
+    const overlay = document.createElement('div');
+    overlay.id = 'logoutOverlay';
+    overlay.className = 'logout-overlay';
+    overlay.innerHTML = `
+        <div class="logout-confirm-box">
+            <p>Are you sure you want to logout?</p>
+            <div class="logout-buttons">
+                <button id="confirmLogout">Yes</button>
+                <button id="cancelLogout">No</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    console.log('Logout overlay created successfully');
+}
 
     async storeUserProfileData() {
         try {

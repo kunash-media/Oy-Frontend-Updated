@@ -1,5 +1,3 @@
-
-
 /**
  * User Profile Management Script
  * Handles profile data loading, editing, password change functionality, notifications, and shipping address management
@@ -169,116 +167,150 @@ class UserProfile {
         editShippingAddressBtn.addEventListener('click', () => this.openShippingAddressOverlay(true));
         cancelShippingAddressBtn.addEventListener('click', () => this.closeShippingAddressOverlay());
         shippingAddressForm.addEventListener('submit', (e) => this.handleShippingAddressSubmit(e));
-
-        // Listen for logout event to reset profile state
-        document.addEventListener('userLoggedOut', () => {
-            this.currentUser = null;
-            this.originalUserData = null;
-            this.shippingAddress = null;
-            this.isEditMode = false;
-            this.isEditingAddress = false;
-            this.showNotification('Logged out successfully', 'info');
-        });
     }
+
 
     /**
-     * Load user profile and shipping address from localStorage or API
-     */
-    async loadUserProfileAndShippingAddress() {
-        try {
-            this.showLoading(true);
-
-            // Try to load from localStorage first
-            const storedData = localStorage.getItem('userProfileData');
-            let userData = null;
-            let shippingAddress = null;
-
-            if (storedData) {
-                try {
-                    const combinedPayload = JSON.parse(storedData);
-                    // Extract user data
-                    userData = {
-                        userId: combinedPayload.userId,
-                        customerFirstName: combinedPayload.customerFirstName,
-                        customerLastName: combinedPayload.customerLastName,
-                        email: combinedPayload.email,
-                        mobile: combinedPayload.mobile,
-                        maritalStatus: combinedPayload.maritalStatus,
-                        customerDOB: combinedPayload.customerDOB,
-                        anniversary: combinedPayload.anniversary
-                    };
-                    // Extract shipping address
-                    shippingAddress = {
-                        customerPhone: combinedPayload.customerPhone,
-                        customerEmail: combinedPayload.customerEmail,
-                        shippingAddress: combinedPayload.shippingAddress,
-                        shippingCity: combinedPayload.shippingCity,
-                        shippingState: combinedPayload.shippingState,
-                        shippingPincode: combinedPayload.shippingPincode,
-                        shippingCountry: combinedPayload.shippingCountry
-                    };
-                } catch (error) {
-                    console.error('Error parsing userProfileData from localStorage:', error);
-                }
-            }
-
-            // If no valid data in localStorage, fetch from API
-            if (!userData) {
-                const userResponse = await fetch(`${this.API_BASE_URL}/${this.currentUser.userId}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
-                if (!userResponse.ok) {
-                    const errorData = await userResponse.json();
-                    this.showNotification(errorData.message || 'Failed to load profile data', 'error');
-                    return;
-                }
-
-                userData = await userResponse.json();
-            }
-
-            this.populateProfileForm(userData);
-            this.originalUserData = { ...userData };
-            this.showNotification('Profile loaded successfully', 'success');
-
-            // Load shipping address if not already loaded from localStorage
-            if (!shippingAddress) {
-                const addressResponse = await fetch(`${this.API_ADDRESS_URL}/get-address-by-userId/${this.currentUser.userId}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
-                if (addressResponse.ok) {
-                    const addresses = await addressResponse.json();
-                    if (addresses.length > 0) {
-                        shippingAddress = addresses[0];
-                    }
-                } else {
-                    this.showNotification('Failed to load shipping address', 'error');
-                }
-            }
-
-            const addButton = document.getElementById('add-shipping-address-btn');
-            const container = document.getElementById('shipping-address-container');
-
-            if (shippingAddress) {
-                this.shippingAddress = shippingAddress;
-                this.displayShippingAddress();
-                addButton.style.display = 'none';
-                container.style.display = 'block';
-            } else {
-                addButton.textContent = 'Add Shipping Address';
-                addButton.style.display = 'inline-block';
-                container.style.display = 'none';
-            }
-        } catch (error) {
-            console.error('Error loading profile or shipping address:', error);
-            this.showNotification('Network error while loading profile data', 'error');
-        } finally {
-            this.showLoading(false);
-        }
+ * Create and store combined payload in localStorage
+ */
+storeCombinedPayload(userData, shippingAddress) {
+    // Only store if both userData and shippingAddress are valid and non-empty
+    if (!userData || !shippingAddress) {
+        console.log('Combined payload not stored: Missing user or shipping data');
+        return;
     }
+
+    // Check if all required fields have valid values
+    const requiredFields = [
+        'customerFirstName', 'customerLastName', 'email', 'mobile',
+        'customerPhone', 'customerEmail', 'shippingAddress', 'shippingCity',
+        'shippingState', 'shippingPincode', 'shippingCountry'
+    ];
+
+    const hasAllRequiredFields = requiredFields.every(field => 
+        userData[field] || shippingAddress[field]
+    );
+
+    if (!hasAllRequiredFields) {
+        console.log('Combined payload not stored: Missing required fields');
+        return;
+    }
+
+    // Validate customerDOB
+    let customerDOB = userData.customerDOB;
+    if (!customerDOB || customerDOB === 'undefined' || !/^\d{4}-\d{2}-\d{2}$/.test(customerDOB)) {
+        customerDOB = null; // Set to null if invalid or undefined
+    }
+
+    // Create combined payload
+    const combinedPayload = {
+        userId: userData.userId,
+        customerFirstName: userData.customerFirstName,
+        customerLastName: userData.customerLastName,
+        customerPhone: shippingAddress.customerPhone,
+        customerEmail: shippingAddress.customerEmail,
+        shippingAddress: shippingAddress.shippingAddress,
+        shippingCity: shippingAddress.shippingCity,
+        shippingState: shippingAddress.shippingState,
+        shippingPincode: shippingAddress.shippingPincode,
+        shippingCountry: shippingAddress.shippingCountry,
+        shippingIsBilling: false,
+        billingCustomerName: userData.customerFirstName,
+        billingLastName: userData.customerLastName,
+        billingAddress: shippingAddress.shippingAddress,
+        billingCity: shippingAddress.shippingCity,
+        billingState: shippingAddress.shippingState,
+        billingPincode: shippingAddress.shippingPincode,
+        billingCountry: shippingAddress.shippingCountry,
+        billingEmail: shippingAddress.customerEmail,
+        billingPhone: shippingAddress.customerPhone,
+        email: userData.email,
+        mobile: userData.mobile,
+        maritalStatus: userData.maritalStatus,
+        customerDOB: customerDOB,
+        anniversary: userData.anniversary
+    };
+
+    try {
+        localStorage.setItem('userProfileData', JSON.stringify(combinedPayload));
+        console.log('Combined payload successfully stored in localStorage:', combinedPayload);
+    } catch (error) {
+        console.error('Error storing combined payload in localStorage:', error);
+        this.showNotification('Failed to store profile data locally', 'error');
+    }
+}
+
+
+/**
+ * Load user profile and shipping address, then store combined payload
+ */
+async loadUserProfileAndShippingAddress() {
+    try {
+        this.showLoading(true);
+
+        // Fetch user profile data from API
+        const userResponse = await fetch(`${this.API_BASE_URL}/${this.currentUser.userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!userResponse.ok) {
+            const errorData = await userResponse.json();
+            this.showNotification(errorData.message || 'Failed to load profile data', 'error');
+            return;
+        }
+
+        const userData = await userResponse.json();
+        // Validate and set defaults for critical fields
+        userData.email = userData.email || '';
+        userData.mobile = userData.mobile || '';
+        userData.maritalStatus = userData.maritalStatus || '';
+        userData.customerDOB = userData.customerDOB && userData.customerDOB !== 'undefined' && /^\d{4}-\d{2}-\d{2}$/.test(userData.customerDOB) ? userData.customerDOB : '';
+        userData.anniversary = userData.anniversary || null;
+
+        this.populateProfileForm(userData);
+        this.originalUserData = { ...userData };
+        this.showNotification('Profile loaded successfully', 'success');
+
+        // Fetch shipping address data
+        const addressResponse = await fetch(`${this.API_ADDRESS_URL}/get-address-by-userId/${this.currentUser.userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        let shippingAddress = null;
+        if (addressResponse.ok) {
+            const addresses = await addressResponse.json();
+            if (addresses.length > 0) {
+                shippingAddress = addresses[0];
+            }
+        } else {
+            this.showNotification('Failed to load shipping address', 'error');
+        }
+
+        const addButton = document.getElementById('add-shipping-address-btn');
+        const container = document.getElementById('shipping-address-container');
+
+        if (shippingAddress) {
+            this.shippingAddress = shippingAddress;
+            this.displayShippingAddress();
+            addButton.style.display = 'none';
+            container.style.display = 'block';
+            // Store combined payload with user and shipping data
+            this.storeCombinedPayload(userData, this.shippingAddress);
+        } else {
+            addButton.textContent = 'Add Shipping Address';
+            addButton.style.display = 'inline-block';
+            container.style.display = 'none';
+            console.log('No shipping address found, combined payload not stored');
+        }
+    } catch (error) {
+        console.error('Error loading profile or shipping address:', error);
+        this.showNotification('Network error while loading profile data', 'error');
+    } finally {
+        this.showLoading(false);
+    }
+}
 
     /**
      * Load shipping address data from API
@@ -363,83 +395,82 @@ class UserProfile {
         document.getElementById('shipping-address-form').reset();
     }
 
-    /**
-     * Handle form submission for adding/editing shipping address
-     */
-    async handleShippingAddressSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const payload = {
-            customerPhone: form.customerPhone.value,
-            customerEmail: form.customerEmail.value,
-            shippingAddress: form.shippingAddress.value,
-            shippingCity: form.shippingCity.value,
-            shippingState: form.shippingState.value,
-            shippingPincode: form.shippingPincode.value,
-            shippingCountry: form.shippingCountry.value
-        };
+   /**
+ * Handle form submission for adding/editing shipping address
+ */
+async handleShippingAddressSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const payload = {
+        customerPhone: form.customerPhone.value,
+        customerEmail: form.customerEmail.value,
+        shippingAddress: form.shippingAddress.value,
+        shippingCity: form.shippingCity.value,
+        shippingState: form.shippingState.value,
+        shippingPincode: form.shippingPincode.value,
+        shippingCountry: form.shippingCountry.value
+    };
 
-        try {
-            this.showLoading(true);
-            const url = this.isEditingAddress 
-                ? `${this.API_ADDRESS_URL}/patch-address/${this.currentUser.userId}/${this.shippingAddress.shippingId}`
-                : `${this.API_ADDRESS_URL}/create-address/${this.currentUser.userId}`;
-            const method = this.isEditingAddress ? 'PATCH' : 'POST';
+    try {
+        this.showLoading(true);
+        const url = this.isEditingAddress 
+            ? `${this.API_ADDRESS_URL}/patch-address/${this.currentUser.userId}/${this.shippingAddress.shippingId}`
+            : `${this.API_ADDRESS_URL}/create-address/${this.currentUser.userId}`;
+        const method = this.isEditingAddress ? 'PATCH' : 'POST';
 
-            const response = await fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
 
-            if (response.ok) {
-                await this.loadShippingAddress();
-                this.closeShippingAddressOverlay();
-                this.showNotification(`Shipping address ${this.isEditingAddress ? 'updated' : 'added'} successfully`, 'success');
-                // Update userProfileData in localStorage after address change
-                if (this.originalUserData) {
-                    const userSessionManager = new UserSessionManager();
-                    await userSessionManager.storeUserProfileData();
-                }
-            } else {
-                const errorData = await response.json();
-                this.showNotification(errorData.message || 'Failed to save shipping address', 'error');
+        if (response.ok) {
+            await this.loadShippingAddress();
+            this.closeShippingAddressOverlay();
+            this.showNotification(`Shipping address ${this.isEditingAddress ? 'updated' : 'added'} successfully`, 'success');
+            // Update combined payload after address change
+            if (this.originalUserData) {
+                this.storeCombinedPayload(this.originalUserData, this.shippingAddress);
             }
-        } catch (error) {
-            console.error('Error saving shipping address:', error);
-            this.showNotification('Network error while saving shipping address', 'error');
-        } finally {
-            this.showLoading(false);
-        }
-    }
-
-    /**
-     * Populate the profile form with user data
-     */
-    populateProfileForm(userData) {
-        document.getElementById('customerFirstName').value = userData.customerFirstName || '';
-        document.getElementById('customerLastName').value = userData.customerLastName || '';
-        document.getElementById('email').value = userData.email || '';
-        document.getElementById('mobile').value = userData.mobile || '';
-        document.getElementById('maritalStatus').value = userData.maritalStatus || '';
-        
-        document.getElementById('customerDOB').value = userData.customerDOB;
-        
-        const anniversaryGroup = document.getElementById('anniversary-group');
-        const anniversaryInput = document.getElementById('anniversary');
-        
-        const anniversaryDate = userData.anniversary;
-        if (anniversaryDate && userData.maritalStatus === 'Married') {
-            anniversaryInput.value = anniversaryDate;
-            anniversaryGroup.classList.remove('hidden');
         } else {
-            anniversaryInput.value = '';
-            anniversaryGroup.classList.add('hidden');
+            const errorData = await response.json();
+            this.showNotification(errorData.message || 'Failed to save shipping address', 'error');
         }
-
-        this.currentUser = userData;
-        this.handleMaritalStatusChange();
+    } catch (error) {
+        console.error('Error saving shipping address:', error);
+        this.showNotification('Network error while saving shipping address', 'error');
+    } finally {
+        this.showLoading(false);
     }
+}
+
+/**
+ * Populate the profile form with user data
+ */
+populateProfileForm(userData) {
+    document.getElementById('customerFirstName').value = userData.customerFirstName || '';
+    document.getElementById('customerLastName').value = userData.customerLastName || '';
+    document.getElementById('email').value = userData.email || '';
+    document.getElementById('mobile').value = userData.mobile || '';
+    document.getElementById('maritalStatus').value = userData.maritalStatus || '';
+    
+    document.getElementById('customerDOB').value = userData.customerDOB && userData.customerDOB !== 'undefined' && /^\d{4}-\d{2}-\d{2}$/.test(userData.customerDOB) ? userData.customerDOB : '';
+    
+    const anniversaryGroup = document.getElementById('anniversary-group');
+    const anniversaryInput = document.getElementById('anniversary');
+    
+    const anniversaryDate = userData.anniversary;
+    if (anniversaryDate && userData.maritalStatus === 'Married') {
+        anniversaryInput.value = anniversaryDate;
+        anniversaryGroup.classList.remove('hidden');
+    } else {
+        anniversaryInput.value = '';
+        anniversaryGroup.classList.add('hidden');
+    }
+
+    this.currentUser = userData;
+    this.handleMaritalStatusChange();
+}
 
     /**
      * Toggle edit mode
@@ -503,45 +534,46 @@ class UserProfile {
         }
     }
 
-    /**
-     * Save profile changes
-     */
-    async saveProfileChanges() {
-        try {
-            const formData = this.getFormData();
-            if (!this.validateFormData(formData)) {
-                return;
-            }
-
-            this.showLoading(true);
-            const response = await fetch(`${this.API_BASE_URL}/update/${this.currentUser.userId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                const updatedData = await response.json();
-                this.currentUser = updatedData;
-                this.originalUserData = { ...updatedData };
-                this.toggleEditMode(false);
-                this.showNotification('Profile updated successfully', 'success');
-                // Update userProfileData in localStorage after profile update
-                const userSessionManager = new UserSessionManager();
-                await userSessionManager.storeUserProfileData();
-            } else {
-                const errorData = await response.json();
-                this.showNotification(errorData.message || 'Failed to update profile', 'error');
-            }
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            this.showNotification('Network error while updating profile', 'error');
-        } finally {
-            this.showLoading(false);
+   /**
+ * Save profile changes
+ */
+async saveProfileChanges() {
+    try {
+        const formData = this.getFormData();
+        if (!this.validateFormData(formData)) {
+            return;
         }
+
+        this.showLoading(true);
+        const response = await fetch(`${this.API_BASE_URL}/update/${this.currentUser.userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            const updatedData = await response.json();
+            this.currentUser = updatedData;
+            this.originalUserData = { ...updatedData };
+            this.toggleEditMode(false);
+            this.showNotification('Profile updated successfully', 'success');
+            // Update combined payload if shipping address exists
+            if (this.shippingAddress) {
+                this.storeCombinedPayload(updatedData, this.shippingAddress);
+            }
+        } else {
+            const errorData = await response.json();
+            this.showNotification(errorData.message || 'Failed to update profile', 'error');
+        }
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        this.showNotification('Network error while updating profile', 'error');
+    } finally {
+        this.showLoading(false);
     }
+}
 
     /**
      * Cancel edit and restore original data
@@ -778,7 +810,7 @@ document.addEventListener('visibilitychange', () => {
         if (!window.userAPI.isLoggedIn()) {
             window.userProfile.showNotification('Session expired. Please log in again.', 'warning');
             setTimeout(() => {
-                window.location.href = '/login.html';
+                window.location.href = 'login.html';
             }, 2000);
         }
     }
