@@ -457,11 +457,11 @@ header {
 }
 
 .price-label {
-  color: #666;
+  color: #4a4646;
 }
 
 .price-value {
-  font-weight: 500;
+  font-weight: 600;
   color: #333;
 }
 
@@ -471,7 +471,7 @@ header {
 
 .coupons-title {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 12px;
   color: #333;
 }
@@ -481,7 +481,7 @@ header {
   display: flex;
   align-items: center;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #b01919;
   border-radius: 8px;
   margin-bottom: 10px;
   background-color: #fff;
@@ -505,14 +505,10 @@ header {
   pointer-events: none; /* Disable non-selected coupons when one is selected */
 }
 
-.coupon-radio {
-  margin-right: 10px;
-}
-
 .coupon-text {
   flex: 1;
   font-size: 13px;
-  color: #666;
+  color: #252525;
   line-height: 1.5;
 }
 
@@ -527,6 +523,26 @@ header {
   margin-right: 12px;
   color: #ff5722;
   font-size: 20px;
+}
+
+.apply-coupon-btn {
+  padding: 5px 14px;
+  background-color: #dd1613e4;
+  color: white;
+  border: 1px solid rgb(55, 53, 53);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease;
+}
+
+.apply-coupon-btn:hover:not(:disabled) {
+  background-color: #630706be;
+}
+
+.apply-coupon-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .checkout-section {
@@ -1058,12 +1074,12 @@ header {
 
     <!-- Right Side - Order Summary -->
     <div class="order-summary">
-      <h2 class="summary-header">Order Summary</h2>
+      <h2 class="summary-header">Deals & Total Estimation</h2>
       
       <div class="benefits-section">
         <div class="crown-icon">👑</div>
-        <div class="benefit-title">OY JEWELS Crown Benefit</div>
-        <div class="benefit-subtitle">Get 5% Cashback on this order!</div>
+        <div class="benefit-title">OY JEWELLS Crown Benefit</div>
+        <div class="benefit-subtitle">Sweet deals await — grab a coupon and unwrap your total!</div>
       </div>
 
       <div class="price-row">
@@ -1450,12 +1466,41 @@ async function fetchAndRenderProducts() {
 // === Dynamic Coupons Section ===
 let selectedCoupon = null;
 
+// Load confetti library
+const confettiScript = document.createElement('script');
+confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+document.head.appendChild(confettiScript);
+
+function triggerConfetti() {
+  if (typeof confetti === 'function') {
+    const couponsContainer = document.getElementById('coupons-container');
+    if (couponsContainer) {
+      const rect = couponsContainer.getBoundingClientRect();
+      const x = (rect.left + rect.width / 2) / window.innerWidth; // Center of container in normalized x
+      const y = (rect.top + rect.height / 2) / window.innerHeight; // Center of container in normalized y
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { x, y },
+        colors: ['#ff5722', '#ffebee', '#ff9800'],
+      });
+    }
+  }
+}
+
 async function fetchAndRenderCoupons(userId = 2) {
   const couponsContainer = document.getElementById('coupons-container');
   if (!couponsContainer) return;
 
+  // Check cart total before rendering coupons
+  const cartTotal = calculateCartTotal();
+  if (cartTotal === 0) {
+    couponsContainer.innerHTML = '<p>No coupons available for an empty cart.</p>';
+    return;
+  }
+
   try {
-    const response = await fetch(`http://localhost:8080/api/coupons/get-coupon-by-userId/${userId}`, {
+    const response = await fetch(`http://localhost:8080/api/coupons/user/${userId}`, {
       headers: { 'Accept': 'application/json' }
     });
     const couponData = await handleResponse(response);
@@ -1493,18 +1538,21 @@ async function fetchAndRenderCoupons(userId = 2) {
     coupons.forEach(coupon => {
       const isExpired = coupon.status === 'expired';
       const couponClass = isExpired ? 'coupon-item expired' : 'coupon-item';
-      const disabledAttr = isExpired ? 'disabled' : '';
+      const buttonText = selectedCoupon && selectedCoupon.id === coupon.couponId ? 'Applied' : 'Apply';
+      const buttonDisabled = isExpired ? 'disabled' : '';
 
       html += `
         <div class="${couponClass}">
-          <input type="radio" name="coupon" class="coupon-radio" data-coupon-id="${coupon.couponId}" 
-                 data-discount="${coupon.couponDiscount}" ${disabledAttr}>
           <div class="coupon-icon">🎁</div>
           <div class="coupon-text">
             ${coupon.couponDescription} (${coupon.couponDiscount})<br>
             Code: ${coupon.couponCode}<br>
             Valid until: ${new Date(coupon.validUntilDate).toLocaleDateString()}
           </div>
+          <button class="apply-coupon-btn" data-coupon-id="${coupon.couponId}" 
+                  data-discount="${coupon.couponDiscount}" ${buttonDisabled}>
+            ${buttonText}
+          </button>
         </div>
       `;
     });
@@ -1548,18 +1596,21 @@ async function fetchAndRenderCoupons(userId = 2) {
     dummyCoupons.forEach(coupon => {
       const isExpired = coupon.status === 'expired';
       const couponClass = isExpired ? 'coupon-item expired' : 'coupon-item';
-      const disabledAttr = isExpired ? 'disabled' : '';
+      const buttonText = selectedCoupon && selectedCoupon.id === coupon.couponId ? 'Applied' : 'Apply';
+      const buttonDisabled = isExpired ? 'disabled' : '';
 
       html += `
         <div class="${couponClass}">
-          <input type="radio" name="coupon" class="coupon-radio" data-coupon-id="${coupon.couponId}" 
-                 data-discount="${coupon.couponDiscount}" ${disabledAttr}>
           <div class="coupon-icon">🎁</div>
           <div class="coupon-text">
             ${coupon.couponDescription} (${coupon.couponDiscount})<br>
             Code: ${coupon.couponCode}<br>
             Valid until: ${new Date(coupon.validUntilDate).toLocaleDateString()}
           </div>
+          <button class="apply-coupon-btn" data-coupon-id="${coupon.couponId}" 
+                  data-discount="${coupon.couponDiscount}" ${buttonDisabled}>
+            ${buttonText}
+          </button>
         </div>
       `;
     });
@@ -1570,44 +1621,45 @@ async function fetchAndRenderCoupons(userId = 2) {
 }
 
 function addCouponEventListeners() {
-  document.querySelectorAll('.coupon-radio').forEach(radio => {
-    radio.addEventListener('change', function() {
+  document.querySelectorAll('.apply-coupon-btn').forEach(button => {
+    button.addEventListener('click', function() {
       if (this.disabled) return;
 
-      selectedCoupon = {
-        id: this.dataset.couponId,
-        discount: parseFloat(this.dataset.discount.replace('%', '')) / 100,
-      };
+      const couponId = this.dataset.couponId;
+      if (selectedCoupon && selectedCoupon.id === couponId) {
+        // Deselect if clicking the same coupon
+        selectedCoupon = null;
+        this.textContent = 'Apply';
+      } else {
+        // Select new coupon
+        selectedCoupon = {
+          id: couponId,
+          discount: parseFloat(this.dataset.discount.replace('%', '')) / 100,
+        };
+        this.textContent = 'Applied';
+        triggerConfetti(); // Trigger confetti when coupon is applied
+      }
 
       updateCouponStates();
       updateEstimatedTotal(calculateCartTotal());
-    });
-  });
-
-  document.querySelectorAll('.coupon-radio').forEach(radio => {
-    radio.addEventListener('click', function(e) {
-      if (selectedCoupon && selectedCoupon.id === this.dataset.couponId) {
-        this.checked = false;
-        selectedCoupon = null;
-        updateCouponStates();
-        updateEstimatedTotal(calculateCartTotal());
-      }
     });
   });
 }
 
 function updateCouponStates() {
   document.querySelectorAll('.coupon-item').forEach(item => {
-    const radio = item.querySelector('.coupon-radio');
+    const button = item.querySelector('.apply-coupon-btn');
     const isExpired = item.classList.contains('expired');
     
     if (!isExpired) { // Only handle non-expired coupons
-      if (selectedCoupon && selectedCoupon.id !== radio.dataset.couponId) {
+      if (selectedCoupon && selectedCoupon.id !== button.dataset.couponId) {
         item.classList.add('disabled');
-        radio.disabled = true;
+        button.disabled = true;
+        button.textContent = 'Apply';
       } else {
         item.classList.remove('disabled');
-        radio.disabled = false;
+        button.disabled = false;
+        button.textContent = selectedCoupon && selectedCoupon.id === button.dataset.couponId ? 'Applied' : 'Apply';
       }
     }
   });
@@ -1633,14 +1685,14 @@ function updateEstimatedTotal(baseTotal) {
   }
 
   // Store properly formatted values
- localStorage.setItem('cartTotal', JSON.stringify({
-  baseTotal: baseTotal,
-  discount: discountAmount,
-  finalTotal: finalTotal,
-  couponApplied: selectedCoupon ? selectedCoupon.code : null,
-  couponDiscount: selectedCoupon ? selectedCoupon.couponDiscount : null, // Add this line
-  timestamp: new Date().toISOString()
-}));
+  localStorage.setItem('cartTotal', JSON.stringify({
+    baseTotal: baseTotal,
+    discount: discountAmount,
+    finalTotal: finalTotal,
+    couponApplied: selectedCoupon ? selectedCoupon.id : null, // Updated to use id
+    couponDiscount: selectedCoupon ? selectedCoupon.discount : null,
+    timestamp: new Date().toISOString()
+  }));
 
   // Update UI display (showing 2 decimal places)
   estimatedTotal.textContent = `₹${finalTotal.toFixed(2)}`;
@@ -1658,6 +1710,7 @@ function calculateCartTotal() {
   updateEstimatedTotal(baseTotal);
   return baseTotal;
 }
+
 class WishlistManager {
   constructor() {
     this.init();
