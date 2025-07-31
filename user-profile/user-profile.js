@@ -4,8 +4,8 @@
  */
 class UserProfile {
     constructor() {
-        this.API_BASE_URL = 'http://localhost:8080/api/users';
-        this.API_ADDRESS_URL = 'http://localhost:8080/api/addresses';
+        this.API_BASE_URL = 'https://api.oyjewells.com/api/users';
+        this.API_ADDRESS_URL = 'https://api.oyjewells.com/api/addresses';
         this.currentUser = null;
         this.originalUserData = null;
         this.isEditMode = false;

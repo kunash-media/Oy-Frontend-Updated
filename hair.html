@@ -704,7 +704,7 @@
 
     .image-highlight {
       width: 100%;
-      padding: 10px 20px;
+      /* padding: 10px 20px; */
       background-color: #fff;
       display: flex;
       justify-content: center;
@@ -723,7 +723,7 @@
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 20px;
+      border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
@@ -743,7 +743,7 @@
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .image-highlight {
-        padding: 30px 15px;
+        /* padding: 30px 15px; */
       }
 
       .image-container img {
@@ -753,7 +753,8 @@
 
     @media (max-width: 480px) {
       .image-highlight {
-        padding: 20px 10px;
+        /* padding: 20px 10px; */
+        margin-bottom: 15px;
       }
 
       .image-container img {
@@ -1388,11 +1389,19 @@
     <div class="search-div">
       <div class="search-bar">
         <input type="text" placeholder="" id="searchInput">
-        <button type="submit"><i class="fas fa-search"></i></button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
     </div>
   </header>
+
+   <!-- Floating WhatsApp and Phone Icons -->
+  <div class="floating-icons">
+    <!-- WhatsApp Icon -->
+    <a href="https://wa.aisensy.com/+918062962936" target="_blank" title="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+  </div>
 
 
   <script>
@@ -1566,33 +1575,32 @@
           <!-- Slide 1 -->
           <div class="mySlides fade">
             <div class="numbertext"></div>
-            <img src="./IMAGES/Banner 1.jpg" style="width:100%">
+            <img src="./IMAGES/coming soon oy jewells banner hair.jpg" style="width:100%">
           </div>
 
           <!-- Slide 2 -->
-          <div class="mySlides fade">
+          <!-- <div class="mySlides fade">
             <div class="numbertext"></div>
             <img src="/IMAGES/Banner 3.jpg" style="width:100%">
-          </div>
+          </div> -->
 
           <!-- Slide 3 -->
-          <div class="mySlides fade">
+          <!-- <div class="mySlides fade">
             <div class="numbertext"></div>
             <img src="/IMAGES/Banner 4.png" style="width:100%">
-
-          </div>
+          </div> -->
 
           <!-- Next and previous buttons -->
-          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+          <!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
         </div>
         <br>
 
         <!-- The dots/circles -->
         <div style="text-align:center">
-          <span class="dot" onclick="currentSlide(1)"></span>
+          <!-- <span class="dot" onclick="currentSlide(1)"></span>
           <span class="dot" onclick="currentSlide(2)"></span>
-          <span class="dot" onclick="currentSlide(3)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span> -->
         </div>
       </div>
     </section>
@@ -2001,7 +2009,7 @@
           <ul class="social-icons">
             <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
             <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://wa.aisensy.com/+918062962936" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
             <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
           </ul>
         </div>
@@ -2066,6 +2074,7 @@
       }
 
       init() {
+        this.cleanupWishlist(); // Clean up any corrupted data first
         this.updateWishlistBadge();
         this.updateWishlistIcons();
 
@@ -2087,47 +2096,179 @@
           image: iconElement.dataset.image
         };
 
+        // Validate product data
+        if (!productData.id || !productData.name) {
+          console.error('Invalid product data:', productData);
+          return;
+        }
+
         let wishlist = this.getWishlist();
-        const existingIndex = wishlist.findIndex(item => item.id === productData.id);
+        const existingIndex = wishlist.findIndex(item => String(item.id) === String(productData.id));
 
         if (existingIndex >= 0) {
           wishlist.splice(existingIndex, 1);
           this.updateIconState(iconElement, false);
           this.showNotification('Removed from wishlist', 'remove');
         } else {
-          wishlist.push({ ...productData, dateAdded: new Date().toISOString() });
+          wishlist.push(productData);
           this.updateIconState(iconElement, true);
           this.showNotification('Added to wishlist', 'success');
           iconElement.classList.add('pulse');
           setTimeout(() => iconElement.classList.remove('pulse'), 600);
         }
 
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        this.saveWishlist(wishlist);
         this.updateWishlistBadge();
+        this.updateWishlistIcons(); // Ensure icons are updated after toggle
+      }
+
+      saveWishlist(wishlist) {
+        try {
+          // Clean the wishlist before saving
+          const cleanWishlist = this.cleanWishlistData(wishlist);
+          
+          // Check total localStorage usage
+          const totalUsage = this.getLocalStorageUsage();
+          const wishlistString = JSON.stringify(cleanWishlist);
+          const wishlistSize = new TextEncoder().encode(wishlistString).length;
+          const maxStorage = 5 * 1024 * 1024; // 5MB as a conservative limit
+          const sizeThreshold = maxStorage * 0.2; // 20% of max storage (1MB)
+
+          console.log(`Wishlist size: ${wishlistSize} bytes, Total localStorage usage: ${totalUsage} bytes`);
+
+          if (wishlistSize > sizeThreshold) {
+            console.warn('Wishlist data is getting large, cleaning up...');
+            const trimmedWishlist = cleanWishlist.slice(-50); // Keep last 50 items
+            localStorage.setItem('wishlist', JSON.stringify(trimmedWishlist));
+            console.log(`Wishlist trimmed to ${trimmedWishlist.length} items`);
+          } else if (totalUsage + wishlistSize > maxStorage) {
+            console.warn('Approaching localStorage limit, attempting to free space...');
+            this.handleQuotaExceeded();
+            localStorage.setItem('wishlist', JSON.stringify(cleanWishlist));
+          } else {
+            localStorage.setItem('wishlist', wishlistString);
+            console.log(`Wishlist saved successfully with ${cleanWishlist.length} items`);
+          }
+        } catch (error) {
+          if (error.name === 'QuotaExceededError') {
+            console.error('LocalStorage quota exceeded. Clearing wishlist to recover.');
+            this.handleQuotaExceeded();
+          } else {
+            console.error('Error saving wishlist:', error);
+          }
+        }
+      }
+
+      getLocalStorageUsage() {
+        let total = 0;
+        for (let key in localStorage) {
+          if (localStorage.hasOwnProperty(key)) {
+            total += ((localStorage[key].length + key.length) * 2);
+          }
+        }
+        return total;
+      }
+
+      cleanWishlistData(wishlist) {
+        // Remove duplicates based on ID and clean up invalid entries
+        const seen = new Set();
+        return wishlist.filter(item => {
+          if (!item.id || seen.has(item.id)) {
+            return false;
+          }
+          seen.add(item.id);
+          
+          // Clean up the item object, ensure image is a URL or empty string
+          return {
+            id: String(item.id), // Ensure ID is a string
+            name: item.name || 'Unknown Product',
+            price: item.price || '0',
+            image: item.image && !item.image.startsWith('data:') ? item.image : '' // Avoid base64 images
+          };
+        });
+      }
+
+      cleanupWishlist() {
+        try {
+          const wishlist = this.getWishlist();
+          const cleanWishlist = this.cleanWishlistData(wishlist);
+          
+          if (cleanWishlist.length !== wishlist.length || 
+              JSON.stringify(cleanWishlist) !== JSON.stringify(wishlist)) {
+            this.saveWishlist(cleanWishlist);
+            console.log('Wishlist cleaned up during initialization');
+          }
+        } catch (error) {
+          console.error('Error during wishlist cleanup:', error);
+          localStorage.removeItem('wishlist');
+        }
+      }
+
+      handleQuotaExceeded() {
+        try {
+          // Clear wishlist
+          localStorage.removeItem('wishlist');
+          console.log('Wishlist cleared due to quota exceeded');
+
+          // Try to trim cart if it exists
+          const cart = localStorage.getItem('cart');
+          if (cart) {
+            try {
+              const parsedCart = JSON.parse(cart);
+              if (Array.isArray(parsedCart) && parsedCart.length > 20) {
+                const trimmedCart = parsedCart.slice(-20);
+                localStorage.setItem('cart', JSON.stringify(trimmedCart));
+                console.log(`Cart trimmed to ${trimmedCart.length} items`);
+              }
+            } catch (e) {
+              localStorage.removeItem('cart');
+              console.log('Cart cleared due to parsing error');
+            }
+          }
+
+          // Check userProfileData size
+          const userProfileData = localStorage.getItem('userProfileData');
+          if (userProfileData) {
+            const profileSize = new TextEncoder().encode(userProfileData).length;
+            console.log(`userProfileData size: ${profileSize} bytes`);
+            // Avoid clearing userProfileData, as it's critical
+          }
+
+          this.updateWishlistBadge();
+          this.updateWishlistIcons();
+          this.showNotification('Storage full. Wishlist cleared to recover space.', 'remove');
+        } catch (error) {
+          console.error('Failed to recover from quota exceeded error:', error);
+        }
       }
 
       updateIconState(iconElement, isActive) {
         const icon = iconElement.querySelector('i');
-        if (isActive) {
-          iconElement.classList.add('active');
-          icon.classList.remove('far');
-          icon.classList.add('fas');
+        if (icon) {
+          if (isActive) {
+            iconElement.classList.add('active');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+          } else {
+            iconElement.classList.remove('active');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+          }
         } else {
-          iconElement.classList.remove('active');
-          icon.classList.remove('fas');
-          icon.classList.add('far');
+          console.warn('No <i> element found in wishlist-icon-card:', iconElement);
         }
       }
 
       updateWishlistIcons() {
         const wishlist = this.getWishlist();
-        const wishlistIds = wishlist.map(item => item.id);
+        const wishlistIds = wishlist.map(item => String(item.id)); // Ensure IDs are strings
 
         document.querySelectorAll('.wishlist-icon-card').forEach(icon => {
-          const productId = icon.dataset.id;
+          const productId = String(icon.dataset.id); // Ensure ID is string
           const isInWishlist = wishlistIds.includes(productId);
           this.updateIconState(icon, isInWishlist);
         });
+        console.log(`Updated ${wishlistIds.length} wishlist icons`);
       }
 
       updateWishlistBadge() {
@@ -2140,6 +2281,7 @@
           badge.classList.add('count-updated');
           setTimeout(() => badge.classList.remove('count-updated'), 400);
         }
+        console.log(`Wishlist badge updated: ${count} items`);
       }
 
       showNotification(message, type = 'success') {
@@ -2159,9 +2301,14 @@
 
       getWishlist() {
         try {
-          return JSON.parse(localStorage.getItem('wishlist')) || [];
+          const wishlistData = localStorage.getItem('wishlist');
+          if (!wishlistData) return [];
+          
+          const parsed = JSON.parse(wishlistData);
+          return Array.isArray(parsed) ? parsed : [];
         } catch (error) {
           console.error('Error parsing wishlist from localStorage:', error);
+          localStorage.removeItem('wishlist');
           return [];
         }
       }
@@ -2185,10 +2332,10 @@
       if (e.target.classList.contains('add-to-cart')) {
         const button = e.target;
         const productData = {
-          id: button.dataset.id,
+          id: String(button.dataset.id), // Ensure ID is string
           name: button.dataset.name,
           price: parseFloat(button.dataset.price),
-          image: button.dataset.image
+          image: button.dataset.image && !button.dataset.image.startsWith('data:') ? button.dataset.image : ''
         };
 
         addToCart(productData.id, productData.name, productData.price, productData.image);
@@ -2197,27 +2344,49 @@
 
     // SINGLE addToCart FUNCTION — includes `image`
     function addToCart(id, name, price, image) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      try {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-      const existing = cart.find(item => item.id === id);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ id, name, price, image, quantity: 1 });
+        const existing = cart.find(item => String(item.id) === String(id));
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ id, name, price, image, quantity: 1 });
+        }
+
+        if (cart.length > 50) {
+          cart = cart.slice(-50);
+          console.log('Cart trimmed to last 50 items');
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
+      } catch (error) {
+        if (error.name === 'QuotaExceededError') {
+          console.error('Storage quota exceeded when adding to cart');
+          localStorage.removeItem('cart');
+          updateCartCount();
+          showCartNotification('Storage full. Cart cleared. Please try again.');
+        } else {
+          console.error('Error adding to cart:', error);
+        }
       }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      showCartNotification(`${name} added to cart (₹${price.toFixed(2)})`);
     }
 
     function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const countEl = document.getElementById('cart-count');
-      if (countEl) {
-        countEl.textContent = totalItems;
-        countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        const countEl = document.getElementById('cart-count');
+        if (countEl) {
+          countEl.textContent = totalItems;
+          countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+        console.log(`Cart count updated: ${totalItems} items`);
+      } catch (error) {
+        console.error('Error updating cart count:', error);
+        localStorage.removeItem('cart');
       }
     }
 
@@ -2236,15 +2405,185 @@
 
     // Manual Wishlist Count Update (if needed externally)
     function updateWishlistCount() {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      const count = wishlist.length;
-      const badge = document.querySelector('.wishlist-count');
-      if (badge) {
-        badge.textContent = count;
-        badge.style.display = count > 0 ? 'flex' : 'none';
+      try {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const count = wishlist.length;
+        const badge = document.querySelector('.wishlist-count');
+        if (badge) {
+          badge.textContent = count;
+          badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+        console.log(`Manual wishlist count update: ${count} items`);
+      } catch (error) {
+        console.error('Error updating wishlist count:', error);
+        localStorage.removeItem('wishlist');
       }
     }
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        // 1. Fetch banner data for the 'earrings' page
+        const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/earrings');
+
+        // 2. Check if response is successful
+        if (!response.ok) {
+          console.warn('Banner API response not OK, using default images');
+          return; // Keep the original images
+        }
+
+        // 3. Parse the JSON data
+        const bannerData = await response.json();
+        console.log('Loaded earrings banner data:', bannerData);
+
+        // 4. Update main banner (bannerFileOne)
+        const mainBannerImg = document.querySelector('#main-banner .banner-container img');
+        if (mainBannerImg && bannerData.bannerFileOne) {
+          mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
+          // Update alt text if available, otherwise keep existing
+          if (bannerData.header) {
+            mainBannerImg.alt = bannerData.header;
+          }
+        }
+
+        // 5. Update highlight banner (bannerFileTwo)
+        const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
+        if (highlightBannerImg && bannerData.bannerFileTwo) {
+          highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+          // Update alt text if available, otherwise keep existing
+          if (bannerData.text) {
+            highlightBannerImg.alt = bannerData.text;
+          }
+        }
+
+      } catch (error) {
+        console.error('Error loading earrings banner images:', error);
+        // The original images will remain as fallback
+      }
+    });
+  </script>
+  
+  <script>
+    // Mobile Navigation Toggle - Fixed Version
+    document.addEventListener("DOMContentLoaded", function () {
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      const navigation = document.querySelector(".navigation");
+
+      // Toggle mobile menu
+      hamburger.addEventListener("click", function (e) {
+        e.stopPropagation();
+        navLinks.classList.toggle("active");
+        
+        // Toggle hamburger icon
+        const icon = hamburger.querySelector("i");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
+      });
+
+      // Handle dropdown clicks on mobile
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+      
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function (e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            
+            // Close all other dropdowns first
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+              if (otherDropdown !== parent) {
+                otherDropdown.classList.remove('active');
+              }
+            });
+            
+            // Toggle current dropdown
+            parent.classList.toggle('active');
+          }
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu on scroll
+      window.addEventListener('scroll', function () {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Animated Search Placeholder
+      const jewelryTerms = [
+        "Earrings",
+        "Necklaces",
+        "Bracelets",
+        "Mangalsutra",
+        "Chains",
+      ];
+
+      const searchInput = document.getElementById('searchInput');
+      let currentTermIndex = 0;
+      let isDeleting = false;
+      let currentText = '';
+      let typingSpeed = 100; // milliseconds per character
+
+      function typePlaceholder() {
+        const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
+
+        if (isDeleting) {
+          // Delete character
+          currentText = fullTerm.substring(0, currentText.length - 1);
+        } else {
+          // Add character
+          currentText = fullTerm.substring(0, currentText.length + 1);
+        }
+
+        searchInput.placeholder = currentText;
+
+        // Determine if we should delete or type next
+        if (!isDeleting && currentText === fullTerm) {
+          // Pause at end of typing
+          setTimeout(() => isDeleting = true, 1000);
+        } else if (isDeleting && currentText === '') {
+          // Move to next term after deleting
+          isDeleting = false;
+          currentTermIndex = (currentTermIndex + 1) % jewelryTerms.length;
+          setTimeout(typePlaceholder, 500);
+          return;
+        }
+        // Adjust speed for deleting vs typing
+        const speed = isDeleting ? typingSpeed / 2 : typingSpeed;
+        setTimeout(typePlaceholder, speed);
+      }
+
+      // Start the typing effect
+      typePlaceholder();
+    });
+  </script>
+
+  <script src="/global_js/backend_apis/users.js"></script>
+  <script src="/user-profile/user-logout.js"></script>
+
 
 </body>
 

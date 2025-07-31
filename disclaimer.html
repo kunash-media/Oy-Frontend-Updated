@@ -68,6 +68,7 @@
       display: inline-block;
       padding-left: 100%;
       animation: scrollText 25s linear infinite;
+      /* box-sizing: border-box; */
     }
 
     .scrolling-text span {
@@ -279,6 +280,7 @@
 
     /* Mobile Responsive Styles */
     @media (max-width: 768px) {
+     
       .navigation {
         padding: 0 15px;
         flex-wrap: wrap;
@@ -378,9 +380,6 @@
       }
     }
 
-
-
-
     #disclaimer {
       color: #000000;
       max-width: 1200px;
@@ -458,13 +457,18 @@
     .footer-wrapper {
       max-width: 1200px;
       margin: 0 auto;
+      box-sizing: border-box;
+      overflow-x: hidden; /* Prevent overflow */
     }
 
     .footer-container {
       padding: 20px;
       display: flex;
       gap: 110px;
+      box-sizing: border-box;
+    overflow-x: hidden; /* Prevent overflow */
     }
+
 
     .footer-logo-section {
       flex: 0 0 120px;
@@ -695,14 +699,23 @@
     <div class="search-div">
       <div class="search-bar">
         <input type="text" placeholder="" id="searchInput">
-        <button type="submit"><i class="fas fa-search"></i></button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
     </div>
   </header>
 
+  <body>
+    
 
+   <!-- Floating WhatsApp and Phone Icons -->
+  <div class="floating-icons">
+    <!-- WhatsApp Icon -->
+    <a href="https://wa.aisensy.com/+918062962936" target="_blank" title="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
 
+  <script src="./search.js"></script>
 
   <section id="disclaimer">
     <div class="container" style="text-align: center;">
@@ -732,14 +745,14 @@
       distribution of any content is strictly prohibited.<br>
       <h3>Updates and Modifications</h3>
       OY Jewells reserves the right to modify, update, or revise this Disclaimer at any time without prior notice. Your
-      continued use of the website following any changes constitutes your acceptance of such changes.<br><br><br>
+      continued use of the website following any changes constitutes your acceptance of such changes.<br><br>
       <h3>Contact Information</h3>
       If you have any questions or concerns about this Disclaimer, please contact us at:<br>
       • Email: support@oyjewells.com<br>
-      <br>
-
+      <!-- <br> -->
       • Phone: +918482859816<br><br>
-      _________________________________________________________________<br>________________________________________<br>
+      <!-- _________________________________________________________________<br> -->
+      ________________________________________<br>
       This Disclaimer is designed to help set the proper expectations for users of your website and protect OY Jewells
       from liabilities that may arise from inadvertent errors or changes in content. Feel free to adjust the sections or
       language as needed for your specific business requirements.<br>
@@ -760,7 +773,7 @@
                   target="_blank"><i class="fab fa-instagram"></i></a></li>
               <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i
                     class="fab fa-facebook-f"></i></a></li>
-              <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://wa.aisensy.com/+918062962936" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
               <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
             </ul>
           </div>
@@ -1141,5 +1154,4 @@
     }
   </script>
 </body>
-
 </html>

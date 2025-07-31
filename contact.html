@@ -1,706 +1,860 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OY JEWELLS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* === Global Styles === */
-        :root {
-            --gradient-primary: linear-gradient(135deg, #511D43, #A91E4A);
-            --black: #1a1a1a;
-            --white: #ffffff;
-            --gray: #f5f5f5;
-            --dark-gray: #333333;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OY JEWELLS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+  <style>
+
+    .toastify {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Lato', sans-serif;
-        }
-
-        body {
-            background-color: var(--gray);
-            color: var(--black);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--black);
-        }
-  
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* === Header === */
-        header {
-            background: url('IMAGES/CONTACT\ BANNER.jpg') no-repeat center center/cover;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-        }
-
-        /* === Back Arrow === */
-        .back-arrow {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-  color: #A91E4A;
-            font-size: 1.5rem;
-            background: #ffffff;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-
-        .back-arrow:hover {
-            background: rgba(0, 0, 0, 0.5);
-            transform: translateX(-3px);
-        }
-
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            color:#ddd;
-            margin-bottom: 5%;
-        }
-
-        header p {
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            margin-bottom: 10%;
-            font-family: spantax;
-        }
-
-        /* === Contact Sections === */
-        .contact-section {
-            padding: 60px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(135deg, #511D43, #A91E4A);
-            margin: 15px auto;
-        }
-
-        /* === Contact Methods === */
-        .contact-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .contact-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .contact-card i {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #511D43, #A91E4A);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .contact-card h3 {
-            margin-bottom: 15px;
-        }
-
-        /* === Contact Form === */
-        .contact-form {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #A91E4A;
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #511D43, #A91E4A);
-            color: var(--white);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            background: linear-gradient(135deg, #A91E4A, #511D43);
-        }
-
-        /* === Trust Badges === */
-        .trust-badges {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 60px 0;
-        }
-
-        .badge {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .badge i {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #511D43, #A91E4A);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-        }
-
-        /* === FAQ === */
-        .faq-section {
-            background: var(--white);
-            padding: 60px 0;
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-        }
-
-        .faq-question {
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, #511D43, #A91E4A);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .faq-question.active::after {
-            content: '-';
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding-top: 10px;
-        }
-
-        /* === Social Media === */
-        .social-media {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: var(--black);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: linear-gradient(135deg, #511D43, #A91E4A);
-            transform: translateY(-3px);
-        }
-
-        /* === Footer === */
-    
-footer {
-  background:linear-gradient(135deg, #511D43, #A91E4A);
-  font-family: spantax;
-}
-
-.footer-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-container {
-  padding: 20px;
-  display: flex;
-  gap: 110px;
-}
-
-.footer-logo-section {
-  flex: 0 0 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.footer-logo {
-  width: 100%;
-  height: auto;
-}
-
-.social-icons-below-logo {
-  margin-top: 15px;
-}
-
-.social-icons-below-logo .social-icons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  padding: 0;
-  list-style: none;
-}
-
-.social-icons-below-logo .social-icons li a {
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 18px;
-  transition: all 0.3s ease;
-}
-
-.social-icons-below-logo .social-icons li a:hover {
-  transform: scale(1.1);
-  background-color: #f0f0f0;
-}
-
-.footer-content {
-  flex: 1;
-}
-
-.footer-sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-}
-
-.footer-section {
-  flex: 1;
-  min-width: 120px;
-}
-
-.footer-section h3 {
-  font-size: 14px;
-  margin-bottom: 12px;
-  color: #fff6f6;
-  text-transform: uppercase;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 8px;
-}
-
-.footer-section ul li a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 19px;
-  transition: color 0.2s ease;
-}
-
-.business-address {
-  color: #fff;
-  font-size: 19px;
-  line-height: 1.5;
-  margin-top: 10px;
-  max-width: 250px;
-}
-
-.footer-bottom {
-  border-top: 1px solid #333;
-  padding: 2px 2px;
-  font-size: 16px;
-  color: #ffffff;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 20px;
-    padding: 15px;
-  }
-  
-  .footer-logo-section {
-    flex: 0 0 auto;
-    text-align: center;
-    margin-bottom: 5px;
-  }
-  
-  .footer-logo {
-    max-width: 100px;
-  }
-  
-  .footer-sections {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .company-section {
-    display: none;
-  }
-  
-  .footer-section {
-    text-align: center;
-  }
-  
-  .social-icons-below-logo .social-icons {
-    justify-content: center;
-  }
-  
-  .footer-bottom {
-    text-align: center;
-    padding: 10px 15px;
-    font-size: 11px;
-  }
-  
-  /* Hide Shop section on smaller screens */
-  .footer-section:nth-child(1) {
-    display: none;
-  }
-  
-  .business-address {
-    margin: 10px auto;
-    text-align: center;
-    max-width: 100%;
-  }
-}
-
-/* Center the footer bottom text */
-.footer-bottom .footer-container {
-  justify-content: center;
-  display: flex;
-}
-
-        /* === Responsive === */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5rem;
-            }
-
-            .contact-methods {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-form {
-                padding: 30px 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <a href="javascript:history.back()" class="back-arrow">
-            <i class="fas fa-arrow-left"></i>
-        </a>
         
-    </header>
+        .toastify.success {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+        
+        .toastify.error {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+        }
+        
+        .toastify.loading {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+        }
 
-    <!-- Contact Methods -->
-    <section class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <div class="contact-methods">
-                <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email Us</h3>
-                    <p>support@oyjewells.com</p>
-                    <p>Response within 24 hours</p>
-                </div>
-                <div class="contact-card">
-                    <div class="contact-method">
-                        <a href="https://wa.me/918482859816" target="_blank" style="text-decoration: none; color: inherit;">
-                            <i class="fas fa-phone"></i>
-                            <h3>Connect with us</h3>
-                            <p>+918482859816</p>
-                            <p>Monday to Friday</p>
-                            <p>10:30 Am to 6:30 Pm</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    /* === Global Styles === */
+    :root {
+      --gradient-primary: linear-gradient(135deg, #511D43, #A91E4A);
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --gray: #f5f5f5;
+      --dark-gray: #333333;
+    }
 
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h3 class="section-title" style="margin-bottom: 30px;">Send Us a Message</h3>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name*</label>
-                        <input type="text" id="name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email*</label>
-                        <input type="email" id="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone (Optional)</label>
-                        <input type="tel" id="phone" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">How Can We Help?*</label>
-                        <textarea id="message" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-            </div>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Lato', sans-serif;
+    }
 
-            <!-- Trust Badges -->
-            <div class="trust-badges">
-                <div class="badge">
-                    <i class="fas fa-gem"></i>
-                    <h4>Radiance You Can Wear</h4>
-                    <p>Everyday</p>
-                </div>
-                <div class="badge">
-                    <i class="fas fa-shipping-fast"></i>
-                    <h4>Free Insured Shipping</h4>
-                    <p>On orders over 500</p>
-                </div>
-                <div class="badge">
-                    <i class="fas fa-undo"></i>
-                    <h4>24 Hours Returns</h4>
-                    <p>No questions asked</p>
-                </div>
-                <div class="badge">
-                    <i class="fas fa-certificate"></i>
-                    <h4>Certified Gemstones</h4>
-                    <p>GIA & IGI reports</p>
-                </div>
-            </div>
+    body {
+      background-color: var(--gray);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* === Header === */
+    header {
+      background: url('IMAGES/CONTACT\ BANNER.jpg') no-repeat center center/cover;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+    }
+
+    /* === Back Arrow === */
+    .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #A91E4A;
+      font-size: 1.5rem;
+      background: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .back-arrow:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateX(-3px);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      color: #ddd;
+      margin-bottom: 5%;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10%;
+      font-family: spantax;
+    }
+
+    /* === Contact Sections === */
+    .contact-section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      margin: 15px auto;
+    }
+
+    /* === Contact Methods === */
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .contact-card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .contact-card i {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 15px;
+    }
+
+    /* === Contact Form === */
+    .contact-form {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #A91E4A;
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      color: var(--white);
+      padding: 12px 30px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #A91E4A, #511D43);
+    }
+
+    /* === Trust Badges === */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 60px 0;
+    }
+
+    .badge {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .badge i {
+      font-size: 2rem;
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    /* === FAQ === */
+    .faq-section {
+      background: var(--white);
+      padding: 60px 0;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    .faq-question {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .faq-question.active::after {
+      content: '-';
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-top: 10px;
+    }
+
+    /* === Social Media === */
+    .social-media {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      transform: translateY(-3px);
+    }
+
+    /* === Footer === */
+
+    footer {
+      background: linear-gradient(135deg, #511D43, #A91E4A);
+      font-family: spantax;
+    }
+
+    .footer-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-container {
+      padding: 20px;
+      display: flex;
+      gap: 110px;
+    }
+
+    .footer-logo-section {
+      flex: 0 0 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      width: 100%;
+      height: auto;
+    }
+
+    .social-icons-below-logo {
+      margin-top: 15px;
+    }
+
+    .social-icons-below-logo .social-icons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      padding: 0;
+      list-style: none;
+    }
+
+    .social-icons-below-logo .social-icons li a {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons-below-logo .social-icons li a:hover {
+      transform: scale(1.1);
+      background-color: #f0f0f0;
+    }
+
+    .footer-content {
+      flex: 1;
+    }
+
+    .footer-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .footer-section h3 {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #fff6f6;
+      text-transform: uppercase;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 19px;
+      transition: color 0.2s ease;
+    }
+
+    .business-address {
+      color: #fff;
+      font-size: 19px;
+      line-height: 1.5;
+      margin-top: 10px;
+      max-width: 250px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding: 2px 2px;
+      font-size: 16px;
+      color: #ffffff;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .footer-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+      }
+
+      .footer-logo-section {
+        flex: 0 0 auto;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+
+      .footer-logo {
+        max-width: 100px;
+      }
+
+      .footer-sections {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .company-section {
+        display: none;
+      }
+
+      .footer-section {
+        text-align: center;
+      }
+
+      .social-icons-below-logo .social-icons {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding: 10px 15px;
+        font-size: 11px;
+      }
+
+      /* Hide Shop section on smaller screens */
+      .footer-section:nth-child(1) {
+        display: none;
+      }
+
+      .business-address {
+        margin: 10px auto;
+        text-align: center;
+        max-width: 100%;
+      }
+    }
+
+    /* Center the footer bottom text */
+    .footer-bottom .footer-container {
+      justify-content: center;
+      display: flex;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      .contact-methods {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <a href="javascript:history.back()" class="back-arrow">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+  </header>
+
+
+  <!-- Contact Methods -->
+  <section class="contact-section">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-methods">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email Us</h3>
+          <p>support@oyjewells.com</p>
+          <p>Response within 24 hours</p>
         </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">What is imitation jewellery?</div>
-                    <div class="faq-answer">
-                        <p> Imitation jewellery, also known as artificial or fashion jewellery, is designed to mimic the look of fine jewellery made from precious metals and gemstones. It uses a variety of materials like base metals (brass, copper, alloy, aluminium), plated metals (gold-plated, silver-plated), and simulated stones (cubic zirconia, glass, acrylic, resin) to offer stylish and affordable alternatives.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Will the colour of the jewellery fade or tarnish?</div>
-                    <div class="faq-answer">
-                        <p>Imitation jewellery is designed for fashion and affordability, and while our pieces are made with quality plating, they can fade or tarnish over time with improper care or prolonged exposure to certain elements. Please refer to our "Jewellery Care" section for tips on how to extend the life of your pieces.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">How can I place an order?</div>
-                    <div class="faq-answer">
-                        <p>    You can browse our collections online and add your desired items to your cart. Follow the steps at checkout to complete your purchase.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-  
-<footer>
-  <div class="footer-wrapper">
-    <div class="footer-container">
-      <div class="footer-logo-section">
-        <img src="IMAGES/01.png" alt="OY Logo" class="footer-logo">
-        <div class="social-icons-below-logo">
-          <ul class="social-icons">
-            <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-            <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
-          </ul>
+        <div class="contact-card">
+          <div class="contact-method">
+            <a href="https://wa.me/918482859816" target="_blank" style="text-decoration: none; color: inherit;">
+              <i class="fas fa-phone"></i>
+              <h3>Connect with us</h3>
+              <p>+918482859816</p>
+              <p>Monday to Friday</p>
+              <p>10:30 Am to 6:30 Pm</p>
+            </a>
+          </div>
         </div>
       </div>
-     
-      <div class="footer-content">
-        <div class="footer-sections">
-          <div class="footer-section">
-            <h3>Shop</h3>
-            <ul>
-              <li><a href="neck.html">Necklaces</a></li>
-              <li><a href="rings.html">Rings</a></li>
-              <li><a href="bracelet.html">Bracelets</a></li>
-              <li><a href="earring.html">Earrings</a></li>
-            </ul>
+
+      <!-- Contact Form -->
+       <div class="contact-form">
+        <h3 class="section-title" style="margin-bottom: 30px;">Send Us a Message</h3>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Your Name*</label>
+                <input type="text" placeholder="Enter You Full Name" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" placeholder="Enter Your Mobile Number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="message">How Can We Help?*</label>
+                <textarea id="message" placeholder="Type Your Query..."  class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn" id="submitBtn">
+                <span id="submitText" >Send Message</span>
+                <span id="loadingText" style="display: none;">Sending...</span>
+            </button>
+        </form>
+    </div>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="badge">
+          <i class="fas fa-gem"></i>
+          <h4>Radiance You Can Wear</h4>
+          <p>Everyday</p>
+        </div>
+        <div class="badge">
+          <i class="fas fa-shipping-fast"></i>
+          <h4>Free Insured Shipping</h4>
+          <p>On orders over 500</p>
+        </div>
+        <div class="badge">
+          <i class="fas fa-undo"></i>
+          <h4>24 Hours Returns</h4>
+          <p>No questions asked</p>
+        </div>
+        <div class="badge">
+          <i class="fas fa-certificate"></i>
+          <h4>Certified Gemstones</h4>
+          <p>GIA & IGI reports</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">What is imitation jewellery?</div>
+          <div class="faq-answer">
+            <p> Imitation jewellery, also known as artificial or fashion jewellery, is designed to mimic the look of
+              fine jewellery made from precious metals and gemstones. It uses a variety of materials like base metals
+              (brass, copper, alloy, aluminium), plated metals (gold-plated, silver-plated), and simulated stones (cubic
+              zirconia, glass, acrylic, resin) to offer stylish and affordable alternatives.</p>
           </div>
-         
-          <div class="footer-section company-section">
-            <h3>Company</h3>
-            <ul>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
-            </ul>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Will the colour of the jewellery fade or tarnish?</div>
+          <div class="faq-answer">
+            <p>Imitation jewellery is designed for fashion and affordability, and while our pieces are made with quality
+              plating, they can fade or tarnish over time with improper care or prolonged exposure to certain elements.
+              Please refer to our "Jewellery Care" section for tips on how to extend the life of your pieces.</p>
           </div>
-         
-          <div class="footer-section">
-            <h3>Legal</h3>
-            <ul>
-              <li><a href="faqs.html">FAQS</a></li>
-              <li><a href="disclaimer.html">Disclaimer</a></li>
-              <li><a href="privacy-policy.html">Privacy Policy</a></li>
-              <li><a href="shipping.html">Shipping Policy</a></li>
-              <li><a href="cancel.html">Cancellation Policy</a></li>
-              <li><a href="terms.html">Terms & Conditions</a></li>
-            </ul>
-          </div>
-         
-          <div class="footer-section">
-            <h3>Address</h3>
-            <p class="business-address">
-              Ward No. 2 Sr. No. 690, Hanuman Mandir, Mukhed, Mukhed Police Station, Mukhed, Nanded-431715. Maharashtra
-            </p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How can I place an order?</div>
+          <div class="faq-answer">
+            <p> You can browse our collections online and add your desired items to your cart. Follow the steps at
+              checkout to complete your purchase.</p>
           </div>
         </div>
       </div>
     </div>
-   
-    <div class="footer-bottom">
+  </section>
+
+  <footer>
+    <div class="footer-wrapper">
       <div class="footer-container">
-        &copy; 2025 Kunash Media Solutions. All rights reserved.
+        <div class="footer-logo-section">
+          <img src="IMAGES/01.png" alt="OY Logo" class="footer-logo">
+          <div class="social-icons-below-logo">
+            <ul class="social-icons">
+              <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet"
+                  target="_blank"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i
+                    class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://wa.aisensy.com/+918062962936" target="_blank"><i class="fab fa-whatsapp"></i></a>
+              </li>
+              <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-content">
+          <div class="footer-sections">
+            <div class="footer-section">
+              <h3>Shop</h3>
+              <ul>
+                <li><a href="neck.html">Necklaces</a></li>
+                <li><a href="rings.html">Rings</a></li>
+                <li><a href="bracelet.html">Bracelets</a></li>
+                <li><a href="earring.html">Earrings</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section company-section">
+              <h3>Company</h3>
+              <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>Legal</h3>
+              <ul>
+                <li><a href="faqs.html">FAQS</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="shipping.html">Shipping Policy</a></li>
+                <li><a href="cancel.html">Cancellation Policy</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>Address</h3>
+              <p class="business-address">
+                Ward No. 2 Sr. No. 690, Hanuman Mandir, Mukhed, Mukhed Police Station, Mukhed, Nanded-431715.
+                Maharashtra
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-container">
+          &copy; 2025 Kunash Media Solutions. All rights reserved.
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-    <!-- JavaScript -->
+  <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <!-- Updated JavaScript -->
     <script>
-        // Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Form Submission with Backend Integration
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Validate required fields
+            if (!name || !email || !message) {
+                Toastify({
+                    text: "Please fill in all required fields",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    className: "error",
+                    stopOnFocus: true
+                }).showToast();
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const loadingText = document.getElementById('loadingText');
             
-            // Here you would typically send the data to a server
-            console.log('Form submitted:', { name, email, message });
-            
-            // Show success message
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            loadingText.style.display = 'inline';
+
+            // Show loading toast
+            const loadingToast = Toastify({
+                text: "Sending your message...",
+                duration: -1, // Don't auto-hide
+                gravity: "top",
+                position: "right",
+                className: "loading",
+                stopOnFocus: true
+            });
+            loadingToast.showToast();
+
+            try {
+                // Prepare data for backend
+                const formData = {
+                    name: name,
+                    email: email,
+                    phone: phone || null,
+                    message: message
+                };
+
+                // Send to backend
+                const response = await fetch('http://localhost:8080/api/contact/submit-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                // Hide loading toast
+                loadingToast.hideToast();
+
+                if (response.ok) {
+                    // Try to parse as JSON, fallback to text
+                    let result;
+                    const contentType = response.headers.get('content-type');
+                    
+                    if (contentType && contentType.includes('application/json')) {
+                        result = await response.json();
+                    } else {
+                        result = await response.text();
+                    }
+                    
+                    // Show success toast with backend message or default
+                    const successMessage = typeof result === 'string' ? result : 
+                                         (result.message || "Thank you! Your message has been sent successfully. We'll get back to you soon.");
+                    
+                    Toastify({
+                        text: successMessage,
+                        duration: 5000,
+                        gravity: "top",
+                        position: "right",
+                        className: "success",
+                        stopOnFocus: true
+                    }).showToast();
+
+                    // Reset form
+                    this.reset();
+                    
+                } else {
+                    // Handle HTTP errors
+                    let errorData;
+                    const contentType = response.headers.get('content-type');
+                    
+                    if (contentType && contentType.includes('application/json')) {
+                        errorData = await response.json();
+                    } else {
+                        errorData = { message: await response.text() };
+                    }
+                    
+                    throw new Error(errorData.message || `Server error: ${response.status}`);
+                }
+
+            } catch (error) {
+                // Hide loading toast
+                loadingToast.hideToast();
+                
+                console.error('Form submission error:', error);
+                
+                // Show error toast
+                Toastify({
+                    text: `Failed to send message: check form. Please try again.`,
+                    duration: 5000,
+                    gravity: "top",
+                    position: "right",
+                    className: "error",
+                    stopOnFocus: true
+                }).showToast();
+                
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.style.display = 'inline';
+                loadingText.style.display = 'none';
+            }
         });
 
-        // FAQ Accordion
+        // Your existing FAQ and smooth scrolling code remains the same
         const faqQuestions = document.querySelectorAll('.faq-question');
         faqQuestions.forEach(question => {
             question.addEventListener('click', () => {
                 const answer = question.nextElementSibling;
                 const isActive = question.classList.contains('active');
-                
-                // Close all answers first
+
                 document.querySelectorAll('.faq-answer').forEach(ans => {
                     ans.style.maxHeight = null;
                 });
                 document.querySelectorAll('.faq-question').forEach(q => {
                     q.classList.remove('active');
                 });
-                
-                // Open current if not active
+
                 if (!isActive) {
                     question.classList.add('active');
                     answer.style.maxHeight = answer.scrollHeight + 'px';
@@ -708,9 +862,8 @@ footer {
             });
         });
 
-        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
@@ -719,4 +872,5 @@ footer {
         });
     </script>
 </body>
+
 </html>

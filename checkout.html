@@ -319,17 +319,17 @@
             </div>
 
             <div class="summary-row" id="discount-row" style="display: none;">
-                <span>Discount (<span id="applied-coupon"></span>)</span>
+                <span>Discount (<span id="applied-coupon"></span>% OFF)</span>
                 <span class="discount-row">-₹<span id="discount">0.00</span></span>
             </div>
 
             <div class="summary-row">
-                <span>Shipping</span>
+                <span>Shipping Fee</span>
                 <span>₹<span id="shipping">0.00</span></span>
             </div>
 
             <div class="summary-row">
-                <span>Tax</span>
+                <span>Tax(3%)</span>
                 <span>₹<span id="tax">0.00</span></span>
             </div>
 
@@ -344,7 +344,7 @@
                     <input type="radio" name="payment" value="cod" checked> COD (Cash On Delivery)
                 </label>
                 <label>
-                    <input type="radio" name="payment" value="razorpay"> Online Razorpay
+                    <input type="radio" name="payment" value="paid">Pay Online
                 </label>
             </div>
 
@@ -547,11 +547,12 @@
             currentSubtotal = cartTotal?.baseTotal || 0;
             currentDiscount = cartTotal?.discount || 0;
             appliedCouponCode = cartTotal?.couponApplied || '';
+            Discount = cartTotal?.couponDiscount*100 || 0;
 
             document.getElementById('subtotal').textContent = currentSubtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 });
             if (currentDiscount > 0) {
                 document.getElementById('discount').textContent = currentDiscount.toLocaleString('en-IN', { minimumFractionDigits: 2 });
-                document.getElementById('applied-coupon').textContent = appliedCouponCode;
+                document.getElementById('applied-coupon').textContent = Discount;
                 document.getElementById('discount-row').style.display = 'flex';
             }
             updateOrderTotal();

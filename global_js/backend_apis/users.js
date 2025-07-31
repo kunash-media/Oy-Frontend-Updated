@@ -11,7 +11,7 @@ class UserAPI {
     constructor() {
         // Session timeout: 1 hour in milliseconds
         this.SESSION_TIMEOUT = 24 * 60 * 60 * 1000; // 3600000 ms = 1 min
-        this.API_BASE_URL = 'http://localhost:8080/api/users';
+        this.API_BASE_URL = 'https://api.oyjewells.com/api/users';
         this.STORAGE_KEYS = {
             USER_DATA: 'userData',
             SESSION_TIMESTAMP: 'sessionTimestamp',

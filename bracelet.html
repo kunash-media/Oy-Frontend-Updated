@@ -701,7 +701,7 @@ margin-left: 150px;
 
 .image-highlight {
     width: 100%;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     background-color: #fff;
     display: flex;
     justify-content: center;
@@ -720,7 +720,7 @@ margin-left: 150px;
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
@@ -739,7 +739,8 @@ margin-left: 150px;
   /* Responsive Adjustments */
   @media (max-width: 768px) {
     .image-highlight {
-      padding: 30px 15px;
+      /* padding: 30px 15px; */
+      margin-bottom: 15px;
     }
 
     .image-container img {
@@ -749,7 +750,8 @@ margin-left: 150px;
 
   @media (max-width: 480px) {
     .image-highlight {
-      padding: 20px 10px;
+      /* padding: 20px 10px; */
+      margin-bottom: 15px;
     }
 
     .image-container img {
@@ -1335,7 +1337,6 @@ background: linear-gradient(135deg, #dd00a2, #ee004b);
     <div class="search-div">
       <div class="search-bar">
         <input type="text" placeholder="" id="searchInput">
-        <button type="submit"><i class="fas fa-search"></i></button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
     </div>
@@ -1494,25 +1495,16 @@ background: linear-gradient(135deg, #dd00a2, #ee004b);
     });
   </script>
 
-<!-- Floating WhatsApp and Phone Icons -->
+ <!-- Floating WhatsApp and Phone Icons -->
   <div class="floating-icons">
     <!-- WhatsApp Icon -->
-    <a href="https://wa.me/918482859816" target="_blank" title="Chat on WhatsApp">
+    <a href="https://wa.aisensy.com/+918062962936" target="_blank" title="Chat on WhatsApp">
       <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Phone Icon -->
-    <a href="tel:8482859816" class="phone-icon" title="Call Now">
-      <i class="fas fa-phone"></i>
-    </a>
   </div>
 
-  <!-- bannerFileOne -->
-<!-- <section id="main-banner">
-  <div class="banner-container">
-    <img src="/IMAGES/braclet banner.jpg" alt="Stunning Bracelets" />
-  </div>
-</section> -->
+
 
 <!-- Sections -->
 <section id="section1">
@@ -1523,33 +1515,32 @@ background: linear-gradient(135deg, #dd00a2, #ee004b);
         <!-- Slide 1 -->
         <div class="mySlides fade">
           <div class="numbertext"></div>
-          <img src="./IMAGES/Banner 1.jpg" style="width:100%">
+          <img src="./IMAGES/BRACELET BANNER.jpg" style="width:100%">
         </div>
         
         <!-- Slide 2 -->
-        <div class="mySlides fade">
+        <!-- <div class="mySlides fade">
           <div class="numbertext"></div>
           <img src="/IMAGES/Banner 3.jpg" style="width:100%">
-        </div>
+        </div> -->
         
         <!-- Slide 3 -->
-        <div class="mySlides fade">
+        <!-- <div class="mySlides fade">
           <div class="numbertext"></div>
           <img src="/IMAGES/Banner 4.png" style="width:100%">
-    
-        </div>
+        </div> -->
         
         <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
       </div>
       <br>
       
       <!-- The dots/circles -->
       <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span> 
+        <!-- <span class="dot" onclick="currentSlide(1)"></span> 
         <span class="dot" onclick="currentSlide(2)"></span> 
-        <span class="dot" onclick="currentSlide(3)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span>  -->
       </div>
     </div>
   </section>
@@ -1645,7 +1636,7 @@ function renderProducts(limit) {
     const buyNowAttributes = stock <= 0 
       ? 'disabled style="opacity: 0.5; background-color: #cccccc; cursor: not-allowed;"' 
       : '';
-    const buyNowText = stock <= 0 ? 'Out of Stock' : 'Buy Now';
+    const buyNowText = stock <= 0 ? 'Out of Stock' : 'Add to cart';
 
     card.innerHTML = `
       <div class="wishlist-icon-card active"
@@ -1677,7 +1668,7 @@ function renderProducts(limit) {
           </div>
         </div>
        
-        <button class="buy-now" 
+        <button class="add-to-cart" 
                 data-id="${product.id}" 
                 data-name="${product.name}" 
                 data-price="${currentPrice.toFixed(2)}" 
@@ -1853,7 +1844,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <ul class="social-icons">
             <li><a href="https://www.instagram.com/oy_jewells/?utm_source=ig_web_button_share_sheet" target="_blank"><i class="fab fa-instagram"></i></a></li>
             <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://wa.aisensy.com/+918062962936" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
             <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
           </ul>
         </div>
@@ -1909,7 +1900,7 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </footer>
 
-  <script>
+ <script>
     class WishlistManager {
       constructor() {
         this.init();
@@ -2073,7 +2064,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (userProfileData) {
             const profileSize = new TextEncoder().encode(userProfileData).length;
             console.log(`userProfileData size: ${profileSize} bytes`);
-            // Avoid clearing userProfileData, as it’s critical
+            // Avoid clearing userProfileData, as it's critical
           }
 
           this.updateWishlistBadge();
@@ -2261,7 +2252,171 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.removeItem('wishlist');
       }
     }
-</script>
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        // 1. Fetch banner data for the 'earrings' page
+        const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/earrings');
+
+        // 2. Check if response is successful
+        if (!response.ok) {
+          console.warn('Banner API response not OK, using default images');
+          return; // Keep the original images
+        }
+
+        // 3. Parse the JSON data
+        const bannerData = await response.json();
+        console.log('Loaded earrings banner data:', bannerData);
+
+        // 4. Update main banner (bannerFileOne)
+        const mainBannerImg = document.querySelector('#main-banner .banner-container img');
+        if (mainBannerImg && bannerData.bannerFileOne) {
+          mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
+          // Update alt text if available, otherwise keep existing
+          if (bannerData.header) {
+            mainBannerImg.alt = bannerData.header;
+          }
+        }
+
+        // 5. Update highlight banner (bannerFileTwo)
+        const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
+        if (highlightBannerImg && bannerData.bannerFileTwo) {
+          highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
+          // Update alt text if available, otherwise keep existing
+          if (bannerData.text) {
+            highlightBannerImg.alt = bannerData.text;
+          }
+        }
+
+      } catch (error) {
+        console.error('Error loading earrings banner images:', error);
+        // The original images will remain as fallback
+      }
+    });
+  </script>
+  
+  <script>
+    // Mobile Navigation Toggle - Fixed Version
+    document.addEventListener("DOMContentLoaded", function () {
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      const navigation = document.querySelector(".navigation");
+
+      // Toggle mobile menu
+      hamburger.addEventListener("click", function (e) {
+        e.stopPropagation();
+        navLinks.classList.toggle("active");
+        
+        // Toggle hamburger icon
+        const icon = hamburger.querySelector("i");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
+      });
+
+      // Handle dropdown clicks on mobile
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+      
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function (e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            
+            // Close all other dropdowns first
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+              if (otherDropdown !== parent) {
+                otherDropdown.classList.remove('active');
+              }
+            });
+            
+            // Toggle current dropdown
+            parent.classList.toggle('active');
+          }
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navigation') && window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu on scroll
+      window.addEventListener('scroll', function () {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+          // Reset hamburger icon
+          const icon = hamburger.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Animated Search Placeholder
+      const jewelryTerms = [
+        "Earrings",
+        "Necklaces",
+        "Bracelets",
+        "Mangalsutra",
+        "Chains",
+      ];
+
+      const searchInput = document.getElementById('searchInput');
+      let currentTermIndex = 0;
+      let isDeleting = false;
+      let currentText = '';
+      let typingSpeed = 100; // milliseconds per character
+
+      function typePlaceholder() {
+        const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
+
+        if (isDeleting) {
+          // Delete character
+          currentText = fullTerm.substring(0, currentText.length - 1);
+        } else {
+          // Add character
+          currentText = fullTerm.substring(0, currentText.length + 1);
+        }
+
+        searchInput.placeholder = currentText;
+
+        // Determine if we should delete or type next
+        if (!isDeleting && currentText === fullTerm) {
+          // Pause at end of typing
+          setTimeout(() => isDeleting = true, 1000);
+        } else if (isDeleting && currentText === '') {
+          // Move to next term after deleting
+          isDeleting = false;
+          currentTermIndex = (currentTermIndex + 1) % jewelryTerms.length;
+          setTimeout(typePlaceholder, 500);
+          return;
+        }
+        // Adjust speed for deleting vs typing
+        const speed = isDeleting ? typingSpeed / 2 : typingSpeed;
+        setTimeout(typePlaceholder, speed);
+      }
+
+      // Start the typing effect
+      typePlaceholder();
+    });
+  </script>
+
+  <script src="/global_js/backend_apis/users.js"></script>
+  <script src="/user-profile/user-logout.js"></script>
+
 
   <script>
 document.addEventListener('DOMContentLoaded', async function() {

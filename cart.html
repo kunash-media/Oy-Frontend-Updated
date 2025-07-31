@@ -409,6 +409,11 @@ header {
   top: 20px;
 }
 
+#estimated-total-name{
+  font-weight: 600;
+  color: #070707;
+}
+
 .summary-header {
   font-size: 20px;
   font-weight: 600;
@@ -477,6 +482,12 @@ header {
 }
 
 /* === Updated Coupon Section Styles === */
+
+#coupons-container{
+  overflow-y: auto;
+  height: 200px;
+}
+
 .coupon-item {
   display: flex;
   align-items: center;
@@ -1008,7 +1019,7 @@ header {
         </li>
         <li><a href="contact.html">Contact Us</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="#">Track Order</a></li>
+        <li><a href="https://www.shiprocket.in/shipment-tracking/">Track Order</a></li>
         <li><a href="#">Return & Exchange</a></li>
         <li><a href="./user-order/order.html">My Orders</a></li>
       </ul>
@@ -1083,18 +1094,18 @@ header {
       </div>
 
       <div class="price-row">
-        <span class="price-label">Estimated total</span>
+        <span class="price-label" id="estimated-total-name">Estimated total</span>
         <span class="price-value" id="estimated-total">₹0.00</span>
       </div>
 
       <div class="coupons-section">
-  <div class="coupons-title">Select the coupon code below and apply it at checkout!</div>
-  <div id="coupons-container">
-    <!-- Coupons will be dynamically inserted here -->
-  </div>
-</div>
+        <div class="coupons-title">Select the coupon code below and apply it at checkout!</div>
+        <div id="coupons-container">
+          <!-- Coupons will be dynamically inserted here -->
+        </div>
+      </div>
       <div class="checkout-section">
-        <div class="free-shipping">Pan India Free Shipping for orders above Rs. 450</div>
+        <div class="free-shipping">Pan India Free Shipping for orders above Rs. 499</div>
         
         <!-- <div class="gift-wrap">
           <input type="checkbox" id="gift-wrap">
@@ -1465,6 +1476,17 @@ async function fetchAndRenderProducts() {
 
 // === Dynamic Coupons Section ===
 let selectedCoupon = null;
+// 1. Get the userData from localStorage
+const userDataString = localStorage.getItem('userData');
+
+// 2. Parse the JSON string to an object
+const userData = JSON.parse(userDataString);
+
+// 3. Extract the userId
+const userId = userData.userId;
+
+// 4. Use the userId (example)
+console.log('User ID:', userId);
 
 // Load confetti library
 const confettiScript = document.createElement('script');
@@ -1488,7 +1510,7 @@ function triggerConfetti() {
   }
 }
 
-async function fetchAndRenderCoupons(userId = 2) {
+async function fetchAndRenderCoupons() {
   const couponsContainer = document.getElementById('coupons-container');
   if (!couponsContainer) return;
 
@@ -1505,32 +1527,7 @@ async function fetchAndRenderCoupons(userId = 2) {
     });
     const couponData = await handleResponse(response);
     
-    const dummyCoupons = [
-      {
-        couponId: 'dummy1',
-        couponDescription: 'FLAT 15% Off on Silver Jewellery above ₹3499',
-        couponDiscount: '15%',
-        validUntilDate: '2025-12-31',
-        couponCode: 'DUMMY-15OFF',
-        status: 'valid',
-      },
-      {
-        couponId: 'dummy2',
-        couponDescription: 'FLAT 20% Off on Silver Jewellery above ₹6999',
-        couponDiscount: '20%',
-        validUntilDate: '2025-12-31',
-        couponCode: 'DUMMY-20OFF',
-        status: 'valid',
-      },
-      {
-        couponId: 'dummy3',
-        couponDescription: 'Expired Coupon',
-        couponDiscount: '10%',
-        validUntilDate: '2025-07-01',
-        couponCode: 'DUMMY-EXPIRED',
-        status: 'expired',
-      },
-    ];
+    const dummyCoupons = [];
 
     const coupons = couponData.userCoupons?.length > 0 ? couponData.userCoupons : dummyCoupons;
 
@@ -1545,9 +1542,9 @@ async function fetchAndRenderCoupons(userId = 2) {
         <div class="${couponClass}">
           <div class="coupon-icon">🎁</div>
           <div class="coupon-text">
-            ${coupon.couponDescription} (${coupon.couponDiscount})<br>
-            Code: ${coupon.couponCode}<br>
-            Valid until: ${new Date(coupon.validUntilDate).toLocaleDateString()}
+            ${coupon.couponDescription} (<span style="font-weight:700">${coupon.couponDiscount}% OFF</span>)<br>
+            Coupon Code: ${coupon.couponCode}<br>
+            <span style="font-weight:700">Valid Until: ${new Date(coupon.validUntilDate).toLocaleDateString()}</span>
           </div>
           <button class="apply-coupon-btn" data-coupon-id="${coupon.couponId}" 
                   data-discount="${coupon.couponDiscount}" ${buttonDisabled}>
@@ -1565,32 +1562,7 @@ async function fetchAndRenderCoupons(userId = 2) {
     couponsContainer.innerHTML = '<p>Unable to load coupons at this time. Using fallback data.</p>';
     
     // Render dummy coupons on API failure
-    const dummyCoupons = [
-      {
-        couponId: 'dummy1',
-        couponDescription: 'FLAT 15% Off on Silver Jewellery above ₹3499',
-        couponDiscount: '15%',
-        validUntilDate: '2025-12-31',
-        couponCode: 'DUMMY-15OFF',
-        status: 'valid',
-      },
-      {
-        couponId: 'dummy2',
-        couponDescription: 'FLAT 20% Off on Silver Jewellery above ₹6999',
-        couponDiscount: '20%',
-        validUntilDate: '2025-12-31',
-        couponCode: 'DUMMY-20OFF',
-        status: 'valid',
-      },
-      {
-        couponId: 'dummy3',
-        couponDescription: 'Expired Coupon',
-        couponDiscount: '10%',
-        validUntilDate: '2025-07-01',
-        couponCode: 'DUMMY-EXPIRED',
-        status: 'expired',
-      },
-    ];
+    const dummyCoupons = [];
 
     let html = '';
     dummyCoupons.forEach(coupon => {

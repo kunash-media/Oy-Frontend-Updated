@@ -280,6 +280,7 @@ header {
 
   .nav-links.active {
     display: flex;
+    background-color: #ffffff;
   }
 
   .nav-links li {
@@ -789,7 +790,7 @@ background-color: #FFE5B4;
 .big-banner {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 300px;
 }
 
 .banner-image img {
@@ -800,8 +801,8 @@ background-color: #FFE5B4;
 }
 
 /* Optional: Overlay for styling or color tint */
-.big-banner .overlay {
-  position: absolute;
+.big-banner {
+ 
   top: 0;
   left: 0;
   width: 100%;
@@ -813,7 +814,7 @@ background-color: #FFE5B4;
 /* Responsive Styles */
 @media (max-width: 768px) {
   .big-banner {
-    height: 250px;
+    /* height: 200px; */
   }
 
   .banner-image img {
@@ -824,7 +825,7 @@ background-color: #FFE5B4;
 
 @media (max-width: 480px) {
   .big-banner {
-    height: 200px;
+    
   }
 
   .banner-image img {

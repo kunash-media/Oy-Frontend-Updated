@@ -109,7 +109,6 @@
     <div class="search-div">
       <div class="search-bar">
         <input type="text" placeholder="" id="searchInput">
-        <button type="submit"><i class="fas fa-search"></i></button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
     </div>
@@ -119,31 +118,13 @@
   <!-- Floating WhatsApp and Phone Icons -->
   <div class="floating-icons">
     <!-- WhatsApp Icon -->
-    <a href="https://wa.me/918482859816" target="_blank" title="Chat on WhatsApp">
+    <a href="https://wa.aisensy.com/+918062962936" target="_blank" title="Chat on WhatsApp">
       <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Phone Icon -->
-    <a href="tel:8482859816" class="phone-icon" title="Call Now">
-      <i class="fas fa-phone"></i>
-    </a>
   </div>
   <!-- Include the JavaScript file -->
   <script src="/search.js"></script>
-
-
-  <!-- Floating WhatsApp and Phone Icons -->
-  <div class="floating-icons">
-    <!-- WhatsApp Icon -->
-    <a href="https://wa.me/918482859816" target="_blank" title="Chat on WhatsApp">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Phone Icon -->
-    <a href="tel:8482859816" class="phone-icon" title="Call Now">
-      <i class="fas fa-phone"></i>
-    </a>
-  </div>
 
 
   <!-- Sections -->
@@ -436,9 +417,9 @@
 
   <section id="bottom-banner">
     <div class="big-banner">
-      <div class="overlay"></div>
+      <!-- <div class="overlay"></div> -->
       <div class="banner-image">
-        <img src="IMAGES/MAIN BANNER 3.jpg" alt="Oy Product Image">
+        <img src="IMAGES/MAIN (1).png" alt="Oy Product Image">
       </div>
     </div>
   </section>
@@ -463,35 +444,36 @@
       <button class="carousel-arrow next" aria-label="Next testimonial">&#10095;</button>
     </div>
   </section>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const notes = document.querySelectorAll('.sticky-note');
-      const prevBtn = document.querySelector('.prev');
-      const nextBtn = document.querySelector('.next');
-      let currentIndex = 0;
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const notes = document.querySelectorAll('.sticky-note');
+  const prevBtn = document.querySelector('.carousel-arrow.prev');
+  const nextBtn = document.querySelector('.carousel-arrow.next');
+  let currentIndex = 0;
 
-      // Show only on mobile
-      if (window.innerWidth <= 768) {
-        updateCarousel();
+  // Initialize carousel
+  updateCarousel();
 
-        prevBtn.addEventListener('click', function () {
-          currentIndex = (currentIndex - 1 + notes.length) % notes.length;
-          updateCarousel();
-        });
+  // Add event listeners for arrows
+  prevBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    currentIndex = (currentIndex - 1 + notes.length) % notes.length;
+    updateCarousel();
+  });
 
-        nextBtn.addEventListener('click', function () {
-          currentIndex = (currentIndex + 1) % notes.length;
-          updateCarousel();
-        });
-      }
+  nextBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    currentIndex = (currentIndex + 1) % notes.length;
+    updateCarousel();
+  });
 
-      function updateCarousel() {
-        notes.forEach((note, index) => {
-          note.classList.toggle('active', index === currentIndex);
-        });
-      }
+  function updateCarousel() {
+    notes.forEach((note, index) => {
+      note.classList.toggle('active', index === currentIndex);
     });
-  </script>
+  }
+});
+</script>
 
 
   <br>
@@ -506,7 +488,7 @@
                   target="_blank"><i class="fab fa-instagram"></i></a></li>
               <li><a href="https://www.facebook.com/profile.php?id=61578134903237" target="_blank"><i
                     class="fab fa-facebook-f"></i></a></li>
-              <li><a href="https://wa.me/918482859816" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="https://wa.aisensy.com/+918062962936" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
               <li><a href="https://pinterest.com/oy_jewells" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
             </ul>
           </div>
