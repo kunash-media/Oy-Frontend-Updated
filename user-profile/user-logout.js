@@ -4,8 +4,8 @@ class UserSessionManager {
         this.initialized = false;
         this.maxInitAttempts = 10;
         this.initAttempts = 0;
-        this.API_BASE_URL = 'http://localhost:8080/api/users';
-        this.API_ADDRESS_URL = 'http://localhost:8080/api/addresses';
+        this.API_BASE_URL = 'https://api.oyjewells.com/api/users';
+        this.API_ADDRESS_URL = 'https://api.oyjewells.com/api/addresses';
 
         // Add global flag to indicate initialization status
         window.userSessionManagerInitialized = false;

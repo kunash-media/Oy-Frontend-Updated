@@ -1317,7 +1317,7 @@
     <!-- TOP BAR -->
     <div class="header-top-bar">
       <div class="scrolling-text">
-        <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹500 ✨</span>
+        <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹499 ✨</span>
         <span>🔔 New Collection Just Launched - Shop Now!</span>
         <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
         <span>💝 Anniversary Offer - Extra Off for Couples</span>
@@ -2067,7 +2067,7 @@
 
 
 
-  <script>
+ <script>
     class WishlistManager {
       constructor() {
         this.init();
@@ -2082,6 +2082,13 @@
           if (e.target.closest('.wishlist-icon-card')) {
             e.preventDefault();
             e.stopPropagation();
+            
+            // *** UPDATED: Check if user is logged in before wishlist operations ***
+            if (!isUserLoggedIn()) {
+              showWishlistLoginNotification();
+              return; // Stop execution if user is not logged in
+            }
+            
             const wishlistIcon = e.target.closest('.wishlist-icon-card');
             this.toggleWishlist(wishlistIcon);
           }
@@ -2322,20 +2329,149 @@
       }
     }
 
+    // *** UPDATED: Helper function to check if user is logged in ***
+    function isUserLoggedIn() {
+      try {
+        // First check if isLoggedIn is stored directly in localStorage
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
+          console.log('Direct isLoggedIn value:', isLoggedIn);
+          return isLoggedIn === 'true'; // localStorage stores strings, so check for 'true'
+        }
+        
+        // Fallback: Check if user profile data exists and has valid login status
+        const userProfileData = localStorage.getItem('userProfileData');
+        if (!userProfileData) {
+          console.log('No userProfileData found');
+          return false;
+        }
+        
+        const userData = JSON.parse(userProfileData);
+        console.log('UserProfileData:', userData);
+        
+        // Check for isLoggedIn property in userProfileData
+        const loginStatus = userData && userData.isLoggedIn === true;
+        console.log('Login status from userProfileData:', loginStatus);
+        
+        return loginStatus;
+      } catch (error) {
+        console.error('Error checking login status:', error);
+        return false;
+      }
+    }
+
+    // *** UPDATED: Function to show wishlist login required toastify notification ***
+    function showWishlistLoginNotification() {
+      // Create toastify notification container if it doesn't exist
+      if (!document.getElementById('toastify-container')) {
+        createToastifyContainer();
+      }
+      
+      // Show toastify notification for wishlist login required
+      showToastify('Please login to add items to wishlist', 'warning');
+    }
+
+    // *** UPDATED: Function to show cart login required toastify notification ***
+    function showLoginRequiredNotification() {
+      // Create toastify notification container if it doesn't exist
+      if (!document.getElementById('toastify-container')) {
+        createToastifyContainer();
+      }
+      
+      // Show toastify notification for login required
+      showToastify('Please login to add items to cart', 'warning');
+    }
+
+    // *** UPDATED: Create toastify notification container ***
+    function createToastifyContainer() {
+      const container = document.createElement('div');
+      container.id = 'toastify-container';
+      container.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        pointer-events: none;
+      `;
+      document.body.appendChild(container);
+    }
+
+    // *** UPDATED: Show toastify notification ***
+    function showToastify(message, type = 'success') {
+      const container = document.getElementById('toastify-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `toastify-notification ${type}`;
+      toast.style.cssText = `
+        background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : '#f44336'};
+        color: white;
+        padding: 12px 20px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-size: 14px;
+        font-weight: 500;
+        pointer-events: auto;
+        cursor: pointer;
+        transform: translateX(350px);
+        transition: transform 0.3s ease-in-out;
+        max-width: 300px;
+        word-wrap: break-word;
+      `;
+      
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      // Animate in
+      setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+      }, 10);
+
+      // Auto remove after 3 seconds
+      setTimeout(() => {
+        toast.style.transform = 'translateX(350px)';
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      }, 3000);
+
+      // Click to dismiss
+      toast.addEventListener('click', () => {
+        toast.style.transform = 'translateX(350px)';
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const wishlistManager = new WishlistManager();
       updateCartCount();
+      // *** UPDATED: Initialize toastify container on page load ***
+      createToastifyContainer();
     });
 
-    // Handle "Add to Cart" clicks
+    // *** UPDATED: Handle "Add to Cart" clicks with login check ***
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('add-to-cart')) {
         const button = e.target;
+        
+        // Check if user is logged in before proceeding
+        if (!isUserLoggedIn()) {
+          showLoginRequiredNotification();
+          return; // Stop execution if user is not logged in
+        }
+        
         const productData = {
           id: String(button.dataset.id), // Ensure ID is string
           name: button.dataset.name,
           price: parseFloat(button.dataset.price),
-          image: button.dataset.image || ''
+          image: button.dataset.image ||''
         };
 
         addToCart(productData.id, productData.name, productData.price, productData.image);
