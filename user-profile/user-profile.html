@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile | OY JEWELS</title>
-    <link rel="shortcut icon" href="../IMAGES/01.png">
-    
-    <!-- CSS Links -->
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../user-profile/user-profile.css">
-    <link rel="stylesheet" href="../header.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | OY JEWELS</title>
+  <link rel="shortcut icon" href="../IMAGES/01.png">
+
+  <!-- CSS Links -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../user-profile/user-profile.css">
+  <link rel="stylesheet" href="../header.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
+
 <body>
-     <!-- HEADER -->
+  <!-- HEADER -->
   <header id="header">
     <!-- TOP BAR -->
     <div class="header-top-bar">
       <div class="scrolling-text">
         <span>✨ Welcome to OY JEWELLS - Free Shipping on Orders Over ₹500 ✨</span>
         <span>🔔 New Collection Just Launched - Shop Now!</span>
-            <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
+        <span>🎁 Birthday Special - Get Exciting Offers on Your Birthday Month</span>
         <span>💝 Anniversary Offer - Extra Off for Couples</span>
       </div>
     </div>
@@ -72,22 +76,22 @@
             <span class="wishlist-count">0</span>
           </div>
         </a>
-        
-      <!--LOGIN / MYPROFILE-->
-      <div class="user-dropdown">
-        <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
-        <div class="dropdown-content">
-          <a href="/user-profile/user-profile.html">My Profile</a>
+
+        <!--LOGIN / MYPROFILE-->
+        <div class="user-dropdown">
+          <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+          <div class="dropdown-content">
+            <a href="/user-profile/user-profile.html">My Profile</a>
+          </div>
         </div>
-      </div> 
-        
+
         <!-- Cart -->
         <a href="../cart.html">
           <i class="fa fa-shopping-cart"></i>
           <span id="cart-count">0</span>
         </a>
       </div>
-      
+
       <!-- Hamburger Menu -->
       <div class="hamburger" id="hamburger">
         <i class="fa fa-bars"></i>
@@ -104,17 +108,17 @@
     </div>
   </header>
 
-   <script>
+  <script>
     // Mobile Navigation Toggle
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const hamburger = document.getElementById("hamburger");
       const navLinks = document.querySelector(".nav-links");
-      
+
       // Toggle mobile menu
-      hamburger.addEventListener("click", function(e) {
+      hamburger.addEventListener("click", function (e) {
         e.stopPropagation();
         navLinks.classList.toggle("active");
-        
+
         // Toggle hamburger icon
         const icon = hamburger.querySelector("i");
         if (navLinks.classList.contains("active")) {
@@ -128,14 +132,14 @@
 
       // Handle dropdown clicks on mobile
       const dropdowns = document.querySelectorAll('.dropdown > a');
-      
+
       dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', function(e) {
+        dropdown.addEventListener('click', function (e) {
           if (window.innerWidth <= 768) {
             e.preventDefault();
             const parent = this.parentElement;
             parent.classList.toggle('active');
-            
+
             // Close other dropdowns
             document.querySelectorAll('.dropdown').forEach(otherDropdown => {
               if (otherDropdown !== parent && otherDropdown.classList.contains('active')) {
@@ -161,7 +165,7 @@
       });
 
       // Close menu on scroll
-      window.addEventListener('scroll', function() {
+      window.addEventListener('scroll', function () {
         if (window.innerWidth <= 768) {
           navLinks.classList.remove('active');
           document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -173,9 +177,9 @@
           icon.classList.add("fa-bars");
         }
       });
-      
+
       // Close menu on touch (for mobile)
-      document.addEventListener('touchstart', function(event) {
+      document.addEventListener('touchstart', function (event) {
         if (!event.target.closest('.navigation') && window.innerWidth <= 768) {
           navLinks.classList.remove('active');
           document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -205,7 +209,7 @@
 
       function typePlaceholder() {
         const fullTerm = `Search for ${jewelryTerms[currentTermIndex]}...`;
-        
+
         if (isDeleting) {
           // Delete character
           currentText = fullTerm.substring(0, currentText.length - 1);
@@ -239,92 +243,92 @@
   </script>
   <script src="../search.js"></script>
 
-    <!-- Notification Container -->
-    <div id="notification-container"></div>
+  <!-- Notification Container -->
+  <div id="notification-container"></div>
 
-    <!-- Main Profile Container -->
-    <main class="profile-container">
-        <div class="profile-header">
-            <h1>User Profile</h1>
-        </div>
+  <!-- Main Profile Container -->
+  <main class="profile-container">
+    <div class="profile-header">
+      <h1>User Profile</h1>
+    </div>
 
-         <form id="profile-form" class="profile-form">
-        <!-- First Name and Last Name in the same row -->
-        <div class="form-row">
-            <div class="form-group">
-                <label for="customerFirstName">First Name</label>
-                <input type="text" id="customerFirstName" name="customerFirstName" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label for="customerLastName">Last Name</label>
-                <input type="text" id="customerLastName" name="customerLastName" readonly>
-            </div>
+    <form id="profile-form" class="profile-form">
+      <!-- First Name and Last Name in the same row -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="customerFirstName">First Name</label>
+          <input type="text" id="customerFirstName" name="customerFirstName" readonly>
         </div>
 
         <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" readonly>
+          <label for="customerLastName">Last Name</label>
+          <input type="text" id="customerLastName" name="customerLastName" readonly>
         </div>
+      </div>
 
-        <div class="form-group">
-            <label for="mobile">Phone Number</label>
-            <input type="tel" id="mobile" name="mobile" readonly>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Phone Number</label>
+        <input type="tel" id="mobile" name="mobile" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="maritalStatus">Marital Status</label>
+        <select id="maritalStatus" name="maritalStatus" disabled>
+          <option value="">Select Status</option>
+          <option value="Single">Single</option>
+          <option value="Married">Married</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="customerDOB">Date of Birth</label>
+        <input type="date" id="customerDOB" name="customerDOB" readonly>
+      </div>
+
+      <div class="form-group hidden" id="anniversary-group">
+        <label for="anniversary">Anniversary Date</label>
+        <input type="date" id="anniversary" name="anniversary" readonly>
+      </div>
+
+      <!-- Shipping address display container -->
+      <div class="form-group" id="shipping-address-container" style="display: none;">
+        <label>Shipping Address</label>
+        <div class="shipping-address-box">
+          <p id="shipping-address-text"></p>
+          <button type="button" id="edit-shipping-address-btn" class="btn btn-primary">Edit Shipping Address</button>
         </div>
+      </div>
 
-        <div class="form-group">
-            <label for="maritalStatus">Marital Status</label>
-            <select id="maritalStatus" name="maritalStatus" disabled>
-                <option value="">Select Status</option>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="customerDOB">Date of Birth</label>
-            <input type="date" id="customerDOB" name="customerDOB" readonly>
-        </div>
-
-        <div class="form-group hidden" id="anniversary-group">
-            <label for="anniversary">Anniversary Date</label>
-            <input type="date" id="anniversary" name="anniversary" readonly>
-        </div>
-
-        <!-- Shipping address display container -->
-        <div class="form-group" id="shipping-address-container" style="display: none;">
-            <label>Shipping Address</label>
-            <div class="shipping-address-box">
-                <p id="shipping-address-text"></p>
-                <button type="button" id="edit-shipping-address-btn" class="btn btn-primary">Edit Shipping Address</button>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <!-- <label for="status">Account Status</label>
+      <div class="form-group">
+        <!-- <label for="status">Account Status</label>
             <input type="text" id="status" name="status" readonly> -->
-        </div>
+      </div>
 
+      <div class="form-actions">
         <div class="form-actions">
-            <div class="form-actions">
-              <button type="button" id="add-shipping-address-btn" class="btn btn-primary">Add Shipping Address</button>
-          </div>
-            <button type="button" id="edit-profile-btn" class="btn btn-secondary">
-                Edit Profile
-            </button>
-            <button type="button" id="save-profile-btn" class="btn btn-primary" style="display: none;">
-                Save Changes
-            </button>
-            <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display: none;">
-                Cancel
-            </button>
-            <button type="button" id="change-password-btn" class="btn btn-primary">
-                Change Password
-            </button>
-            <button type="button" id="logout-btn" class="btn btn-danger">
-                Logout
-            </button>
+          <button type="button" id="add-shipping-address-btn" class="btn btn-primary">Add Shipping Address</button>
         </div>
+        <button type="button" id="edit-profile-btn" class="btn btn-secondary">
+          Edit Profile
+        </button>
+        <button type="button" id="save-profile-btn" class="btn btn-primary" style="display: none;">
+          Save Changes
+        </button>
+        <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display: none;">
+          Cancel
+        </button>
+        <button type="button" id="change-password-btn" class="btn btn-primary">
+          Change Password
+        </button>
+        <button type="button" id="logout-btn" class="btn btn-danger">
+          Logout
+        </button>
+      </div>
     </form>
 
     <!-- 
@@ -332,151 +336,155 @@
   AFTER the closing </form> tag but BEFORE the closing </main> tag.
   This is the modal for adding/editing shipping addresses.
 -->
-<div id="shipping-address-overlay" class="overlay" style="display: none;">
-    <div class="overlay-content">
+    <div id="shipping-address-overlay" class="overlay" style="display: none;">
+      <div class="overlay-content">
         <h2 id="overlay-title">Add Shipping Address</h2>
         <form id="shipping-address-form">
-            <div class="form-group">
-                <label for="shipping-customer-phone">Phone Number (WhatsApp) *</label>
-                <input type="tel" placeholder="Enter mobile number" id="shipping-customer-phone" name="customerPhone" required>
-            </div>
-            <div class="form-group">
-                <label for="shipping-customer-email">Email Address *</label>
-                <input type="email" placeholder="Enter Email" id="shipping-customer-email" name="customerEmail" required>
-            </div>
-            <div class="form-group">
-                <label for="shipping-address">Shipping Address *</label>
-                <input type="text" placeholder="W57 society Flat no.205 E Wing near.." id="shipping-address" name="shippingAddress" required>
-            </div>
-            <div class="form-group">
-                <label for="shipping-city">City *</label>
-                <input type="text" placeholder="Enter City" id="shipping-city" name="shippingCity" required>
-            </div>
-            <div class="form-group">
-                <label for="shipping-state">State *</label>
-                <input type="text" placeholder="Enter State" id="shipping-state" name="shippingState" required>
-            </div>
-            <div class="form-group">
-                <label for="shipping-pincode">Pincode *</label>
-                <input type="text" placeholder="Enter Valid Pincode" id="shipping-pincode" name="shippingPincode" required>
-            </div>
-            <div class="form-group">
-                <label for="shipping-country">Country *</label>
-                <input type="text" id="shipping-country" placeholder="Enter Country Name" name="shippingCountry" required>
-            </div>
-            <div class="form-actions">
-                <button type="submit" id="save-shipping-address-btn" class="btn btn-primary">Save Address</button>
-                <button type="button" id="cancel-shipping-address-btn" class="btn btn-secondary">Cancel</button>
-            </div>
+          <div class="form-group">
+            <label for="shipping-customer-phone">Phone Number (WhatsApp) *</label>
+            <input type="tel" placeholder="Enter mobile number" id="shipping-customer-phone" name="customerPhone"
+              required pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+          </div>
+          <div class="form-group">
+            <label for="shipping-customer-email">Email Address *</label>
+            <input type="email" placeholder="Enter Email" id="shipping-customer-email" name="customerEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="shipping-address">Shipping Address *</label>
+            <input type="text" placeholder="W57 society Flat no.205 E Wing near.." id="shipping-address"
+              name="shippingAddress" required>
+          </div>
+          <div class="form-group">
+            <label for="shipping-city">City *</label>
+            <input type="text" placeholder="Enter City" id="shipping-city" name="shippingCity" required>
+          </div>
+          <div class="form-group">
+            <label for="shipping-state">State *</label>
+            <input type="text" placeholder="Enter State" id="shipping-state" name="shippingState" required>
+          </div>
+          <div class="form-group">
+            <label for="shipping-pincode">Pincode *</label>
+            <input type="text" placeholder="Enter Valid Pincode" id="shipping-pincode" name="shippingPincode" required>
+          </div>
+          <div class="form-group">
+            <label for="shipping-country">Country *</label>
+            <input type="text" id="shipping-country" placeholder="Enter Country Name" name="shippingCountry" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="save-shipping-address-btn" class="btn btn-primary">Save Address</button>
+            <button type="button" id="cancel-shipping-address-btn" class="btn btn-secondary">Cancel</button>
+          </div>
         </form>
+      </div>
     </div>
-</div>
 
 
-    </main>
+  </main>
 
-    <!-- Password Change Overlay -->
-    <div id="password-overlay" class="overlay">
-        <div class="overlay-content">
-            <div class="">
-                <h2>Change Password</h2>
-                <button type="button" id="close-overlay" class="close-btn">&times;</button>
-            </div>
-            
-            <form id="password-form" class="password-form">
-                <div class="form-group">
-                    <label for="oldPassword">Current Password</label>
-                    <input type="password" placeholder="Enter Old Password" id="oldPassword" name="oldPassword" required>
-                </div>
+  <!-- Password Change Overlay -->
+  <div id="password-overlay" class="overlay">
+    <div class="overlay-content">
+      <div class="">
+        <h2>Change Password</h2>
+        <button type="button" id="close-overlay" class="close-btn">&times;</button>
+      </div>
 
-                <div class="form-group">
-                    <label for="newPassword">New Password</label>
-                    <input type="password" placeholder="Create New Password" id="newPassword" name="newPassword" required minlength="8">
-                </div>
-
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm New Password</label>
-                    <input type="password" placeholder="Confirm New Password" id="confirmPassword" name="confirmPassword" required minlength="8">
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" id="cancel-password" class="btn btn-secondary">
-                        Cancel
-                    </button>
-                    <button type="submit" id="submit-password" class="btn btn-primary">
-                        Update Password
-                    </button>
-                </div>
-            </form>
+      <form id="password-form" class="password-form">
+        <div class="form-group">
+          <label for="oldPassword">Current Password</label>
+          <input type="password" placeholder="Enter Old Password" id="oldPassword" name="oldPassword" required>
         </div>
+
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" placeholder="Create New Password" id="newPassword" name="newPassword" required
+            minlength="8">
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm New Password</label>
+          <input type="password" placeholder="Confirm New Password" id="confirmPassword" name="confirmPassword" required
+            minlength="8">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-password" class="btn btn-secondary">
+            Cancel
+          </button>
+          <button type="submit" id="submit-password" class="btn btn-primary">
+            Update Password
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 
 
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="loading-spinner">
-        <div class="spinner"></div>
-        <p>Loading...</p>
-    </div>
+  <!-- Loading Spinner -->
+  <div id="loading-spinner" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
 
-  
-    <script>
+
+  <script>
     // Mobile menu toggle
-    document.getElementById("hamburger").addEventListener("click", function() {
-        document.querySelector(".nav-links").classList.toggle("active");
+    document.getElementById("hamburger").addEventListener("click", function () {
+      document.querySelector(".nav-links").classList.toggle("active");
     });
-    
+
     // Close dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!event.target.matches('.dropdown > a')) {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.style.display = 'none';
-            });
-        }
+    document.addEventListener('click', function (event) {
+      if (!event.target.matches('.dropdown > a')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          menu.style.display = 'none';
+        });
+      }
     });
-    
+
     // Initialize dropdowns
     document.querySelectorAll('.dropdown > a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const menu = this.nextElementSibling;
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        });
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const menu = this.nextElementSibling;
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      });
     });
 
     // Logout functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkSessionManager = setInterval(() => {
-            // Wait for both userAPI and UserSessionManager to be initialized
-            if (window.userAPI && window.userSessionManagerInitialized) {
-                clearInterval(checkSessionManager);
-                setupLogoutButton();
-            }
-        }, 100);
+    document.addEventListener('DOMContentLoaded', function () {
+      const checkSessionManager = setInterval(() => {
+        // Wait for both userAPI and UserSessionManager to be initialized
+        if (window.userAPI && window.userSessionManagerInitialized) {
+          clearInterval(checkSessionManager);
+          setupLogoutButton();
+        }
+      }, 100);
 
-        // Timeout to prevent infinite loop
-        setTimeout(() => {
-            clearInterval(checkSessionManager);
-            if (!window.userSessionManagerInitialized) {
-                console.warn('UserSessionManager not initialized, setting up logout with fallback');
-                setupLogoutButton();
-            }
-        }, 5000);
+      // Timeout to prevent infinite loop
+      setTimeout(() => {
+        clearInterval(checkSessionManager);
+        if (!window.userSessionManagerInitialized) {
+          console.warn('UserSessionManager not initialized, setting up logout with fallback');
+          setupLogoutButton();
+        }
+      }, 5000);
 
-        function setupLogoutButton() {
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const logoutOverlay = document.getElementById('logoutOverlay');
-                    if (logoutOverlay) {
-                        logoutOverlay.style.display = 'flex';
-                    } else {
-                        console.error('Logout overlay not found, creating it manually');
-                        // Manually create overlay if it doesn't exist
-                        const overlay = document.createElement('div');
-                        overlay.id = 'logoutOverlay';
-                        overlay.className = 'logout-overlay';
-                        overlay.innerHTML = `
+      function setupLogoutButton() {
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const logoutOverlay = document.getElementById('logoutOverlay');
+            if (logoutOverlay) {
+              logoutOverlay.style.display = 'flex';
+            } else {
+              console.error('Logout overlay not found, creating it manually');
+              // Manually create overlay if it doesn't exist
+              const overlay = document.createElement('div');
+              overlay.id = 'logoutOverlay';
+              overlay.className = 'logout-overlay';
+              overlay.innerHTML = `
                             <div class="logout-confirm-box">
                                 <p>Are you sure you want to logout?</p>
                                 <div class="logout-buttons">
@@ -485,28 +493,28 @@
                                 </div>
                             </div>
                         `;
-                        document.body.appendChild(overlay);
-                        overlay.style.display = 'flex';
+              document.body.appendChild(overlay);
+              overlay.style.display = 'flex';
 
-                        // Add event listeners for the buttons
-                        document.getElementById('confirmLogout').addEventListener('click', () => {
-                            localStorage.removeItem('userProfileData');
-                            window.userAPI.logout();
-                            document.dispatchEvent(new Event('userLoggedOut'));
-                            overlay.style.display = 'none';
-                            window.location.href = '/login.html';
-                        });
-                        document.getElementById('cancelLogout').addEventListener('click', () => {
-                            overlay.style.display = 'none';
-                        });
-                    }
-                });
+              // Add event listeners for the buttons
+              document.getElementById('confirmLogout').addEventListener('click', () => {
+                localStorage.removeItem('userProfileData');
+                window.userAPI.logout();
+                document.dispatchEvent(new Event('userLoggedOut'));
+                overlay.style.display = 'none';
+                window.location.href = '/login.html';
+              });
+              document.getElementById('cancelLogout').addEventListener('click', () => {
+                overlay.style.display = 'none';
+              });
             }
+          });
         }
+      }
     });
-</script>
+  </script>
 
-    <script>
+  <script>
     //-------------whishlist managet class with icon updation-----//
 
     class WishlistManager {
@@ -699,6 +707,7 @@
   <script src="/global_js/backend_apis/users.js"></script>
   <script src="/user-profile/user-logout.js"></script>
   <script src="/user-profile/user-profile.js"></script>
-    
+
 </body>
+
 </html>

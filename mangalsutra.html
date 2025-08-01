@@ -1604,7 +1604,7 @@
     document.addEventListener('DOMContentLoaded', async function () {
       try {
         // Fetch banner data for the 'index' page
-        const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/mangalsutra');
+        const response = await fetch('https://api.oyjewells.com/api/banners/get-by-pageName/mangalsutra');
         const bannerData = await response.json();
 
         if (!response.ok) throw new Error('Failed to fetch banner data');
@@ -2315,7 +2315,7 @@
           id: String(button.dataset.id), // Ensure ID is string
           name: button.dataset.name,
           price: parseFloat(button.dataset.price),
-          image: button.dataset.image && !button.dataset.image.startsWith('data:') ? button.dataset.image : ''
+          image: button.dataset.image || ''
         };
 
         addToCart(productData.id, productData.name, productData.price, productData.image);
@@ -2401,48 +2401,6 @@
     }
   </script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', async function () {
-      try {
-        // 1. Fetch banner data for the 'earrings' page
-        const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/earrings');
-
-        // 2. Check if response is successful
-        if (!response.ok) {
-          console.warn('Banner API response not OK, using default images');
-          return; // Keep the original images
-        }
-
-        // 3. Parse the JSON data
-        const bannerData = await response.json();
-        console.log('Loaded earrings banner data:', bannerData);
-
-        // 4. Update main banner (bannerFileOne)
-        const mainBannerImg = document.querySelector('#main-banner .banner-container img');
-        if (mainBannerImg && bannerData.bannerFileOne) {
-          mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
-          // Update alt text if available, otherwise keep existing
-          if (bannerData.header) {
-            mainBannerImg.alt = bannerData.header;
-          }
-        }
-
-        // 5. Update highlight banner (bannerFileTwo)
-        const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
-        if (highlightBannerImg && bannerData.bannerFileTwo) {
-          highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
-          // Update alt text if available, otherwise keep existing
-          if (bannerData.text) {
-            highlightBannerImg.alt = bannerData.text;
-          }
-        }
-
-      } catch (error) {
-        console.error('Error loading earrings banner images:', error);
-        // The original images will remain as fallback
-      }
-    });
-  </script>
   
   <script>
     // Mobile Navigation Toggle - Fixed Version
@@ -2564,50 +2522,6 @@
   <script src="/global_js/backend_apis/users.js"></script>
   <script src="/user-profile/user-logout.js"></script>
 
-
-
-  <script>
-    document.addEventListener('DOMContentLoaded', async function () {
-      try {
-        // 1. Fetch banner data for the 'mangalsutra' page
-        const response = await fetch('http://localhost:8080/api/banners/get-by-pageName/mangalsutra');
-
-        // 2. Check if response is successful
-        if (!response.ok) {
-          console.warn('Banner API response not OK, using default mangalsutra images');
-          return; // Keep the original images
-        }
-
-        // 3. Parse the JSON data
-        const bannerData = await response.json();
-        console.log('Loaded mangalsutra banner data:', bannerData);
-
-        // 4. Update main mangalsutra banner (bannerFileOne)
-        const mainBannerImg = document.querySelector('#main-banner .banner-container img');
-        if (mainBannerImg && bannerData.bannerFileOne) {
-          mainBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileOne}`;
-          // Update alt text if available, otherwise keep existing
-          if (bannerData.header) {
-            mainBannerImg.alt = bannerData.header;
-          }
-        }
-
-        // 5. Update highlight mangalsutra banner (bannerFileTwo)
-        const highlightBannerImg = document.querySelector('.image-highlight .image-container img');
-        if (highlightBannerImg && bannerData.bannerFileTwo) {
-          highlightBannerImg.src = `data:image/jpeg;base64,${bannerData.bannerFileTwo}`;
-          // Update alt text if available, otherwise keep existing
-          if (bannerData.text) {
-            highlightBannerImg.alt = bannerData.text;
-          }
-        }
-
-      } catch (error) {
-        console.error('Error loading mangalsutra banner images:', error);
-        // The original mangalsutra images will remain as fallback
-      }
-    });
-  </script>
 
 </body>
 </html>

@@ -551,7 +551,7 @@
 
     class OrderManager {
       constructor() {
-        this.API_BASE_URL = 'http://localhost:8080/api/orders';
+        this.API_BASE_URL = 'https://api.oyjewells.com/api/orders';
         this.products = [];
         this.currentOrders = [];
         this.init();
@@ -881,7 +881,7 @@
         document.getElementById('receiptSubtotal').textContent = `₹${subtotal.toFixed(2)}`;
         // Replaced CGST and SGST with single Tax field
         document.getElementById('receiptSGST').textContent = `₹${tax.toFixed(2)}`;
-        document.getElementById('receiptSGST').previousElementSibling.textContent = 'Tax (3%):';
+        document.getElementById('receiptSGST').previousElementSibling.textContent = 'Tax:';
         document.getElementById('receiptCGST').style.display = 'none';
         document.getElementById('receiptCGST').previousElementSibling.style.display = 'none';
         document.getElementById('receiptTotal').textContent = `₹${total.toFixed(2)}`;

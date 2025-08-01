@@ -174,13 +174,11 @@ class UserProfile {
  * Create and store combined payload in localStorage
  */
 storeCombinedPayload(userData, shippingAddress) {
-    // Only store if both userData and shippingAddress are valid and non-empty
     if (!userData || !shippingAddress) {
         console.log('Combined payload not stored: Missing user or shipping data');
         return;
     }
 
-    // Check if all required fields have valid values
     const requiredFields = [
         'customerFirstName', 'customerLastName', 'email', 'mobile',
         'customerPhone', 'customerEmail', 'shippingAddress', 'shippingCity',
@@ -196,18 +194,24 @@ storeCombinedPayload(userData, shippingAddress) {
         return;
     }
 
-    // Validate customerDOB
     let customerDOB = userData.customerDOB;
     if (!customerDOB || customerDOB === 'undefined' || !/^\d{4}-\d{2}-\d{2}$/.test(customerDOB)) {
-        customerDOB = null; // Set to null if invalid or undefined
+        customerDOB = null;
     }
 
-    // Create combined payload
+    let customerPhone = shippingAddress.customerPhone?.trim();
+    if (!customerPhone || !/^\d{10}$/.test(customerPhone)) {
+        console.log('Combined payload not stored: Invalid customerPhone, must be exactly 10 digits');
+        this.showNotification('Please enter a valid 10-digit phone number', 'error');
+        return;
+    }
+    customerPhone = customerPhone.startsWith('+91') ? customerPhone : `+91${customerPhone}`;
+
     const combinedPayload = {
         userId: userData.userId,
         customerFirstName: userData.customerFirstName,
         customerLastName: userData.customerLastName,
-        customerPhone: shippingAddress.customerPhone,
+        customerPhone: customerPhone,
         customerEmail: shippingAddress.customerEmail,
         shippingAddress: shippingAddress.shippingAddress,
         shippingCity: shippingAddress.shippingCity,
@@ -223,7 +227,7 @@ storeCombinedPayload(userData, shippingAddress) {
         billingPincode: shippingAddress.shippingPincode,
         billingCountry: shippingAddress.shippingCountry,
         billingEmail: shippingAddress.customerEmail,
-        billingPhone: shippingAddress.customerPhone,
+        billingPhone: customerPhone,
         email: userData.email,
         mobile: userData.mobile,
         maritalStatus: userData.maritalStatus,
