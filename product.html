@@ -233,6 +233,7 @@
             color: #555;
             line-height: 1.6;
         }
+
         .features {
             margin-top: 15px;
             padding-left: 20px;
@@ -1061,12 +1062,295 @@
 
         import { fetchAllProducts } from './global_js/backend_apis/products.js'; // Update path as needed
 
+
+        // Replace the loading indicator code with this skeleton loading:
+        // Product detail page skeleton loading
+        const showSkeletonLoading = () => {
+            const container = document.getElementById('main-container');
+            if (container) {
+                container.innerHTML = `
+            <style>
+                .skeleton {
+                    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+                    background-size: 200% 100%;
+                    animation: skeleton-loading 1.5s infinite;
+                }
+                
+                @keyframes skeleton-loading {
+                    0% { background-position: 200% 0; }
+                    100% { background-position: -200% 0; }
+                }
+                
+                .skeleton-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 40px;
+                    padding: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+                
+                .skeleton-image-section {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+                
+                .skeleton-main-image {
+                    width: 100%;
+                    height: 500px;
+                    border-radius: 8px;
+                }
+                
+                .skeleton-sub-images {
+                    display: flex;
+                    gap: 10px;
+                }
+                
+                .skeleton-sub-image {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 6px;
+                    flex-shrink: 0;
+                }
+                
+                .skeleton-details-section {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+                
+                .skeleton-title {
+                    height: 32px;
+                    width: 80%;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-rating {
+                    height: 20px;
+                    width: 120px;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-price-block {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                
+                .skeleton-price {
+                    height: 28px;
+                    width: 100px;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-old-price {
+                    height: 20px;
+                    width: 80px;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-discount {
+                    height: 24px;
+                    width: 60px;
+                    border-radius: 12px;
+                }
+                
+                .skeleton-divider {
+                    height: 1px;
+                    width: 100%;
+                    margin: 10px 0;
+                }
+                
+                .skeleton-size-section {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                
+                .skeleton-size-label {
+                    height: 18px;
+                    width: 60px;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-size-buttons {
+                    display: flex;
+                    gap: 8px;
+                }
+                
+                .skeleton-size-btn {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-description {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                }
+                
+                .skeleton-desc-line {
+                    height: 16px;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-desc-line.line-1 { width: 95%; }
+                .skeleton-desc-line.line-2 { width: 88%; }
+                .skeleton-desc-line.line-3 { width: 92%; }
+                
+                .skeleton-features {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    margin-top: 10px;
+                }
+                
+                .skeleton-feature {
+                    height: 14px;
+                    width: 70%;
+                    border-radius: 4px;
+                }
+                
+                .skeleton-action-buttons {
+                    display: flex;
+                    gap: 12px;
+                    margin-top: 20px;
+                }
+                
+                .skeleton-btn {
+                    height: 48px;
+                    border-radius: 6px;
+                    flex: 1;
+                }
+                
+                .skeleton-btn.add-cart { width: 150px; }
+                .skeleton-btn.buy-now { width: 120px; }
+                .skeleton-btn.wishlist { width: 100px; }
+                
+                @media (max-width: 768px) {
+                    .skeleton-container {
+                        grid-template-columns: 1fr;
+                        gap: 20px;
+                        padding: 15px;
+                    }
+                    
+                    .skeleton-main-image {
+                        height: 300px;
+                    }
+                    
+                    .skeleton-action-buttons {
+                        flex-direction: column;
+                    }
+                    
+                    .skeleton-btn {
+                        width: 100% !important;
+                    }
+                }
+            </style>
+            
+            <div class="skeleton-container">
+                <!-- Left: Image Section Skeleton -->
+                <div class="skeleton-image-section">
+                    <div class="skeleton skeleton-main-image"></div>
+                    <div class="skeleton-sub-images">
+                        <div class="skeleton skeleton-sub-image"></div>
+                        <div class="skeleton skeleton-sub-image"></div>
+                        <div class="skeleton skeleton-sub-image"></div>
+                        <div class="skeleton skeleton-sub-image"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Product Info Section Skeleton -->
+                <div class="skeleton-details-section">
+                    <div class="skeleton skeleton-title"></div>
+                    
+                    <div class="skeleton skeleton-rating"></div>
+
+                    <div class="skeleton-price-block">
+                        <div class="skeleton skeleton-price"></div>
+                        <div class="skeleton skeleton-old-price"></div>
+                        <div class="skeleton skeleton-discount"></div>
+                    </div>
+
+                    <div class="skeleton skeleton-divider"></div>
+
+                    <div class="skeleton-size-section">
+                        <div class="skeleton skeleton-size-label"></div>
+                        <div class="skeleton-size-buttons">
+                            <div class="skeleton skeleton-size-btn"></div>
+                            <div class="skeleton skeleton-size-btn"></div>
+                            <div class="skeleton skeleton-size-btn"></div>
+                            <div class="skeleton skeleton-size-btn"></div>
+                        </div>
+                    </div>
+
+                    <div class="skeleton-description">
+                        <div class="skeleton skeleton-desc-line line-1"></div>
+                        <div class="skeleton skeleton-desc-line line-2"></div>
+                        <div class="skeleton skeleton-desc-line line-3"></div>
+                        
+                        <div class="skeleton-features">
+                            <div class="skeleton skeleton-feature"></div>
+                            <div class="skeleton skeleton-feature"></div>
+                            <div class="skeleton skeleton-feature"></div>
+                            <div class="skeleton skeleton-feature"></div>
+                        </div>
+                    </div>
+
+                    <div class="skeleton-action-buttons">
+                        <div class="skeleton skeleton-btn add-cart"></div>
+                        <div class="skeleton skeleton-btn buy-now"></div>
+                        <div class="skeleton skeleton-btn wishlist"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+            }
+        };
+
+        // Show skeleton loading before fetching products
+        const originalLoadProductsFromBackend = loadProductsFromBackend;
+        loadProductsFromBackend = async function () {
+            showSkeletonLoading();
+            return await originalLoadProductsFromBackend();
+        };
+
+        // Optional: Add skeleton for sub-products section
+        const showSubProductsSkeleton = () => {
+            return `
+        <div class="sub-products-skeleton" style="margin-top: 20px;">
+            <div class="skeleton" style="height: 24px; width: 150px; margin-bottom: 15px; border-radius: 4px;"></div>
+            <div style="display: flex; gap: 12px;">
+                <div class="skeleton-sub-product">
+                    <div class="skeleton" style="width: 80px; height: 80px; border-radius: 6px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 14px; width: 60px; margin-bottom: 4px; border-radius: 4px;"></div>
+                    <div class="skeleton" style="height: 16px; width: 50px; border-radius: 4px;"></div>
+                </div>
+                <div class="skeleton-sub-product">
+                    <div class="skeleton" style="width: 80px; height: 80px; border-radius: 6px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 14px; width: 60px; margin-bottom: 4px; border-radius: 4px;"></div>
+                    <div class="skeleton" style="height: 16px; width: 50px; border-radius: 4px;"></div>
+                </div>
+                <div class="skeleton-sub-product">
+                    <div class="skeleton" style="width: 80px; height: 80px; border-radius: 6px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 14px; width: 60px; margin-bottom: 4px; border-radius: 4px;"></div>
+                    <div class="skeleton" style="height: 16px; width: 50px; border-radius: 4px;"></div>
+                </div>
+            </div>
+        </div>
+    `;
+        };
+
+
+
         // Backend API configuration
         const API_BASE = 'https://api.oyjewells.com/api';
         let currentImageIndex = 0;
         let maxVisibleImages = 4;
 
-       
+
 
         /**
          * Handles API response
@@ -1134,7 +1418,7 @@
             }
         }
 
-       
+
         /**
          * Gets sub-products based on SKU number (same base SKU, different colors)
          * @param {string} currentProductId - Current product ID
@@ -1891,58 +2175,58 @@
         }
 
 
-       //----------------------Stock management--------------------//
+        //----------------------Stock management--------------------//
 
-function checkProductStock() {
-    // Log to verify if the function is being called
-    console.log('checkProductStock called');
+        function checkProductStock() {
+            // Log to verify if the function is being called
+            console.log('checkProductStock called');
 
-    // Log the currentProduct object to inspect its properties
-    console.log('Current Product:', currentProduct);
+            // Log the currentProduct object to inspect its properties
+            console.log('Current Product:', currentProduct);
 
-    // Check if currentProduct exists and has a stock property
-    if (currentProduct) {
-        console.log('Stock value:', currentProduct.stock);
-    } else {
-        console.log('Error: currentProduct is null or undefined');
-    }
+            // Check if currentProduct exists and has a stock property
+            if (currentProduct) {
+                console.log('Stock value:', currentProduct.stock);
+            } else {
+                console.log('Error: currentProduct is null or undefined');
+            }
 
-    if (currentProduct && currentProduct.stock <= 0) {
-        console.log('Stock is zero or negative, updating buttons');
+            if (currentProduct && currentProduct.stock <= 0) {
+                console.log('Stock is zero or negative, updating buttons');
 
-        const addToCartBtn = document.getElementById('add-to-cart-btn');
-        const buyNowBtn = document.getElementById('buy-now-btn');
+                const addToCartBtn = document.getElementById('add-to-cart-btn');
+                const buyNowBtn = document.getElementById('buy-now-btn');
 
-        // Log to check if buttons are found
-        console.log('addToCartBtn:', addToCartBtn);
-        console.log('buyNowBtn:', buyNowBtn);
+                // Log to check if buttons are found
+                console.log('addToCartBtn:', addToCartBtn);
+                console.log('buyNowBtn:', buyNowBtn);
 
-        if (addToCartBtn) {
-            // Make button non-clickable and apply faded gray style
-            addToCartBtn.disabled = true;
-            addToCartBtn.style.opacity = '0.5'; // Apply fade effect
-            addToCartBtn.style.backgroundColor = '#cccccc'; // Gray background
-            addToCartBtn.style.cursor = 'not-allowed'; // Change cursor to indicate non-clickable
-            console.log('Add to Cart button updated to non-clickable with gray fade');
-        } else {
-            console.log('Error: addToCartBtn not found');
+                if (addToCartBtn) {
+                    // Make button non-clickable and apply faded gray style
+                    addToCartBtn.disabled = true;
+                    addToCartBtn.style.opacity = '0.5'; // Apply fade effect
+                    addToCartBtn.style.backgroundColor = '#cccccc'; // Gray background
+                    addToCartBtn.style.cursor = 'not-allowed'; // Change cursor to indicate non-clickable
+                    console.log('Add to Cart button updated to non-clickable with gray fade');
+                } else {
+                    console.log('Error: addToCartBtn not found');
+                }
+
+                if (buyNowBtn) {
+                    // Make button non-clickable and apply faded gray style
+                    buyNowBtn.disabled = true;
+                    buyNowBtn.innerHTML = '<span>out of stock</span>'
+                    buyNowBtn.style.opacity = '0.5'; // Apply fade effect
+                    buyNowBtn.style.backgroundColor = '#cccccc'; // Gray background
+                    buyNowBtn.style.cursor = 'not-allowed'; // Change cursor to indicate non-clickable
+                    console.log('Buy Now button updated to non-clickable with gray fade');
+                } else {
+                    console.log('Error: buyNowBtn not found');
+                }
+            } else {
+                console.log('Stock is available or currentProduct is not set');
+            }
         }
-
-        if (buyNowBtn) {
-            // Make button non-clickable and apply faded gray style
-            buyNowBtn.disabled = true;
-            buyNowBtn.innerHTML = '<span>out of stock</span>'
-            buyNowBtn.style.opacity = '0.5'; // Apply fade effect
-            buyNowBtn.style.backgroundColor = '#cccccc'; // Gray background
-            buyNowBtn.style.cursor = 'not-allowed'; // Change cursor to indicate non-clickable
-            console.log('Buy Now button updated to non-clickable with gray fade');
-        } else {
-            console.log('Error: buyNowBtn not found');
-        }
-    } else {
-        console.log('Stock is available or currentProduct is not set');
-    }
-}
 
         // Error handling for images
         function handleImageError(img) {
